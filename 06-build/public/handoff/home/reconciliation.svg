@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 580 352" width="588" height="360">
+  <defs>
+    <linearGradient id="rcTop" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="580" height="352" rx="24" fill="#FFFFFF" fill-opacity="0.7" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1"/>
+  <path d="M 28 5 H 560" stroke="url(#rcTop)" stroke-width="1" fill="none"/>
+
+  <text x="24" y="36" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" letter-spacing="0.08em" fill="#6B7280">RECONCILIATION</text>
+  <g transform="translate(508 28)">
+    <circle cx="6" cy="6" r="4" fill="#0EA5E9"/>
+    <text x="18" y="10" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#0E1A33">Live</text>
+  </g>
+
+  <!-- Matched bar visualization -->
+  <g transform="translate(32 76)">
+    <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#6B7280">MATCHED · TODAY</text>
+    <text x="0" y="46" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="600" fill="#0E1A33">12,847</text>
+    <text x="170" y="46" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#10B981">99.4% auto</text>
+
+    <rect x="0" y="60" width="380" height="8" rx="4" fill="#E5E7EB"/>
+    <rect x="0" y="60" width="278" height="8" rx="4" fill="#304DBB"/>
+    <rect x="278" y="60" width="78" height="8" fill="#5B4FD9"/>
+    <rect x="356" y="60" width="24" height="8" rx="0" fill="#22D3EE"/>
+
+    <g transform="translate(0 80)">
+      <rect x="0" y="0" width="8" height="8" rx="2" fill="#304DBB"/>
+      <text x="14" y="8" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#6B7280">Card · 11,418</text>
+      <rect x="130" y="0" width="8" height="8" rx="2" fill="#5B4FD9"/>
+      <text x="144" y="8" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#6B7280">Bank · 1,191</text>
+      <rect x="260" y="0" width="8" height="8" rx="2" fill="#22D3EE"/>
+      <text x="274" y="8" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#6B7280">Stablecoin · 238</text>
+    </g>
+  </g>
+
+  <!-- Exception list -->
+  <g transform="translate(32 184)">
+    <text x="0" y="0" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" letter-spacing="0.1em" fill="#6B7280">EXCEPTIONS · NEEDS REVIEW</text>
+
+    <g transform="translate(0 18)">
+      <text x="0" y="14" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="11" fill="#5B4FD9">TX-30481</text>
+      <text x="100" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#0E1A33">Amount mismatch · $0.04</text>
+      <text x="536" y="14" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="11" fill="#6B7280" text-anchor="end">14:32</text>
+    </g>
+    <line x1="0" y1="36" x2="536" y2="36" stroke="#E5E7EB"/>
+    <g transform="translate(0 44)">
+      <text x="0" y="14" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="11" fill="#5B4FD9">TX-30478</text>
+      <text x="100" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#0E1A33">FX rate variance · 0.02%</text>
+      <text x="536" y="14" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="11" fill="#6B7280" text-anchor="end">14:18</text>
+    </g>
+    <line x1="0" y1="62" x2="536" y2="62" stroke="#E5E7EB"/>
+    <g transform="translate(0 70)">
+      <text x="0" y="14" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="11" fill="#5B4FD9">TX-30472</text>
+      <text x="100" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#0E1A33">Pending counterparty ack</text>
+      <text x="536" y="14" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="11" fill="#6B7280" text-anchor="end">14:02</text>
+    </g>
+  </g>
+
+  <text x="24" y="296" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="#0E1A33">Reconciliation</text>
+  <text x="24" y="320" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#6B7280">Automated matching across rails, currencies, and products</text>
+
+  <g transform="translate(24 336)">
+    <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#0E1A33">Open exceptions</text>
+    <text x="536" y="14" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="13" fill="#5B4FD9" text-anchor="end">3</text>
+  </g>
+</svg>

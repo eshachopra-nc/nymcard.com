@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 580 352" width="588" height="360">
+  <defs>
+    <linearGradient id="idTop" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="580" height="352" rx="24" fill="#FFFFFF" fill-opacity="0.7" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1"/>
+  <path d="M 28 5 H 560" stroke="url(#idTop)" stroke-width="1" fill="none"/>
+
+  <text x="24" y="36" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" letter-spacing="0.08em" fill="#6B7280">IDENTITY · KYC / KYB</text>
+  <g transform="translate(508 28)">
+    <circle cx="6" cy="6" r="4" fill="#10B981"/>
+    <text x="18" y="10" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#0E1A33">Verified</text>
+  </g>
+
+  <!-- Left: ID document -->
+  <g transform="translate(32 76)">
+    <rect x="0" y="0" width="220" height="140" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <rect x="16" y="16" width="48" height="60" rx="4" fill="#0E1A33" opacity="0.08"/>
+    <text x="80" y="32" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600" letter-spacing="0.08em" fill="#6B7280">PASSPORT</text>
+    <text x="80" y="50" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#0E1A33">Sarah Williams</text>
+    <line x1="80" y1="60" x2="200" y2="60" stroke="#E5E7EB"/>
+    <text x="80" y="74" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="10" fill="#6B7280">P&lt;GBR&lt;WILLIAMS&lt;</text>
+    <text x="16" y="100" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#6B7280">Document number</text>
+    <text x="16" y="116" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="12" fill="#0E1A33">P 1234 5678 9</text>
+    <text x="120" y="100" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#6B7280">Expires</text>
+    <text x="120" y="116" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="12" fill="#0E1A33">2034-08-14</text>
+    <g transform="translate(190 116)">
+      <circle cx="0" cy="0" r="12" fill="#10B981"/>
+      <polyline points="-4,0 -1,3 5,-3" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- Right: Biometric -->
+  <g transform="translate(304 76)">
+    <rect x="0" y="0" width="252" height="140" rx="10" fill="#0E1A33"/>
+    <!-- Face outline -->
+    <ellipse cx="126" cy="62" rx="32" ry="40" fill="none" stroke="#22D3EE" stroke-width="1.5"/>
+    <circle cx="116" cy="56" r="2" fill="#22D3EE"/>
+    <circle cx="136" cy="56" r="2" fill="#22D3EE"/>
+    <path d="M 116 76 Q 126 82 136 76" fill="none" stroke="#22D3EE" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Corner brackets -->
+    <path d="M 72 18 H 82 M 72 18 V 28" stroke="#22D3EE" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M 180 18 H 170 M 180 18 V 28" stroke="#22D3EE" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M 72 108 H 82 M 72 108 V 98" stroke="#22D3EE" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M 180 108 H 170 M 180 108 V 98" stroke="#22D3EE" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Scanning line -->
+    <line x1="72" y1="64" x2="180" y2="64" stroke="#22D3EE" stroke-width="1" stroke-dasharray="3 2"/>
+    <text x="126" y="128" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#FFFFFF" text-anchor="middle">99.4% match</text>
+  </g>
+
+  <text x="24" y="252" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="#0E1A33">Identity</text>
+  <text x="24" y="276" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#6B7280">KYC, KYB, and biometric verification</text>
+
+  <g transform="translate(24 300)">
+    <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#0E1A33">Pass rate · 30d</text>
+    <text x="536" y="14" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="13" fill="#0E1A33" text-anchor="end">96.8%</text>
+  </g>
+  <line x1="24" y1="322" x2="560" y2="322" stroke="#E5E7EB"/>
+  <g transform="translate(24 330)">
+    <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#0E1A33">Average time</text>
+    <text x="536" y="14" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="13" fill="#304DBB" text-anchor="end">00:47</text>
+  </g>
+</svg>

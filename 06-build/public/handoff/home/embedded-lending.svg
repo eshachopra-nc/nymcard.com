@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 1192 432" width="1200" height="440">
+  <defs>
+    <linearGradient id="elTop" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+    </linearGradient>
+    <linearGradient id="elScore" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#304DBB"/>
+      <stop offset="100%" stop-color="#5B4FD9"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="1192" height="432" rx="24" fill="#FFFFFF" fill-opacity="0.7" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1"/>
+  <path d="M 28 5 H 1172" stroke="url(#elTop)" stroke-width="1" fill="none"/>
+
+  <text x="32" y="40" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" letter-spacing="0.08em" fill="#6B7280">EMBEDDED LENDING · BNPL DECISIONING</text>
+  <g transform="translate(1108 32)">
+    <circle cx="6" cy="6" r="4" fill="#0EA5E9"/>
+    <text x="18" y="10" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="500" fill="#0E1A33">Processing</text>
+  </g>
+
+  <!-- 3-zone layout: dividers at x=400 and x=800 -->
+  <line x1="400" y1="64" x2="400" y2="404" stroke="#E5E7EB"/>
+  <line x1="800" y1="64" x2="800" y2="404" stroke="#E5E7EB"/>
+
+  <!-- ZONE 1: APPLICATION (x=32..380) -->
+  <text x="32" y="92" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" letter-spacing="0.1em" fill="#304DBB">01 · APPLICATION</text>
+  <text x="32" y="124" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="#0E1A33">$2,400</text>
+  <text x="32" y="144" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6B7280">Requested · 6 months</text>
+
+  <g transform="translate(32 172)">
+    <rect x="0" y="0" width="348" height="44" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <text x="16" y="20" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#6B7280">Applicant</text>
+    <text x="16" y="36" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#0E1A33">Quantum Ltd</text>
+
+    <rect x="0" y="54" width="348" height="44" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <text x="16" y="74" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#6B7280">Vertical</text>
+    <text x="16" y="90" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#0E1A33">Retail · SMB</text>
+
+    <rect x="0" y="108" width="348" height="44" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <text x="16" y="128" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#6B7280">Term · APR</text>
+    <text x="16" y="144" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#0E1A33">6 mo · 14.9%</text>
+  </g>
+
+  <g transform="translate(32 360)">
+    <circle cx="6" cy="6" r="4" fill="#10B981"/>
+    <text x="18" y="10" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#0E1A33">Submitted · 00:00:08</text>
+  </g>
+
+  <!-- ZONE 2: DECISIONING (x=432..780) -->
+  <text x="432" y="92" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" letter-spacing="0.1em" fill="#5B4FD9">02 · AI DECISIONING</text>
+  <text x="432" y="124" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="20" font-weight="500" fill="#0E1A33">0.82</text>
+  <text x="432" y="144" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6B7280">Risk score · low</text>
+
+  <!-- Sparkline -->
+  <g transform="translate(432 176)">
+    <path d="M 0 60 L 30 50 L 60 56 L 90 42 L 120 36 L 150 28 L 180 22 L 210 18 L 240 14 L 270 10 L 300 6 L 330 2"
+          fill="none" stroke="url(#elScore)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="330" cy="2" r="4" fill="#304DBB" stroke="#FFFFFF" stroke-width="1.5"/>
+  </g>
+
+  <g transform="translate(432 252)">
+    <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#0E1A33">Credit signals</text>
+    <text x="348" y="14" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="11" fill="#0E1A33" text-anchor="end">142</text>
+  </g>
+  <line x1="432" y1="270" x2="780" y2="270" stroke="#E5E7EB"/>
+  <g transform="translate(432 280)">
+    <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#0E1A33">Model confidence</text>
+    <text x="348" y="14" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="11" fill="#0E1A33" text-anchor="end">94%</text>
+  </g>
+  <line x1="432" y1="298" x2="780" y2="298" stroke="#E5E7EB"/>
+  <g transform="translate(432 308)">
+    <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#0E1A33">Time to decision</text>
+    <text x="348" y="14" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="11" fill="#304DBB" text-anchor="end">128ms</text>
+  </g>
+
+  <g transform="translate(432 360)">
+    <circle cx="6" cy="6" r="4" fill="#10B981"/>
+    <text x="18" y="10" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#0E1A33">Approved · auto</text>
+  </g>
+
+  <!-- ZONE 3: DISBURSEMENT (x=832..1180) -->
+  <text x="832" y="92" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" letter-spacing="0.1em" fill="#22D3EE">03 · DISBURSEMENT</text>
+  <text x="832" y="124" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="600" fill="#0E1A33">$2,400.00</text>
+  <text x="832" y="144" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6B7280">Funded · instant</text>
+
+  <g transform="translate(832 174)">
+    <rect x="0" y="0" width="348" height="58" rx="10" fill="#FFFFFF" stroke="#E5E7EB"/>
+    <circle cx="28" cy="29" r="12" fill="#304DBB"/>
+    <text x="28" y="33" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">$</text>
+    <text x="52" y="24" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#0E1A33">Settlement · USD</text>
+    <text x="52" y="42" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#6B7280">Ledger · entry posted</text>
+    <text x="332" y="34" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="13" fill="#0E1A33" text-anchor="end">+2,400.00</text>
+  </g>
+
+  <g transform="translate(832 252)">
+    <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#0E1A33">Schedule</text>
+    <text x="348" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#0E1A33" text-anchor="end">6 × $400 · monthly</text>
+  </g>
+  <line x1="832" y1="270" x2="1180" y2="270" stroke="#E5E7EB"/>
+  <g transform="translate(832 280)">
+    <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#0E1A33">First payment</text>
+    <text x="348" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#0E1A33" text-anchor="end">14 Jun 2026</text>
+  </g>
+  <line x1="832" y1="298" x2="1180" y2="298" stroke="#E5E7EB"/>
+  <g transform="translate(832 308)">
+    <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#0E1A33">Status</text>
+    <text x="348" y="14" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#10B981" text-anchor="end">Active</text>
+  </g>
+
+  <g transform="translate(832 360)">
+    <circle cx="6" cy="6" r="4" fill="#10B981"/>
+    <text x="18" y="10" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#0E1A33">Funded · 00:00:14 total</text>
+  </g>
+</svg>

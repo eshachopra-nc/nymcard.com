@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 240" width="380" height="240">
+  <defs>
+    
+    <filter id="cardShadow" x="-15%" y="-15%" width="130%" height="135%">
+      <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#050B1A" flood-opacity="0.35"></feDropShadow>
+    </filter>
+
+    
+    <linearGradient id="cardBase" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A1530"></stop>
+      <stop offset="55%" stop-color="#0E1A33"></stop>
+      <stop offset="100%" stop-color="#050B1A"></stop>
+    </linearGradient>
+
+    
+    <radialGradient id="cardGlow" cx="0.18" cy="0.18" r="0.7">
+      <stop offset="0%" stop-color="#304DBB" stop-opacity="0.45"></stop>
+      <stop offset="60%" stop-color="#304DBB" stop-opacity="0.08"></stop>
+      <stop offset="100%" stop-color="#304DBB" stop-opacity="0"></stop>
+    </radialGradient>
+    <filter id="glowBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="22"></feGaussianBlur>
+    </filter>
+
+    
+    <linearGradient id="cardSheen" x1="0" y1="0" x2="1" y2="0.6">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+      <stop offset="55%" stop-color="#FFFFFF" stop-opacity="0.18"></stop>
+      <stop offset="75%" stop-color="#FFFFFF" stop-opacity="0.06"></stop>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+    </linearGradient>
+
+    
+    <linearGradient id="topBevel" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.05"></stop>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.20"></stop>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.05"></stop>
+    </linearGradient>
+
+    
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="3"></feTurbulence>
+      <feColorMatrix values="0 0 0 0 1&#xA;                             0 0 0 0 1&#xA;                             0 0 0 0 1&#xA;                             0 0 0 0.06 0"></feColorMatrix>
+    </filter>
+
+    
+    <linearGradient id="chipBase" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F5D58A"></stop>
+      <stop offset="40%" stop-color="#D4A85A"></stop>
+      <stop offset="100%" stop-color="#8C6B2E"></stop>
+    </linearGradient>
+    <linearGradient id="chipShine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.45"></stop>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+    </linearGradient>
+
+    <clipPath id="cardClip">
+      <rect x="4" y="4" width="372" height="232" rx="16"></rect>
+    </clipPath>
+  </defs>
+
+  
+  <g filter="url(#cardShadow)">
+    <rect x="4" y="4" width="372" height="232" rx="16" fill="url(#cardBase)"></rect>
+  </g>
+
+  <g clip-path="url(#cardClip)">
+    
+    <g filter="url(#glowBlur)">
+      <ellipse cx="60" cy="50" rx="180" ry="140" fill="url(#cardGlow)"></ellipse>
+    </g>
+
+    
+    <g transform="translate(0 -10) rotate(-12 200 60)">
+      <rect x="60" y="0" width="380" height="120" fill="url(#cardSheen)"></rect>
+    </g>
+
+    
+    <g stroke="#FFFFFF" fill="none" stroke-linecap="round">
+      <path d="M -20 30  C 80 60, 180 80, 300 110  S 420 150, 460 170" stroke-width="1" stroke-opacity="0.12"></path>
+      <path d="M -20 50  C 80 80, 180 100, 300 130 S 420 170, 460 190" stroke-width="1" stroke-opacity="0.10"></path>
+      <path d="M -20 70  C 80 100, 180 120, 300 150 S 420 190, 460 210" stroke-width="1" stroke-opacity="0.09"></path>
+      <path d="M -20 90  C 80 120, 180 140, 300 170 S 420 210, 460 230" stroke-width="0.9" stroke-opacity="0.08"></path>
+      <path d="M -20 110 C 80 140, 180 160, 300 190 S 420 230, 460 250" stroke-width="0.9" stroke-opacity="0.08"></path>
+      <path d="M -20 10  C 80 40, 180 60, 300 90  S 420 130, 460 150" stroke-width="0.8" stroke-opacity="0.09"></path>
+      <path d="M -20 -10 C 80 20, 180 40, 300 70  S 420 110, 460 130" stroke-width="0.8" stroke-opacity="0.08"></path>
+      <path d="M -20 130 C 80 160, 180 180, 300 210 S 420 250, 460 270" stroke-width="0.8" stroke-opacity="0.07"></path>
+      <path d="M -20 150 C 80 180, 180 200, 300 230 S 420 270, 460 290" stroke-width="0.7" stroke-opacity="0.06"></path>
+      <path d="M -20 170 C 80 200, 180 220, 300 250 S 420 290, 460 310" stroke-width="0.7" stroke-opacity="0.05"></path>
+    </g>
+
+    
+    <rect x="4" y="4" width="372" height="232" filter="url(#grain)" opacity="0.5"></rect>
+
+    
+    <line x1="4" y1="5" x2="376" y2="5" stroke="url(#topBevel)" stroke-width="1"></line>
+    <line x1="4" y1="235" x2="376" y2="235" stroke="#000000" stroke-opacity="0.20" stroke-width="1"></line>
+  </g>
+
+  
+
+  
+  <g transform="translate(316 24)">
+    <rect width="40" height="30" rx="5" fill="url(#chipBase)" stroke="#7A5827" stroke-width="0.6"></rect>
+    <rect width="40" height="30" rx="5" fill="url(#chipShine)"></rect>
+    <g stroke="#7A5827" stroke-width="0.7" fill="none">
+      <line x1="0" y1="15" x2="40" y2="15"></line>
+      <line x1="12" y1="0" x2="12" y2="11"></line>
+      <line x1="28" y1="0" x2="28" y2="11"></line>
+      <line x1="12" y1="19" x2="12" y2="30"></line>
+      <line x1="28" y1="19" x2="28" y2="30"></line>
+      <rect x="13" y="11" width="14" height="8" fill="#B8923F" stroke="#7A5827"></rect>
+      <line x1="0" y1="11" x2="13" y2="11"></line>
+      <line x1="27" y1="11" x2="40" y2="11"></line>
+      <line x1="0" y1="19" x2="13" y2="19"></line>
+      <line x1="27" y1="19" x2="40" y2="19"></line>
+    </g>
+  </g>
+
+  
+  <text x="24" y="208" font-family="&#39;IBM Plex Mono&#39;, ui-monospace, monospace" font-size="16" letter-spacing="0.05em" fill="#FFFFFF" fill-opacity="0.90">•••• •••• •••• 4210</text>
+
+  
+  <g transform="translate(282 192) scale(0.282)" fill="#FFFFFF">
+    <path d="M170.9,0c-18.6,0-35.3,9.7-35.3,27.5c0,20.5,29.5,21.9,29.5,32.1c0,4.3-5,8.2-13.4,8.2c-12,0-21-5.4-21-5.4l-3.8,18c0,0,10.3,4.6,24.1,4.6c20.4,0,36.4-10.1,36.4-28.3c0-21.6-29.6-23-29.6-32.5c0-3.4,4.1-7.1,12.5-7.1c9.5,0,17.3,3.9,17.3,3.9l3.8-17.4C191.3,3.6,182.8,0,170.9,0L170.9,0z M0.5,1.3L0,3.9c0,0,7.8,1.4,14.9,4.3c9.1,3.3,9.7,5.2,11.3,11.1l16.7,64.3h22.4L99.6,1.3H77.3l-22.1,56l-9-47.5c-0.8-5.4-5-8.5-10.2-8.5C36,1.3,0.5,1.3,0.5,1.3z M108.6,1.3L91.1,83.6h21.3l17.4-82.3L108.6,1.3L108.6,1.3z M227.2,1.3c-5.1,0-7.8,2.7-9.8,7.5l-31.2,74.8h22.3l4.3-12.5H240l2.6,12.5h19.7L245.2,1.3L227.2,1.3L227.2,1.3z M230.1,23.6l6.6,30.9H219L230.1,23.6L230.1,23.6z"></path>
+  </g>
+</svg>
