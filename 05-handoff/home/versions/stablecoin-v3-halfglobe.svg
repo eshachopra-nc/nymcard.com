@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336 360" width="336" height="360">
+  <defs>
+    <radialGradient id="ssGlobeGlow" cx="50%" cy="100%" r="60%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.22"></stop>
+      <stop offset="80%" stop-color="#22D3EE" stop-opacity="0.04"></stop>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"></stop>
+    </radialGradient>
+
+    <linearGradient id="ssChipFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0E1A33"></stop>
+      <stop offset="100%" stop-color="#1F2C4D"></stop>
+    </linearGradient>
+
+    <filter id="ssChipShadow" x="-30%" y="-50%" width="160%" height="200%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0E1A33" flood-opacity="0.32"></feDropShadow>
+    </filter>
+
+    <filter id="ssCyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#22D3EE" flood-opacity="0.65"></feDropShadow>
+    </filter>
+
+    <filter id="ssEntryBlur" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="0">
+        <animate attributeName="stdDeviation" values="3;0;0;3;3" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
+      </feGaussianBlur>
+    </filter>
+
+    <path id="ssArcPath" d="M 100 200 Q 168 90 236 200" fill="none" stroke="none"></path>
+  </defs>
+
+  <g>
+    <circle cx="100" cy="25" r="3" fill="#22D3EE" fill-opacity="0.55">
+      <animate attributeName="r" values="3;11;11" keyTimes="0;0.65;1" dur="1.6s" repeatCount="indefinite"></animate>
+      <animate attributeName="fill-opacity" values="0.55;0;0" keyTimes="0;0.65;1" dur="1.6s" repeatCount="indefinite"></animate>
+    </circle>
+    <circle cx="100" cy="25" r="3" fill="#22D3EE"></circle>
+    <text x="112" y="28" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#0E1A33" letter-spacing="0.20em">INSTANT · SETTLEMENT</text>
+  </g>
+
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 -12;0 0;0 0;0 0;0 -12" keyTimes="0;0.043;0.929;0.99;1" dur="7s" calcMode="spline" keySplines="0.16 1 0.3 1;0 0 1 1;0.4 0 1 1;0 0 1 1" repeatCount="indefinite"></animateTransform>
+    <g transform="translate(168 180)">
+      <g opacity="0" filter="url(#ssEntryBlur)">
+        <animateTransform attributeName="transform" type="scale" values="0.86;1;1;0.97;0.86" keyTimes="0;0.043;0.929;0.99;1" dur="7s" calcMode="spline" keySplines="0.16 1 0.3 1;0 0 1 1;0.4 0 1 1;0 0 1 1" repeatCount="indefinite"></animateTransform>
+        <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
+        <g transform="translate(-168 -180)">
+
+          <path d="M 56 200 A 112 112 0 0 1 280 200 L 56 200 Z" fill="url(#ssGlobeGlow)"></path>
+
+          <path d="M 56 200 A 112 112 0 0 1 280 200" fill="none" stroke="#22D3EE" stroke-opacity="0.60" stroke-width="1.6" stroke-linecap="round" filter="url(#ssCyanGlow)"></path>
+          <line x1="56" y1="200" x2="280" y2="200" stroke="#22D3EE" stroke-opacity="0.55" stroke-width="1.6" stroke-linecap="round"></line>
+
+          <g fill="none" stroke="#22D3EE" stroke-linecap="round">
+            <path d="M 74 178 A 94 18 0 0 1 262 178" stroke-opacity="0.32" stroke-width="0.8"></path>
+            <path d="M 92 150 A 76 16 0 0 1 244 150" stroke-opacity="0.28" stroke-width="0.7"></path>
+            <path d="M 116 122 A 52 12 0 0 1 220 122" stroke-opacity="0.22" stroke-width="0.6"></path>
+          </g>
+
+          <g fill="none" stroke="#22D3EE" stroke-linecap="round">
+            <line x1="168" y1="200" x2="168" y2="88" stroke-opacity="0.20" stroke-width="0.6"></line>
+            <path d="M 100 200 A 80 112 0 0 1 168 88" stroke-opacity="0.25" stroke-width="0.7"></path>
+            <path d="M 236 200 A 80 112 0 0 0 168 88" stroke-opacity="0.25" stroke-width="0.7"></path>
+          </g>
+
+          <g filter="url(#ssChipShadow)">
+            <rect x="74" y="158" width="64" height="28" rx="14" fill="url(#ssChipFill)" stroke="#22D3EE" stroke-opacity="0.65" stroke-width="0.8"></rect>
+            <circle cx="87" cy="172" r="4.5" fill="#22D3EE"></circle>
+            <circle cx="87" cy="172" r="2" fill="#FFFFFF"></circle>
+            <text x="115" y="176" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.04em">USDC</text>
+          </g>
+
+          <g filter="url(#ssChipShadow)">
+            <rect x="198" y="158" width="64" height="28" rx="14" fill="url(#ssChipFill)" stroke="#5B4FD9" stroke-opacity="0.65" stroke-width="0.8"></rect>
+            <circle cx="211" cy="172" r="4.5" fill="#5B4FD9"></circle>
+            <circle cx="211" cy="172" r="2" fill="#FFFFFF"></circle>
+            <text x="239" y="176" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.04em">USDT</text>
+          </g>
+
+          <circle r="4" fill="#22D3EE" filter="url(#ssCyanGlow)">
+            <animateMotion dur="3.2s" repeatCount="indefinite">
+              <mpath href="#ssArcPath"></mpath>
+            </animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="3.2s" repeatCount="indefinite"></animate>
+          </circle>
+
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <g stroke="#22D3EE" stroke-width="2.2" fill="none" stroke-linecap="round" filter="url(#ssCyanGlow)">
+    <path d="M 36 96 L 36 80 L 52 80"></path>
+    <path d="M 284 80 L 300 80 L 300 96"></path>
+    <path d="M 36 232 L 36 248 L 52 248"></path>
+    <path d="M 284 248 L 300 248 L 300 232"></path>
+    <animate attributeName="opacity" values="0.25;1;0.25" keyTimes="0;0.5;1" dur="1.6s" repeatCount="indefinite"></animate>
+  </g>
+
+  <text x="168" y="282" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="700" fill="#22D3EE" letter-spacing="-0.02em" filter="url(#ssCyanGlow)">187 ms</text>
+  <text x="168" y="304" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#22D3EE" letter-spacing="0.20em">SETTLED · FINAL</text>
+
+  <text x="168" y="328" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#4A5578" letter-spacing="0.06em">12,847 settled today
+    <tspan fill="#7A88AC"> · </tspan>
+    <tspan fill="#22D3EE">24/7</tspan>
+  </text>
+</svg>

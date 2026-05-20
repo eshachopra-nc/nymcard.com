@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336 360" width="336" height="360">
+  <defs>
+    <linearGradient id="acsPhoneBezel" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0%" stop-color="#1F2C4D"></stop>
+      <stop offset="100%" stop-color="#0A1226"></stop>
+    </linearGradient>
+
+    <linearGradient id="acsScreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E1A33"></stop>
+      <stop offset="100%" stop-color="#152244"></stop>
+    </linearGradient>
+
+    <linearGradient id="acsBoxFilled" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.18"></stop>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0.05"></stop>
+    </linearGradient>
+
+    <filter id="acsPhoneShadow" x="-20%" y="-15%" width="140%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#0E1A33" flood-opacity="0.35"></feDropShadow>
+    </filter>
+
+    <filter id="acsCyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#22D3EE" flood-opacity="0.70"></feDropShadow>
+    </filter>
+
+    <filter id="acsEntryBlur" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="0">
+        <animate attributeName="stdDeviation" values="3;0;0;3;3" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
+      </feGaussianBlur>
+    </filter>
+  </defs>
+
+  <g>
+    <circle cx="100" cy="25" r="3" fill="#22D3EE" fill-opacity="0.55">
+      <animate attributeName="r" values="3;11;11" keyTimes="0;0.65;1" dur="1.6s" repeatCount="indefinite"></animate>
+      <animate attributeName="fill-opacity" values="0.55;0;0" keyTimes="0;0.65;1" dur="1.6s" repeatCount="indefinite"></animate>
+    </circle>
+    <circle cx="100" cy="25" r="3" fill="#22D3EE"></circle>
+    <text x="112" y="28" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#0E1A33" letter-spacing="0.20em">CHALLENGE · LIVE</text>
+  </g>
+
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 -12;0 0;0 0;0 0;0 -12" keyTimes="0;0.043;0.929;0.99;1" dur="7s" calcMode="spline" keySplines="0.16 1 0.3 1;0 0 1 1;0.4 0 1 1;0 0 1 1" repeatCount="indefinite"></animateTransform>
+    <g transform="translate(168 180)">
+      <g opacity="0" filter="url(#acsEntryBlur)">
+        <animateTransform attributeName="transform" type="scale" values="0.86;1;1;0.97;0.86" keyTimes="0;0.043;0.929;0.99;1" dur="7s" calcMode="spline" keySplines="0.16 1 0.3 1;0 0 1 1;0.4 0 1 1;0 0 1 1" repeatCount="indefinite"></animateTransform>
+        <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
+        <g transform="translate(-168 -180)">
+
+          <g filter="url(#acsPhoneShadow)">
+            <rect x="100" y="58" width="136" height="244" rx="22" fill="url(#acsPhoneBezel)" stroke="#22D3EE" stroke-opacity="0.45" stroke-width="1.2"></rect>
+            <rect x="108" y="66" width="120" height="228" rx="16" fill="url(#acsScreen)"></rect>
+
+            <rect x="150" y="74" width="36" height="4" rx="2" fill="#22D3EE" fill-opacity="0.35"></rect>
+
+            <text x="168" y="100" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="7" font-weight="700" fill="#22D3EE" letter-spacing="0.22em">AUTHENTICATION</text>
+            <text x="168" y="116" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#A8B5D9" letter-spacing="0.04em">Enter the 6-digit code</text>
+
+            <g transform="translate(120 138)">
+              <g>
+                <rect x="0" y="0" width="16" height="22" rx="4" fill="url(#acsBoxFilled)" stroke="#22D3EE" stroke-width="1.4" filter="url(#acsCyanGlow)">
+                  <animate attributeName="stroke-opacity" values="0;1;1;1;1;1;1" keyTimes="0;0.067;0.2;0.4;0.6;0.8;1" dur="6s" repeatCount="indefinite"></animate>
+                </rect>
+                <text x="8" y="16" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="13" font-weight="700" fill="#FFFFFF" opacity="0">
+                  8<animate attributeName="opacity" values="0;1;1;1;1;1;1" keyTimes="0;0.067;0.2;0.4;0.6;0.8;1" dur="6s" repeatCount="indefinite"></animate>
+                </text>
+              </g>
+
+              <g transform="translate(20 0)">
+                <rect x="0" y="0" width="16" height="22" rx="4" fill="url(#acsBoxFilled)" stroke="#22D3EE" stroke-width="1.4" filter="url(#acsCyanGlow)">
+                  <animate attributeName="stroke-opacity" values="0;0;1;1;1;1;1" keyTimes="0;0.2;0.267;0.4;0.6;0.8;1" dur="6s" repeatCount="indefinite"></animate>
+                </rect>
+                <text x="8" y="16" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="13" font-weight="700" fill="#FFFFFF" opacity="0">
+                  4<animate attributeName="opacity" values="0;0;1;1;1;1;1" keyTimes="0;0.2;0.267;0.4;0.6;0.8;1" dur="6s" repeatCount="indefinite"></animate>
+                </text>
+              </g>
+
+              <g transform="translate(40 0)">
+                <rect x="0" y="0" width="16" height="22" rx="4" fill="url(#acsBoxFilled)" stroke="#22D3EE" stroke-width="1.4" filter="url(#acsCyanGlow)">
+                  <animate attributeName="stroke-opacity" values="0;0;0;1;1;1;1" keyTimes="0;0.2;0.333;0.4;0.6;0.8;1" dur="6s" repeatCount="indefinite"></animate>
+                </rect>
+                <text x="8" y="16" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="13" font-weight="700" fill="#FFFFFF" opacity="0">
+                  1<animate attributeName="opacity" values="0;0;0;1;1;1;1" keyTimes="0;0.2;0.333;0.4;0.6;0.8;1" dur="6s" repeatCount="indefinite"></animate>
+                </text>
+              </g>
+
+              <g transform="translate(60 0)">
+                <rect x="0" y="0" width="16" height="22" rx="4" fill="url(#acsBoxFilled)" stroke="#22D3EE" stroke-width="1.4" filter="url(#acsCyanGlow)">
+                  <animate attributeName="stroke-opacity" values="0;0;0;0;1;1;1" keyTimes="0;0.2;0.333;0.4;0.467;0.8;1" dur="6s" repeatCount="indefinite"></animate>
+                </rect>
+                <text x="8" y="16" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="13" font-weight="700" fill="#FFFFFF" opacity="0">
+                  9<animate attributeName="opacity" values="0;0;0;0;1;1;1" keyTimes="0;0.2;0.333;0.4;0.467;0.8;1" dur="6s" repeatCount="indefinite"></animate>
+                </text>
+              </g>
+
+              <g transform="translate(80 0)">
+                <rect x="0" y="0" width="16" height="22" rx="4" fill="url(#acsBoxFilled)" stroke="#22D3EE" stroke-width="1.4" filter="url(#acsCyanGlow)">
+                  <animate attributeName="stroke-opacity" values="0;0;0;0;0;1;1" keyTimes="0;0.2;0.333;0.4;0.467;0.533;1" dur="6s" repeatCount="indefinite"></animate>
+                </rect>
+                <text x="8" y="16" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="13" font-weight="700" fill="#FFFFFF" opacity="0">
+                  5<animate attributeName="opacity" values="0;0;0;0;0;1;1" keyTimes="0;0.2;0.333;0.4;0.467;0.533;1" dur="6s" repeatCount="indefinite"></animate>
+                </text>
+              </g>
+
+              <g transform="translate(100 0)">
+                <rect x="0" y="0" width="16" height="22" rx="4" fill="url(#acsBoxFilled)" stroke="#22D3EE" stroke-width="1.4" filter="url(#acsCyanGlow)">
+                  <animate attributeName="stroke-opacity" values="0;0;0;0;0;0;1;1" keyTimes="0;0.2;0.333;0.4;0.467;0.533;0.6;1" dur="6s" repeatCount="indefinite"></animate>
+                </rect>
+                <text x="8" y="16" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="13" font-weight="700" fill="#FFFFFF" opacity="0">
+                  2<animate attributeName="opacity" values="0;0;0;0;0;0;1;1" keyTimes="0;0.2;0.333;0.4;0.467;0.533;0.6;1" dur="6s" repeatCount="indefinite"></animate>
+                </text>
+              </g>
+            </g>
+
+            <g transform="translate(168 196)" opacity="0">
+              <animate attributeName="opacity" values="0;0;0;0;0;0;0;1;1" keyTimes="0;0.2;0.333;0.4;0.467;0.533;0.6;0.667;1" dur="6s" repeatCount="indefinite"></animate>
+
+              <g transform="translate(-44 0)" filter="url(#acsCyanGlow)">
+                <circle r="9" fill="#22D3EE"></circle>
+                <path d="M -4 0 L -1 3 L 4 -3" stroke="#0E1A33" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+              </g>
+
+              <text x="0" y="4" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#22D3EE" letter-spacing="0.04em">Successfully authenticated</text>
+            </g>
+
+            <text x="168" y="240" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="7" fill="#4A5578" letter-spacing="0.18em">3D SECURE · v2.3</text>
+            <text x="168" y="258" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="7" fill="#4A5578" letter-spacing="0.04em">NymCard Bank · Online</text>
+
+            <rect x="160" y="284" width="16" height="2" rx="1" fill="#FFFFFF" fill-opacity="0.35"></rect>
+          </g>
+
+          <g stroke="#22D3EE" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#acsCyanGlow)">
+            <path d="M 70 76 L 70 60 L 86 60"></path>
+            <path d="M 250 60 L 266 60 L 266 76"></path>
+            <path d="M 70 284 L 70 300 L 86 300"></path>
+            <path d="M 250 300 L 266 300 L 266 284"></path>
+            <animate attributeName="opacity" values="0.35;1;0.35" keyTimes="0;0.5;1" dur="1.8s" repeatCount="indefinite"></animate>
+          </g>
+
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

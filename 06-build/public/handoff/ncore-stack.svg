@@ -1,0 +1,114 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>nCore AI-native layered stack (light mode)</title>
+  <desc>nCore foundation with five unlabeled platform layers. A long, intense cyan trace zig-zags down each outer edge, hugging the saw-tooth silhouette of the stack — AI moving through every layer.</desc>
+
+  <defs>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="railBlur" x="-140%" y="-20%" width="380%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+
+    <filter id="coreBlur" x="-80%" y="-20%" width="260%" height="140%">
+      <feGaussianBlur stdDeviation="1.6"/>
+    </filter>
+
+    <filter id="ambientBlur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="44"/>
+    </filter>
+
+    <linearGradient id="edge" x1="180" y1="80" x2="720" y2="820" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0E1A33" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#4A5578" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#0E1A33" stop-opacity="0.55"/>
+    </linearGradient>
+
+    <linearGradient id="nCoreFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5B4FD9" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0.12"/>
+    </linearGradient>
+
+    <linearGradient id="nCoreSheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <radialGradient id="ambient" cx="50%" cy="48%" r="58%">
+      <stop offset="0" stop-color="#22D3EE" stop-opacity="0.16"/>
+      <stop offset="0.5" stop-color="#5B4FD9" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <style>
+      .rail-flow {
+        stroke-dasharray: 300 1100;
+        animation: flow 6s linear infinite;
+      }
+      .rail-flow.delayed { animation-delay: -3s; }
+      @keyframes flow {
+        0%   { stroke-dashoffset: 340;   opacity: 0; }
+        7%   { opacity: 1; }
+        90%  { opacity: 1; }
+        100% { stroke-dashoffset: -1180; opacity: 0; }
+      }
+    </style>
+  </defs>
+
+  <ellipse cx="450" cy="440" rx="400" ry="450" fill="url(#ambient)" filter="url(#ambientBlur)"/>
+
+  <!-- nCore top slab -->
+  <g filter="url(#softGlow)">
+    <path d="M450 70 L735 220 L450 370 L165 220 Z" fill="url(#nCoreFill)" stroke="url(#edge)" stroke-width="1.6"/>
+    <path d="M165 220V258C165 265 170 271 177 275L438 413C446 417 454 417 462 413L723 275C730 271 735 265 735 258V220"
+          fill="#F4F6FF" fill-opacity="0.45" stroke="url(#edge)" stroke-width="1.2"/>
+    <path d="M165 220 L450 370 L735 220" stroke="#22D3EE" stroke-opacity="0.55" stroke-width="2"/>
+    <path d="M450 70 L735 220 L450 370 L165 220 Z" fill="url(#nCoreSheen)"/>
+    <text x="450" y="210" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="74" font-weight="700" fill="#0E1A33" letter-spacing="-2">nCore</text>
+  </g>
+
+  <!-- five platform layers -->
+  <g>
+    <g transform="translate(0 0)">
+      <path d="M450 250 L735 400 L450 550 L165 400 Z" fill="#F4F6FF" fill-opacity="0.50" stroke="url(#edge)" stroke-width="1.15"/>
+    </g>
+    <g transform="translate(0 68)">
+      <path d="M450 250 L735 400 L450 550 L165 400 Z" fill="#F4F6FF" fill-opacity="0.45" stroke="url(#edge)" stroke-width="1.15"/>
+    </g>
+    <g transform="translate(0 136)">
+      <path d="M450 250 L735 400 L450 550 L165 400 Z" fill="#F4F6FF" fill-opacity="0.40" stroke="url(#edge)" stroke-width="1.15"/>
+    </g>
+    <g transform="translate(0 204)">
+      <path d="M450 250 L735 400 L450 550 L165 400 Z" fill="#F4F6FF" fill-opacity="0.35" stroke="url(#edge)" stroke-width="1.15"/>
+    </g>
+    <g transform="translate(0 272)">
+      <path d="M450 250 L735 400 L450 550 L165 400 Z" fill="#F4F6FF" fill-opacity="0.30" stroke="url(#edge)" stroke-width="1.15"/>
+    </g>
+  </g>
+
+  <!-- left outer rail: zig-zag hugging the saw-tooth silhouette -->
+  <g>
+    <path d="M188 268 L157 400 L230 434 L157 468 L230 502 L157 536 L230 570 L157 604 L230 638 L157 672 L226 704"
+          fill="none" stroke="#22D3EE" stroke-opacity="0.16" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" filter="url(#softGlow)"/>
+    <path class="rail-flow" d="M188 268 L157 400 L230 434 L157 468 L230 502 L157 536 L230 570 L157 604 L230 638 L157 672 L226 704"
+          fill="none" stroke="#22D3EE" stroke-opacity="0.9" stroke-width="9" stroke-linejoin="round" stroke-linecap="round" filter="url(#railBlur)"/>
+    <path class="rail-flow" d="M188 268 L157 400 L230 434 L157 468 L230 502 L157 536 L230 570 L157 604 L230 638 L157 672 L226 704"
+          fill="none" stroke="#0EA5E9" stroke-opacity="1" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" filter="url(#coreBlur)"/>
+  </g>
+
+  <!-- right outer rail: mirrored zig-zag -->
+  <g>
+    <path d="M712 268 L743 400 L670 434 L743 468 L670 502 L743 536 L670 570 L743 604 L670 638 L743 672 L674 704"
+          fill="none" stroke="#22D3EE" stroke-opacity="0.16" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" filter="url(#softGlow)"/>
+    <path class="rail-flow delayed" d="M712 268 L743 400 L670 434 L743 468 L670 502 L743 536 L670 570 L743 604 L670 638 L743 672 L674 704"
+          fill="none" stroke="#22D3EE" stroke-opacity="0.9" stroke-width="9" stroke-linejoin="round" stroke-linecap="round" filter="url(#railBlur)"/>
+    <path class="rail-flow delayed" d="M712 268 L743 400 L670 434 L743 468 L670 502 L743 536 L670 570 L743 604 L670 638 L743 672 L674 704"
+          fill="none" stroke="#0EA5E9" stroke-opacity="1" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" filter="url(#coreBlur)"/>
+  </g>
+</svg>

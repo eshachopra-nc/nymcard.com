@@ -45,13 +45,6 @@
       <stop offset="0%" stop-color="#F8FAFC"></stop>
       <stop offset="100%" stop-color="#CBD5E1"></stop>
     </linearGradient>
-    <style>
-      .ci-icon-rect  { transition: fill 150ms ease, stroke 150ms ease; }
-      .ci-icon-arrow { transition: stroke 150ms ease; }
-      .ci-icon-trigger { cursor: pointer; }
-      .ci-icon-trigger:hover .ci-icon-rect  { fill: #304DBB; stroke: #304DBB; }
-      .ci-icon-trigger:hover .ci-icon-arrow { stroke: #FFFFFF; }
-    </style>
   </defs>
 
   <g filter="url(#ciTileBgBlur)">
@@ -67,13 +60,8 @@
   <text x="40" y="80" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="600" fill="#0E1A33" letter-spacing="-0.01em">Launch a card</text>
   <text x="40" y="112" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="600" fill="#0E1A33" letter-spacing="-0.01em">program</text>
 
-  <g class="ci-icon-trigger" transform="translate(324 26)">
-    <rect class="ci-icon-rect" width="36" height="36" rx="9" fill="#F4F4FB" stroke="#E5E5F0" stroke-width="1"></rect>
-    <g class="ci-icon-arrow" transform="translate(18 18)" fill="none" stroke="#304DBB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="-6" y1="6" x2="6" y2="-6"></line>
-      <polyline points="2,-6 6,-6 6,-2"></polyline>
-    </g>
-  </g>
+  <!-- Expand affordance is rendered as a React overlay (CardExpandChip),
+       not embedded here, so the hover state stays consistent across cards. -->
 
   <g filter="url(#ciCardShadow)">
     <rect x="80" y="150" width="240" height="380" rx="18" fill="url(#ciCardBg)"></rect>

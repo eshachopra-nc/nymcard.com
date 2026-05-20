@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336 360" width="336" height="360">
+  <defs>
+    <linearGradient id="ssFiatFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0E1A33"></stop>
+      <stop offset="100%" stop-color="#1F2C4D"></stop>
+    </linearGradient>
+
+    <linearGradient id="ssBridgeFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1F2C4D"></stop>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0.20"></stop>
+    </linearGradient>
+
+    <filter id="ssChipShadow" x="-30%" y="-50%" width="160%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0E1A33" flood-opacity="0.35"></feDropShadow>
+    </filter>
+
+    <filter id="ssCyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#22D3EE" flood-opacity="0.70"></feDropShadow>
+    </filter>
+
+    <filter id="ssEntryBlur" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="0">
+        <animate attributeName="stdDeviation" values="3;0;0;3;3" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
+      </feGaussianBlur>
+    </filter>
+  </defs>
+
+  <g>
+    <circle cx="100" cy="25" r="3" fill="#22D3EE" fill-opacity="0.55">
+      <animate attributeName="r" values="3;11;11" keyTimes="0;0.65;1" dur="1.6s" repeatCount="indefinite"></animate>
+      <animate attributeName="fill-opacity" values="0.55;0;0" keyTimes="0;0.65;1" dur="1.6s" repeatCount="indefinite"></animate>
+    </circle>
+    <circle cx="100" cy="25" r="3" fill="#22D3EE"></circle>
+    <text x="112" y="28" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#0E1A33" letter-spacing="0.20em">INSTANT · SETTLEMENT</text>
+  </g>
+
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 -12;0 0;0 0;0 0;0 -12" keyTimes="0;0.043;0.929;0.99;1" dur="7s" calcMode="spline" keySplines="0.16 1 0.3 1;0 0 1 1;0.4 0 1 1;0 0 1 1" repeatCount="indefinite"></animateTransform>
+    <g transform="translate(168 180)">
+      <g opacity="0" filter="url(#ssEntryBlur)">
+        <animateTransform attributeName="transform" type="scale" values="0.86;1;1;0.97;0.86" keyTimes="0;0.043;0.929;0.99;1" dur="7s" calcMode="spline" keySplines="0.16 1 0.3 1;0 0 1 1;0.4 0 1 1;0 0 1 1" repeatCount="indefinite"></animateTransform>
+        <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
+        <g transform="translate(-168 -180)">
+
+          <line x1="58" y1="180" x2="278" y2="180" stroke="#22D3EE" stroke-opacity="0.20" stroke-width="1.2" stroke-dasharray="3 4"></line>
+
+          <g filter="url(#ssChipShadow)">
+            <rect x="14" y="156" width="84" height="48" rx="12" fill="url(#ssFiatFill)" stroke="#22D3EE" stroke-opacity="0.45" stroke-width="1"></rect>
+            <text x="32" y="186" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#22D3EE">$</text>
+            <text x="68" y="178" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.08em">USD</text>
+            <text x="68" y="192" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="8" fill="#7A88AC" text-anchor="middle">FIAT</text>
+          </g>
+
+          <g transform="translate(112 180)">
+            <path d="M -6 -6 L 0 0 L -6 6" stroke="#22D3EE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.85" filter="url(#ssCyanGlow)"></path>
+          </g>
+
+          <g filter="url(#ssChipShadow)">
+            <rect x="126" y="148" width="84" height="64" rx="12" fill="url(#ssBridgeFill)" stroke="#22D3EE" stroke-opacity="0.85" stroke-width="1.5" filter="url(#ssCyanGlow)"></rect>
+            <circle cx="146" cy="180" r="7" fill="#22D3EE"></circle>
+            <circle cx="146" cy="180" r="3" fill="#FFFFFF"></circle>
+            <text x="184" y="178" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.08em">USDC</text>
+            <text x="184" y="194" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="8" fill="#22D3EE" text-anchor="middle">BRIDGE</text>
+            <text x="168" y="163" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="6" font-weight="700" fill="#22D3EE" letter-spacing="0.18em">STABLECOIN RAIL</text>
+          </g>
+
+          <g transform="translate(224 180)">
+            <path d="M -6 -6 L 0 0 L -6 6" stroke="#22D3EE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.85" filter="url(#ssCyanGlow)"></path>
+          </g>
+
+          <g filter="url(#ssChipShadow)">
+            <rect x="238" y="156" width="84" height="48" rx="12" fill="url(#ssFiatFill)" stroke="#22D3EE" stroke-opacity="0.45" stroke-width="1"></rect>
+            <text x="256" y="186" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" fill="#22D3EE">$</text>
+            <text x="292" y="178" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.08em">USD</text>
+            <text x="292" y="192" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="8" fill="#7A88AC" text-anchor="middle">FIAT</text>
+          </g>
+
+          <circle r="5" fill="#22D3EE" filter="url(#ssCyanGlow)">
+            <animate attributeName="cx" values="58;58;278;278;58" keyTimes="0;0.04;0.30;0.93;1" dur="4.5s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;0.5 0 0.5 1;0 0 1 1;0 0 1 1"></animate>
+            <animate attributeName="cy" values="180;180;180;180;180" keyTimes="0;0.04;0.30;0.93;1" dur="4.5s" repeatCount="indefinite"></animate>
+            <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.04;0.30;0.32;1" dur="4.5s" repeatCount="indefinite"></animate>
+          </circle>
+
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <g stroke="#22D3EE" stroke-width="2.2" fill="none" stroke-linecap="round" filter="url(#ssCyanGlow)">
+    <path d="M 36 148 L 36 132 L 52 132"></path>
+    <path d="M 284 132 L 300 132 L 300 148"></path>
+    <path d="M 36 224 L 36 240 L 52 240"></path>
+    <path d="M 284 240 L 300 240 L 300 224"></path>
+    <animate attributeName="opacity" values="0.25;1;0.25" keyTimes="0;0.5;1" dur="1.6s" repeatCount="indefinite"></animate>
+  </g>
+
+  <text x="168" y="280" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="700" fill="#22D3EE" letter-spacing="-0.02em" filter="url(#ssCyanGlow)">187 ms</text>
+  <text x="168" y="302" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#22D3EE" letter-spacing="0.20em">SETTLED · FINAL</text>
+
+  <text x="168" y="330" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#4A5578" letter-spacing="0.06em">$50,000 settled
+    <tspan fill="#7A88AC"> · </tspan>
+    <tspan fill="#22D3EE">24/7</tspan>
+  </text>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336 360" width="336" height="360">
+  <defs>
+    <radialGradient id="rcLensGlow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.45"></stop>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0.15"></stop>
+    </radialGradient>
+
+    <filter id="rcCyanGlow" x="-30%" y="-50%" width="160%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#22D3EE" flood-opacity="0.55"></feDropShadow>
+    </filter>
+
+    <filter id="rcVioletGlow" x="-30%" y="-50%" width="160%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#5B4FD9" flood-opacity="0.65"></feDropShadow>
+    </filter>
+
+    <filter id="rcEntryBlur" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="0">
+        <animate attributeName="stdDeviation" values="3;0;0;3;3" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
+      </feGaussianBlur>
+    </filter>
+  </defs>
+
+  <g>
+    <circle cx="100" cy="25" r="3" fill="#22D3EE" fill-opacity="0.55">
+      <animate attributeName="r" values="3;11;11" keyTimes="0;0.65;1" dur="1.6s" repeatCount="indefinite"></animate>
+      <animate attributeName="fill-opacity" values="0.55;0;0" keyTimes="0;0.65;1" dur="1.6s" repeatCount="indefinite"></animate>
+    </circle>
+    <circle cx="100" cy="25" r="3" fill="#22D3EE"></circle>
+    <text x="112" y="28" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#0E1A33" letter-spacing="0.20em">MATCHING · LIVE</text>
+  </g>
+
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 -12;0 0;0 0;0 0;0 -12" keyTimes="0;0.043;0.929;0.99;1" dur="7s" calcMode="spline" keySplines="0.16 1 0.3 1;0 0 1 1;0.4 0 1 1;0 0 1 1" repeatCount="indefinite"></animateTransform>
+    <g transform="translate(168 190)">
+      <g opacity="0" filter="url(#rcEntryBlur)">
+        <animateTransform attributeName="transform" type="scale" values="0.86;1;1;0.97;0.86" keyTimes="0;0.043;0.929;0.99;1" dur="7s" calcMode="spline" keySplines="0.16 1 0.3 1;0 0 1 1;0.4 0 1 1;0 0 1 1" repeatCount="indefinite"></animateTransform>
+        <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
+        <g transform="translate(-168 -190)">
+
+          <text x="130" y="106" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#7A88AC" letter-spacing="0.20em">CARD</text>
+          <text x="206" y="106" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#7A88AC" letter-spacing="0.20em">BANK</text>
+
+          <circle cx="130" cy="190" r="70" fill="#22D3EE" fill-opacity="0.08" stroke="#22D3EE" stroke-opacity="0.65" stroke-width="1.6"></circle>
+          <circle cx="206" cy="190" r="70" fill="#22D3EE" fill-opacity="0.08" stroke="#22D3EE" stroke-opacity="0.65" stroke-width="1.6"></circle>
+
+          <path d="M 168 131 A 70 70 0 0 1 168 249 A 70 70 0 0 1 168 131 Z" fill="url(#rcLensGlow)" stroke="#22D3EE" stroke-width="1.2" stroke-opacity="0.85" filter="url(#rcCyanGlow)">
+            <animate attributeName="fill-opacity" values="0.85;1;0.85" dur="2.4s" repeatCount="indefinite"></animate>
+          </path>
+
+          <text x="168" y="190" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF" letter-spacing="-0.02em">98.4%</text>
+          <text x="168" y="212" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#22D3EE" letter-spacing="0.22em">MATCHED</text>
+
+          <g transform="translate(72 250)" filter="url(#rcVioletGlow)">
+            <rect x="-30" y="-12" width="60" height="24" rx="12" fill="#5B4FD9">
+              <animate attributeName="fill-opacity" values="0.85;1;0.85" dur="1.6s" repeatCount="indefinite"></animate>
+            </rect>
+            <text x="0" y="4" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="10" font-weight="700" fill="#FFFFFF" letter-spacing="0.04em">Δ 1</text>
+          </g>
+
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <g stroke="#22D3EE" stroke-width="2.2" fill="none" stroke-linecap="round" filter="url(#rcCyanGlow)">
+    <path d="M 36 100 L 36 84 L 52 84"></path>
+    <path d="M 284 84 L 300 84 L 300 100"></path>
+    <path d="M 36 264 L 36 280 L 52 280"></path>
+    <path d="M 284 280 L 300 280 L 300 264"></path>
+    <animate attributeName="opacity" values="0.25;1;0.25" keyTimes="0;0.5;1" dur="1.6s" repeatCount="indefinite"></animate>
+  </g>
+
+  <text x="168" y="316" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#4A5578" letter-spacing="0.06em">12,432 reconciled today
+    <tspan fill="#7A88AC"> · </tspan>
+    <tspan fill="#A78CFF">1 review</tspan>
+  </text>
+</svg>

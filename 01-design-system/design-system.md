@@ -12,7 +12,7 @@ When this document conflicts with the visual direction doc, this document wins (
 
 The design system encodes six principles. Every other decision in this document follows from them.
 
-1. **Light primary, dark sections as rhythm devices.** The page is light by default. Dark sections are reserved for scale, performance, and technical moments — never the hero, never the first half of the page.
+1. **Light primary, with a first-class dark theme.** The page is light by default. The user can toggle a full dark theme (Linear pattern) — dark mode is not only a section-rhythm device but a complete first-class theme. Within either mode, dark sections may still appear sparingly as rhythm devices, never on the hero, never on the first half of the page. Every component must be designed to work in both themes; the toggle persists to `localStorage` and respects `prefers-color-scheme` on first visit.
 2. **Stripe as the anchor reference.** Linear, Vercel, Raycast, and Staq inform specific patterns (motion continuity, lighting, layered glass, navigation behaviour). The overall composition, typography, restraint, and rhythm follow Stripe.
 3. **Restraint beats decoration.** Sophistication comes from spacing, scale, and structure — not from heavy typography, complex gradients, or layered ornament.
 4. **Structured asymmetry.** Layouts lean intentionally on a 12-column grid. Perfectly centred SaaS blocks are banned outside the hero composition itself.
@@ -23,7 +23,6 @@ The design system encodes six principles. Every other decision in this document 
 
 These patterns are banned across the system. If a design exploration produces any of them, it has drifted.
 
-- Dark-mode-only experience
 - Centred SaaS blocks outside the hero
 - Crypto-neon lighting, cyberpunk gradients
 - Startup-fintech pill buttons (radius-pill on CTAs)
@@ -37,6 +36,11 @@ These patterns are banned across the system. If a design exploration produces an
 - Dramatic, exclamation-style typography
 - Two-fragment headlines that try to be deep
 - Hover states with scale transforms on cards
+- Feature-card SaaS layouts and floating dashboard widgets
+- Node diagrams, orbital ecosystems, hub-and-spoke graphs
+- Generic AI aesthetics, neon cyberpunk, excessive glow or gradients
+- Boxed layouts everywhere — composition should breathe and be art-directed
+- Bouncing, floating, or purely decorative animation
 
 ### Copy alignment
 
@@ -53,6 +57,20 @@ Every major decision in this document cites a specific reference frame from the 
 - **Vercel** — asymmetric editorial composition, dark deployment visualisation, infrastructure storytelling.
 - **Raycast** — layered glass card behaviour, floating UI surfaces.
 - **Staq** — nav design and dropdown motion specifically; not a primary visual anchor elsewhere.
+
+### Art direction & section hierarchy
+
+The visual benchmark is **Stripe, Vercel, Linear, Raycast, Anthropic** — premium enterprise infrastructure, never generic fintech SaaS. The site must feel infrastructural, intelligent, premium, alive, compositional, and art-directed — not startup, regional, payment-gateway, or generic-SaaS.
+
+The homepage runs a deliberate **progressive revelation** — each major section has one job and must not look like the others:
+
+- **Hero — atmosphere.** Abstract, cinematic, kinetic-gradient ambience. Sets tone, proves nothing literal.
+- **nCore — infrastructure intelligence.** A layered infrastructure illustration on a blueprint field; one AI trace propagating through the layers. Abstract but structural.
+- **Products — operational proof.** A symmetric 3×3 grid of equal-weight modules, each with a small operational UI snippet (not an icon). Practical and UI-led.
+
+Working principles: cinematic but restrained, infrastructure-first, compositional, asymmetric, light-mode first, glass morphism used subtly, kinetic gradients, layered translucency, topology-inspired motion, operational atmosphere, systems thinking.
+
+**Motion vocabulary.** Motion should read as *intelligence propagation* — scan sweeps, infrastructure orchestration, flowing signals, ambient kinetic movement. Never bouncing, floating, or decorative animation. No traveling-dot animations. Respect `prefers-reduced-motion` everywhere.
 
 ---
 
@@ -308,10 +326,14 @@ Sections never share padding boundaries. Each section's bottom padding belongs t
 | --- | --- |
 | Primary CTA | `radius-button` (20px) |
 | Secondary CTA | `radius-button` (20px) |
-| Small button (nav, inline) | `radius-lg` (16px) |
-| Nav bar | `radius-lg` (16px) |
-| Dropdown panel | `radius-lg` (16px) |
+| Nav-bar CTA (e.g. "Talk to us") | `radius-button` (20px) — CTAs share this radius regardless of size |
+| Nav menu item (inline pill, dropdown trigger) | `radius-md` (8px) — these are not CTAs |
+| Dropdown panel (container) | `radius-lg` (16px) |
+| Dropdown card item (nested inside panel) | `radius-md` (8px) — progressive nesting from the panel |
+| Nav bar (container) | `radius-lg` (16px) |
 | Product card | `radius-lg` (16px) |
+| Hero scrim (left side, text container) | `radius-xl` (24px) — glass panels minimum |
+| Hero product card (right side, carousel) | `radius-xl` (24px) — matches scrim |
 | Glass panel | `radius-xl` (24px) |
 | Hero product surface | `radius-xl` (24px) |
 | Large editorial card | `radius-lg` (16px) |
@@ -324,9 +346,20 @@ Sections never share padding boundaries. Each section's bottom padding belongs t
 
 - **Never use `radius-pill` on buttons.** Pill buttons are a startup-fintech signal. CTAs use `radius-button` (20px) — tighter and more institutional than the broader 24px we used in earlier specs.
 - **Buttons sit at 20px specifically.** 24px buttons combined with glass panels, gradients, and Satoshi typography reads slightly AI-startup. 20px is more precise and infrastructural.
+- **CTAs share `radius-button` regardless of size.** The nav-bar "Talk to us" CTA and the hero "Talk to us" CTA use the same 20px radius. Don't shrink it to "match" smaller surrounding pills — CTAs are a different family from nav items.
+- **Hero left scrim and right carousel cards share `radius-xl` (24px).** Both are glass surfaces inside the same hero — they must use the same radius for the glassmorphism to read as one material. The opacity may differ by role (scrim 28% / card 40%) but the radius is locked.
 - **Single-sided borders use `radius-none`.** A border-left accent on a rounded card reads broken — use a separate coloured bar element instead.
 - **Glass panels and product surfaces use `radius-xl` minimum.** Smaller radii on glass make it look like a cropped screenshot.
-- **Nested elements reduce radius progressively.** Card `radius-lg` (16px) → image inside `radius-md` (8px) → button inside `radius-md` (8px).
+- **Nested elements reduce radius progressively.** Card `radius-lg` (16px) → image inside `radius-md` (8px) → button inside `radius-md` (8px). Dropdown panel `radius-lg` (16px) → dropdown card item `radius-md` (8px).
+
+### Rigid enforcement
+
+The radius scale above is exhaustive. The build is expected to use **only these eight tokens**, applied per the component-assignment table.
+
+- **Inline radii are bugs.** Any `rounded-[Npx]` in code where `N` is not in the scale (e.g. `rounded-[7px]`, `rounded-[10px]`, `rounded-[12px]`) is a drift and must be corrected to the nearest token. If the design genuinely needs a value that isn't in the scale, add it to the scale first; never bypass.
+- **One token per component family.** If a button uses `radius-button`, every button across the site uses `radius-button`. If the design demands a smaller button radius for a specific surface, treat that as a request to add a new token to the scale, not as an inline override.
+- **Hero radius is locked.** Both glass surfaces in the hero (left scrim and right carousel card) use `radius-xl` (24px). Any deviation reads as inconsistency in the most-seen part of the site.
+- **Audit on every PR.** Grep for `rounded-\[` in any new component to confirm no inline values slipped in. Tokenised utility classes (`rounded-button`, `rounded-lg`, `rounded-xl`, `rounded-md`, `rounded-sm`, `rounded-pill`) are the only acceptable usage.
 
 ---
 
@@ -554,7 +587,7 @@ Product cards on the bento grid, solution cards, industry cards. Should feel lik
 | Active | Border deepens further, no scale change |
 
 **Rules:**
-- **No coloured backgrounds on standard cards.** White only.
+- **No coloured backgrounds on standard cards by default.** White only. Exception: soft cool-palette tints (≤8% alpha — drawn from `accent-cyan`, `accent-indigo`, `brand-purple`, `brand-primary`) are permitted as card backgrounds on the homepage Products section for visual texture. All other card surfaces remain white.
 - **No drop shadows by default.** Cards sit flat. Shadow appears only on hover.
 - **Icons restrained.** Outline or monochrome filled, in `brand-primary` or `brand-purple`. Never multi-coloured.
 - **Title is `h3` Satoshi 500.** Body is `body` Inter 400. Link/CTA is `body-sm` Inter 500 with arrow glyph (`→`).
@@ -749,6 +782,89 @@ The high-energy moments. Reserved for 2–3 moments on the entire page.
 
 **Implementation:** Hero gradient via SVG `<animate>` on gradient stops or CSS background-position keyframes. Performance budget: 60fps on a 2019 MacBook Pro.
 
+### 9.5.1 AI-native data extraction (sub-pattern of kinetic)
+
+A choreographed loop that demonstrates AI-driven extraction of structured data from a surface — invoice scanning, KYC ingestion, transaction enrichment, fraud screening. Distinct from generic UI animation: feels like a sensor sweep across a document with intelligence emerging in real time. Reserved for product-card visuals that explicitly demonstrate AI processing.
+
+**Reference:** `03-references/brex/brex-invoice-scanning.png` + recorded motion description.
+
+**Composition (always in this order):**
+1. The surface being analysed (document, panel, ledger) sits at rest on glass.
+2. A soft cyan light sweep travels vertically across it.
+3. Corner brackets pulse softly to indicate active tracking.
+4. Extracted-data overlays emerge contextually — scale-up + fade in — once the scan completes.
+5. Hold, fade out, reset, loop.
+
+**Surface materialization (always first):**
+- The surface (document, panel, biometric viewport) doesn't fade in — it **materialises**. Three simultaneous animations make the entry feel weightless and magnetic, like the surface is being pulled into an intelligent processing environment:
+  1. **Scale-up:** `0.85 → 1.0` with `ease-out` spline `0.16 1 0.3 1`. Wrap in a 3-group transform structure (`translate(centerX centerY) > scale-target g > translate(-centerX -centerY) > content`) so it scales around the surface's centre, not the SVG origin.
+  2. **Vertical drift:** translate Y `-12 → 0` on a parent wrapper group, same easing. The surface settles down into position rather than appearing in place. Prevents mechanical pop-in.
+  3. **Blur fade:** a `feGaussianBlur` filter on the scale group with `stdDeviation` animating `3 → 0`. The surface sharpens into focus as it scales — out-of-focus feels intelligent, like the system is bringing the data into clarity.
+- All three animations share the same `keyTimes` and `keySplines` so they finish together at ~300ms.
+- Critically, the surface arrives BEFORE the scan begins — the scan starts after the surface has settled. Skipping the materialization makes the scene feel like a static plate that an animation was bolted onto.
+
+**Scan ripple (not a line, an energy pulse):**
+- The downward sweep is built from **three stacked layers** that travel together. Composed correctly, they read as a luminous ripple flowing through the surface rather than a rigid scanner line.
+  1. **Atmospheric halo** — extra-wide, heavily blurred (`stdDeviation ≥ 7`) cyan gradient, ~80px tall, extends beyond the surface edges. Provides the ambient bloom that bleeds outside the document for the "light bending through glass" feel.
+  2. **Cyan band** — gradient fill, transparent at the leading edge fading to bright cyan (`#22D3EE`) at the trailing edge, ~40px tall. Wrapped in its own bloom filter (`stdDeviation ~3`) for feathered edges. This is the visible body of the sweep.
+  3. **Trailing shadow** — dark navy (`#0E1A33`) gradient, ~0.40 opacity at the top fading to transparent, ~100px tall. Anchored just below the band's trailing edge. The shadow makes the unscanned area below visibly dimmer — reads as the band "casting light forward."
+- All three live INSIDE the surface clip-path so nothing spills outside the document.
+- **Direction:** downward (top → bottom), mirroring how a reader scans a document. Reverse to upward only if the narrative is explicitly about lifting / extracting data — downward is the default.
+- **Travel:** ~1.5s with `calcMode="spline"` and `keySplines="0.4 0 0.6 1"` — fluid, continuous, energy-like rather than rigid linear motion.
+- The composition (halo + band + shadow) is what creates the "ripple" sensation. A single rect with feathered edges feels like a UI animation; the layered composition feels like an AI extracting from the surface in real time.
+
+**Radial variant** (for biometric / face-scan / point-of-focus surfaces):
+- When the surface being analysed is a face, a single object, or any subject without a top-to-bottom reading direction, replace the linear band with **concentric cyan rings expanding outward** from the centre — the Face ID aesthetic.
+- 3 rings staggered ~600ms apart, each animating `r` from a small radius (~14px) outward past the surface boundary (~78px), with `opacity 0.95 → 0` and `stroke-width 1.6 → 0.4` over the same 1.8s span.
+- The rings live inside the same group as the surface (so they scale together during the materialisation phase) and are gated by an outer-group opacity that's only ON during the scan phase (~`0.05 → 0.272` of the cycle).
+- No trailing shadow — radial scans don't have an "unscanned area below" because they have no reading direction.
+- Keep the bracket frame and chip reveal logic identical to the linear variant — only the scan motion changes.
+
+**Corner brackets:**
+- Cyan brackets at each corner of the surface, rendered with a `cyanGlow` drop shadow (not solid stroke) so they read as illuminated.
+- Pulse opacity `0.6 → 1 → 0.6 → 1` twice during the scan phase, then settle at ~0.55 for the remainder of the cycle.
+- Never compete with the scan; they reinforce "actively tracked."
+
+**Extracted call-out reveal:**
+- Combined scale-up + opacity fade-in, using `ease-out` spline `0.16 1 0.3 1` (the premium curve from §9.3).
+- **Parallax / depth hierarchy** is the defining property of this pattern:
+  - **Foreground / primary chip** (the headline extracted value, e.g. vendor + amount): scale `0.88 → 1.0`.
+  - **Background / secondary chips** (lists, status pills): scale `0.90 → 1.0`.
+  - The differential creates the "floating forward in 3D" feel. Without it the motion reads flat.
+- Opacity fade duration: ~0.4s.
+- **Stagger ≥ 300ms between chips.** Never simultaneous. Two chips that appear "together" must still be offset by 250ms minimum.
+- **Exit:** scale `1.0 → 0.94`, opacity `1 → 0`, ~0.7s. Symmetrical but slightly faster than entry.
+
+**Status label** (e.g. "SCAN IN PROCESS..", "ANALYSING…"):
+- Small uppercase, letter-spaced, above the surface.
+- Flickers softly during scan (opacity `0.45 ↔ 0.95`), hides cleanly once the sweep completes.
+
+**Loop structure** (default cadence 7s):
+
+| Phase | Time | What happens |
+| --- | --- | --- |
+| Surface materialisation | 0 → 0.3s | Surface scales `0.85 → 1.0` + drifts `-12 → 0` + blur `3 → 0` + opacity `0 → 1`, all ease-out together |
+| Scan sweep | 0.3 → 1.8s | Halo + cyan band + trailing shadow ripple downward together; status label flickers |
+| Reveal | 2.1 → 3.6s | Extracted chips scale-up + fade-in, staggered ≥ 300ms apart |
+| Hold | 3.6 → 5.5s | Everything at rest |
+| Chip exit | 5.5 → 6.5s | Chips fade and shrink out together |
+| Surface exit | 6.5 → 6.9s | Document fades and shrinks slightly (`1 → 0.96`) |
+| Reset | 6.9 → 7s | All elements at opacity 0; invisible loop boundary |
+
+The bracket pulse runs on its own independent loop (1.6s) throughout the entire cycle, not gated to the scan phase — keeps the surface feeling "actively tracked" even during hold.
+
+**Implementation:**
+- Pure SMIL inside the SVG. Works inside `<img>` tags; no JS or external CSS needed.
+- `<animate>` for opacity / position; `<animateTransform type="scale">` on a nested `<g>` for the scale-up reveal.
+- Always set `calcMode="spline"` + `keySplines` on chip reveals. Linear ease on chip entry is a tell that motion was untouched.
+
+**Rules:**
+- **One AI-native extraction moment per section maximum.** Don't stack two scanning visuals.
+- **Always use cyan (`#22D3EE`) for the scan.** Cyan reads as "sensor / scanner" in the brand vocabulary; violet and blue do not.
+- **Document and chips sit on glass.** No dark backdrop on the SVG itself — it sits on the carousel card's glassmorphism for material parity with sibling cards.
+- **No abrupt fades.** Every chip enters with scale-up + ease-out. Pop-in is a regression.
+- **Respects `prefers-reduced-motion`** — disables to a static end state with all chips visible at scale 1.
+
 ### 9.6 Cinematic motion
 
 Scroll-triggered choreographed reveals.
@@ -817,6 +933,19 @@ It does not disable responsive motion under 200ms (hover, focus) — functional 
 ---
 
 ## 10. Light vs dark mode rules
+
+### 10.0 Theme model
+
+Two first-class themes. The user toggles between them.
+
+- **Light theme** (default on first visit unless `prefers-color-scheme: dark`)
+- **Dark theme** (user-toggleable, Linear pattern)
+
+Every component must render correctly in both themes. The toggle persists to `localStorage` and respects `prefers-color-scheme` on first visit. The section-rhythm rules below (when to use a dark section *within* the light theme, or a light section *within* the dark theme) still apply inside each theme — they govern composition, not theme selection.
+
+Inside each theme:
+- Light theme: `surface-white` and `surface-soft` alternate as section backgrounds; dark sections (`surface-dark`) appear sparingly as rhythm devices per §10.1.
+- Dark theme: `surface-dark` and `surface-dark-elevated` alternate as section backgrounds; light sections appear sparingly as rhythm devices using `surface-white` or `surface-soft`.
 
 ### 10.1 When dark mode is used
 
@@ -888,7 +1017,7 @@ Homepage alternation:
 
 ## Document control
 
-- **Version:** 1.2 (May 2026)
+- **Version:** 1.5 (May 2026)
 - **Owner:** Esha (VP Marketing) and the design system
 - **Authority over:** Visual decisions across nymcard.com
 - **Subordinate to:** NymCard Master Context Document (positioning, voice, copy)
@@ -896,6 +1025,9 @@ Homepage alternation:
 
 ### Change log
 
+- **v1.5 (May 2026):** §5 Radii tightened. (1) Component-radius table expanded with explicit entries for the **hero left scrim**, **hero right carousel card**, **nav-bar CTA**, **nav menu item**, and **dropdown card item** — these were drifting in the build. Both hero glass surfaces now lock to `radius-xl` (24px); nav-bar CTA locks to `radius-button` (20px) regardless of size; nav menu pills and dropdown cards use `radius-md` (8px) via progressive nesting from the parent. (2) New "Rigid enforcement" subsection: inline radii (`rounded-[7px]`, `rounded-[10px]`, etc.) are bugs and must be corrected to a token; one token per component family; grep `rounded-\[` on every PR. The radius scale is exhaustive — every radius in the build must use one of the eight tokens.
+- **v1.4 (May 2026):** §9.5.1 enhanced. (1) **Surface materialisation** replaces the simpler "scale-up reveal": three simultaneous animations (scale `0.85→1`, vertical drift `-12→0`, blur `3→0`) make the surface feel magnetically pulled into place, sharpening into focus rather than fading in. (2) **Scan ripple** replaces the two-layer bloom/glow: now a three-layer composition (atmospheric halo, cyan band with bloom, trailing dark shadow) for a layered ripple sensation with "light bending through glass" depth — feels like AI extraction in real time, not a UI scanner line. (3) **Radial variant** added for biometric / face-scan surfaces — concentric cyan rings expanding from centre, replacing the linear band+shadow; everything else (brackets, chip reveal, materialisation) identical to the linear variant. Identity card uses radial; Commercial Payments uses linear.
+- **v1.3 (May 2026):** Added §9.5.1 "AI-native data extraction" as a sub-pattern of kinetic motion. Codifies the choreographed loop used on the Commercial Payments hero card (and reusable for KYC / fraud / transaction enrichment visuals): soft cyan scan sweep with no hard line, layered Gaussian-blurred glow, corner-bracket pulse, contextual call-out reveal via scale-up (0.88 → 1.0) + ease-out spline, ≥ 300ms stagger between chips, parallax-by-scale-delta for depth hierarchy, 7s loop. Reference anchor: `03-references/brex/brex-invoice-scanning.png`.
 - **v1.2 (May 2026):** Warm accent tokens (`accent-warm-pink`, `accent-soft-orange`) removed. Hero gradient reverted to cool-only stops (`accent-cyan` → `brand-purple` → `brand-primary`). Rationale: NymCard is recognisably blue. Warm accents — even constrained to the hero gradient — diluted brand recognition and pulled the hero composition toward Stripe-mimicry rather than NymCard-discipline. The atmospheric quality that warm tones might have provided is carried by motion (ambient drift, kinetic flow), composition (asymmetric layering, gradient falloff), and product UI — not by colour temperature. Added explicit "the palette is cool only" rule to prevent future drift.
 - **v1.1 (May 2026):** Second-opinion review applied. `display-xl` reduced from 80px to 72px. Button radius reduced from 24px to 20px (new `radius-button` token). Centred-sections ban softened. Layer movement rule added to component principles 8.2. Motion category definitions sharpened.
 - **v1.0 (May 2026):** Initial system. Three-chunk authoring.

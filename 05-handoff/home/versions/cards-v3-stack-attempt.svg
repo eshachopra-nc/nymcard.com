@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336 360" width="336" height="360">
+  <defs>
+    <linearGradient id="vcCardBg" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0%" stop-color="#22D3EE"></stop>
+      <stop offset="32%" stop-color="#5B4FD9"></stop>
+      <stop offset="68%" stop-color="#304DBB"></stop>
+      <stop offset="100%" stop-color="#1F3389"></stop>
+    </linearGradient>
+
+    <linearGradient id="vcCardBgBack" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0%" stop-color="#5B4FD9"></stop>
+      <stop offset="50%" stop-color="#304DBB"></stop>
+      <stop offset="100%" stop-color="#0E1A33"></stop>
+    </linearGradient>
+
+    <linearGradient id="vcCardBgMid" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0%" stop-color="#22D3EE"></stop>
+      <stop offset="50%" stop-color="#5B4FD9"></stop>
+      <stop offset="100%" stop-color="#1F3389"></stop>
+    </linearGradient>
+
+    <linearGradient id="vcSheen2" x1="0" x2="1" y1="0" y2="0" spreadMethod="repeat">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+      <stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.65"></stop>
+      <stop offset="75%" stop-color="#22D3EE" stop-opacity="0.45"></stop>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+      <animate attributeName="x1" values="0;1" dur="11s" repeatCount="indefinite"></animate>
+      <animate attributeName="x2" values="1;2" dur="11s" repeatCount="indefinite"></animate>
+    </linearGradient>
+
+    <linearGradient id="vcSheen3" x1="0" x2="1" y1="0" y2="0" spreadMethod="repeat">
+      <stop offset="0%" stop-color="#5B4FD9" stop-opacity="0"></stop>
+      <stop offset="50%" stop-color="#A78CFF" stop-opacity="0.55"></stop>
+      <stop offset="100%" stop-color="#5B4FD9" stop-opacity="0"></stop>
+      <animate attributeName="x1" values="0;1" dur="15s" repeatCount="indefinite"></animate>
+      <animate attributeName="x2" values="1;2" dur="15s" repeatCount="indefinite"></animate>
+    </linearGradient>
+
+    <linearGradient id="vcChipBase" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"></stop>
+      <stop offset="100%" stop-color="#CBD5E1"></stop>
+    </linearGradient>
+
+    <linearGradient id="vcTopHighlight" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.55"></stop>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+    </linearGradient>
+
+    <filter id="vcBlurM" x="-8%" y="-8%" width="116%" height="116%"><feGaussianBlur stdDeviation="6"></feGaussianBlur></filter>
+    <filter id="vcBlurS" x="-4%" y="-4%" width="108%" height="108%"><feGaussianBlur stdDeviation="1"></feGaussianBlur></filter>
+
+    <filter id="vcCardShadow" x="-20%" y="-15%" width="140%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0E1A33" flood-opacity="0.30"></feDropShadow>
+    </filter>
+
+    <filter id="vcEntryBlur" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="0">
+        <animate attributeName="stdDeviation" values="3;0;0;3;3" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
+      </feGaussianBlur>
+    </filter>
+
+    <clipPath id="vcCardClipFront">
+      <rect x="98" y="46" width="160" height="248" rx="18"></rect>
+    </clipPath>
+  </defs>
+
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 -12;0 0;0 0;0 0;0 -12" keyTimes="0;0.043;0.929;0.99;1" dur="7s" calcMode="spline" keySplines="0.16 1 0.3 1;0 0 1 1;0.4 0 1 1;0 0 1 1" repeatCount="indefinite"></animateTransform>
+    <g transform="translate(168 180)">
+      <g opacity="0" filter="url(#vcEntryBlur)">
+        <animateTransform attributeName="transform" type="scale" values="0.85;1;1;0.97;0.85" keyTimes="0;0.043;0.929;0.99;1" dur="7s" calcMode="spline" keySplines="0.16 1 0.3 1;0 0 1 1;0.4 0 1 1;0 0 1 1" repeatCount="indefinite"></animateTransform>
+        <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
+        <g transform="translate(-168 -180)">
+
+          <g transform="rotate(-10 168 180)" opacity="0.55">
+            <rect x="98" y="46" width="160" height="248" rx="18" fill="url(#vcCardBgBack)" filter="url(#vcCardShadow)"></rect>
+            <path d="M 110 48 H 246" stroke="url(#vcTopHighlight)" stroke-width="1" fill="none"></path>
+          </g>
+
+          <g transform="rotate(-5 168 180)" opacity="0.80">
+            <rect x="98" y="46" width="160" height="248" rx="18" fill="url(#vcCardBgMid)" filter="url(#vcCardShadow)"></rect>
+            <path d="M 110 48 H 246" stroke="url(#vcTopHighlight)" stroke-width="1" fill="none"></path>
+            <g class="sheen-mid" filter="url(#vcBlurM)" opacity="0.50" clip-path="url(#vcCardClipFront)">
+              <path d="M 40 240 C 120 200, 180 180, 240 170 S 320 160, 400 152" fill="none" stroke="url(#vcSheen3)" stroke-width="28" stroke-linecap="round" transform="rotate(-5 168 180)"></path>
+            </g>
+          </g>
+
+          <g>
+            <rect x="98" y="46" width="160" height="248" rx="18" fill="url(#vcCardBg)" filter="url(#vcCardShadow)"></rect>
+
+            <g clip-path="url(#vcCardClipFront)">
+              <g class="sheen-b" filter="url(#vcBlurM)" opacity="0.75">
+                <path d="M 40 240 C 120 200, 180 180, 240 170 S 320 160, 400 152" fill="none" stroke="url(#vcSheen2)" stroke-width="42" stroke-linecap="round"></path>
+              </g>
+              <g class="sheen-c" filter="url(#vcBlurM)" opacity="0.55">
+                <path d="M 40 180 C 120 150, 180 138, 240 130 S 320 120, 400 112" fill="none" stroke="url(#vcSheen3)" stroke-width="30" stroke-linecap="round"></path>
+              </g>
+
+              <g class="sheen-fine" fill="none" stroke="#FFFFFF" stroke-linecap="round" filter="url(#vcBlurS)">
+                <animateTransform attributeName="transform" type="translate" values="0 0;-24 -3;0 0;24 3;0 0" keyTimes="0;0.25;0.5;0.75;1" dur="18s" repeatCount="indefinite"></animateTransform>
+                <path d="M 40 196 C 120 156, 180 142, 240 128 S 320 110, 400 102" stroke-width="1.4" stroke-opacity="0.85"></path>
+                <path d="M 40 218 C 120 174, 180 160, 240 146 S 320 130, 400 124" stroke-width="0.9" stroke-opacity="0.55"></path>
+              </g>
+
+              <path d="M 110 48 H 246" stroke="url(#vcTopHighlight)" stroke-width="1" fill="none"></path>
+            </g>
+
+            <g transform="translate(116 78)">
+              <rect width="38" height="28" rx="5" fill="url(#vcChipBase)"></rect>
+              <rect width="38" height="28" rx="5" fill="#FFFFFF" fill-opacity="0.18"></rect>
+              <g fill="none" stroke="#64748B" stroke-width="0.6" stroke-linecap="round" stroke-opacity="0.85">
+                <rect x="2.5" y="2.5" width="33" height="23" rx="2"></rect>
+                <line x1="2.5" y1="14" x2="35.5" y2="14"></line>
+                <line x1="13" y1="2.5" x2="13" y2="11.5"></line>
+                <line x1="25" y1="2.5" x2="25" y2="11.5"></line>
+                <line x1="13" y1="16.5" x2="13" y2="25.5"></line>
+                <line x1="25" y1="16.5" x2="25" y2="25.5"></line>
+                <rect x="13.5" y="10" width="11" height="8" fill="#64748B" fill-opacity="0.22"></rect>
+              </g>
+            </g>
+
+            <g transform="translate(236 76)" fill="none" stroke="#FFFFFF" stroke-linecap="round">
+              <path d="M 0 -8 A 11 11 0 0 1 0 8" stroke-width="1.8"></path>
+              <path d="M -3 -6 A 7 7 0 0 1 -3 6" stroke-width="1.6" stroke-opacity="0.78"></path>
+              <path d="M -6 -3 A 3 3 0 0 1 -6 3" stroke-width="1.4" stroke-opacity="0.52"></path>
+            </g>
+
+            <text x="178" y="200" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, monospace" font-size="11" font-weight="500" fill="#FFFFFF" fill-opacity="0.80" letter-spacing="0.18em">•••• •••• •••• ••••</text>
+
+            <g transform="translate(116 244)" fill="none" stroke="#FFFFFF" stroke-opacity="0.45" stroke-linecap="round">
+              <line x1="0" y1="0" x2="18" y2="0" stroke-width="0.9"></line>
+              <line x1="0" y1="5" x2="28" y2="5" stroke-width="0.7" stroke-opacity="0.32"></line>
+            </g>
+
+            <g transform="translate(220 248)" fill="none" stroke="#FFFFFF" stroke-opacity="0.55" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12,0 20,5 20,15 12,20 4,15 4,5" stroke-width="1.1"></polygon>
+              <polygon points="12,6 17,8 17,12 12,15 7,12 7,8" stroke-width="0.6" stroke-opacity="0.50"></polygon>
+              <circle cx="12" cy="10" r="1.2" fill="#FFFFFF" fill-opacity="0.65" stroke="none"></circle>
+            </g>
+          </g>
+
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

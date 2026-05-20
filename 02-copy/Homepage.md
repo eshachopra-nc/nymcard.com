@@ -1,5 +1,3 @@
-# Homepage
-
 # 1. Hero
 
 **Headline**
@@ -8,7 +6,7 @@ Full-stack payments infrastructure.
 
 **Subhead**
 
-Card issuing, lending, money movement, settlement, and identity on AI-native infrastructure for the next generation of finance.
+Card issuing, lending, cross-border & FX, settlement, and identity on AI-native infrastructure for the next generation of finance.
 
 **Primary CTA:** Talk to sales
 
@@ -24,22 +22,29 @@ Single-row infinite marquee of grayscale client logos only.
 
 # 3. nCore — The Foundation
 
-**Headline**
+**Eyebrow pill:** nCore
 
-The core that powers every NymCard product.
+**Headline:** One platform across every payment product.
 
-**Body**
-
-nCore is the foundation for every NymCard product. One integration, one customer record, one unified ledger. Built with agentic AI at the core, the platform thinks and learns at the transaction level — automating the logic between issuance and settlement.
+**Body:** Eight products on one infrastructure layer. AI woven through every transaction, one customer record across all of them. nCore replaces the stitched-together vendor stack.
 
 **CTA:** Explore nCore →
 
-## Institutional rails
+## Three-column proof block (sits below the headline/body, beside or below the stack visual)
 
-- **Principal member of Visa and Mastercard.** The connectivity is already there.
-- **Deploy on cloud, on-soil, or on-premise.** All three are native deployment models.
-- **PCI DSS Level 1 and ISO 27001 certified.** Audited annually to the standards institutions require.
-- **Migration powered by Agentic AI.** Move from legacy processors to nCore in weeks, not quarters.
+**Column 1 — Institutional credentials**
+
+Principal member of Visa and Mastercard. PCI DSS Level 1 and ISO 27001 certified.
+
+**Column 2 — Connects to what you already run**
+
+nCore integrates with your core banking, middleware, and existing partner ecosystem.
+
+**Column 3 — Deploy on your terms**
+
+Cloud, on-soil, or on-premise — all three are native deployment models.
+
+**Visual direction:** Vertical product stack on a dark background, eight labeled layers — Issuing, Lending, Cross-Border & FX, Settlement, Reconciliation, Fraud, Risk, Identity. A single cyan AI thread emerges from the left edge and weaves through every layer in one continuous motion, top to bottom and back up. As the thread passes through each layer, the layer's pills briefly pulse cyan in sympathy. The thread settles into a steady, slow pulse — the ambient state. Three-column proof block sits beneath or beside the stack, each column with its own abstract line illustration in white outline with a brand-accent point of light.
 
 ---
 
@@ -49,11 +54,11 @@ nCore is the foundation for every NymCard product. One integration, one customer
 
 Launch virtual and physical card programmes with native processing and real-time controls.
 
-**Embedded Lending**
+**Lending**
 
 Deploy BNPL, revolving credit, and instalments directly into your user journey.
 
-**Money Movement**
+**Cross-Border & FX**
 
 Move funds across borders and rails with integrated FX and real-time settlement.
 
@@ -61,13 +66,13 @@ Move funds across borders and rails with integrated FX and real-time settlement.
 
 Multi-currency liquidity and stablecoin payouts with millisecond finality.
 
-**Commercial Payments**
+**Fraud**
 
-Corporate cards, accounts, and spend controls on a single programmable platform.
+Real-time fraud monitoring, chargeback management, and 3DS authentication at the transaction level.
 
-**Financial Crime**
+**Risk**
 
-Automate fraud prevention, AML, and sanctions screening at the transaction level.
+AML, sanctions screening, and risk controls run inside every transaction path.
 
 **Identity**
 
@@ -85,6 +90,10 @@ Automated matching across products, rails, and currencies, with exceptions flagg
 
 Built for the scale of modern finance.
 
+**Commercial Banking**
+
+A white-label commercial payments platform for SMEs and corporates, delivered with Visa.
+
 **Banking as a Service**
 
 Run your brand on the NymCard regulatory core, with a complete banking stack managed on a single programmable platform.
@@ -96,10 +105,6 @@ Add cards, payments, and credit to the platform your customers already use.
 **Buy Now Pay Later**
 
 Decisioning, origination, servicing, and collections, built into the checkout.
-
-**Cross-Border & Remittance**
-
-Move money across corridors with FX, settlement, and compliance on one product.
 
 ---
 
@@ -130,10 +135,10 @@ Talk to the NymCard team about your product roadmap, regulatory requirements, an
 
 - Card Issuing
 - Embedded Lending
-- Money Movement
+- Cross-Border & FX
 - Settlement
-- Commercial Payments
-- Financial Crime
+- Fraud
+- Risk
 - Identity
 - Reconciliation
 

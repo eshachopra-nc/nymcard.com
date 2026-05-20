@@ -30,21 +30,18 @@
   <path d="M 28 5 H 372" stroke="url(#mmTopBorder)" stroke-width="1" fill="none"></path>
 
   
+  <text x="32" y="44" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#304DBB" letter-spacing="0.08em">Money Movement</text>
   <text x="32" y="80" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="600" fill="#0E1A33" letter-spacing="-0.01em">Send money anywhere,</text>
   <text x="32" y="112" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="600" fill="#0E1A33" letter-spacing="-0.01em">in seconds.</text>
 
-  <g transform="translate(336 22)">
-    <rect width="32" height="32" rx="8" fill="#304DBB" fill-opacity="0.08"></rect>
-    <g transform="translate(16 16)" fill="none" stroke="#304DBB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="2,-8 8,-8 8,-2"></polyline>
-      <polyline points="-2,8 -8,8 -8,2"></polyline>
-      <line x1="8" y1="-8" x2="2" y2="-2"></line>
-      <line x1="-8" y1="8" x2="-2" y2="2"></line>
-    </g>
-  </g>
+  <!-- Expand affordance is rendered as a React overlay (CardExpandChip). -->
 
   <g clip-path="url(#mmClip)">
-    
+
+    <!-- Globe content scaled 1.4x around its own centre so the globe reads as
+         zoomed-in (Stripe money-movement reference). Pills sit OUTSIDE this
+         wrapper so they stay at original size at the bottom of the card. -->
+    <g transform="translate(200 410) scale(1.4) translate(-200 -410)">
     <circle cx="200" cy="410" r="205" fill="url(#mmGlobeGlow)"></circle>
     
     <circle cx="200" cy="410" r="175" fill="none" stroke="#5B4FD9" stroke-width="0.8" stroke-opacity="0.15"></circle>
@@ -84,6 +81,41 @@
 
     
   
+    </g>
+    <!-- /globe-scale wrapper -->
+
+    <!-- Transaction flow — drawn over the (zoomed) globe in screen coords.
+         A faint dashed arc connects two city pulses; a $380 USDC chip rides
+         the same path on a 4s loop, fading in at start and out at end. -->
+    <path d="M 110 310 Q 180 240 290 470" fill="none" stroke="#A78CFF" stroke-opacity="0.45" stroke-width="1.2" stroke-dasharray="3 4"></path>
+
+    <!-- City A — upper-left pulse -->
+    <circle cx="110" cy="310" r="3" fill="none" stroke="#22D3EE" stroke-width="1.4">
+      <animate attributeName="r" values="3;14;3" dur="3.4s" repeatCount="indefinite"></animate>
+      <animate attributeName="stroke-opacity" values="0.8;0;0.8" dur="3.4s" repeatCount="indefinite"></animate>
+    </circle>
+    <circle cx="110" cy="310" r="3.5" fill="#22D3EE"></circle>
+    <circle cx="110" cy="310" r="1.5" fill="#FFFFFF"></circle>
+
+    <!-- City B — lower-right pulse, phase-offset -->
+    <circle cx="290" cy="470" r="3" fill="none" stroke="#22D3EE" stroke-width="1.4">
+      <animate attributeName="r" values="3;14;3" dur="3.4s" begin="1.7s" repeatCount="indefinite"></animate>
+      <animate attributeName="stroke-opacity" values="0.8;0;0.8" dur="3.4s" begin="1.7s" repeatCount="indefinite"></animate>
+    </circle>
+    <circle cx="290" cy="470" r="3.5" fill="#22D3EE"></circle>
+    <circle cx="290" cy="470" r="1.5" fill="#FFFFFF"></circle>
+
+    <!-- Moving $380 USDC chip — animates along the same arc -->
+    <g>
+      <rect x="-35" y="-12" width="70" height="24" rx="8" fill="#FFFFFF" fill-opacity="0.97" stroke="#E5E7EB"></rect>
+      <circle cx="-23" cy="0" r="6" fill="#304DBB"></circle>
+      <text x="-23" y="3" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF">U</text>
+      <text x="-12" y="3" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#0E1A33">$380</text>
+      <text x="14" y="3" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="500" fill="#6B7280">USDC</text>
+      <animateMotion dur="4s" repeatCount="indefinite" rotate="0" path="M 110 310 Q 180 240 290 470"></animateMotion>
+      <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.12;0.82;0.95;1" dur="4s" repeatCount="indefinite"></animate>
+    </g>
+
   <g transform="translate(28 510)">
     <rect width="148" height="32" rx="10" fill="#FFFFFF" fill-opacity="0.95" stroke="#E5E7EB"></rect>
     <rect x="8" y="6" width="20" height="20" rx="5" fill="#304DBB"></rect>

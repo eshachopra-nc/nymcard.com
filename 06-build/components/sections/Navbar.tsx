@@ -11,6 +11,8 @@ import {
   type ProductItem,
   type SimpleItem,
 } from '@/lib/nav-data'
+import { useTheme } from '@/lib/theme-provider'
+import { ThemeToggle } from './ThemeToggle'
 
 /* ═══════════════════════════════════════════════════════
    SHARED GRADIENT DEF
@@ -38,15 +40,15 @@ function ProductCard({ item }: { item: ProductItem }) {
   return (
     <Link
       href={item.href}
-      className="dd-card flex flex-col gap-[5px] p-[14px_16px] rounded-[10px] border border-[#E8EAED] bg-white no-underline"
+      className="dd-card flex flex-col gap-[5px] p-[14px_16px] rounded-[8px] border border-[#E8EAED] bg-white no-underline dark:border-surface-dark-border dark:bg-surface-dark-elevated"
     >
       <div className="flex items-center gap-[8px]">
         <Icon size={16} strokeWidth={1.5} style={{ stroke: 'url(#nc-icon-grad)', flexShrink: 0 } as React.CSSProperties} />
-        <span className="text-[13px] font-[600] text-[#0A0A0A] leading-snug tracking-[-0.01em]">
+        <span className="text-[13px] font-[600] text-[#0A0A0A] leading-snug tracking-[-0.01em] dark:text-white">
           {item.label}
         </span>
       </div>
-      <p className="m-0 text-[12px] font-normal text-[#6B7280] leading-[1.4]">
+      <p className="m-0 text-[12px] font-normal text-[#6B7280] leading-[1.4] dark:text-white/60">
         {item.description}
       </p>
     </Link>
@@ -61,15 +63,15 @@ function SimpleCard({ item }: { item: SimpleItem }) {
   return (
     <Link
       href={item.href}
-      className="dd-card flex flex-col gap-[5px] p-[14px_16px] rounded-[10px] border border-[#E8EAED] bg-white no-underline"
+      className="dd-card flex flex-col gap-[5px] p-[14px_16px] rounded-[8px] border border-[#E8EAED] bg-white no-underline dark:border-surface-dark-border dark:bg-surface-dark-elevated"
     >
       <div className="flex items-center gap-[8px]">
         <Icon size={16} strokeWidth={1.5} style={{ stroke: 'url(#nc-icon-grad)', flexShrink: 0 } as React.CSSProperties} />
-        <span className="text-[13px] font-[600] text-[#0A0A0A] leading-snug tracking-[-0.01em]">
+        <span className="text-[13px] font-[600] text-[#0A0A0A] leading-snug tracking-[-0.01em] dark:text-white">
           {item.label}
         </span>
       </div>
-      <p className="m-0 text-[12px] font-normal text-[#6B7280] leading-[1.4]">
+      <p className="m-0 text-[12px] font-normal text-[#6B7280] leading-[1.4] dark:text-white/60">
         {item.description}
       </p>
     </Link>
@@ -81,7 +83,7 @@ function SimpleCard({ item }: { item: SimpleItem }) {
 ═══════════════════════════════════════════════════════ */
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-[10px] font-[600] tracking-[0.1em] uppercase text-[#6B7280] px-1 mb-[10px]">
+    <div className="text-[10px] font-[600] tracking-[0.1em] uppercase text-[#6B7280] px-1 mb-[10px] dark:text-white/50">
       {children}
     </div>
   )
@@ -144,6 +146,8 @@ export function Navbar() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const [scrolled, setScrolled]     = useState(false)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -190,20 +194,22 @@ export function Navbar() {
 
   const cardStyle: React.CSSProperties = isMaterial
     ? {
-        background:           'rgba(255,255,255,0.7)',
+        background:           isDark ? 'rgba(20,29,54,0.72)' : 'rgba(255,255,255,0.7)',
         backdropFilter:       'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
-        border:               '1px solid rgba(255,255,255,0.8)',
+        border:               isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(255,255,255,0.8)',
         borderRadius:         16,
         boxShadow: isOpen
           ? /* Expanded — deep Tier 3 to make glass pop over hero */
-            '0 8px 24px rgba(14,26,51,0.10), ' +
-            '0 24px 64px rgba(14,26,51,0.14), ' +
-            '0 48px 128px rgba(48,77,187,0.18), ' +
-            'inset 0 1px 0 rgba(255,255,255,0.9)'
+            (isDark
+              ? '0 8px 24px rgba(0,0,0,0.40), 0 24px 64px rgba(0,0,0,0.50), ' +
+                '0 48px 128px rgba(34,211,238,0.10), inset 0 1px 0 rgba(255,255,255,0.06)'
+              : '0 8px 24px rgba(14,26,51,0.10), 0 24px 64px rgba(14,26,51,0.14), ' +
+                '0 48px 128px rgba(48,77,187,0.18), inset 0 1px 0 rgba(255,255,255,0.9)')
           : /* Scrolled only — soft lift */
-            '0 2px 8px rgba(14,26,51,0.04), ' +
-            '0 8px 24px rgba(14,26,51,0.06)',
+            (isDark
+              ? '0 2px 8px rgba(0,0,0,0.30), 0 8px 24px rgba(0,0,0,0.35)'
+              : '0 2px 8px rgba(14,26,51,0.04), 0 8px 24px rgba(14,26,51,0.06)'),
       }
     : {
         background:           'transparent',
@@ -248,7 +254,7 @@ export function Navbar() {
               width={130}
               height={18}
               priority
-              className="h-[20px] w-auto"
+              className="h-[20px] w-auto dark:brightness-0 dark:invert"
             />
           </Link>
 
@@ -259,12 +265,12 @@ export function Navbar() {
                   aria-haspopup="true"
                   aria-expanded={activeMenu === navItem.id}
                   className={`
-                    inline-flex items-center gap-[3px] px-[13px] py-[7px] rounded-[7px]
+                    inline-flex items-center gap-[3px] px-[13px] py-[7px] rounded-[8px]
                     text-[14px] font-[500] border-none bg-transparent cursor-pointer font-sans
                     transition-colors duration-[80ms] whitespace-nowrap
                     ${activeMenu === navItem.id
-                      ? 'text-[#304DBB] bg-[rgba(48,77,187,0.05)]'
-                      : 'text-[#0A0A0A] hover:text-[#304DBB] hover:bg-[rgba(48,77,187,0.05)]'}
+                      ? 'text-[#304DBB] bg-[rgba(48,77,187,0.05)] dark:text-accent-cyan dark:bg-white/[0.07]'
+                      : 'text-[#0A0A0A] hover:text-[#304DBB] hover:bg-[rgba(48,77,187,0.05)] dark:text-white/90 dark:hover:text-accent-cyan dark:hover:bg-white/[0.07]'}
                   `}
                 >
                   {navItem.label}
@@ -272,7 +278,9 @@ export function Navbar() {
                     size={12}
                     strokeWidth={1.75}
                     className={`flex-shrink-0 transition-transform duration-[100ms] ${
-                      activeMenu === navItem.id ? 'rotate-180 text-[#304DBB]' : 'text-[#9CA3AF]'
+                      activeMenu === navItem.id
+                        ? 'rotate-180 text-[#304DBB] dark:text-accent-cyan'
+                        : 'text-[#9CA3AF] dark:text-white/50'
                     }`}
                   />
                 </button>
@@ -280,18 +288,20 @@ export function Navbar() {
             ))}
           </nav>
 
-          <Link
-            href="/contact"
-            className="inline-flex items-center px-[18px] py-[8px] rounded-[24px] text-[13.5px] font-[500] text-white no-underline border-none cursor-pointer flex-shrink-0 z-10 transition-[transform,box-shadow] duration-[200ms] hover:-translate-y-[1px] hover:scale-[1.02]"
-            style={{
-              background: 'linear-gradient(135deg, #0E1A33 0%, #304DBB 100%)',
-              boxShadow:  '0 2px 8px rgba(14,26,51,0.20)',
-            }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(48,77,187,0.35)' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 8px rgba(14,26,51,0.20)' }}
-          >
-            Talk to Sales
-          </Link>
+          {/* Nav-bar CTA — uses radius-button (20px) per design-system §5.
+              All CTAs across the site share this radius regardless of size;
+              navigation buttons and dropdown items use smaller radii since
+              they are not CTAs. Solid brand-navy fill with white text and
+              opacity hover, per §8.9. */}
+          <div className="z-10 flex flex-shrink-0 items-center gap-2">
+            <ThemeToggle />
+            <Link
+              href="/contact"
+              className="inline-flex items-center rounded-button bg-brand-navy px-5 py-2 text-sm font-medium text-white no-underline transition-opacity hover:opacity-90 dark:bg-accent-cyan dark:text-brand-navy"
+            >
+              Talk to us
+            </Link>
+          </div>
         </div>
 
         {/* ── Dropdown — inside the SAME card, no layout shift ── */}

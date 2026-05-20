@@ -19,17 +19,22 @@ export function RibbonKinetic() {
   const reduced = useReducedMotion();
   const t = useTime();
 
+  // Amplitudes reduced from the previous pass so the hero ribbon reads as
+  // quiet ambient atmosphere rather than competing kinetic. design-system.md
+  // §9.4 caps ambient amplitude at 1–8px / 0.1–0.4 opacity; we sit on the
+  // low end of that range now (10/6/0.01/0.3) so the carousel rotation and
+  // counter ticker can take the visual lead.
   const x = useTransform(t, (v) =>
-    reduced ? 0 : Math.sin((v / 26000) * 2 * Math.PI) * 18,
+    reduced ? 0 : Math.sin((v / 26000) * 2 * Math.PI) * 10,
   );
   const y = useTransform(t, (v) =>
-    reduced ? 0 : Math.cos((v / 21000) * 2 * Math.PI) * 10,
+    reduced ? 0 : Math.cos((v / 21000) * 2 * Math.PI) * 6,
   );
   const scale = useTransform(t, (v) =>
-    reduced ? 1.05 : 1.05 + Math.sin((v / 14000) * 2 * Math.PI) * 0.02,
+    reduced ? 1.04 : 1.04 + Math.sin((v / 14000) * 2 * Math.PI) * 0.01,
   );
   const rotate = useTransform(t, (v) =>
-    reduced ? 0 : Math.sin((v / 33000) * 2 * Math.PI) * 0.5,
+    reduced ? 0 : Math.sin((v / 33000) * 2 * Math.PI) * 0.3,
   );
 
   return (

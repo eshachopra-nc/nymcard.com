@@ -352,7 +352,7 @@ export const tokens = {
     "none": "0",
     "sm": "4px",
     "md": "8px",
-    "button": "20px",
+    "button": "8px",
     "lg": "16px",
     "xl": "24px",
     "2xl": "32px",

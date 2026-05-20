@@ -1,0 +1,159 @@
+<svg width="640" height="850" viewBox="0 0 640 850" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>nCore layered infrastructure</title>
+  <desc>Translucent glass infrastructure stack: an elevated nCore plane above nine floating diamond layers, with a soft scan sweep moving down the stack.</desc>
+
+  <defs>
+    <filter id="bigBlur" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="60"/></filter>
+    <filter id="medBlur" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="smBlur" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+
+    <linearGradient id="gTop" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.92"/>
+      <stop offset="0.5" stop-color="#EAF4FF" stop-opacity="0.66"/>
+      <stop offset="1" stop-color="#BAE6FD" stop-opacity="0.44"/>
+    </linearGradient>
+    <linearGradient id="gEdgeL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#90B6DE" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#A8CAEA" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="gEdgeR" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D9ECFC" stop-opacity="0.86"/>
+      <stop offset="1" stop-color="#8FBAE8" stop-opacity="0.58"/>
+    </linearGradient>
+    <linearGradient id="gnTop" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.97"/>
+      <stop offset="1" stop-color="#DCEEFE" stop-opacity="0.82"/>
+    </linearGradient>
+    <linearGradient id="gnEdgeL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#BBD4EE" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#C9DCF0" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="gnEdgeR" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EAF4FF" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#B6D2F0" stop-opacity="0.78"/>
+    </linearGradient>
+    <radialGradient id="gScan" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#EAF4FF" stop-opacity="0.95"/>
+      <stop offset="0.45" stop-color="#7FC4F5" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#60A5FA" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gAtm" cx="0.5" cy="0.42" r="0.62">
+      <stop offset="0" stop-color="#DCEBFF" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#DCEBFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <clipPath id="stackClip"><rect x="60" y="236" width="520" height="576"/></clipPath>
+
+    <style>
+      .scan{animation:scan 5.6s cubic-bezier(.42,0,.4,1) infinite}
+      @keyframes scan{
+        0%{transform:translateY(-286px);opacity:0}
+        9%{opacity:1}
+        91%{opacity:1}
+        100%{transform:translateY(286px);opacity:0}
+      }
+      @media (prefers-reduced-motion:reduce){
+        .scan{animation:none;opacity:.42;transform:translateY(0)}
+      }
+      .lbl{font-family:Inter,Arial,sans-serif;font-size:15.5px;font-weight:560;fill:#14224C}
+      .ncore{font-family:Inter,Arial,sans-serif;font-size:46px;font-weight:740;fill:#101B3D;letter-spacing:-1.6px}
+      .ico{fill:none;stroke:#1E3A8A;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+
+  <!-- atmosphere -->
+  <ellipse cx="330" cy="370" rx="360" ry="420" fill="url(#gAtm)"/>
+  <ellipse cx="330" cy="430" rx="300" ry="340" fill="#60A5FA" fill-opacity="0.10" filter="url(#bigBlur)"/>
+
+  <!-- blueprint guides -->
+  <g stroke="#60A5FA" stroke-opacity="0.07" stroke-width="1">
+    <path d="M120 70 V806 M210 70 V806 M300 70 V806 M390 70 V806 M480 70 V806"/>
+  </g>
+  <g stroke="#60A5FA" stroke-opacity="0.05" stroke-width="1">
+    <path d="M60 250 H600 M60 520 H600 M60 760 H600"/>
+  </g>
+
+  <!-- soft white haze behind the stack -->
+  <ellipse cx="326" cy="500" rx="248" ry="320" fill="#FFFFFF" fill-opacity="0.5" filter="url(#bigBlur)"/>
+
+  <!-- glass stack -->
+  <g>
+    <!-- nCore plane (elevated) -->
+    <ellipse cx="326" cy="232" rx="210" ry="46" fill="#9CC4EE" fill-opacity="0.34" filter="url(#medBlur)"/>
+    <path d="M86 150 L326 202 L326 222 L86 170 Z" fill="url(#gnEdgeL)"/>
+    <path d="M326 202 L566 150 L566 170 L326 222 Z" fill="url(#gnEdgeR)"/>
+    <path d="M326 98 L566 150 L326 202 L86 150 Z" fill="url(#gnTop)" stroke="#FFFFFF" stroke-width="1.4"/>
+    <path d="M326 98 L566 150" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="1.6"/>
+
+    <!-- 9 diamond layers -->
+    <!-- L1 Cards -->
+    <g><path d="M118 286 L326 330 L326 343 L118 299 Z" fill="url(#gEdgeL)"/><path d="M326 330 L534 286 L534 299 L326 343 Z" fill="url(#gEdgeR)"/><path d="M326 242 L534 286 L326 330 L118 286 Z" fill="url(#gTop)" stroke="#FFFFFF" stroke-opacity="0.66" stroke-width="1.1"/><path d="M326 242 L534 286" stroke="#FFFFFF" stroke-opacity="0.78" stroke-width="1.3"/></g>
+    <!-- L2 Lending -->
+    <g><path d="M118 344 L326 388 L326 401 L118 357 Z" fill="url(#gEdgeL)"/><path d="M326 388 L534 344 L534 357 L326 401 Z" fill="url(#gEdgeR)"/><path d="M326 300 L534 344 L326 388 L118 344 Z" fill="url(#gTop)" stroke="#FFFFFF" stroke-opacity="0.66" stroke-width="1.1"/><path d="M326 300 L534 344" stroke="#FFFFFF" stroke-opacity="0.78" stroke-width="1.3"/></g>
+    <!-- L3 Cross-Border & FX -->
+    <g><path d="M118 402 L326 446 L326 459 L118 415 Z" fill="url(#gEdgeL)"/><path d="M326 446 L534 402 L534 415 L326 459 Z" fill="url(#gEdgeR)"/><path d="M326 358 L534 402 L326 446 L118 402 Z" fill="url(#gTop)" stroke="#FFFFFF" stroke-opacity="0.66" stroke-width="1.1"/><path d="M326 358 L534 402" stroke="#FFFFFF" stroke-opacity="0.78" stroke-width="1.3"/></g>
+    <!-- L4 Identity -->
+    <g><path d="M118 460 L326 504 L326 517 L118 473 Z" fill="url(#gEdgeL)"/><path d="M326 504 L534 460 L534 473 L326 517 Z" fill="url(#gEdgeR)"/><path d="M326 416 L534 460 L326 504 L118 460 Z" fill="url(#gTop)" stroke="#FFFFFF" stroke-opacity="0.66" stroke-width="1.1"/><path d="M326 416 L534 460" stroke="#FFFFFF" stroke-opacity="0.78" stroke-width="1.3"/></g>
+    <!-- L5 Fraud -->
+    <g><path d="M118 518 L326 562 L326 575 L118 531 Z" fill="url(#gEdgeL)"/><path d="M326 562 L534 518 L534 531 L326 575 Z" fill="url(#gEdgeR)"/><path d="M326 474 L534 518 L326 562 L118 518 Z" fill="url(#gTop)" stroke="#FFFFFF" stroke-opacity="0.66" stroke-width="1.1"/><path d="M326 474 L534 518" stroke="#FFFFFF" stroke-opacity="0.78" stroke-width="1.3"/></g>
+    <!-- L6 Risk -->
+    <g><path d="M118 576 L326 620 L326 633 L118 589 Z" fill="url(#gEdgeL)"/><path d="M326 620 L534 576 L534 589 L326 633 Z" fill="url(#gEdgeR)"/><path d="M326 532 L534 576 L326 620 L118 576 Z" fill="url(#gTop)" stroke="#FFFFFF" stroke-opacity="0.66" stroke-width="1.1"/><path d="M326 532 L534 576" stroke="#FFFFFF" stroke-opacity="0.78" stroke-width="1.3"/></g>
+    <!-- L7 3D Secure -->
+    <g><path d="M118 634 L326 678 L326 691 L118 647 Z" fill="url(#gEdgeL)"/><path d="M326 678 L534 634 L534 647 L326 691 Z" fill="url(#gEdgeR)"/><path d="M326 590 L534 634 L326 678 L118 634 Z" fill="url(#gTop)" stroke="#FFFFFF" stroke-opacity="0.66" stroke-width="1.1"/><path d="M326 590 L534 634" stroke="#FFFFFF" stroke-opacity="0.78" stroke-width="1.3"/></g>
+    <!-- L8 Settlement -->
+    <g><path d="M118 692 L326 736 L326 749 L118 705 Z" fill="url(#gEdgeL)"/><path d="M326 736 L534 692 L534 705 L326 749 Z" fill="url(#gEdgeR)"/><path d="M326 648 L534 692 L326 736 L118 692 Z" fill="url(#gTop)" stroke="#FFFFFF" stroke-opacity="0.66" stroke-width="1.1"/><path d="M326 648 L534 692" stroke="#FFFFFF" stroke-opacity="0.78" stroke-width="1.3"/></g>
+    <!-- L9 Reconciliation -->
+    <g><path d="M118 750 L326 794 L326 807 L118 763 Z" fill="url(#gEdgeL)"/><path d="M326 794 L534 750 L534 763 L326 807 Z" fill="url(#gEdgeR)"/><path d="M326 706 L534 750 L326 794 L118 750 Z" fill="url(#gTop)" stroke="#FFFFFF" stroke-opacity="0.66" stroke-width="1.1"/><path d="M326 706 L534 750" stroke="#FFFFFF" stroke-opacity="0.78" stroke-width="1.3"/></g>
+  </g>
+
+  <!-- scan sweep -->
+  <g clip-path="url(#stackClip)">
+    <g class="scan">
+      <ellipse cx="326" cy="518" rx="262" ry="40" fill="url(#gScan)" filter="url(#medBlur)"/>
+      <ellipse cx="326" cy="518" rx="222" ry="11" fill="#CDE8FF" fill-opacity="0.72" filter="url(#smBlur)"/>
+      <ellipse cx="326" cy="518" rx="206" ry="2.6" fill="#FFFFFF" fill-opacity="0.95"/>
+    </g>
+  </g>
+
+  <!-- labels -->
+  <g>
+    <text class="ncore" x="326" y="166" text-anchor="middle">nCore</text>
+
+    <g transform="translate(150 275)">
+      <g class="ico"><rect x="0" y="3" width="17" height="11.5" rx="2"/><path d="M0 7.4 H17"/></g>
+      <text class="lbl" x="30" y="13">Cards</text>
+    </g>
+    <g transform="translate(150 333)">
+      <g class="ico"><path d="M1.5 6.6 L9.5 1.8 L17.5 6.6"/><path d="M3.6 6.6 V14 M7.5 6.6 V14 M11.5 6.6 V14 M15.4 6.6 V14"/><path d="M1.6 14 H17.4 M0.4 16.6 H18.6"/></g>
+      <text class="lbl" x="30" y="13">Lending</text>
+    </g>
+    <g transform="translate(150 391)">
+      <g class="ico"><circle cx="9.5" cy="9.5" r="8"/><path d="M1.5 9.5 H17.5 M9.5 1.5 V17.5"/><path d="M9.5 1.5 C4.6 4 4.6 15 9.5 17.5 C14.4 15 14.4 4 9.5 1.5 Z"/></g>
+      <text class="lbl" x="30" y="13">Cross-Border &amp; FX</text>
+    </g>
+    <g transform="translate(150 449)">
+      <g class="ico"><path d="M3.4 8 a6.4 6.4 0 0 1 12.8 0"/><path d="M5.7 10.4 a4.1 4.1 0 0 1 8.2 0 v3.4"/><path d="M8 11 a1.8 1.8 0 0 1 3.6 0 v4.6"/><path d="M9.8 1.6 a8.4 8.4 0 0 1 8.4 8.4"/></g>
+      <text class="lbl" x="30" y="13">Identity</text>
+    </g>
+    <g transform="translate(150 507)">
+      <g class="ico"><path d="M9.5 1.4 L16.6 4 V9.2 C16.6 13.8 13.6 17.4 9.5 18.8 C5.4 17.4 2.4 13.8 2.4 9.2 V4 Z"/><path d="M6.4 9.6 L8.8 12 L13 7.4"/></g>
+      <text class="lbl" x="30" y="13">Fraud</text>
+    </g>
+    <g transform="translate(150 565)">
+      <g class="ico"><path d="M9.5 1.6 L18.4 17 H0.6 Z"/><path d="M9.5 7 V11.4 M9.5 13.8 V14"/></g>
+      <text class="lbl" x="30" y="13">Risk</text>
+    </g>
+    <g transform="translate(150 623)">
+      <g class="ico"><rect x="2.4" y="8.2" width="14.2" height="10.4" rx="2.2"/><path d="M5.4 8.2 V5 a4.1 4.1 0 0 1 8.2 0 V8.2"/><path d="M9.5 12 V14.8"/></g>
+      <text class="lbl" x="30" y="13">3D Secure</text>
+    </g>
+    <g transform="translate(150 681)">
+      <g class="ico"><path d="M3.4 1.6 H12 L16 5.6 V18.4 H3.4 Z"/><path d="M12 1.6 V5.6 H16"/><path d="M6.4 9.4 H13 M6.4 12.4 H13 M6.4 15.4 H10.4"/></g>
+      <text class="lbl" x="30" y="13">Settlement</text>
+    </g>
+    <g transform="translate(150 739)">
+      <g class="ico"><path d="M2.6 7.6 A8 8 0 0 1 16.6 4.6"/><path d="M16.8 0.8 V5.2 H12.4"/><path d="M16.4 11.4 A8 8 0 0 1 2.4 14.4"/><path d="M2.2 18.2 V13.8 H6.6"/></g>
+      <text class="lbl" x="30" y="13">Reconciliation</text>
+    </g>
+  </g>
+</svg>

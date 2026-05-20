@@ -32,8 +32,8 @@ type SectionProps = {
 };
 
 const BG: Record<NonNullable<SectionProps["bg"]>, string> = {
-  white: "bg-surface-white",
-  soft: "bg-surface-soft",
+  white: "bg-surface-white dark:bg-surface-dark-base",
+  soft: "bg-surface-soft dark:bg-surface-dark-base",
   navy: "bg-brand-navy",
 };
 

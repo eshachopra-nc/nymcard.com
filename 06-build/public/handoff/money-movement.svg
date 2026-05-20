@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336 360" width="336" height="360">
+  <defs>
+    <linearGradient id="mmBgBase" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"></stop>
+      <stop offset="100%" stop-color="#EEF1FB"></stop>
+    </linearGradient>
+    <radialGradient id="mmBgCyan" cx="15%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.28"></stop>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"></stop>
+    </radialGradient>
+    <radialGradient id="mmBgViolet" cx="90%" cy="85%" r="70%">
+      <stop offset="0%" stop-color="#5B4FD9" stop-opacity="0.30"></stop>
+      <stop offset="100%" stop-color="#5B4FD9" stop-opacity="0"></stop>
+    </radialGradient>
+    <radialGradient id="mmBgBlue" cx="55%" cy="100%" r="60%">
+      <stop offset="0%" stop-color="#304DBB" stop-opacity="0.18"></stop>
+      <stop offset="100%" stop-color="#304DBB" stop-opacity="0"></stop>
+    </radialGradient>
+    <linearGradient id="mmBgRibbon" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+      <stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.65"></stop>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+    </linearGradient>
+
+    <linearGradient id="mmArcA" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0"></stop>
+      <stop offset="20%" stop-color="#22D3EE" stop-opacity="0.95"></stop>
+      <stop offset="100%" stop-color="#304DBB" stop-opacity="0.85"></stop>
+    </linearGradient>
+    <linearGradient id="mmArcB" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5B4FD9" stop-opacity="0.85"></stop>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"></stop>
+    </linearGradient>
+    <linearGradient id="mmArcC" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#304DBB" stop-opacity="0"></stop>
+      <stop offset="50%" stop-color="#5B4FD9" stop-opacity="0.85"></stop>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0.85"></stop>
+    </linearGradient>
+
+    <linearGradient id="mmChipFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0E1A33"></stop>
+      <stop offset="100%" stop-color="#1F2C4D"></stop>
+    </linearGradient>
+
+    <path id="mmPathA" d="M 88 210 Q 168 80 248 138" fill="none" stroke="none"></path>
+    <path id="mmPathC" d="M 105 130 Q 170 38 240 220" fill="none" stroke="none"></path>
+    <path id="mmPathD" d="M 80 170 Q 170 322 238 248" fill="none" stroke="none"></path>
+
+    <filter id="mmDotGlow" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="1.8" result="blur"></feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="blur"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+
+    <filter id="mmChipShadow" x="-30%" y="-50%" width="160%" height="200%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0E1A33" flood-opacity="0.32"></feDropShadow>
+    </filter>
+  </defs>
+
+  <g fill="none" stroke="#1F3389" stroke-width="1">
+    <circle cx="168" cy="192" r="130" stroke-opacity="0.55"></circle>
+    <ellipse cx="168" cy="192" rx="105" ry="130" stroke-opacity="0.28"></ellipse>
+    <ellipse cx="168" cy="192" rx="70" ry="130" stroke-opacity="0.22"></ellipse>
+    <ellipse cx="168" cy="192" rx="35" ry="130" stroke-opacity="0.18"></ellipse>
+    <line x1="168" y1="62" x2="168" y2="322" stroke-opacity="0.18"></line>
+    <ellipse cx="168" cy="192" rx="130" ry="18" stroke-opacity="0.34"></ellipse>
+    <ellipse cx="168" cy="155" rx="124" ry="14" stroke-opacity="0.24"></ellipse>
+    <ellipse cx="168" cy="229" rx="124" ry="14" stroke-opacity="0.24"></ellipse>
+    <ellipse cx="168" cy="115" rx="100" ry="10" stroke-opacity="0.18"></ellipse>
+    <ellipse cx="168" cy="269" rx="100" ry="10" stroke-opacity="0.18"></ellipse>
+    <ellipse cx="168" cy="82" rx="62" ry="6" stroke-opacity="0.16"></ellipse>
+    <ellipse cx="168" cy="302" rx="62" ry="6" stroke-opacity="0.16"></ellipse>
+  </g>
+
+  <g fill="none" stroke="#1F3389" stroke-opacity="0.22" stroke-width="1" stroke-linecap="round">
+    <path d="M 88 210 Q 168 80 248 138"></path>
+    <path d="M 105 130 Q 170 38 240 220"></path>
+    <path d="M 80 170 Q 170 322 238 248"></path>
+  </g>
+
+  <path d="M 88 210 Q 168 80 248 138" fill="none" stroke="url(#mmArcA)" stroke-width="2" stroke-linecap="round" stroke-dasharray="56 220">
+    <animate attributeName="stroke-dashoffset" values="276;0" dur="5s" repeatCount="indefinite"></animate>
+  </path>
+  <path d="M 105 130 Q 170 38 240 220" fill="none" stroke="url(#mmArcC)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="40 200">
+    <animate attributeName="stroke-dashoffset" values="240;0" dur="6s" repeatCount="indefinite"></animate>
+  </path>
+  <path d="M 80 170 Q 170 322 238 248" fill="none" stroke="url(#mmArcB)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="44 220">
+    <animate attributeName="stroke-dashoffset" values="264;0" dur="5.5s" repeatCount="indefinite"></animate>
+  </path>
+
+  <g transform="translate(88 210)">
+    <circle r="3" fill="#22D3EE" opacity="0.7">
+      <animate attributeName="r" values="3;14" dur="2.4s" repeatCount="indefinite"></animate>
+      <animate attributeName="opacity" values="0.7;0" dur="2.4s" repeatCount="indefinite"></animate>
+    </circle>
+    <circle r="3.2" fill="#22D3EE"></circle>
+    <circle r="1.4" fill="#FFFFFF"></circle>
+  </g>
+  <g transform="translate(248 138)">
+    <circle r="3" fill="#5B4FD9" opacity="0.7">
+      <animate attributeName="r" values="3;14" dur="2.4s" begin="1.2s" repeatCount="indefinite"></animate>
+      <animate attributeName="opacity" values="0.7;0" dur="2.4s" begin="1.2s" repeatCount="indefinite"></animate>
+    </circle>
+    <circle r="3.2" fill="#5B4FD9"></circle>
+    <circle r="1.4" fill="#FFFFFF"></circle>
+  </g>
+  <g transform="translate(105 130)">
+    <circle r="2.5" fill="#5B4FD9"></circle>
+    <circle r="1.1" fill="#FFFFFF"></circle>
+  </g>
+  <g transform="translate(240 220)">
+    <circle r="2.5" fill="#22D3EE"></circle>
+    <circle r="1.1" fill="#FFFFFF"></circle>
+  </g>
+  <g transform="translate(80 170)">
+    <circle r="2.2" fill="#22D3EE"></circle>
+  </g>
+  <g transform="translate(238 248)">
+    <circle r="2.2" fill="#22D3EE"></circle>
+  </g>
+
+  <circle r="2.5" fill="#22D3EE" filter="url(#mmDotGlow)">
+    <animateMotion dur="4s" begin="0.5s" repeatCount="indefinite">
+      <mpath href="#mmPathC"></mpath>
+    </animateMotion>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="4s" begin="0.5s" repeatCount="indefinite"></animate>
+  </circle>
+
+  <g filter="url(#mmChipShadow)">
+    <g>
+      <rect x="-32" y="-14" width="64" height="28" rx="14" fill="url(#mmChipFill)" stroke="#22D3EE" stroke-opacity="0.55"></rect>
+      <text x="-19" y="4" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="#22D3EE" text-anchor="middle">$</text>
+      <text x="9" y="3.5" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.04em">USD</text>
+      <animateMotion dur="5s" repeatCount="indefinite">
+        <mpath href="#mmPathA"></mpath>
+      </animateMotion>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.88;1" dur="5s" repeatCount="indefinite"></animate>
+    </g>
+  </g>
+
+  <g filter="url(#mmChipShadow)">
+    <g opacity="0">
+      <rect x="-32" y="-14" width="64" height="28" rx="14" fill="url(#mmChipFill)" stroke="#5B4FD9" stroke-opacity="0.55"></rect>
+      <text x="-19" y="4" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="#A78CFF" text-anchor="middle">€</text>
+      <text x="9" y="3.5" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.04em">EUR</text>
+      <animateMotion dur="5s" repeatCount="indefinite" calcMode="linear" keyPoints="1;0" keyTimes="0;1">
+        <mpath href="#mmPathD"></mpath>
+      </animateMotion>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.88;1" dur="5s" repeatCount="indefinite"></animate>
+    </g>
+  </g>
+</svg>

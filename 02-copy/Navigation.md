@@ -44,7 +44,7 @@ Debit, credit, prepaid cards
 
 Decisioning and servicing infrastructure
 
-**Money Movement**
+**Cross-Border & FX**
 
 Domestic and cross-border payments
 

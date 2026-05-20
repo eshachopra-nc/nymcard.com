@@ -22,11 +22,11 @@ export function TrustBar() {
   return (
     <section
       aria-label="Trusted clients"
-      className="relative bg-surface-white border-y border-surface-border-subtle/40 h-20 lg:h-24 overflow-hidden"
+      className="relative bg-surface-white border-y border-surface-border-subtle/40 h-20 lg:h-24 overflow-hidden dark:bg-surface-dark-base dark:border-surface-dark-border"
     >
       {/* Edge fade gradients */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-surface-white to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-surface-white to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-surface-white to-transparent dark:from-surface-dark-base" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-surface-white to-transparent dark:from-surface-dark-base" />
 
       {reduced ? (
         // Reduced motion: first 6 logos, static, centered.
