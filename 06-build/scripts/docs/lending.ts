@@ -6,7 +6,7 @@ export const lendingDoc = {
   title: "Lending",
   slug: { _type: "slug", current: "lending" },
   metaTitle:
-    "Lending — Credit Infrastructure for BNPL, Installment, and Revolving Credit | NymCard",
+    "Lending, Credit Infrastructure for BNPL, Installment, and Revolving Credit | NymCard",
   metaDescription:
     "Launch BNPL, installment, revolving credit, and working capital programs on nCore. Configure underwriting, disbursement, and collections through one platform. NymCard provides the credit infrastructure; you retain the lending relationship.",
   hero: {
@@ -45,7 +45,7 @@ export const lendingDoc = {
         { eyebrow: "Decisioning", heading: "Decisioning", description: "Connect bureaus, open banking data, or your own scoring model.", span: 3, uiLabel: "Decision rules" },
         { eyebrow: "Disbursement", heading: "Disbursement", description: "Disburse to cards, accounts, or wallets in the same session.", span: 3, uiLabel: "Disbursement targets" },
         { eyebrow: "Collections", heading: "Collections", description: "Automate billing cycles, repayment, and early delinquency intervention.", span: 3, uiLabel: "Billing cycle" },
-        { eyebrow: "Repayment", heading: "Repayment structures", description: "Run conventional interest, flat fee, or reducing balance structures — with the schedule and pricing logic that fits each program.", span: 6, uiLabel: "Repayment schedule" },
+        { eyebrow: "Repayment", heading: "Repayment structures", description: "Run conventional interest, flat fee, or reducing balance structures, with the schedule and pricing logic that fits each program.", span: 6, uiLabel: "Repayment schedule" },
       ],
       "cap",
     ),
@@ -65,7 +65,7 @@ export const lendingDoc = {
     ),
     companion: {
       heading: "Decisioning you can defend",
-      body: "Bureau, open banking, and transaction-history signals combine with your own scoring model — every decision is logged with the rules and inputs that produced it.",
+      body: "Bureau, open banking, and transaction-history signals combine with your own scoring model, every decision is logged with the rules and inputs that produced it.",
       link: { label: "Read the underwriting docs", href: "/docs/underwriting" },
     },
   },
@@ -88,7 +88,7 @@ export const lendingDoc = {
   deployment: {
     eyebrow: "Deployment",
     headline: "Deploy in the cloud, on-soil, or on-premise.",
-    body: "Three deployment models on the same platform — pick the one that fits your regulatory and architectural requirements.",
+    body: "Three deployment models on the same platform, pick the one that fits your regulatory and architectural requirements.",
     items: withKeys(
       [
         { eyebrow: "Cloud", heading: "Cloud", description: "Multi-region, NymCard-hosted, fully managed." },
@@ -101,7 +101,7 @@ export const lendingDoc = {
   migration: {
     eyebrow: "Migration",
     headline: "Migrate from legacy infrastructure with agentic AI.",
-    body: "Discovery, mapping, configuration, parallel run, and cutover — handled by AI agents alongside your team. Existing lending portfolios, books, and credit programs all supported.",
+    body: "Discovery, mapping, configuration, parallel run, and cutover, handled by AI agents alongside your team. Existing lending portfolios, books, and credit programs all supported.",
     fromSystem: "Legacy LMS",
     toSystem: "NymCard nCore",
     throughput: "540K loans/hr",
@@ -162,13 +162,13 @@ export const lendingDoc = {
     headline: "Common questions.",
     items: withKeys(
       [
-        { question: "What is lending infrastructure?", answer: "Lending infrastructure enables banks, fintechs, and digital businesses to launch and operate credit programs — including BNPL, installment plans, revolving credit, and working capital — directly inside their payment flows. NymCard's Lending product runs on nCore." },
-        { question: "Does NymCard fund loans?", answer: "No. NymCard provides credit infrastructure only — the technology layer for origination, decisioning, disbursement, and collections. The financial institution retains the lending relationship, the funding model, and the regulatory responsibility." },
+        { question: "What is lending infrastructure?", answer: "Lending infrastructure enables banks, fintechs, and digital businesses to launch and operate credit programs, including BNPL, installment plans, revolving credit, and working capital, directly inside their payment flows. NymCard's Lending product runs on nCore." },
+        { question: "Does NymCard fund loans?", answer: "No. NymCard provides credit infrastructure only, the technology layer for origination, decisioning, disbursement, and collections. The financial institution retains the lending relationship, the funding model, and the regulatory responsibility." },
         { question: "What credit structures does NymCard support?", answer: "Revolving credit, charge cards, installment plans, BNPL, working capital loans, and invoice financing across consumer and commercial segments. Conventional interest, flat fee, and reducing balance structures are all supported on the same platform." },
         { question: "How does decisioning work?", answer: "NymCard's decisioning layer supports connections to credit bureaus, open banking data sources, and partner-owned scoring models. Underwriting rules, credit limits, and approval thresholds are configured through the API and applied in real time." },
         { question: "Can NymCard integrate with my existing card program?", answer: "Yes. Embedded Lending runs on the same nCore platform as Card Issuing, with one customer record across both products. Card-linked credit, revolving credit limits, and installment plans on existing cards are all natively supported." },
         { question: "What deployment models are available?", answer: "Cloud, on-soil, and on-premise are all native deployment models on the NymCard platform. The deployment model is chosen based on your regulatory requirements and architecture preferences." },
-        { question: "Is NymCard regulated?", answer: "NymCard operates as a regulated infrastructure provider. nCore is PCI DSS certified and ISO 27001 certified. NymCard does not hold a lending license — the partner institution holds the lending relationship and the regulatory responsibility." },
+        { question: "Is NymCard regulated?", answer: "NymCard operates as a regulated infrastructure provider. nCore is PCI DSS certified and ISO 27001 certified. NymCard does not hold a lending license, the partner institution holds the lending relationship and the regulatory responsibility." },
       ],
       "faq",
     ),
@@ -182,7 +182,7 @@ export const lendingDoc = {
   crossSell: withKeys(
     [
       { leadIn: "Cards", body: "Issue debit, credit, and prepaid cards on the same nCore platform behind your credit programs.", link: { label: "See Cards", href: "/products/card-issuing" }, iconName: "CreditCard" },
-      { leadIn: "Money Movement", body: "Disburse loans and move repayments across domestic rails, cross-border, and FX — on one platform.", link: { label: "See Money Movement", href: "/products/money-movement" }, iconName: "ArrowLeftRight" },
+      { leadIn: "Money Movement", body: "Disburse loans and move repayments across domestic rails, cross-border, and FX, on one platform.", link: { label: "See Money Movement", href: "/products/money-movement" }, iconName: "ArrowLeftRight" },
     ],
     "cs",
   ),

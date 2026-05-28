@@ -3,14 +3,14 @@ import { withKeys } from "../../_seed-utils";
 // ── fintechs ───────────────────────────────────────────────────────────────
 // Sanity-shaped industry document for /industries/fintechs.
 // Mirrors ../02-copy/Industry Fintechs-Copy.md (Draft v2).
-// No PayKit callout — fintechs build their own front ends as core IP.
+// No PayKit callout, fintechs build their own front ends as core IP.
 //
 // Shape contract (must match the productPage seed pattern):
 //   _id, _type, title, slug, metaTitle, metaDescription
 //   hero, outcomes (3 chips), challenge, build, payKit?, platform, developer,
 //   crossSell (2), faq, finalCta
 //
-// Icons live as strings (`iconName`) — resolved to JSX in the renderer via
+// Icons live as strings (`iconName`), resolved to JSX in the renderer via
 // lib/sanity/icon-map.tsx. Every array field is wrapped in `withKeys` so the
 // Studio doesn't surface "Missing keys" warnings.
 
@@ -21,11 +21,11 @@ export const fintechsDoc = {
   slug: { _type: "slug", current: "fintechs" },
   metaTitle: "Fintech Payment Infrastructure | NymCard",
   metaDescription:
-    "Card issuing, embedded lending, cross-border payments, and compliance for fintechs — modular, API-first, built on nCore.",
+    "Card issuing, embedded lending, cross-border payments, and compliance for fintechs, modular, API-first, built on nCore.",
 
   hero: {
     headline: "Build financial products without building infrastructure.",
-    body: "Card issuing, embedded lending, payments, and compliance — modular, API-first, ready to configure for your product.",
+    body: "Card issuing, embedded lending, payments, and compliance, modular, API-first, ready to configure for your product.",
     primaryCta: { label: "Talk to us", href: "#contact" },
     visualLabel: "fintech product surface",
   },
@@ -41,9 +41,9 @@ export const fintechsDoc = {
 
   challenge: {
     challenge:
-      "Fintechs that build payment infrastructure from scratch spend years on capability that should be table stakes — engineering time goes into processing, compliance, and program management instead of the product itself.",
+      "Fintechs that build payment infrastructure from scratch spend years on capability that should be table stakes, engineering time goes into processing, compliance, and program management instead of the product itself.",
     solution:
-      "NymCard provides the processing, compliance, and program management layer — so your team builds the product that actually differentiates you.",
+      "NymCard provides the processing, compliance, and program management layer, so your team builds the product that actually differentiates you.",
   },
 
   build: {
@@ -53,14 +53,14 @@ export const fintechsDoc = {
         {
           eyebrow: "Cards",
           headline: "Launch a card program in weeks",
-          body: "Prepaid, debit, and credit cards — physical, virtual, and tokenized — with scheme access included. No principal membership required.",
+          body: "Prepaid, debit, and credit cards, physical, virtual, and tokenized, with scheme access included. No principal membership required.",
           link: { label: "Learn more about Card Issuing", href: "/products/card-issuing" },
           visualLabel: "card detail surface",
         },
         {
           eyebrow: "Embedded lending",
           headline: "Embed lending into your product",
-          body: "Installments, revolving lines, and BNPL — embedded into your flows without a separate lending stack. Configurable underwriting, billing cycles, and disbursement on the same platform.",
+          body: "Installments, revolving lines, and BNPL, embedded into your flows without a separate lending stack. Configurable underwriting, billing cycles, and disbursement on the same platform.",
           link: { label: "Learn more about Lending", href: "/products/lending" },
           visualLabel: "credit surface",
         },
@@ -91,7 +91,7 @@ export const fintechsDoc = {
 
   developer: {
     headline: "Built for your team to integrate.",
-    body: "Full API access, SDKs, sandbox, and webhooks — so your engineering team can move from integration to launch without waiting on us.",
+    body: "Full API access, SDKs, sandbox, and webhooks, so your engineering team can move from integration to launch without waiting on us.",
     link: { label: "Read the docs", href: "/docs" },
   },
 
@@ -117,11 +117,11 @@ export const fintechsDoc = {
     headline: "Common questions.",
     items: withKeys(
       [
-        { question: "What is fintech payment infrastructure?", answer: "It's the platform a fintech uses to issue cards, run lending, move money, and meet compliance — without building processing, scheme connectivity, or compliance from scratch. NymCard provides this as a modular API-first stack on nCore." },
+        { question: "What is fintech payment infrastructure?", answer: "It's the platform a fintech uses to issue cards, run lending, move money, and meet compliance, without building processing, scheme connectivity, or compliance from scratch. NymCard provides this as a modular API-first stack on nCore." },
         { question: "Do we need scheme membership to issue cards?", answer: "No. NymCard is a principal member of Visa and Mastercard. You issue under our scheme membership unless you bring your own." },
         { question: "How fast can a fintech launch on NymCard?", answer: "A core card program typically launches in less than three months, subject to program complexity and market requirements." },
-        { question: "Can we add lending or cross-border after launch?", answer: "Yes. You can start with cards and add Lending, Money Movement, Settlement, Financial Crime, or Reconciliation as your product grows — one customer record across all products." },
-        { question: "Where is compliance handled?", answer: "Inside the platform. KYC, AML, and sanctions screening run inside the authorization path — not a separate compliance vendor." },
+        { question: "Can we add lending or cross-border after launch?", answer: "Yes. You can start with cards and add Lending, Money Movement, Settlement, Financial Crime, or Reconciliation as your product grows, one customer record across all products." },
+        { question: "Where is compliance handled?", answer: "Inside the platform. KYC, AML, and sanctions screening run inside the authorization path, not a separate compliance vendor." },
         { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
       ],
       "faq",

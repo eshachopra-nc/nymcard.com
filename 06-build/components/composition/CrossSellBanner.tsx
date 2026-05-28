@@ -95,6 +95,20 @@ function Banner({ item }: { item: CrossSellItem }) {
         <TopologyTraces density="medium" tone="cyan" />
       </div>
 
+      {/* §8.16 colour moment — an abstract cool-gradient bloom bleeding from
+          the rounded right edge. The one vivid moment per banner; cool only
+          (violet anchor → cyan), restrained so it reads premium, not loud. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-0 z-0 w-2/3"
+        style={{
+          background: `radial-gradient(120% 110% at 100% 50%, ${withAlpha(
+            visual.violet,
+            0.16,
+          )}, ${withAlpha(visual.cyan, 0.07)} 46%, transparent 72%)`,
+        }}
+      />
+
       {/* Cursor-tracked cyan wash — fades in on hover, follows the cursor.
           The Stripe / Linear lit-surface pattern: gives the banner depth so it
           reads as a lit panel rather than a flat tile. */}

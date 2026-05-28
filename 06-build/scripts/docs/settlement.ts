@@ -6,15 +6,15 @@ export const settlementDoc = {
   title: "Settlement",
   slug: { _type: "slug", current: "settlement" },
   metaTitle:
-    "Settlement — Real-time, multi-currency, and stablecoin settlement | NymCard",
+    "Settlement, Real-time, multi-currency, and stablecoin settlement | NymCard",
   metaDescription:
-    "Bank-grade settlement infrastructure on nCore — real-time cross-border, multi-currency, and stablecoin settlement for regulated businesses. Principal member of Visa and Mastercard. Cloud, on-soil, or on-premise.",
+    "Bank-grade settlement infrastructure on nCore, real-time cross-border, multi-currency, and stablecoin settlement for regulated businesses. Principal member of Visa and Mastercard. Cloud, on-soil, or on-premise.",
   trustLine:
     "Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001.",
   hero: {
     topLine: "Settlement on nCore: 24/7/365",
     headline: "Settle across corridors in real time.",
-    body: "Bank-grade settlement infrastructure for cross-border, multi-currency, and stablecoin flows — on one regulated platform.",
+    body: "Bank-grade settlement infrastructure for cross-border, multi-currency, and stablecoin flows, on one regulated platform.",
     primaryCta: { label: "Talk to us", href: "#contact" },
     secondaryCta: { label: "Read the docs", href: "/docs" },
     visualLabel: "settlement corridor",
@@ -22,7 +22,7 @@ export const settlementDoc = {
   capabilities: {
     eyebrow: "Capabilities",
     headline: "Run settlement end-to-end on one platform.",
-    body: "Cross-border execution, multi-rail routing, and treasury orchestration — with stablecoin and traditional rails inside one architecture.",
+    body: "Cross-border execution, multi-rail routing, and treasury orchestration, with stablecoin and traditional rails inside one architecture.",
     layout: "bento",
     cardMode: "with-UI",
     items: withKeys(
@@ -31,7 +31,7 @@ export const settlementDoc = {
         { eyebrow: "Multi-rail routing", heading: "Multi-rail routing", description: "Route across stablecoin and traditional rails by cost, speed, and corridor availability.", span: 3, uiLabel: "Rail comparison" },
         { eyebrow: "Stablecoin settlement", heading: "Stablecoin settlement", description: "Settle on USDC and USDT rails where applicable, with automated fiat-to-stablecoin bridges on either side.", span: 3, uiLabel: "Fiat / stablecoin bridge" },
         { eyebrow: "Embedded compliance", heading: "Embedded compliance", description: "AML, sanctions screening, and regulatory reporting run inside the settlement path.", span: 3, uiLabel: "Compliance inline" },
-        { eyebrow: "24/7/365 operations", heading: "24/7/365 operations", description: "Settle beyond banking hours, weekends, and holidays — no correspondent-banking window dependency.", span: 3, uiLabel: "Always-on indicator" },
+        { eyebrow: "24/7/365 operations", heading: "24/7/365 operations", description: "Settle beyond banking hours, weekends, and holidays, no correspondent-banking window dependency.", span: 3, uiLabel: "Always-on indicator" },
         { eyebrow: "Liquidity & treasury", heading: "Liquidity and treasury", description: "Orchestrate corridor-aware liquidity with stablecoin pre-funding, reduce collateral lock-up, and give treasury flexibility across markets.", span: 6, uiLabel: "Corridor liquidity dashboard" },
       ],
       "cap",
@@ -41,7 +41,7 @@ export const settlementDoc = {
   configuration: {
     eyebrow: "Configuration",
     headline: "Configure settlement through the API.",
-    body: "Corridor, rail preference, currency, pre-funding, and compliance rules — set per program, applied in real time.",
+    body: "Corridor, rail preference, currency, pre-funding, and compliance rules, set per program, applied in real time.",
     docsLink: { label: "Read the docs", href: "/docs" },
     tabs: withKeys(
       [
@@ -53,7 +53,7 @@ export const settlementDoc = {
     ),
     companion: {
       heading: "One configuration surface",
-      body: "Corridors, rails, currencies, pre-funding, and compliance — all configurable per program, on the same API surface as Cards and Money Movement.",
+      body: "Corridors, rails, currencies, pre-funding, and compliance, all configurable per program, on the same API surface as Cards and Money Movement.",
       link: { label: "Read the configuration docs", href: "/docs/configuration" },
     },
   },
@@ -75,7 +75,7 @@ export const settlementDoc = {
   deployment: {
     eyebrow: "Deployment",
     headline: "Deploy in the cloud, on-soil, or on-premise.",
-    body: "Three deployment models on the same platform — pick the one that fits your regulatory and architectural requirements.",
+    body: "Three deployment models on the same platform, pick the one that fits your regulatory and architectural requirements.",
     items: withKeys(
       [
         { eyebrow: "Cloud", heading: "Cloud", description: "Multi-region, NymCard-hosted, fully managed." },
@@ -94,7 +94,7 @@ export const settlementDoc = {
         { question: "Does NymCard support stablecoin settlement?", answer: "Yes. Stablecoin settlement is a capability within the Settlement layer, with support for USDC and USDT where applicable. Automated fiat bridges convert into and out of stablecoin on entry and exit." },
         { question: "Is this a crypto product?", answer: "No. Settlement is regulated settlement infrastructure, not a crypto trading platform, exchange, or consumer digital-asset service. Stablecoin is one rail among several; regulated settlement is the product." },
         { question: "How fast is settlement?", answer: "Real time or near real time, depending on corridor availability and regulatory requirements. Specific settlement times vary by corridor and rail." },
-        { question: "How does Settlement work with the rest of nCore?", answer: "Settlement runs on the same nCore platform as Cards and Money Movement. Traditional scheme settlement and stablecoin rails operate inside one architecture — no separate blockchain system required." },
+        { question: "How does Settlement work with the rest of nCore?", answer: "Settlement runs on the same nCore platform as Cards and Money Movement. Traditional scheme settlement and stablecoin rails operate inside one architecture, no separate blockchain system required." },
         { question: "How is compliance handled?", answer: "AML, sanctions screening, and regulatory reporting run inside the settlement path, not as add-ons. Every flow is written to the same audit trail used across Cards, Money Movement, and Reconciliation." },
         { question: "Which deployment models are available?", answer: "Cloud, on-soil, and on-premise. Cloud is multi-region NymCard-hosted; on-soil is NymCard-hosted inside your country; on-premise runs inside your own data center." },
         { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified. NymCard is a principal member of Visa and Mastercard." },
@@ -110,7 +110,7 @@ export const settlementDoc = {
   },
   crossSell: withKeys(
     [
-      { leadIn: "Money Movement", body: "Move funds across domestic rails, cross-border, and FX — on the same nCore platform that settles them.", link: { label: "See Money Movement", href: "/products/money-movement" }, iconName: "ArrowLeftRight" },
+      { leadIn: "Money Movement", body: "Move funds across domestic rails, cross-border, and FX, on the same nCore platform that settles them.", link: { label: "See Money Movement", href: "/products/money-movement" }, iconName: "ArrowLeftRight" },
       { leadIn: "Card Issuing", body: "Issue debit, credit, and prepaid cards on the same platform behind your settlement flows.", link: { label: "See Card Issuing", href: "/products/card-issuing" }, iconName: "CreditCard" },
     ],
     "cs",

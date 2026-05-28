@@ -6,14 +6,14 @@ export const reconciliationDoc = {
   title: "Reconciliation",
   slug: { _type: "slug", current: "reconciliation" },
   metaTitle:
-    "Reconciliation — Automated Reconciliation Across Products and Systems | NymCard",
+    "Reconciliation, Automated Reconciliation Across Products and Systems | NymCard",
   metaDescription:
     "Reconcile activity across every NymCard product and the external systems they connect to. Runs on nCore. PCI DSS Level 1 and ISO 27001 certified. Cloud, on-soil, or on-premise.",
   trustLine:
     "Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001.",
   hero: {
     headline: "Reconcile across every product and system, automatically.",
-    body: "Reconciliation runs on nCore — matching activity across your NymCard products and the external systems they connect to.",
+    body: "Reconciliation runs on nCore, matching activity across your NymCard products and the external systems they connect to.",
     primaryCta: { label: "Talk to us", href: "#contact" },
     secondaryCta: { label: "Read the docs", href: "/docs" },
     visualLabel: "reconciliation streams",
@@ -32,7 +32,7 @@ export const reconciliationDoc = {
       "cap",
     ),
   },
-  // No FeatureShowcase, no Configuration, no Migration — Reconciliation is intentionally thin per copy.
+  // No FeatureShowcase, no Configuration, no Migration, Reconciliation is intentionally thin per copy.
   industries: {
     eyebrow: "Industries",
     headline: "Reconciliation for every business on nCore.",
@@ -49,7 +49,7 @@ export const reconciliationDoc = {
   deployment: {
     eyebrow: "Deployment",
     headline: "Deploy in the cloud, on-soil, or on-premise.",
-    body: "Three deployment models on the same platform — pick the one that fits your regulatory and architectural requirements.",
+    body: "Three deployment models on the same platform, pick the one that fits your regulatory and architectural requirements.",
     items: withKeys(
       [
         { eyebrow: "Cloud", heading: "Cloud", description: "Multi-region, NymCard-hosted, fully managed." },
@@ -64,7 +64,7 @@ export const reconciliationDoc = {
     items: withKeys(
       [
         { question: "What is Reconciliation?", answer: "Reconciliation is the layer of nCore that automates matching across NymCard products and the external systems they connect to. It is one of the six product layers on the platform." },
-        { question: "What does it reconcile?", answer: "Activity across your NymCard products — Cards, Lending, Money Movement, Settlement, and Financial Crime — and the external rails, banks, and partner systems they touch." },
+        { question: "What does it reconcile?", answer: "Activity across your NymCard products, Cards, Lending, Money Movement, Settlement, and Financial Crime, and the external rails, banks, and partner systems they touch." },
         { question: "Does Reconciliation run on nCore?", answer: "Yes. Reconciliation runs on nCore alongside the other product layers, with one customer record and one audit trail across the platform." },
         { question: "What deployment models are available?", answer: "Cloud, on-soil, and on-premise. Cloud is multi-region NymCard-hosted; on-soil is NymCard-hosted inside your country; on-premise runs inside your own data center." },
         { question: "Is the platform certified?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified." },

@@ -80,14 +80,13 @@ export function PageHero({
             <h1
               className={cn(
                 "max-w-xl font-display font-bold leading-[1.05] tracking-tight text-text-primary",
-                "text-4xl sm:text-5xl lg:text-6xl",
-                "line-clamp-3",
+                "text-4xl sm:text-5xl lg:text-6xl text-balance",
                 topLine && "mt-4",
               )}
             >
               {headline}
             </h1>
-            <p className="mt-6 line-clamp-2 max-w-md font-body text-base leading-relaxed text-text-secondary sm:text-lg">
+            <p className="mt-6 max-w-md font-body text-base leading-relaxed text-text-secondary sm:text-lg">
               {body}
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
