@@ -80,13 +80,13 @@ Working principles: cinematic but restrained, infrastructure-first, compositiona
 
 | Role | Typeface | Weights |
 | --- | --- | --- |
-| Headlines (H1–H4) | **Satoshi** | 500, 700 |
-| Body, UI, sub-copy, captions | **Inter** | 400, 500, 600 |
-| Code, technical / API moments | **IBM Plex Mono** | 400, 500 |
+| Headlines (H1–H4) and display | **Geist Sans** | 500, 600, 700 |
+| Body, UI, sub-copy, captions | **Geist Sans** | 400, 500 |
+| Code, technical / API moments | **Geist Mono** | 400, 500 |
 
-**Loading.** All three from self-hosted source or Fontshare/Google Fonts. Subset to Latin + Latin Extended. Display swap, never block render.
+**Loading.** Both families load via `next/font/google` in `app/layout.tsx`, configured as variable fonts and exposed as `--font-geist-sans` and `--font-geist-mono`. Subset to Latin. Display swap, never block render.
 
-**Rationale.** Stripe-style sophistication comes from spacing, scale, and restraint — not heavy typography. Satoshi at 700 carries headline authority without ultra-black weight. Inter at 400 is the body voice. The two share geometric DNA without being interchangeable. IBM Plex Mono brings institutional credibility to code blocks.
+**Rationale.** A single sans family across display and body is the deliberate move — it reduces font loading, simplifies the system, and gives the site a more distinctive, AI-native voice. Geist (the family Vercel commissioned for its own product surfaces) carries that signal: precise, geometric, technical, with sharply resolved letterforms — slashed zero, geometric "a", crisp terminals. Geist at 700 has headline authority without going ultra-black; Geist at 400 is a confident body voice. Geist Mono picks up the same DNA in monospace and ties code surfaces back into the same visual family.
 
 ### Type scale (desktop)
 
@@ -94,20 +94,20 @@ Base 16px, modular scale approximately 1.25, with tightened large sizes for Stri
 
 | Token | Size | Line height | Weight | Tracking | Usage |
 | --- | --- | --- | --- | --- | --- |
-| `display-xl` | 72px / 4.5rem | 80px (1.1) | Satoshi 700 | -0.02em | Homepage hero only |
-| `display-lg` | 64px / 4rem | 72px (1.125) | Satoshi 700 | -0.02em | Sub-page heroes, major section openers |
-| `h1` | 48px / 3rem | 56px (1.17) | Satoshi 700 | -0.015em | Page headlines |
-| `h2` | 36px / 2.25rem | 44px (1.22) | Satoshi 700 | -0.01em | Section headlines |
-| `h3` | 28px / 1.75rem | 36px (1.29) | Satoshi 500 | -0.01em | Sub-section headlines, card titles |
-| `h4` | 22px / 1.375rem | 30px (1.36) | Satoshi 500 | -0.005em | Card sub-titles, small section openers |
-| `body-lg` | 18px / 1.125rem | 28px (1.55) | Inter 400 | 0 | Hero sub-copy, large section body |
-| `body` | 16px / 1rem | 26px (1.625) | Inter 400 | 0 | Default body, card descriptions |
-| `body-sm` | 14px / 0.875rem | 22px (1.57) | Inter 400 | 0 | Captions, table cells, secondary info |
-| `caption` | 12px / 0.75rem | 18px (1.5) | Inter 400 | 0 | Footnotes, micro-copy, legal |
-| `code` | 14px / 0.875rem | 22px (1.57) | IBM Plex Mono 400 | 0 | Code blocks, API references |
-| `button-lg` | 16px / 1rem | 24px (1.5) | Inter 600 | 0 | Primary CTA |
-| `button` | 14px / 0.875rem | 20px (1.43) | Inter 500 | 0 | Default button text |
-| `nav` | 15px / 0.9375rem | 20px (1.33) | Inter 500 | -0.005em | Top nav items |
+| `display-xl` | 72px / 4.5rem | 80px (1.1) | Geist 700 | -0.02em | Homepage hero only |
+| `display-lg` | 64px / 4rem | 72px (1.125) | Geist 700 | -0.02em | Sub-page heroes, major section openers |
+| `h1` | 48px / 3rem | 56px (1.17) | Geist 700 | -0.015em | Page headlines |
+| `h2` | 36px / 2.25rem | 44px (1.22) | Geist 700 | -0.01em | Section headlines |
+| `h3` | 28px / 1.75rem | 36px (1.29) | Geist 500 | -0.01em | Sub-section headlines, card titles |
+| `h4` | 22px / 1.375rem | 30px (1.36) | Geist 500 | -0.005em | Card sub-titles, small section openers |
+| `body-lg` | 18px / 1.125rem | 28px (1.55) | Geist 400 | 0 | Hero sub-copy, large section body |
+| `body` | 16px / 1rem | 26px (1.625) | Geist 400 | 0 | Default body, card descriptions |
+| `body-sm` | 14px / 0.875rem | 22px (1.57) | Geist 400 | 0 | Captions, table cells, secondary info |
+| `caption` | 12px / 0.75rem | 18px (1.5) | Geist 400 | 0 | Footnotes, micro-copy, legal |
+| `code` | 14px / 0.875rem | 22px (1.57) | Geist Mono 400 | 0 | Code blocks, API references |
+| `button-lg` | 16px / 1rem | 24px (1.5) | Geist 600 | 0 | Primary CTA |
+| `button` | 14px / 0.875rem | 20px (1.43) | Geist 500 | 0 | Default button text |
+| `nav` | 15px / 0.9375rem | 20px (1.33) | Geist 500 | -0.005em | Top nav items |
 
 ### Type scale (mobile)
 
@@ -128,10 +128,10 @@ Display sizes reduce ~20%; body sizes stay constant for readability.
 ### Typography rules
 
 - **No `display-xl` outside the homepage hero.** It earns its size by being singular.
-- **Headlines lead with Satoshi 700 by default.** Satoshi 500 is reserved for sub-section and card-level titles where weight differentiation matters more than top-of-page authority.
+- **Headlines lead with Geist 700 by default.** Geist 500 is reserved for sub-section and card-level titles where weight differentiation matters more than top-of-page authority.
 - **Body never bolds inline.** If a sentence needs emphasis, restructure the sentence. Bold-within-paragraph is banned.
 - **Tracking tightens with size.** Display sizes use negative tracking (`-0.02em` to `-0.015em`). Body stays at 0. This is what makes the hero feel composed rather than dense.
-- **Optical alignment matters for the hero.** When `display-xl` Satoshi 700 sits next to a button, the button aligns to the headline's cap-height visually, not the bounding box.
+- **Optical alignment matters for the hero.** When `display-xl` Geist 700 sits next to a button, the button aligns to the headline's cap-height visually, not the bounding box.
 - **No italics.** NymCard's voice is declarative — italics introduce a register that doesn't match.
 - **No all-caps anywhere.** No eyebrow style, no uppercase labels.
 
@@ -139,7 +139,7 @@ Display sizes reduce ~20%; body sizes stay constant for readability.
 
 - Hero typography: `stripe-home-hero.png` (left-aligned, oversized, tight tracking, generous line height)
 - Section headline rhythm: `stripe-how-it-works.png` (h1 + body, F-pattern)
-- Card title weight: `stripe-capabilities-single-card.png` (h3 Satoshi 500 over a single large surface)
+- Card title weight: `stripe-capabilities-single-card.png` (h3 Geist 500 over a single large surface)
 
 ---
 
@@ -373,10 +373,11 @@ Shadows are restrained. Depth comes more from layering, glass, and gradients tha
 | --- | --- | --- |
 | `shadow-none` | none | Default — most elements have no shadow |
 | `shadow-xs` | `0 1px 2px 0 rgba(14, 26, 51, 0.04)` | Form inputs |
-| `shadow-sm` | `0 2px 8px 0 rgba(14, 26, 51, 0.04), 0 1px 2px 0 rgba(14, 26, 51, 0.06)` | Card hover, dropdown panels |
+| `shadow-sm` | `0 2px 8px 0 rgba(14, 26, 51, 0.04), 0 1px 2px 0 rgba(14, 26, 51, 0.06)` | Card hover (legacy), dropdown panels |
 | `shadow-md` | `0 8px 24px -4px rgba(14, 26, 51, 0.06), 0 4px 8px -2px rgba(14, 26, 51, 0.04)` | Floating cards, nav when scrolled |
 | `shadow-lg` | `0 24px 48px -12px rgba(14, 26, 51, 0.08), 0 8px 16px -4px rgba(14, 26, 51, 0.04)` | Hero product surfaces |
 | `shadow-xl` | `0 32px 64px -16px rgba(14, 26, 51, 0.10), 0 16px 32px -8px rgba(14, 26, 51, 0.06)` | Modals, deeply layered UI |
+| `shadow-lift` | `0 2px 6px -1px rgba(14, 26, 51, 0.06), 0 18px 36px -10px rgba(14, 26, 51, 0.14)` | The §8.6 card-hover lift — the canonical shadow on card surfaces during hover; deeper than `sm`, shallower than `lg`, tuned so a `translateY(-4px)` card reads as lifted, not floating |
 
 ### Dark mode
 
@@ -388,6 +389,7 @@ Shadows in dark mode use white-tint highlights rather than dark drops.
 | `shadow-dark-sm` | `0 1px 0 0 rgba(255, 255, 255, 0.04) inset` | Top-edge highlight on raised dark surfaces |
 | `shadow-dark-md` | `0 1px 0 0 rgba(255, 255, 255, 0.06) inset, 0 8px 24px -4px rgba(0, 0, 0, 0.4)` | Floating cards on dark sections |
 | `shadow-dark-lg` | `0 1px 0 0 rgba(255, 255, 255, 0.08) inset, 0 24px 48px -12px rgba(0, 0, 0, 0.5)` | Hero product surfaces on dark backgrounds |
+| `shadow-dark-lift` | `0 1px 0 0 rgba(255, 255, 255, 0.07) inset, 0 18px 36px -10px rgba(0, 0, 0, 0.55)` | The §8.6 card-hover lift on dark — pairs the white-tint inset highlight with a deeper drop so the card reads as elevated on a dark surface |
 
 ### Focus rings
 
@@ -463,6 +465,30 @@ Every page renders a frame of subtle grey lines at the boundaries of the `max-w-
 - Rails are non-optional. Every page renders them via the root layout.
 - Rail colour is the only value: `rgba(14, 26, 51, 0.06)`. Do not bump opacity to make them more visible — that is by design subtle. If you can't see them on a particular section, that section's background is the issue, not the rail.
 - Nav glass bar sits between the rails (it is also `max-w-7xl mx-auto`). They line up by construction.
+
+#### Crosshair-marker rails (section-level)
+
+A complementary section-level mark that sits on top of the page-rail system: four small plus glyphs at the four corners of a section's content rectangle. The page rails (above) carry the document spine; the crosshair markers anchor each section to that spine. Locked in Phase 0 as the page-rail signature; gradient-bridge variants were rejected and deleted.
+
+Shipped as a production primitive at `components/visuals/CrosshairRails.tsx`:
+
+| Property | Value |
+| --- | --- |
+| Glyph | 16x16 viewBox, 1.5px stroke, round linecaps, vertical + horizontal line through centre |
+| Size (rendered) | `h-4 w-4` (16px) |
+| Stroke colour (light) | `text-brand-navy/[0.22]` |
+| Stroke colour (dark) | `text-white/[0.22]` |
+| Inset | `-left-2 -top-2` (and mirrored corners) — glyph straddles the corner |
+| Stacking | `absolute inset-0 z-0 pointer-events-none` inside a `relative` parent |
+
+**Composition:** `<CrosshairRails />` renders four glyphs as an absolute overlay. The parent component decides the content rectangle; the primitive draws the corners.
+
+**Rules:**
+- **Server component.** No client-side state, no motion.
+- **Tokens only.** `text-brand-navy/[0.22]` and `text-white/[0.22]` — never inline hex.
+- **Section-level, not page-level.** The §7 page rails are the canvas spine; `CrosshairRails` marks individual section frames within that canvas.
+
+**Reference anchor:** the Vercel.com section-corner mark, applied as a NymCard signature.
 
 ---
 
@@ -569,9 +595,11 @@ Spec covered in Section 7 (Vertical separators and blueprint framing).
 
 ### 8.5 Modular cards
 
-Product cards on the bento grid, solution cards, industry cards. Should feel like "platform modules" — discrete, composable, infrastructural.
+Solution cards, industry cards, feature cards. Should feel like "platform modules" — discrete, composable, infrastructural. A modular card *describes* — heading + description + an icon + a link. Product cards are different: they *show* the product with a live product UI, and are specified separately in §8.8.
 
-**When to use:** Bento product grid, solutions grid, industry cards, any grid of discrete equally-weighted content.
+**When to use:** Solutions grid, industry cards, feature grids, any grid of discrete equally-weighted descriptive content.
+
+**When not to use:** The Products grid — use product cards (§8.8).
 
 **Spec:**
 
@@ -587,7 +615,7 @@ Product cards on the bento grid, solution cards, industry cards. Should feel lik
 | Active | Border deepens further, no scale change |
 
 **Rules:**
-- **No coloured backgrounds on standard cards by default.** White only. Exception: soft cool-palette tints (≤8% alpha — drawn from `accent-cyan`, `accent-indigo`, `brand-purple`, `brand-primary`) are permitted as card backgrounds on the homepage Products section for visual texture. All other card surfaces remain white.
+- **No coloured backgrounds on standard cards by default.** White only. Exception: soft cool-palette tints (≤8% alpha — drawn from `accent-cyan`, `accent-indigo`, `brand-purple`, `brand-primary`) are permitted as card backgrounds on the Solutions grid for visual texture. All other card surfaces remain white.
 - **No drop shadows by default.** Cards sit flat. Shadow appears only on hover.
 - **Icons restrained.** Outline or monochrome filled, in `brand-primary` or `brand-purple`. Never multi-coloured.
 - **Title is `h3` Satoshi 500.** Body is `body` Inter 400. Link/CTA is `body-sm` Inter 500 with arrow glyph (`→`).
@@ -598,18 +626,21 @@ Product cards on the bento grid, solution cards, industry cards. Should feel lik
 ### 8.6 Card hover behaviour
 
 **Hover sequence:**
-1. **Border deepens** to `surface-border-stronger`. ~120ms ease-out.
-2. **Shadow appears** at `shadow-sm`. ~200ms ease-out.
-3. **Subtle internal lift** — title and CTA arrow shift up 2px. ~200ms ease-out, staggered.
-4. **CTA arrow translates** 4px right. ~150ms ease-out.
+1. **The whole card lifts** `translateY(-4px)`. ~200ms ease-out.
+2. **Shadow lands** at `shadow-lift` (`shadow-dark-lift` on dark). ~200ms ease-out, in sync with the lift.
+3. **Border deepens** to `surface-border-stronger`. ~200ms ease-out.
+4. **CTA arrow translates** 4px right. ~150ms ease-out (§9.7).
 
 **Rules:**
-- **No scale transform on the card itself.**
+- **No scale transform on the card itself.** The whole card translates; the card doesn't grow or shrink.
 - **No background colour change on hover.**
-- **Hover should feel near-instant (~120–200ms total).**
+- **Hover should feel near-instant (~150–200ms total).**
 - **Mobile/touch replaces hover with active state** (same depth treatment, triggered on tap).
+- **Implemented as one utility — `.nc-card-hover`** — applied to every interactive card surface (ProductCard, CardGrid cells, RailCarousel cards, CrossSellBanner). Card surfaces never re-implement the hover inline; the utility is the single source so the lift reads identically across grids and rails.
 
-**Reference anchor:** `motion-stripe-floating-card-hover-state.mov`, `motion-stripe-asymetric-hover.mov`.
+**Why lift, not hold-and-animate-interior:** Pattern is Stripe / Apple / Anthropic — the whole card translateY-lifts on hover. Linear's restrained no-lift approach (cards hold position, internal motion does the work) is **rejected for this phase** because card interiors are still `UIPlaceholder` surfaces awaiting Phase 2 product UIs — without inside-the-card motion, a non-lifting hover reads as no hover at all. When Phase 2 product UIs land and cards have real internal motion, §8.6 can be revisited.
+
+**Reference anchor:** Stripe homepage product cards (the canonical lift); Apple product cards; Anthropic homepage feature tiles. `motion-stripe-floating-card-hover-state.mov`, `motion-stripe-asymetric-hover.mov`.
 
 ### 8.7 Editorial single-card composition
 
@@ -637,7 +668,134 @@ The Stripe pattern where one large card carries an entire section.
 
 **Reference anchor:** `stripe-capabilities-single-card.png` (canonical), `stripe-capabilities.png` (variant with abstract visualisation).
 
-### 8.8 Nav bar
+### 8.8 Product cards (v5 — asymmetric bento, handoff SVG composition)
+
+A product card presents a single product on the homepage Products grid. Unlike a modular card (§8.5), which *describes* a product with copy and an icon, a product card *shows* the product — it carries one hand-crafted visual that makes the product legible at a glance.
+
+**Locked direction (2026-05-26, v5).** Three iterations (v2–v4) tried to paint the per-cell visuals procedurally in TypeScript — window-chrome dashboards (v2), cyan-edge tactical-instrument chrome with LIVE markers (v3), then six bespoke procedural modes (3D card object, painterly dot-storm, isometric cubes, scan-and-chip, mobile checkout-sheet, geometric line diagram) on a unified `TonalCardBed` (v4). All three were rejected as sub-Stripe quality.
+
+v5 is the opposite move. **The visuals already exist** as hand-crafted Claude Design SVG assets in `/public/handoff/`. The hero `ProductCarousel` proves the pattern: load the SVG via `<img>` on a soft surface, add a Framer Motion ambient float, let the SVG carry the visual craft. The Products bento now does the same: TypeScript composes + adds motion only; **no procedural visual generation lives in the product UIs anymore.**
+
+**When to use:** The homepage Products grid.
+**When not to use:** Solution, industry, or feature grids — those are modular cards (§8.5). Product-overview grids on inner pages — those carry the unified `ProductCard` (the simpler, calmer §8.8-adjacent primitive used inside a `CardGrid`).
+
+#### The six cells — asset map
+
+Each homepage product cell loads a specific Claude Design SVG. **Never two adjacent on the same tonal bed.**
+
+| # | Product | Handoff asset | Tonal bed |
+| --- | --- | --- | --- |
+| 1 | Cards | `/public/handoff/cards.svg` — three-card layered fan, premium card surfaces | `slate` |
+| 2 | Lending | `/public/handoff/embedded-lending.svg` — decision-in-92ms, $4,200 approved, four-instalment chip | `cyan` |
+| 3 | Money Movement | `/public/handoff/money-movement.svg` — wireframe globe with USD / EUR pills and animated arcs | `porcelain` |
+| 4 | Settlement | `/public/handoff/stablecoin-settlement.svg` — USD → USDC → USD triptych, 187ms settled, no SWIFT | `indigo` |
+| 5 | Financial Crime | `/public/handoff/financial-crime.svg` — live fraud monitor catching unusual velocity ($9,820 flagged) | `mist` |
+| 6 | Reconciliation | `/public/handoff/reconciliation.svg` — card-to-bank matching, 98.4%, one chip flagged for review | `violet` |
+
+**The unifying primitive** is `HandoffVisual` (`components/sections/product-uis/HandoffVisual.tsx`). It composes three things in ~30 lines per cell:
+
+1. **Tonal bed** — a soft tinted gradient (six cool variants: `slate`, `porcelain`, `cyan`, `indigo`, `violet`, `mist`).
+2. **Handoff SVG** — loaded via `<img src="/handoff/{slug}.svg">`, `objectFit: contain`, centred in the bed.
+3. **Ambient float** — a Framer Motion translateY ±4px on an 8-second sine, suppressed under `prefers-reduced-motion`.
+
+**Light vs. dark beds.** The handoff SVGs are themed for light surfaces (white field, navy ink, cyan accents). In dark mode the bed becomes a translucent light pane (rgba(247,248,252,0.92) and family), letting the SVG read on its native light ground while the page stays dark — the same trick the hero carousel uses (`bg-white/40 + blur`). The per-tone tint persists as a faint cool wash under the light pane.
+
+**Asymmetric bento layout (≥ lg).** Three rows, two cells per row, alternating wide/narrow:
+
+```
+Row 1: Cards (8/12 wide)             | Lending (4/12 narrow)
+Row 2: Money Movement (5/12)         | Settlement (7/12)
+Row 3: Financial Crime (7/12)        | Reconciliation (5/12)
+```
+
+Below `lg`, the grid collapses to a single column at natural aspect.
+
+#### Anatomy of one cell
+
+| Element | Treatment |
+| --- | --- |
+| Visual area | `HandoffVisual` — tonal bed + handoff SVG + ambient float. Aspect varies by row (the "tall" Cards / Lending cells get more vertical room). |
+| Heading | Product name. `h3` Satoshi 600. |
+| Meta caption | A short mono · separated · caption (e.g. "Debit · Credit · Prepaid"). |
+| Description | One or two lines. `body-sm` Inter 400, `text-secondary`. |
+| Arrow chip | Top-right rounded chip, `brand-primary` at rest, `brand-purple` on hover (the §8.18 affordance). |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Card surface | `surface-white` (`surface-dark-elevated/40` on dark) |
+| Card outer ring | `1px solid surface-border-subtle/60` — almost imperceptible so the cell reads as one object |
+| Card radius | `radius-lg` (16px) — `rounded-2xl` |
+| Visual area inner padding | Set on `HandoffVisual` via `pad="tight" | "default" | "loose"` |
+| Copy area padding | `space-7` (32px); `space-6` (24px) below `sm` |
+| Heading → meta | `space-2` (8px) |
+| Meta → description | `space-3` (12px) |
+| Hover | The canonical §8.6 lift (`.nc-card-hover`): `translateY(-4px)` + `shadow-lift` + outer ring deepens |
+| Ambient motion | translateY ±4px on 8s sine; suppressed under `prefers-reduced-motion` |
+
+#### Rules
+
+- **No procedural visual generation in product UIs.** The hard learning from v2–v4: TypeScript painting visuals will not match the bar Claude Design sets. Every visual loads from `/public/handoff/`. If a new product needs a visual that isn't there, commission it from Claude Design — don't paint it.
+- **No editing the handoff SVGs.** The assets are authored upstream. If a variant is genuinely needed (e.g. a dark-themed version of an asset that doesn't read on dark), ship it as a sibling file with a clear suffix; don't touch the original.
+- **No mono dashboard chrome on the cell.** No LIVE markers, no terminal-style headers, no status pills, no ticker counters in TypeScript. The SVG carries everything that lives inside the bed.
+- **No fake data invented in code.** All numbers, names, amounts, currencies live in the SVG (where Claude Design controls them). TypeScript does not insert "USD" or "$9,820" into the visual.
+- **Light AND dark both first-class.** The tonal beds carry light + dark variants; every cell is verified in both. The dark variant flips the bed to a translucent light pane so the SVG reads.
+- **One ambient motion per cell** — the 8s translateY drift, applied uniformly. The SVG's own SMIL animations (where present) provide the per-cell character. Both stop under `prefers-reduced-motion`.
+- **The arrow chip is the only navigation affordance.** Each card is a single link to the product page.
+
+#### Reference anchors
+
+- `06-build/components/hero/ProductCarousel.tsx` — the proven pattern (CarouselCard, lines ~305–341). The Products bento is the same pattern applied to a bento layout.
+- `03-references/stripe/stripe-products-asymetric.png` — the asymmetric six-mode grid (layout reference).
+
+#### What was retired
+
+- `ProductUIFrame` (window-chrome 3-dots, v1) — deleted earlier.
+- `ProductUISurface` (cyan top edge + corner crosshairs + LIVE marker, v3) — deleted earlier.
+- `TonalCardBed` (v4 — the soft tinted bed primitive) — folded into `HandoffVisual` and deleted; the six tonal variants live on as `BedTone`.
+- The procedural v4 visuals (`CardsUI` with `PaymentCard` layering, `LendingUI` phone sheet, `MoneyMovementUI` particle storm, `SettlementUI` isometric cubes, `FinancialCrimeUI` scan-and-chip, `ReconciliationUI` line diagram) — archived under `components/sections/product-uis/versions/`.
+- The procedural `NCoreStack` artifact — the new version loads `/public/handoff/home/ncore-stack-light.svg` + `ncore-stack-dark.svg`. Previous version archived under `components/artifacts/versions/`.
+- The `ProductCard` (composition primitive used by the symmetric `CardGrid`) **remains** for inner-page grids that still want the simple Light-Surface tile; the homepage Products section no longer uses it.
+
+### 8.9 The card grid — `CardGrid`
+
+There is **one** card grid for the whole site — `CardGrid`. It is a prop-configured layout spine, not a family of grids: it places cards and chooses the surface, while the card surfaces themselves (§8.1 glass, §8.5 modular cards, §8.8 product cards) are unchanged systems it composes. A grid runs in exactly one configuration — never mixed within a single grid.
+
+`CardGrid` has two axes plus a surface selector.
+
+**Axis 1 — layout.** Asymmetric or symmetric, never mixed within a grid.
+
+| Layout | Cells per row | Use |
+| --- | --- | --- |
+| `bento` | mixed spans on a six-column grid | Asymmetric. Tall / wide interplay, density variation, negative-space tension (§8.3). For a curated showcase where some products lead. |
+| `cols-3` | 3 | Symmetric, compact. Best when there are many items, or the UI zone is a light accent. |
+| `cols-2` | 2 | Symmetric, balanced. Room for the UI zone to read. The default for the homepage product overview. |
+| `cols-1` | 1 (full-width) | Symmetric, editorial. Heading + description split beside a large UI zone. Best for a short list or a flagship item. |
+
+**Axis 2 — card type.** What each cell carries.
+
+| Card type | Anatomy | Use |
+| --- | --- | --- |
+| `with-UI` | Heading + description + an embedded product-UI zone (§8.8 product card). | Product grids — any grid where each cell *shows* a NymCard product. |
+| `no-UI` | An infrastructural icon + heading + text — the modular icon / heading / text pattern (§8.5). No UI zone. | Solution, capability and feature grids — cells that *describe* rather than show. `CardGrid layout="cols-3" card="no-UI"` is the three-column icon / heading / text grid. |
+
+**Surface.** The material each cell renders on — chosen without editing any card-surface or card component:
+- `product` — the §8.8 product card surface (bordered, with the animated product-UI zone). The default; the homepage product overview uses it.
+- `treatment` — each cell a soft cool-palette gradient field (a distinct shade of blue), the grid auto-cycling two fields so adjacent cells differ. No ribbon, no grain, no grey.
+- `glass` — each cell a Light Glass panel (§8.1), the grid floating on one shared ambient atmosphere (glass never sits on a solid fill).
+
+The `glass` surface — and the `no-UI` card on the `product` surface — sit inside one shared atmospheric section; the `treatment` grid and the plain `with-UI` product grid do not.
+
+**Rules:**
+- **One configuration per grid.** Don't mix layouts, card types, or surfaces within a single grid.
+- **Symmetric grids are fully regular** — identical card structure, aligned heights.
+- **Card heights align within a row** in every layout.
+- **`CardGrid` never modifies a card surface.** It selects one via the `surface` prop and composes it; the surface systems (§8.1, §8.5, §8.8) remain the source of truth for the card itself.
+
+**Reference anchor:** `vercel-templates.png`, `stripe-2-card-layout.png` (symmetric); Stripe.com asymmetric grid (`bento`).
+
+### 8.10 Nav bar
 
 The visual design references the Staq navigation pattern: modern, floating, layered transitions on dropdown expand, with motion that creates continuity between nav states. The page-blur-on-dropdown-expand behaviour references the Stripe pattern, where the page content behind the dropdown blurs and dims while the dropdown panel itself remains solid.
 
@@ -665,7 +823,7 @@ The visual design references the Staq navigation pattern: modern, floating, laye
 
 **Reference anchor:** Visual design — `motion-staq-nav.mov`. Page blur on dropdown expand — `stripe-nav-background-blur.png`.
 
-### 8.9 Buttons
+### 8.11 Buttons
 
 **Primary CTA:**
 
@@ -707,6 +865,719 @@ The visual design references the Staq navigation pattern: modern, floating, laye
 - **One primary CTA per section.**
 - **Primary uses navy, not brand blue.** Navy has more authority; blue reserved for accents and links.
 - **The arrow glyph is functional, not decorative.** It signals "moves forward" and animates on hover.
+
+### 8.12 Page hero — product and solution pages
+
+The shared hero for every product and solution page. Distinct from the homepage hero: the homepage hero is the loudest, most cinematic moment on the site and **stays unique to the homepage**. Product and solution pages never reuse it — they share this one calmer hero pattern, so the product family reads as a single system.
+
+**When to use:** The opening section of any product or solution page.
+**When not to use:** The homepage (keeps its own hero); interior sections.
+
+**Composition:** F-pattern asymmetric (§8.3) — copy left (~50%), a single product visual right (~50%), and a kinetic `DividerRibbon` band closing the foot of the hero. Deliberately more restrained than the homepage hero: calmer atmosphere, lower kinetic intensity, and the ribbon is a contained band rather than the homepage's full-bleed kinetic field.
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Top line | Optional small line above the headline (e.g. a live metric). `body-sm`, `text-secondary`. |
+| Headline | `h1` (display scale, §2). One or two lines. |
+| Sub-copy | `body-lg`, `text-secondary`. One or two lines. |
+| CTAs | One primary, one secondary (§8.11). |
+| Visual zone | A single product UI or illustration, right-aligned. `UIPlaceholder` until the real UI is produced. |
+| Divider band | A kinetic `DividerRibbon` (`product-hero` variant) closing the foot of the hero — the product-page divider. |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Background | `surface` or `surface-soft` — light. No dark hero on product pages. |
+| Section padding | Per §4 section padding rules |
+| Atmosphere | One `AmbientGlow` behind the composition; a kinetic `DividerRibbon` band (`product-hero`) closing the hero. Not the homepage's full-bleed kinetic field. |
+| Internal composition | Asymmetric — copy left, visual right; stacks on mobile (copy first) |
+
+**Rules:**
+- **One primary CTA.**
+- **Lower kinetic intensity than the homepage hero.** The kinetic energy is carried by the closing `DividerRibbon` band, not a full-bleed field behind the content; the homepage hero's cinematic layering is not used here.
+- **The visual is a single confident surface**, not a layered floating stack.
+- **Same system** — tokens, palette, motion language, type. Only the intensity is dialled down.
+
+**Reference anchor:** `stripe-home-hero.png` (composition), `vercel-asymetric.png`.
+
+### 8.13 Feature showcase
+
+A section led by one large product UI, introduced by a two-column header — the eye reads the header left to right, then drops into the UI.
+
+**When to use:** Demonstrating a single capability with one confident, full-width UI — e.g. card controls, a dashboard, a config surface.
+**When not to use:** Multi-item content (use a card grid, §8.9); short copy paired with a small visual (use editorial single-card §8.7 or an asymmetric split §8.3).
+
+**Composition:**
+- **Header row** — two columns: headline left, supporting body right. Reads left to right.
+- **UI zone** — one large product UI beneath the header, spanning the section content width.
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Eyebrow | Optional. `body-sm`, uppercase, accent. |
+| Headline | `h2`. Left column of the header row. |
+| Body | `body-lg`, `text-secondary`. Right column of the header row. |
+| UI zone | One large framed product UI, full content-width. `UIPlaceholder` until the real UI is produced. |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Header | Two columns — headline ~50% left, body ~50% right; stacks on mobile |
+| Header → UI gap | `space-8` (40px) |
+| UI zone | Framed surface, `radius-lg` (16px), spans `container-default` / `container-wide` content width |
+| Background | `surface` or `surface-soft`; dark permitted for a single technical showcase (§10) |
+
+**Rules:**
+- **One UI per showcase.** The power is a single confident surface — never a grid of small ones.
+- **The header is exactly two columns on desktop.** Don't centre it, don't stack it.
+- **The UI zone is never empty chrome** — even as a placeholder it reads as a real product surface (§8.8).
+- **One looping ambient motion** inside the UI; paused under `prefers-reduced-motion`.
+
+**Reference anchor:** `linear-floating-dashboard.png` — the Linear "self-driving operations" layout: a two-column header over one large board UI.
+
+### 8.14 CTA section
+
+The closing call-to-action that ends a page.
+
+**When to use:** The final section of any page, before the footer.
+**When not to use:** Mid-page — a mid-page call-to-action is a tertiary link or inline button, not this section.
+
+**Composition:** Centred. Headline, one line of body, primary + secondary CTA. This is one of the few places centred composition is correct (§8.3 names the final CTA as a "when not to use" for asymmetry).
+
+**Atmosphere — ribbon-led (Phase 1.5).** The closing CTA echoes the hero by carrying the same kinetic-ribbon atmosphere — it is the **closing home of the signature ribbon**, the third of three visible homes (hero, RibbonInterlude mid-page, CTASection close). The page reads as a single canvas: hero opens with the ribbon, close repeats it. KineticRibbon runs at `ambient` intensity by default; `peak` lifts the close to climb back to the hero on pages that need a heavier ending. A soft centred AmbientGlow sits over the ribbon to anchor the headline.
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Headline | `h2`, centred. |
+| Body | `body-lg`, `text-secondary`, centred — one line. |
+| CTAs | Primary + secondary (§8.11), centred row. |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Alignment | Centred |
+| Background | `surface-soft`, or dark for an end-of-page technical close (§10) |
+| Atmosphere | `KineticRibbon` (focus `bottom-right`, intensity `ambient` default / `peak` for hero echo) + centred `AmbientGlow` cyan/subtle |
+| Copy measure | Constrained — keep the headline to a tight measure, not full container width |
+
+**Rules:**
+- **One primary CTA.**
+- **Nothing else lives in the CTA section.** No adjacent product cards, no cross-link grid, no secondary content — the section is the CTA and nothing more. Cross-links belong in the nav and footer.
+- **Centred composition** — the one deliberate exception to the asymmetry default.
+- **Ribbon-led atmosphere is required** — never drop the ribbon for "a calm centred CTA"; the close earns its place by echoing the hero.
+
+**Reference anchor:** `stripe-home-hero.png` (CTA treatment); the homepage hero's kinetic-ribbon vocabulary (closed via this section).
+
+### 8.15 FAQ
+
+A question-and-answer accordion, marked up for answer engines.
+
+**When to use:** Edge-case and objection-handling questions near the end of a page.
+**When not to use:** Core narrative — never hide primary messaging inside an accordion.
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Headline | `h2`. Eyebrow optional. |
+| Items | Accordion rows — question (`body-lg`, Inter 500) always visible, answer (`body`) expands. |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Layout | Single column, centred, constrained measure (§4) |
+| Row | Question visible; answer expands below. A `surface-border-subtle` divider between rows. |
+| Treatment | Rows with dividers — **not** a grid of cards. Clean, not card-heavy. |
+| Motion | Expand / collapse on `functional` timing (§9.2); paused under `prefers-reduced-motion` |
+
+**Rules:**
+- **Default to all rows closed.** Single-open or multi-open are both acceptable.
+- **`FAQPage` JSON-LD is mandatory.** Every FAQ emits `schema.org/FAQPage` structured data — this is what makes the answers citable by answer engines (AEO).
+- **Questions are phrased as a user would ask them** — real questions, not headings.
+- **Not card-heavy.** Dividers, not cards.
+
+**Reference anchor:** `stripe-2-card-layout.png` (restraint).
+
+### 8.16 Cross-sell banner
+
+A wide horizontal banner that points to another page — the "you might also want…" pattern, for cross-selling products and programmes between pages.
+
+**When to use:** Cross-linking to related pages — typically one standalone section near the foot of a page, two banners side by side.
+**When not to use:** Inside the CTA section (§8.14 carries the CTA and nothing else); as a primary call-to-action.
+
+**Composition:** Two equal banners in a row (2-up), each wide and short. Within a banner — copy on the left (~60%), a gradient graphic on the right (~40%) that bleeds to the rounded edge.
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Lead-in | The target page / product name. `body`, Satoshi 600, `text-primary`. Runs *in-line* into the body sentence. |
+| Body | One or two lines. `body`, `text-secondary` — continues straight from the lead-in. |
+| Link | Tertiary CTA (§8.11) — `brand-primary`, trailing `→`. |
+| Graphic | An abstract brand-gradient shape on the right, bleeding to the banner's rounded edge. |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Row | Two banners, equal width; stacks to one column on mobile |
+| Banner background | `surface-soft` |
+| Banner border | `1px solid surface-border-subtle` |
+| Banner radius | `radius-lg` (16px) |
+| Padding | `space-7` (32px) on the copy side |
+| Copy / graphic split | ~60 / 40; the graphic bleeds to the right and bottom edges |
+| Height | Short — a banner, not a card; the copy sets the height |
+
+**Rules:**
+- **The lead-in runs into the body** as one sentence — "**Embedded Lending.** Credit decisioning, origination…" — never a stacked heading.
+- **The gradient graphic is the one vivid colour moment.** It stays on the right edge, never behind the text, and is drawn from the **cool gradient palette only** (§3) — cyan / indigo / purple / primary. Never warm, even though cross-industry references (e.g. Stripe) use warm tones.
+- **Two banners per row maximum.**
+- **It is a cross-link, not a CTA** — tertiary link only, never a primary button.
+- **Light and dark parity** — on dark, the banner is a dark surface; the gradient graphic keeps the same cool palette.
+
+**Reference anchor:** the Stripe cross-sell banner pattern (Stripe Startups / Stripe Atlas) — layout only; recolour to the cool palette.
+
+### 8.17 Code artifact — `CodeArtifact`
+
+The on-system code / JSON / config artifact. The visual half of the product-page **Section 6 (API / configuration)** in `00-strategy/about-nymcard/page-arc.md`: copy left, a code panel right, ideally with a small companion block beneath the panel for the "live visualization showing the config applied" hook.
+
+Numbered §8.17 because it directly follows the §8.12–§8.16 section-template run — every section template lives in one place in the spec.
+
+**When to use:** The API / configuration section of any product or solution page (page-arc Section 6). Drops into the `visual` slot of `SplitEditorial`, sits inside a `FeatureShowcase` UI zone, or stands on its own inside a section.
+**When not to use:** Non-technical sections; copy-only blocks; product-UI placeholders (use `UIPlaceholder`).
+
+**Composition:** A bordered surface with a chrome row at the top (language tabs or a single caption), a line-numbered code body, and an optional companion block beneath. Designed for a dark Section 6 by default; `background="light"` preserves a light variant.
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Tab strip | Language tabs across the top (e.g. "Node.js / Ruby / Python"). Active tab — brand primary in light, accent cyan in dark; font-semibold with an accent underline. Inactive — text-secondary. The strip renders as a strip regardless of count — with one tab it still reads as a tab, never a quiet caption — matching the Stripe reference. |
+| Line numbers | Mono, muted (`text-muted` at ~70%), in their own column with a hairline divider on the right. Tabular-nums so numbers stay aligned. |
+| Code body | Mono, restrained tokenisation — keys / methods in brand primary (cyan in dark), strings in `accent-teal`, numbers and keywords in `brand-purple`, punctuation muted, comments italic and further muted. **No rainbow tokens.** Native to the design language, not a third-party syntax-highlighter widget. |
+| Companion (optional) | A small block beneath the code body, inside the same surface: a sub-headline (`body` Satoshi 600), one or two lines of body, and a tertiary link (`brand-primary` / accent cyan, with arrow glyph). |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Surface (dark) | `surface-dark-elevated`, `surface-dark-border` |
+| Surface (light) | `surface-white`, `surface-border-subtle` |
+| Radius | `radius-lg` (16px) |
+| Code padding | `space-5` vertical / `space-5` horizontal |
+| Code font | `code`: IBM Plex Mono 400, 13px / 1.65 |
+| Cyan front-edge hairline | 1px, top edge — the lit face shared with every embedded UI surface in the system |
+| Cool corner wash | Faint cyan top-right + faint indigo bottom-left — same vocabulary as `FloatingOperationalPanel` |
+
+**Rules:**
+- **Languages and counts are flexible — the tab strip reads sensibly with 1, 2 or N tabs.** Don't pad languages just to make the strip look fuller; with one tab it renders as a caption, with two it's already a strip.
+- **Tab switching is the one place this primitive needs the client.** Everything else is static — line numbers, tokenisation and the companion block all render on the server.
+- **The companion block lives inside the same surface.** Don't break it out into a second card next to the code — the page-arc wants a single composition, not two cards competing for the right column.
+- **Dark default, light secondary.** Section 6 is dark in the canonical page arc (per the Stripe reference); the light variant exists so the primitive isn't dark-locked, but pages should default to dark.
+- **Tokens only.** No raw hex, no inline radii. Every colour and radius is a token.
+- **Respects `prefers-reduced-motion`.** No motion inside the artifact by design — line numbers and syntax highlight are static.
+
+**Reference anchor:** `03-references/stripe/stripe-developer-docs.png` — dark section, language tabs across the top of the code panel with the active tab in cyan, line numbers down the left, "Comprehensive libraries" + body + "Learn more →" companion beneath.
+
+### 8.18 Rail carousel — `RailCarousel`
+
+The props-driven full-bleed snap-scroll rail. The Stripe-style horizontal rail (cards crop past the viewport edge, native snap-scroll, desktop arrow controls, native touch scroll on mobile) generalised into one primitive, with two card-density variants. Replaces the homepage's bespoke `UseCases` section and is also the canonical home for the product-page **Section 7 (Industries)** in `00-strategy/about-nymcard/page-arc.md`.
+
+Numbered §8.18 because it directly follows the §8.12–§8.17 section-template run.
+
+The hero `ProductCarousel` (`components/hero/ProductCarousel.tsx`) is a separate, **hero-locked** focal carousel — its glass-on-glass material and hero positioning don't generalise. This primitive does not replace it; it covers the other horizontal-rail pattern on the site.
+
+**When to use:**
+- Page-arc Section 7 (Industries) — `variant="sparse"`, `background="dark"`.
+- Homepage "Use cases" rail — `variant="rich"`, `background="light"`.
+- Any other section that wants a props-driven horizontal rail of equally-weighted cards.
+
+**When not to use:**
+- Symmetric grids (use `CardGrid`).
+- Editorial single-card moments (use §8.7).
+- The hero focal carousel (use the hero-locked `ProductCarousel`).
+
+**Composition:** A section header inside the constrained content rail (eyebrow + headline + arrow controls), with a full-bleed horizontal rail beneath that runs to the viewport edge. The rail's left padding aligns card 1 with the section's content rail at every breakpoint; the right side bleeds, so the next card crops past the viewport edge — the Stripe rhythm.
+
+**Variants:**
+
+| Variant | Card shape | Card width (lg) | Use |
+| --- | --- | --- | --- |
+| `rich` | UI placeholder + headline + body + bullets (variable) + Explore link | ~32% | Homepage Use cases, capability-led rails. |
+| `sparse` | Eyebrow + one line of copy + tertiary link | ~22% | Page-arc Section 7 (Industries). Apple-style — light card, more cards visible at once. |
+
+**Surface variants:**
+
+| Surface | Section background | Card material |
+| --- | --- | --- |
+| `background="light"` | `surface-soft` | White card, `surface-border-subtle`, `shadow-sm` on hover. The homepage default. |
+| `background="dark"` | `surface-dark-base` | `surface-dark-elevated`, `surface-dark-border`, lifted border on hover. Forces the `dark` class on the section so themed tokens resolve correctly. Page-arc Section 7 default. |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Section vertical padding | Per §4 — `space-11` (96px) default; ramps to `space-12` (120px) on lg+ |
+| Header → rail gap | `space-9` (48px) — drops to `space-10` (64px) on lg+ |
+| Card radius | `radius-2xl` (32px in the rail) — matches the existing UseCases rail rhythm |
+| Card padding | `space-7` (32px) internal |
+| Card gap (rail) | `space-6` (24px) |
+| Arrow controls | 40×40 rounded `radius-md`, `bg-brand-primary/[0.08]` light or `bg-accent-cyan/[0.12]` dark; visible on `md+` only |
+| Entrance motion | Card fade-up: opacity `0 → 1`, 20px translateY, 600ms `ease-out`, 50ms stagger by index. Gated on `useReducedMotion`. |
+| Scroll behaviour | `behavior: "smooth"` on the arrow controls, `behavior: "auto"` under `prefers-reduced-motion` |
+
+**Rules:**
+- **Props-driven, no hardcoded items.** The primitive accepts `items` as a prop; page-owned content lives next to the page (`lib/homepage-use-cases.ts` is the model).
+- **One variant per rail.** Don't mix rich and sparse cards in a single rail.
+- **The section header lives inside the content rail; the rail itself bleeds full-width.** This is what gives the rail its Stripe rhythm — never wrap the rail in `max-w-7xl`.
+- **Arrow controls are desktop only.** Mobile uses native touch scroll.
+- **Accessibility default.** Cards are real anchor elements (keyboard reachable), arrows are real buttons with aria-labels, the section is labelled via `aria-label`.
+- **Tokens only.** No raw hex, no inline radii. Hover shadows are token-driven.
+- **Respects `prefers-reduced-motion`.** No entrance fade, no smooth scroll — the rail still works, just without ambient motion.
+
+**Reference anchor:** the Stripe homepage use-cases rail (`03-references/stripe/stripe-use-cases.png` + `03-references/stripe-use-cases.png`) — full-bleed horizontal rail with cards cropping past the viewport edge; Apple's industries pattern for `sparse`.
+
+### 8.19 Outcome chips — `OutcomeChips`
+
+The row of three small chips that sits directly beneath the hero on every industry page. Answers the buyer's "what's in it for me?" question — each chip is a buyer-side outcome (revenue, retention, speed, control, audit), never a capability.
+
+Numbered §8.19 because the industry-page arc (`00-strategy/about-nymcard/industry-page-arc.md`, locked 2026-05-25) introduces four section primitives that close the gap between the product-page system and the industry pages — §8.19–§8.22 hold them, continuing the §8.12–§8.18 section-template run with no gaps.
+
+**When to use:** Directly below an industry-page hero (§8.12), as the second section of the page. Reads as the buyer's outcome answer to the hero promise.
+**When not to use:** As a feature grid (capabilities belong in §8.20 TextImageRow or §8.21 PlatformChecklist); as a chip cloud (this is a fixed three, not a wrap-list of tags).
+
+**Composition:** A row of three chips on the section surface — no card frame, no fill — separated from the hero above by a hairline. Each chip is an icon (left) + a bold 2–4 word label + a one-sentence body (right). On mobile, the row stacks and the icon sits above the label/body.
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Icon | A small 36×36 tile, `radius-md` (8px), `bg-accent-cyan/10` light or `bg-accent-cyan/12` dark, icon glyph `text-accent-cyan`. Lucide icon at 18px / `strokeWidth=1.75`. The accent cyan is the system's outcome accent — never `brand-primary`, never decorative. |
+| Label | `body` Satoshi 700, `text-primary` light / `text-on-brand` dark. Sentence case, 2–4 words. |
+| Body | `body-sm`, `text-secondary`, one sentence. |
+| Row divider | `1px solid surface-border-subtle` along the top of the row — visually separates the chip row from the hero above. |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Items | Exactly three (the industry-arc locks this) |
+| Row gap (md+) | `space-7` (32px); `space-9` (48px) on lg+ |
+| Stack gap (mobile) | `space-7` (32px) between stacked chips |
+| Icon → text gap | `space-4` (16px) mobile (icon-above), `space-5` (20px) md+ (icon-left) |
+| Padding-top | `space-9` (48px) above the chip row, beneath the hairline |
+
+**Rules:**
+- **Three chips, no more, no less.** The arc locks this — never two and never four.
+- **Buyer-side outcomes, never capabilities.** "Real-time payouts" is an outcome ("revenue retained"); "real-time disbursement API" is a capability and belongs in §8.21.
+- **One sentence per chip body.** Two sentences belong in §8.20.
+- **Icons are accent cyan only.** Never `brand-purple`, never the warm palette — the chip row inherits the system's cool palette.
+- **No card frame.** The row reads as an editorial statement on the section surface, not three floating cards.
+- **Light and dark parity.** The tile fill and icon colour resolve to the dark palette under `.dark`.
+
+**Reference anchor:** the Stripe homepage feature-strip row (small icon + bold label + one line beneath) — recoloured to the cool palette and bound to three items.
+
+### 8.20 Text-image row — `TextImageRow`
+
+The lighter copy ↔ visual row used in the industry-page **"What you can build"** section — 3 or 4 rows per page, alternating text-left / text-right.
+
+Numbered §8.20 because it sits alongside the other industry-page primitives in the §8.19–§8.22 run.
+
+**Decision: a new primitive, not lifted from §8.7 SplitEditorial.** SplitEditorial is a flagship product-card moment — eyebrow + headline + body + a 3-item rule list + optional chip row + kinetic ribbon atmosphere — opinionated for the product pages it was designed for. The industry "What you can build" rows are lighter editorial moments closer to a Stripe alternating row: a headline, 1–2 sentences, an optional tertiary link, and a UI. Making half of SplitEditorial's props optional would yield a chimera component that's hard to reason about, and an empty rule list inside the padded card frame reads as unfinished. Two distinct primitives keep each opinionated; pages compose from `SplitEditorial` (flagship product-card) or `TextImageRow` (lightweight editorial row) per the rhetorical weight the section needs.
+
+**When to use:** Industry-page "What you can build" rows (3 or 4 per page, alternating). Also any other lighter "copy ↔ UI" row where the §8.7 product-card rhetoric (rule list + atmosphere) would over-design the moment.
+**When not to use:** Product-page hero cards (use §8.7 SplitEditorial); rows where the rule list and chips earn their place (use §8.7); the closing CTA (§8.14).
+
+**Composition:** A 50/50 two-column grid at lg+, stacked on mobile (text first in source order so it leads on small screens). Visual order on desktop is set by `orientation` — `text-left` puts the visual on the right; `text-right` puts it on the left.
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Eyebrow (optional) | Per §8.7 — mono caps, `brand-primary` / accent cyan. |
+| Headline | `display` Satoshi 700, sentence case. `text-2xl` mobile / `text-[1.75rem]` lg+. Smaller than the §8.7 headline so the rhythm reads as a row, not a card. |
+| Body | `body`, `text-secondary`, 1–2 sentences. |
+| Link (optional) | Tertiary "Learn more →" — `brand-primary` / accent cyan, `body` Satoshi 500, trailing `ChevronRight` glyph. Same treatment as the §8.16 cross-sell link. |
+| Visual | `UIPlaceholder` (compact) by default; the caller passes a real product UI when one exists. |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Container max-width | `1200px`, with the standard `px-4 / sm:px-6 / lg:px-20` content-rail padding |
+| Column gap (lg+) | `space-10` (64px) |
+| Stack gap (mobile) | `space-9` (48px) |
+| Visual min-height | `16rem` mobile, `20rem` lg+ |
+
+**Rules:**
+- **Explicit `orientation` — the caller alternates per row.** The component doesn't auto-alternate from index; the page composes the rows and sets the orientation so the alternation is legible at the page level.
+- **Mobile order is fixed: text first.** Mobile always reads copy → visual, regardless of orientation; orientation only flips the desktop columns.
+- **No card frame.** The row sits on the section surface — never in a bordered card. The §8.7 card frame is the rhetorical signal of a product moment; this primitive is editorial.
+- **One tertiary link maximum.** Not a CTA — never a primary button. Use the same treatment as the §8.16 cross-sell link.
+- **Light and dark parity.** All copy and link colours resolve to the dark palette under `.dark`.
+
+**Reference anchor:** Stripe's alternating "row of UI + copy" pattern on the product / industry pages — lighter rhetoric than the editorial-card §8.7.
+
+### 8.21 Platform checklist — `PlatformChecklist`
+
+The "Built for X" Platform section on every industry page — answers the buyer's "is your platform serious?" question. A heading + body on the left, a checklist on the right, and an optional trust-chip strip beneath the list.
+
+Numbered §8.21 because it sits in the industry-page §8.19–§8.22 run.
+
+**When to use:** The Platform section on every industry page (one per page). The checklist is the page's compact answer to deployment models, integrations, certifications, and network connectivity.
+**When not to use:** Long-form platform copy (compose from product-page primitives); a feature grid (use `CardGrid`).
+
+**Composition:** A 12-column grid at lg+. Left 5 columns: eyebrow + headline + body. Right 7 columns: a checklist of 4–6 items, each with a check icon, separated by hairlines (no card frame). The trust-chip strip sits beneath the checklist in one row.
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Eyebrow (optional) | Per §8.7. |
+| Headline | `display` Satoshi 700, sentence case. `h2` scale — `text-3xl` mobile / `text-[2rem]` sm+. |
+| Body (optional) | `body`, `text-secondary`. |
+| Checklist item | A 20×20 cyan-tinted circle (`bg-accent-cyan/12` light, `/16` dark) with a 12px `Check` glyph (`strokeWidth=2.5`) + the item label. Items separated by `surface-border-subtle` hairlines top and bottom. |
+| Trust chip | `radius-pill`, `surface-soft` light / `surface-dark-base` dark, mono `11px / 0.16em` tracking. One inline strip, never two rows. |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Container max-width | `1200px`, standard content-rail padding |
+| Grid (lg+) | 5 / 7 split — text left, checklist right |
+| Items | 4–6 (the arc bounds this) |
+| Item padding (vertical) | `space-5` (20px) — `py-4` |
+| Chip strip top margin | `space-7` (32px) beneath the checklist |
+| Chip strip gap | `space-3` (10px) — `gap-2.5` |
+
+**Rules:**
+- **4–6 bullet items.** The arc bounds this — three reads light, seven reads as a feature dump.
+- **No AmbientGlow, no kinetic ribbon.** This section is the calm, factual counterpoint to the editorial rows above it.
+- **The trust-chip strip is one row.** If the chips don't fit in one row on a target breakpoint, the chip list is too long.
+- **Chips are inline strips, never tiles or cards.** Same treatment as the §8.7 SplitEditorial chip row.
+- **The check glyph is decorative.** The semantic content is the item text — the icon carries `aria-hidden`.
+- **Light and dark parity.** All surfaces, borders and icon fills resolve to the dark palette under `.dark`.
+
+**Reference anchor:** the Stripe / Linear "platform" or "built for" section pattern — a constrained-measure heading paired with a checklist of capabilities.
+
+### 8.22 Developer block — `DeveloperBlock`
+
+The slim mid-page developer call — heading + one-sentence body + tertiary "Read the docs →" link. Smaller and less prominent than §8.14 CTASection (which is the closing CTA). Sits between Platform (§8.21) and the product cross-sells (§8.16) on every industry page.
+
+Numbered §8.22 because it sits in the industry-page §8.19–§8.22 run.
+
+**When to use:** The Developer section on every industry page (one per page). Also any other slim mid-page link to the docs that shouldn't compete with the closing CTA.
+**When not to use:** As a closing CTA (use §8.14); when the dev-docs link is the only thing on the section (compose a §8.14 with a secondary outline CTA instead).
+
+**Composition:** A left-aligned block inside the standard content rail. Eyebrow (optional) + headline + one sentence + tertiary link, stacked. The block is constrained to `max-w-2xl` so the headline doesn't fill the rail and read as a CTA. Slim vertical padding — `py-[72px]` — so it never competes with the hero (`py-[136px]+`) or the final CTA (`py-[120px]`).
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Eyebrow (optional) | Per §8.7. |
+| Headline | `display` Satoshi 700, sentence case. `h3` scale — `text-2xl` mobile / `text-[1.75rem]` sm+. |
+| Body | `body`, `text-secondary`, one sentence. |
+| Link | Tertiary — `brand-primary` / accent cyan, `body` Satoshi 500, trailing `ChevronRight`. Same treatment as the §8.16 cross-sell link. |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Container max-width | `1200px`, standard content-rail padding |
+| Content max-width | `max-w-2xl` — keeps the block compact |
+| Vertical padding | `py-[72px]` — slim, deliberately less than the §8.12 hero (`py-[136px]+`) and the §8.14 CTA section (`py-[120px]`) |
+| Background | `white` default; `soft` for rhythm; `dark` for a technical close |
+
+**Rules:**
+- **Left-aligned, never centred.** The industry-page rhythm at this position is asymmetric editorial — a centred block here would read as a second closing CTA and break the page's CTA hierarchy.
+- **Tertiary link only.** Never a primary button — the closing CTA (§8.14) carries the primary action.
+- **Slim padding.** Never matches the hero or the final CTA — this is a mid-page connector, not a destination.
+- **Light and dark parity.** All three surface variants render identically structurally; only the surface and text tokens change.
+
+**Reference anchor:** the Stripe "For developers" mid-page strip — slim, left-aligned, single tertiary link to the docs.
+
+### 8.23 Scale stats ribbon — `ScaleStatsRibbon`
+
+The proof-of-scale dark moment as a primitive. Count-up stats lead, the kinetic ribbon idles beneath at ambient intensity, a violet glow anchors the row. The second visible home for the signature ribbon outside the hero — the audit's #1 lever for "kinetic ribbon used beyond the hero."
+
+**When to use:** Proof-of-scale moments — homepage Scale section, product-page scale break, industry-page scale break. One per page maximum.
+**When not to use:** Anywhere a `text-2xl` stat row would do (use a §8.21 PlatformChecklist or inline stats). This primitive earns the dark break; don't spend it on weak numbers.
+
+**Composition:** Header above (left-aligned, max-w-2xl — eyebrow + headline + body) then a full-width horizontal stat row below. 3 or 4 stats supported; each stat is a thin top border + a large display number + a max-w-[28ch] label.
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Surface | Always dark. Forces `.dark` locally regardless of page theme, like RailCarousel (sparse). |
+| Background | Two layers: (1) `KineticRibbon intensity="ambient" focus="top-right"` provides the soft cyan/violet field that depths the navy surface; (2) the hero's cutout ribbon artwork (`home-hero-ribbon-cutout.png`) drifts over the top at `opacity-40` with `mix-blend-screen` — same Lissajous drift as `RibbonKinetic.tsx`, lower opacity, so the stats still lead but the signature ribbon is recognisably present. The static violet glow (the §3 violet anchor) sits above the artwork, anchoring the stat row. |
+| Header | Eyebrow + `display` h2 (3xl mobile → 42px lg) + body, max-w-2xl, left-aligned. |
+| Stat number | `display` 4xl mobile → 56px xl, `tabular-nums`. Prefix and suffix in `accent-cyan/80`. Counts 0 → value on view-in (`motion-cinematic` + 0.5s, ease-out). Number is **centred in its grid cell** — different widths (`2.8B` vs `$18.3B` vs `99.99%`) read as an evenly-paced row only when centred. |
+| Stat label | `body` small, `text-dark-secondary`, max-w-28ch, **centred under the number**, sits below a thin `white/10` top border. |
+| Page rail | `CrosshairRails` framing the section content rectangle. |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Vertical padding | `py-[120px]` |
+| Stat grid | `grid-cols-1` mobile → `sm:grid-cols-2` → `lg:grid-cols-3` (3 stats) or `lg:grid-cols-4` (4 stats) |
+| Card stagger | 80ms between stats on entry (§9.6) |
+| Count-up duration | `motion-cinematic` + 0.5s = 1.5s, `ease-out` |
+| Trigger | When 40% of the section is in view (§9.6) |
+
+**Formats:**
+
+| `format` | Output |
+| --- | --- |
+| `number` (default) | `Intl.NumberFormat` en-US, integer (e.g. `12,400,000`). |
+| `currency` | `Intl.NumberFormat` `style: "currency"`, `currency` prop (default `USD`). |
+| `compact` | `Intl.NumberFormat` `notation: "compact"`, 1 fraction digit (e.g. `2.8B`). |
+
+**Rules:**
+- **Always dark.** This is one of the §10.1 scale moments. Forcing `.dark` locally is the contract.
+- **Header above the stats, never beside them.** A two-column layout compresses 4 stats into a half-width strip and the digits collide. Audit-tested.
+- **One per page maximum.** Two stat-ribbons reads as a list, not a proof.
+- **Stats centred per cell.** Numbers of different widths in equal-width grid columns only read as an evenly-paced row when each cell centres its content; left-aligning leaves visible gaps.
+- **Ribbon stays recessive.** `intensity="ambient"` is the cap on the field — never `peak` here. The cutout-artwork layer over the top holds at `opacity-40` so it reads as the signature ribbon at a lower visual weight than the hero (where it sits at 1.0).
+- **prefers-reduced-motion** → final values immediately, no count-up. The ribbon artwork holds a static overscan; the KineticRibbon field uses its own internal reduced-motion handling.
+
+**Reference anchor:** `03-references/stripe/stripe-stats-dark-mode.png` — the canonical proof-of-scale moment.
+
+### 8.24 Integrations diagram — `IntegrationsDiagram`
+
+The Stripe-architecture moment as a primitive. A central hub (nCore by default) with a constellation of integration nodes arranged radially, all connected by thin lines that carry ambient data-flow pulses. The "one platform, many networks connecting through it" story rendered as composition rather than copy.
+
+**When to use:** Once per page, on pages that need to communicate the connectivity story — homepage Network section, product-page architecture break, About page.
+**When not to use:** As a generic logo-grid (use `TrustBar §8.25`). The radial geometry costs something — earn it with content that genuinely is a hub-and-spoke story.
+
+**Why radial (not grid):** The story is "every node orbits the platform." A grid says "here are six logos." The composition is the message.
+
+**Composition:** Centred header above (eyebrow + h2 + body, max-w-2xl) over a single full-width SVG diagram. Central hub is a labelled circle with a cyan glow halo and a thin concentric ring. 5–8 integration nodes are pill-shaped chips arranged on a flattened ellipse around the hub (orbit semi-axes 300x200 in a 800x520 viewport). Hub → node lines are 1px cyan at low opacity; each line carries a small cyan data-flow pulse that travels node → hub on an ambient cadence.
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Surface | Always dark. Forces `.dark` locally. |
+| Background | A static indigo / violet radial wash — no kinetic motion. The diagram is the motion. |
+| Hub | Disc + 1.5px cyan ring + concentric ring + radial cyan glow halo. Label in `display` semibold (Geist) — default `nCore`. |
+| Nodes | 168x56 chip, 1px white/15 border, dark-elevated surface, backdrop-blur. Label in Geist Mono unless a `logo` ReactNode is provided. Optional `href`. |
+| Connecting lines | 1px, gradient stroke (cyan at the node end → brighter cyan at the hub) so the eye traces toward centre. Stroke-dasharray animates from full to 0 on view-in (§9.6 connection-line draw). |
+| Pulses | 4px cyan radial dot, travelling node → hub, ~4s cycle, 1.5s repeat-delay, staggered per line so pulses don't all fire on the same beat (§9.4 connection-line pulses, 3–5s interval). |
+| Orbit hint | A single low-opacity dashed cyan ellipse so the radial geometry reads before the eye finds individual lines. |
+| Page rail | `CrosshairRails` framing the section content rectangle. |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Viewport (SVG) | `800 × 520` |
+| Hub | radius 56, ring at radius 66 |
+| Orbit | `rx 300`, `ry 200` (flatter than circle to match section aspect) |
+| Node count | 5–8 (tuned for 6 — the canonical NymCard set) |
+| Node start angle | -π/2 (12 o'clock) clockwise |
+| Vertical padding | `py-[120px]` |
+| Trigger | When 30% of the section is in view |
+| Line-draw duration | `motion-cinematic`, `ease-out`, 60ms stagger across lines |
+| Node entry | `motion-deliberate`, scale 0.92 → 1, 60ms stagger, after lines complete |
+
+**Rules:**
+- **Always dark.** This is an end-of-page technical moment per §10.1.
+- **Radial only.** A grid variant is a different primitive entirely.
+- **Cyan as the network signal.** §9.5.1 — "cyan reads as sensor / scanner." Violet does not.
+- **Pulses are ambient.** Never marquee. Never sequenced into a parade.
+- **prefers-reduced-motion** → no entry animation, no pulses, all elements visible at rest.
+- **Hub label defaults to `nCore`.** Override only when the diagram tells a different platform story.
+
+**Reference anchor:** `03-references/stripe/stripe-integrations.png` — Stripe Connect's radial architecture diagram.
+
+### 8.25 Trust bar — `TrustBar`
+
+The thin marquee strip of client / network / certification logos that sits directly under the hero on the homepage and every product / industry page. Says "this is who NymCard already runs" without saying it in words. Promoted from a homepage-specific section instance to a composition primitive in Phase 1 so the page-arc can compose it explicitly with prop-controlled copy and surface.
+
+**When to use:** Directly under the hero on the homepage, every product page, every industry page. The first piece of social proof.
+**When not to use:** As a second trust-row deeper in the page (logos are scanned once; a second row reads as filler).
+
+**Composition:** A single horizontal strip with a marquee row of logo placeholders (real grayscale logos swap in at content stage). Optional `trustLine` adds a second row of single-line certification copy beneath the marquee. `trustLine` accepts `string | ReactNode` so callers can compose the canonical phrase with inline SVG logo marks — see the `PrincipalMemberTrustLine` companion export below.
+
+**Anatomy:**
+
+| Element | Treatment |
+| --- | --- |
+| Surface | `white` (default), `soft` for rhythm, `dark` for end-of-page composition. `dark` variant forces `.dark` locally so inner borders pick up dark-theme tokens. |
+| Border | `border-surface-border-subtle/40` on light; `border-surface-dark-border` on dark. Top + bottom. |
+| Logo mark | Mono caption, uppercased, low-opacity. Explicit tone per surface (not `dark:` — keys off the bar's own surface, not the page theme, so a light bar embedded in a dark page reads correctly). |
+| Marquee | Two copies of the logos translate `0 → -50%` over a 45s linear loop (§9.4 — logo marquee row). |
+| Edge fades | 40px gradient from the surface colour to transparent, both sides, so the marquee dissolves into the surface rather than reading as cropped. |
+| Trust line (optional) | Single row of `body-sm` copy, centred, beneath the marquee. May be a plain string or a ReactNode that mixes copy with inline SVG logos at ~14–18px (Visa wordmark 14px, Mastercard mark 18px, PCI DSS / ISO 27001 badges 16px), baseline-aligned (`align-middle`). |
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Height (no trust-line) | `h-20` mobile / `h-24` lg |
+| Vertical padding (with trust-line) | `py-6`, marquee on a `h-12 lg:h-14` strip, trust-line `mt-4` |
+| Loop | 45s linear, infinite |
+| Edge fade width | `w-10` |
+| Default logo count | 12 placeholders (real logos via the `logos` prop) |
+
+**Rules:**
+- **Logos are placeholder-only in code.** Real client logos arrive as a content prop; never hardcoded in a section.
+- **prefers-reduced-motion** → first 6 logos, centred, static (no marquee).
+- **The trust-line is single-row.** Compose certifications with middot separators (`Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001`) — never wrap into two lines.
+- **Explicit per-surface tone.** Never `dark:` modifiers on inner text — the bar's surface decides, not the page. The `PrincipalMemberTrustLine` companion takes a matching `tone="light" | "dark"` prop because the bar can't pass surface context to children via React context.
+
+**`PrincipalMemberTrustLine` companion:** A named export from the same module that renders the canonical phrase with inline SVG marks. Use it as the `trustLine` prop value on industry / product pages where the bar carries the real network + certification marks:
+
+```tsx
+<TrustBar trustLine={<PrincipalMemberTrustLine tone="light" />} />
+<TrustBar background="dark" trustLine={<PrincipalMemberTrustLine tone="dark" />} />
+```
+
+Assets it composes (from `/public/logos/`):
+- `visa-full.svg` (light surfaces) / `visa-white.svg` (dark surfaces) — coloured wordmark, surface-specific.
+- `mastercard.svg` — interlocking-circles mark, single asset, works on both surfaces.
+- `pci-dss.svg`, `iso-27001.svg` — pill-shaped wordmark badges authored with `currentColor`; inherit the bar's text tone so a single asset works on both surfaces.
+
+**Reference anchor:** the Stripe homepage trust band, the Linear homepage logos strip.
+
+### 8.26 Ribbon interlude — `RibbonInterlude`
+
+The slim full-bleed kinetic-ribbon band that sits between content sections — the page-arc connective tissue. Phase 1.5 introduces this so the kinetic ribbon recurs beyond the hero. The ribbon now has three visible homes on a page: the homepage hero (the cinematic master), `RibbonInterlude` (mid-page punctuation), and `CTASection` §8.14 (closing echo). One per page maximum so the ribbon stays a signature, not a motif.
+
+**When to use:** Between two content sections that need an editorial breath without dropping the kinetic vocabulary — typically after the products grid and before the scale ribbon, or before the closing CTA on long pages.
+**When not to use:** As a section anchor (the interlude has no content of its own); as a hero (use the hero); as a closing CTA (use §8.14, which carries the ribbon natively); more than once per page.
+
+**Composition:** A horizontal band — `sm`/`md`/`lg`/`xl` heights — carrying the `KineticRibbon` atmosphere at the chosen intensity. Hairline top + bottom edges so the band reads as a deliberate interruption rather than another section.
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Heights | `sm` ~96px / `md` ~128px / `lg` ~160px / `xl` ~200px |
+| Intensity | `calm` (near-silence) / `ambient` (default speaking volume) / `peak` (energised) |
+| Focus | `top-right` / `left` / `bottom-right` |
+| Tone | `light` (default; surface-white / dark mode flips to surface-dark-base) or `dark` (forces `.dark` locally) |
+| Edges | 1px top + bottom hairline at `surface-border-subtle` / `surface-dark-border` |
+
+**Rules:**
+- **One per page maximum.** Two interludes reads as decoration; the ribbon's job is to recur as a signature, not as a motif.
+- **No copy, no content.** The interlude is a kinetic beat — adding copy turns it into a section.
+- **Decorative.** `aria-hidden="true"`; never carries any semantic content.
+- **Light and dark by construction.** The `tone` prop swaps the surface so the interlude can punctuate either rhythm.
+
+**Reference anchor:** the homepage hero ribbon recurring through the page as a quiet signature; the Stripe page-arc moments between sections.
+
+### 8.27 AI extraction — `AIExtraction`
+
+The AI-native data-extraction composition (§9.5.1) as a reusable primitive. Codifies the full choreographed loop — surface materialisation → scan ripple → contextual chip reveal — into one component so product pages stop hand-rolling it.
+
+**When to use:** Product cards that explicitly demonstrate AI processing — invoice scanning, KYC verification, transaction enrichment, fraud screening. **Phase 1.5 ships the primitive as a styleguide demo only**; wiring into marketing pages comes in Phase 2 once real product UIs land. The primitive exists so the §9.5.1 contract is shippable code, not just a spec.
+**When not to use:** As a generic "scanning" decoration; on a section that has no extraction story; more than once per section.
+
+**Variants:**
+
+| Variant | Surface | Scan motion |
+| --- | --- | --- |
+| `linear` | Document / panel / ledger surfaces with a reading direction | Downward cyan ripple (§9.5.1 linear scan) |
+| `radial` | Biometric / face / point-of-focus surfaces with no reading direction | Concentric cyan rings expanding from centre (§9.5.1 radial variant) |
+
+**Composition:** The §9.5.1 contract, exactly:
+1. Surface materialises on view-in — scale `0.85→1`, drift y `-12→0`, blur `3→0`, on the same ease curve.
+2. Status label flickers softly during the scan phase.
+3. Scan runs via `ScanSweep` (the §9.5.1 implementation overlay).
+4. Extracted chips reveal with scale-up + ≥300ms stagger between siblings.
+5. Parallax-by-scale-delta — `foreground` chips scale `0.88→1`, `background` chips scale `0.90→1`, so the depth hierarchy reads as 3D.
+6. `prefers-reduced-motion` settles everything to a calm static end state.
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Surface materialisation | 450ms; ease-out spline `0.16 1 0.3 1` |
+| Scan delay after surface settles | ~0ms (surface materialisation completes first) |
+| Chip stagger | ≥300ms between siblings (§9.5.1 contract) |
+| Chip duration | 400ms; ease-out spline |
+| Chip scale-from | `0.88` foreground / `0.90` background |
+
+**Rules:**
+- **One per section maximum** — §9.5.1 contract.
+- **Scan is always cyan** — `accent-cyan` reads as "sensor / scanner"; violet and blue do not.
+- **Surface sits on glass** — every variant composes a `GlassPanel` surface for material parity with sibling cards.
+- **Chips never stack** — at most 4 chips per extraction loop.
+- **Light and dark parity** — the chip styling and surface resolve under `.dark`.
+- **`prefers-reduced-motion` disables every animation** — the primitive renders the end state immediately.
+
+**Reference anchor:** `03-references/brex/brex-invoice-scanning.png` (canonical §9.5.1 reference); the styleguide demo at `/visual-system#aiextraction`.
+
+### 8.28 Card treatment library — `CardTreatment` (v2 chromatic reset)
+
+The four card-background treatments used by the `CardGrid` `treatment` surface. **v2 reset (Phase 1.5):** each treatment carries its OWN chromatic identity — a static cool-gradient field tuned per cell — rather than the same `KineticRibbon` at different intensities. The four treatments are four distinct cells, not one dimmer.
+
+| Treatment | Identity | Use |
+| --- | --- | --- |
+| `cyan` | Cyan-led, corner-lit (top-right) | The system signal / scanner mood — the leading cell. |
+| `indigo` | Indigo-led, mid-wash anchor | The bridge cell — sits between cyan and violet hues. |
+| `violet` | Violet-led, deep-end anchor (bottom-right) | The rich anchor. Used sparingly so the row keeps a single rich moment rather than competing violet zones. |
+| `ribbon` | The crest ribbon crop (signature artwork) | The only treatment carrying the signature ribbon motif. One per row maximum. |
+
+**Auto-rotation.** `CardGrid surface="treatment"` cycles the library in the order `cyan → indigo → violet → ribbon` so adjacent cells differ by hue, never by volume. Pages can override a cell's treatment via the `treatment` prop on an item.
+
+**Spec:**
+
+| Property | Value |
+| --- | --- |
+| Light field | Per-hue radial composition — focal pool + counter-tonal undercurrent + soft white haze |
+| Dark field | Per-hue radial composition — focal pool + counter-tonal undercurrent + navy-anchored depth |
+| Motion | Static for `cyan` / `indigo` / `violet`. `ribbon` carries the RibbonField Lissajous drift |
+
+**Rules:**
+- **Cool only.** Every treatment composes from the cool palette — `accent-cyan`, `accent-indigo`, `accent-violet`, `accent-cyan`, `surface-navy`, `surface-white`. No warm tones.
+- **One ribbon per row maximum.** The `ribbon` variant is the signature; doubling it dilutes the recurrence.
+- **Server component.** The chromatic variants are pure CSS gradients; the `ribbon` variant delegates to `RibbonField` (client) for its drift.
+- **Legacy aliases preserved.** The old `calm` / `ambient` / `trace` / `crest` names still work, mapped to the v2 chromatic palette (`calm → cyan`, `ambient → indigo`, `trace → violet`, `crest → ribbon`), so existing call sites continue to render.
+
+**Reference anchor:** the Stripe product-card grid where each card carries a distinct gradient identity (cool palette only).
+
+### 8.29 Atmosphere presets — v2 reset
+
+The pre-composed `SectionAtmosphere` bundles, paired with the v2 `KineticRibbon` intensity reset.
+
+**KineticRibbon intensities (v2):**
+
+| Intensity | Identity |
+| --- | --- |
+| `calm` | Near-silence — deeply dissolved, indigo-led, motion almost frozen. The recessive default; never the focal moment. |
+| `ambient` | The new default speaking volume — present, but recessive enough to sit under copy. Cyan-led with a soft bloom. Lower amplitude than v1 ambient. |
+| `peak` | The energised moment. Brighter than v1 ambient ever was, so the step up from ambient → peak reads as a deliberate climb. |
+
+**SectionAtmosphere presets (v2):**
+
+| Preset | Composition | Use |
+| --- | --- | --- |
+| `calm` | calm ribbon + one cyan glow (top-right) | Background sections, supporting copy. The recessive default. |
+| `technical` | calm ribbon + one indigo glow (bottom-left) + blueprint frame | Documentation / API surfaces; reads architectural. |
+| `signal` | ambient ribbon + cyan + violet poles + topology undercurrent | The "system is alive" middle state. |
+| `kinetic` | ambient ribbon + one stronger cyan glow (top-right) | Products / Solutions energy — present without competing. |
+| `peak` | peak ribbon + cyan core + violet counterweight | The richest event; one per page maximum. |
+
+**Rules:**
+- **Each preset has its own identity.** Different placements, tones and supporting primitives — never two presets that look alike.
+- **Cool only.** Violet appears only on `signal` and `peak` as a counterweight; never as a standalone preset accent.
+- **One `peak` per page maximum.** Two peak presets dilutes the climb.
+
+**Reference anchor:** the homepage hero / nCore / scale flow; the page-arc atmosphere notes.
 
 ---
 
@@ -871,19 +1742,22 @@ Scroll-triggered choreographed reveals.
 
 | Pattern | When | Timing |
 | --- | --- | --- |
-| Section header fade-up | Default for h2 entering viewport | `motion-slow` (400ms), `ease-out`, 8px translateY |
+| Section entrance fade-up | **Default — every `Section` wraps its content in `SectionReveal` automatically (Phase 1.5).** Content lifts 18px and fades in on first scroll into view. | `motion-cinematic` (1000ms), `ease-cinematic` |
+| Section header fade-up | Manual h2 reveal where Section default isn't used | `motion-slow` (400ms), `ease-out`, 8px translateY |
 | Card stagger | Bento grids, solutions, industries | 80ms stagger, `motion-slow` (400ms) per card, 12px translateY |
 | Module assembly | nCore reveal, complex composition | `motion-cinematic` (1000ms), `ease-cinematic`, layered timeline |
 | Visual fade-up | Standard product UI surfaces | `motion-deliberate` (600ms), 16px translateY |
 | Number count-up | Proof-of-scale metrics | `motion-cinematic` (1000ms), `ease-out`, count from 0 |
 | Connection line draw | Architecture diagrams | `motion-cinematic` (1000ms), stroke-dashoffset from full to 0 |
 
-**Trigger:** When 40% of element is in viewport. Each element animates once.
+**Trigger:** When 40% of element is in viewport (88% for the Section default — the reveal fires earlier than card-level stagger so the section's content is in place before card-level motion can layer on top). Each element animates once.
+
+**Section default — Phase 1.5.** The `Section` wrapper (`components/sections/Section.tsx`) now wraps its `children` in a `SectionReveal` by default — content fades up cinematically on first scroll into view. Disable with `reveal={false}` on sections with their own choreography (the hero, the trust band, the footer). The default makes scroll-tied motion a property of every content section without each section having to opt in.
 
 **Rules:**
 - **Cinematic motion is for content moments, not page chrome.**
 - **Stagger timings are short** (80ms between cards).
-- **One choreographed moment per section maximum.** Don't stack cinematic motion.
+- **One choreographed moment per section maximum.** Don't stack cinematic motion — the Section default counts as one moment.
 
 **Reference anchor:** `motion-stripe-enterprise.mov`, `motion-raycast-floating-dashboard.mov`, `motion-staq-video-animated-tabbed.mov`.
 
@@ -1017,7 +1891,7 @@ Homepage alternation:
 
 ## Document control
 
-- **Version:** 1.5 (May 2026)
+- **Version:** 2.2 (May 2026)
 - **Owner:** Esha (VP Marketing) and the design system
 - **Authority over:** Visual decisions across nymcard.com
 - **Subordinate to:** NymCard Master Context Document (positioning, voice, copy)
@@ -1025,6 +1899,13 @@ Homepage alternation:
 
 ### Change log
 
+- **v2.2 (May 2026 — Phase 1.5 aliveness reset):** Seven moves to make the system feel alive across light and dark without breaking the Phase 1 contract. (1) **Atmosphere intensity reset** — `KineticRibbon` intensities `calm` / `ambient` / `peak` pulled further apart so they read as three states, not a single dimmer; pocket and directional gradient alphas now scale with intensity. (2) **`SectionAtmosphere` presets v2** — each preset paired with the new intensities and a distinct composition (§8.29). (3) **`CardTreatment` v2 chromatic reset (§8.28)** — the four cell-treatments now carry their own chromatic identity (cyan / indigo / violet / ribbon) rather than the same KineticRibbon at different intensities; legacy `calm`/`ambient`/`trace`/`crest` names preserved as aliases. (4) **Hover vocabulary — `.nc-card-hover` utility + `shadow-lift` / `shadow-dark-lift` tokens (§6, §8.6).** §8.6 now specifies a Stripe / Apple / Anthropic translateY(-4px) lift on hover; Linear's no-lift approach rejected for this phase because card interiors are still placeholders awaiting Phase 2 product UIs. Applied across every interactive card surface (ProductCard, CardGrid cells, RailCarousel, CrossSellBanner). (5) **Section default scroll-tied reveal (§9.6)** — `Section` wraps `children` in `SectionReveal` by default so every content section fades up cinematically on first scroll into view; opt-out via `reveal={false}` for the hero / trust / footer. (6) **Kinetic ribbon recurrence beyond the hero** — `CTASection` §8.14 becomes ribbon-led (the closing echo of the hero ribbon), and new **§8.26 RibbonInterlude** introduces a slim mid-page ribbon band. The ribbon now has three visible homes per page: hero, RibbonInterlude (mid-page punctuation), CTASection (closing echo). (7) **§8.27 AIExtraction primitive** — the §9.5.1 choreographed loop codified into one composition primitive (linear + radial variants); shipped as a styleguide demo in /visual-system, wiring into product pages comes in Phase 2. Crosshair signature recurs quietly on rail-card hover (a small crosshair glyph slides in top-right) and is available as an opt-in `marker` on `Eyebrow` and `rails` on `Section`. All seven moves preserve the cool-only palette and the `prefers-reduced-motion` contract.
+- **v2.1 (May 2026):** Phase 1 production primitives shipped after the Phase 0 lock (Geist Sans/Mono adopted, `visual.violet` (#6D28D9) anchor token in, crosshair-marker rails locked as the page-rail signature, gradient bridges rejected and deleted). Four new primitives close the gaps the audit named: (1) **§8.23 ScaleStatsRibbon** — the proof-of-scale dark moment as a primitive (header above + horizontal count-up stat row over the kinetic ribbon at ambient intensity, violet glow anchor); the second visible home for the signature ribbon outside the hero. (2) **§8.24 IntegrationsDiagram** — the Stripe-architecture moment as a primitive (radial hub-and-spoke SVG with cyan data-flow pulses on the connecting lines; canonical six NymCard network nodes — Visa, Mastercard, Visa Direct, Mastercard Cross-Border, Western Union, MoneyGram). (3) **§8.25 TrustBar** — the homepage trust band promoted from `sections/` to a composition primitive with prop-driven `logos`, optional `trustLine`, and three surface variants (`white` / `soft` / `dark`). (4) **CrosshairRails** — the locked page-rail signature lifted from styleguide demo to a production visual primitive (`components/visuals/CrosshairRails.tsx`), documented under §7 Page rails. Numbering note: §8.23–§8.25 continue the §8.12–§8.22 section-template run with no gaps.
+- **v2.0 (May 2026):** Added four section-template primitives to close the gap between the industry-page arc (`00-strategy/about-nymcard/industry-page-arc.md`, locked 2026-05-25) and the system — the §8.19–§8.22 run continues the §8.12–§8.18 section-template numbering with no gaps: **§8.19 OutcomeChips** — the row of three buyer-side outcome chips that sits directly beneath an industry-page hero (icon + bold label + one sentence); **§8.20 TextImageRow** — the lighter copy ↔ visual row used in the industry-page "What you can build" section, alternating text-left / text-right (a new primitive, not a lifted-optional §8.7 SplitEditorial — the rationale is recorded in the §8.20 entry); **§8.21 PlatformChecklist** — the "Built for X" Platform section (heading + body + 4–6 bullet checklist + optional trust-chip strip); **§8.22 DeveloperBlock** — the slim mid-page developer call (heading + one-sentence body + tertiary "Read the docs →"), smaller than §8.14 so it doesn't compete with the closing CTA. All four are server components; all four resolve to the dark palette under `.dark`.
+- **v1.9 (May 2026):** §8.8 Product cards reframed. Removed the "abstract skeleton only / never a screenshot, never fabricated data" rule. Product-card UIs are now **representative product UIs** — built in code (React + SVG), faithful to NymCard's actual capabilities, using placeholder data only — so a buyer can translate the platform's APIs into a user journey at a glance. Guardrails kept and expanded: never a captured screenshot, generic placeholder data only (no real customers / cards / merchants), faithful to the product (cross-check `architecture.md` + per-product reference files), consistent visual language across every product UI in the grid, one ambient motion or static. `UIPlaceholder` is now explicitly the fallback, not the target.
+- **v1.8 (May 2026):** Added two section-template primitives to close the gap between the product-page arc (`00-strategy/about-nymcard/page-arc.md`) and the system: **§8.17 CodeArtifact** for page-arc Section 6 (API / configuration) — a dark-default code panel with language tabs, line numbers, restrained cool-palette syntax highlight, and an optional companion (heading + body + tertiary link); and **§8.18 RailCarousel** for page-arc Section 7 (Industries) — the props-driven generalisation of the homepage `UseCases` rail, two card-density variants (`rich` and `sparse`), light and dark surfaces. The homepage `UseCases` section now composes from `RailCarousel`; its data lives in `lib/homepage-use-cases.ts`. Reference for CodeArtifact: `03-references/stripe/stripe-developer-docs.png`.
+- **v1.7 (May 2026):** Added **§8.16 Cross-sell banner** — the wide 2-up banner for cross-linking to related pages (lead-in run into the body, tertiary link, a cool-palette gradient graphic bleeding off the right edge). Logged alongside a visual-system consolidation pass: the six grid components collapse into one `CardGrid` (layout × card-type props, including a no-UI card variant); `EnterpriseGrid` is retired; the nCore-stack and card-surface artifacts are explicitly preserved.
+- **v1.6 (May 2026):** §8 component principles expanded with four page-section templates and a numbering fix. (1) The duplicate `8.8`/`8.9` headings were corrected — **Nav bar** is now §8.10 and **Buttons** §8.11. (2) Four new section templates added so pages compose from documented patterns rather than improvised layouts: **§8.12 Page hero** — the shared, restrained hero for every product/solution page (the homepage hero stays unique to the homepage and is never reused); **§8.13 Feature showcase** — the Linear pattern of a two-column header over one large product UI, for demonstrating a single capability; **§8.14 CTA section** — the centred closing call-to-action, which carries the CTA and nothing else (no adjacent cards or cross-link grids); **§8.15 FAQ** — a divider-based accordion with mandatory `FAQPage` JSON-LD. Consolidation of the existing grid/card components into a leaner set is deferred to a later pass.
 - **v1.5 (May 2026):** §5 Radii tightened. (1) Component-radius table expanded with explicit entries for the **hero left scrim**, **hero right carousel card**, **nav-bar CTA**, **nav menu item**, and **dropdown card item** — these were drifting in the build. Both hero glass surfaces now lock to `radius-xl` (24px); nav-bar CTA locks to `radius-button` (20px) regardless of size; nav menu pills and dropdown cards use `radius-md` (8px) via progressive nesting from the parent. (2) New "Rigid enforcement" subsection: inline radii (`rounded-[7px]`, `rounded-[10px]`, etc.) are bugs and must be corrected to a token; one token per component family; grep `rounded-\[` on every PR. The radius scale is exhaustive — every radius in the build must use one of the eight tokens.
 - **v1.4 (May 2026):** §9.5.1 enhanced. (1) **Surface materialisation** replaces the simpler "scale-up reveal": three simultaneous animations (scale `0.85→1`, vertical drift `-12→0`, blur `3→0`) make the surface feel magnetically pulled into place, sharpening into focus rather than fading in. (2) **Scan ripple** replaces the two-layer bloom/glow: now a three-layer composition (atmospheric halo, cyan band with bloom, trailing dark shadow) for a layered ripple sensation with "light bending through glass" depth — feels like AI extraction in real time, not a UI scanner line. (3) **Radial variant** added for biometric / face-scan surfaces — concentric cyan rings expanding from centre, replacing the linear band+shadow; everything else (brackets, chip reveal, materialisation) identical to the linear variant. Identity card uses radial; Commercial Payments uses linear.
 - **v1.3 (May 2026):** Added §9.5.1 "AI-native data extraction" as a sub-pattern of kinetic motion. Codifies the choreographed loop used on the Commercial Payments hero card (and reusable for KYC / fraud / transaction enrichment visuals): soft cyan scan sweep with no hard line, layered Gaussian-blurred glow, corner-bracket pulse, contextual call-out reveal via scale-up (0.88 → 1.0) + ease-out spline, ≥ 300ms stagger between chips, parallax-by-scale-delta for depth hierarchy, 7s loop. Reference anchor: `03-references/brex/brex-invoice-scanning.png`.

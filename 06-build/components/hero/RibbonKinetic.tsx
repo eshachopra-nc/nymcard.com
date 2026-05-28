@@ -2,9 +2,12 @@
 
 import { motion, useReducedMotion, useTime, useTransform } from "framer-motion";
 
-// Kinetic variant of the hero ribbon. Renders the locked handoff raster
-// (/handoff/home/home-hero-ribbon.svg) without the pixel-level displacement
-// from RibbonBackground.tsx, so the ribbon artwork stays crisp and readable.
+// Kinetic variant of the hero ribbon. Renders the handoff ribbon artwork
+// without the pixel-level displacement from RibbonBackground.tsx, so the
+// artwork stays crisp and readable. Light mode uses the original raster
+// (/handoff/home/home-hero-ribbon.svg); dark mode uses an alpha cutout
+// (home-hero-ribbon-cutout.png) so the ribbon sits transparent against the
+// midnight-navy field — colours unchanged, only the baked white field removed.
 // Motion is purely ambient (no mouse coupling):
 //
 //   • Lissajous translate — different x/y periods so the drift never loops
@@ -40,13 +43,22 @@ export function RibbonKinetic() {
   return (
     <div
       aria-hidden="true"
-      className="absolute inset-0 z-0 overflow-hidden bg-surface-soft"
+      className="absolute inset-0 z-0 overflow-hidden bg-surface-soft dark:bg-surface-dark-base"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element -- locked raster artefact */}
+      {/* Light — the original ribbon artwork on the soft surface field. */}
       <motion.img
         src="/handoff/home/home-hero-ribbon.svg"
         alt=""
-        className="absolute inset-0 size-full object-cover"
+        className="absolute inset-0 size-full object-cover dark:hidden"
+        style={{ x, y, scale, rotate, transformOrigin: "center" }}
+        loading="eager"
+        decoding="async"
+      />
+      {/* Dark — alpha cutout: the ribbon on transparent, against midnight navy. */}
+      <motion.img
+        src="/handoff/home/home-hero-ribbon-cutout.png"
+        alt=""
+        className="absolute inset-0 hidden size-full object-cover dark:block"
         style={{ x, y, scale, rotate, transformOrigin: "center" }}
         loading="eager"
         decoding="async"

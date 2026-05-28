@@ -105,14 +105,31 @@ function DropdownContent({ item }: { item: NavItemConfig }) {
       )}
 
       {dd.type === 'products' && dd.items && (
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-3 gap-2">
           {(dd.items as ProductItem[]).map(p => <ProductCard key={p.id} item={p} />)}
         </div>
       )}
 
       {dd.type === 'industries' && dd.items && (
-        <div className="grid grid-cols-5 gap-2">
+        <div className="grid grid-cols-4 gap-2">
           {(dd.items as ProductItem[]).map(p => <ProductCard key={p.id} item={p} />)}
+        </div>
+      )}
+
+      {dd.type === 'solutions' && (
+        <div className="flex flex-col gap-5">
+          <div>
+            <SectionLabel>{dd.useCaseLabel}</SectionLabel>
+            <div className="grid grid-cols-4 gap-2">
+              {dd.useCaseItems?.map(p => <ProductCard key={p.id} item={p} />)}
+            </div>
+          </div>
+          <div>
+            <SectionLabel>{dd.industryLabel}</SectionLabel>
+            <div className="grid grid-cols-4 gap-2">
+              {dd.industryItems?.map(p => <ProductCard key={p.id} item={p} />)}
+            </div>
+          </div>
         </div>
       )}
 

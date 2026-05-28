@@ -6,9 +6,9 @@ Full-stack payments infrastructure.
 
 **Subhead**
 
-Card issuing, lending, cross-border & FX, settlement, and identity on AI-native infrastructure for the next generation of finance.
+Cards, lending, money movement, financial crime and reconciliation on one AI-native platform. 
 
-**Primary CTA:** Talk to sales
+**Primary CTA:** Talk to us
 
 **Secondary CTA:** Explore nCore →
 
@@ -22,61 +22,49 @@ Single-row infinite marquee of grayscale client logos only.
 
 # 3. nCore — The Foundation
 
+Visual Treatment: SplitEditorial.tsx (hero)
+
 **Eyebrow pill:** nCore
 
-**Headline:** One platform across every payment product.
+**Headline:** One platform behind every product you run.
 
-**Body:** Eight products on one infrastructure layer. AI woven through every transaction, one customer record across all of them. nCore replaces the stitched-together vendor stack.
+**Description:** Cards, lending, money movement, settlement, financial crime, and reconciliation — running on one platform, sharing one customer record, one ledger, and one audit trail. Most payment infrastructure is stitched together from separate vendors. nCore is built as a single system.
+
+**Numbered list (three lines — label + one line of copy each):**
+
+01 — Data — One customer record across every product
+
+02 — AI — Decisioning, routing, and monitoring on every layer
+
+03 — Deployment — Cloud, on-soil, or on-premise
+
+**Chips (centered, inside the card):** Visa · Mastercard · PCI DSS Level 1 · ISO 27001
 
 **CTA:** Explore nCore →
-
-## Three-column proof block (sits below the headline/body, beside or below the stack visual)
-
-**Column 1 — Institutional credentials**
-
-Principal member of Visa and Mastercard. PCI DSS Level 1 and ISO 27001 certified.
-
-**Column 2 — Connects to what you already run**
-
-nCore integrates with your core banking, middleware, and existing partner ecosystem.
-
-**Column 3 — Deploy on your terms**
-
-Cloud, on-soil, or on-premise — all three are native deployment models.
-
-**Visual direction:** Vertical product stack on a dark background, eight labeled layers — Issuing, Lending, Cross-Border & FX, Settlement, Reconciliation, Fraud, Risk, Identity. A single cyan AI thread emerges from the left edge and weaves through every layer in one continuous motion, top to bottom and back up. As the thread passes through each layer, the layer's pills briefly pulse cyan in sympathy. The thread settles into a steady, slow pulse — the ambient state. Three-column proof block sits beneath or beside the stack, each column with its own abstract line illustration in white outline with a brand-accent point of light.
 
 ---
 
 # 4. Products
 
-**Card Issuing**
+**Cards**
 
-Launch virtual and physical card programmes with native processing and real-time controls.
+Launch debit, credit, and prepaid card programs with native processing and real-time controls.
 
 **Lending**
 
-Deploy BNPL, revolving credit, and instalments directly into your user journey.
+Launch BNPL, revolving credit, and installment programs built into your product.
 
-**Cross-Border & FX**
+**Money Movement**
 
-Move funds across borders and rails with integrated FX and real-time settlement.
+Move funds across borders and rails with integrated FX and settlement.
 
 **Settlement**
 
-Multi-currency liquidity and stablecoin payouts with millisecond finality.
+Real-time, multi-currency, and stablecoin settlement on one platform.
 
-**Fraud**
+**Financial Crime**
 
-Real-time fraud monitoring, chargeback management, and 3DS authentication at the transaction level.
-
-**Risk**
-
-AML, sanctions screening, and risk controls run inside every transaction path.
-
-**Identity**
-
-Run KYC, KYB, and biometric verification natively in the onboarding flow.
+Fraud, risk, 3D Secure, AML, sanctions, chargeback, and identity — inside every transaction.
 
 **Reconciliation**
 
@@ -116,9 +104,9 @@ Ready to launch?
 
 **Body**
 
-Talk to the NymCard team about your product roadmap, regulatory requirements, and deployment model.
+Launch on infrastructure built to scale.
 
-**Primary CTA:** Talk to sales
+**Primary CTA:** Talk to us
 
 ---
 
@@ -127,24 +115,21 @@ Talk to the NymCard team about your product roadmap, regulatory requirements, an
 ## Platform
 
 - nCore
-- Agentic AI Migration
+- Migration & Modernisation
 - Documentation
 - API Reference
 
 ## Products
 
-- Card Issuing
-- Embedded Lending
-- Cross-Border & FX
+- Cards
+- Lending
+- Money Movement
 - Settlement
-- Fraud
-- Risk
-- Identity
+- Financial Crime
 - Reconciliation
 
 ## Industries
 
-- Commercial Banking
 - Retail Banking
 - Exchange Houses
 - Fintechs
@@ -154,6 +139,14 @@ Talk to the NymCard team about your product roadmap, regulatory requirements, an
 - Healthcare
 - Government
 - Mobility
+
+## Solutions
+
+- Commercial Banking
+- Banking as a Service
+- Embedded Finance
+- Buy Now Pay Later
+- Cross-Border & Remittance
 
 ## Company
 

@@ -1,30 +1,40 @@
+# Lending
+
 **Slug:** /products/lending
 
-**Status:** Draft v2
+**Status:** Draft v3
 
 **Navigation:** Products › Lending
 
-**Last updated:** 19 May 2026
+**Last updated:** 23 May 2026
 
 ---
 
 # Page brief
 
-Eleven-section page brief covering story arc, copy, and visual treatment. Voice modeled on Stripe, Vercel, Linear, Brex. AI-native and cinematic — UIs carry the story, copy stays out of the way.
+Ten-section product page derived from the locked arc in `00-strategy/about-nymcard/page-arc.md` with deliberate deviations. Voice modeled on Stripe, Vercel, Linear, Brex. AI-native and cinematic — UIs carry the story, copy stays out of the way.
+
+Deviations from the canonical arc (each doing real work on this page):
+
+- Keeps the arc's Section 3 "Why [product]" — Lending's four outcomes (new revenue, higher conversion, retention, faster time to market) are substantively distinct from the hero and worth carrying. The hero names *what* you can launch; §3 names *why it matters for your business*.
+- Drops the arc's Section 5 "Built on nCore" cinematic centerpiece. Per owner direction (2026-05-23), product pages on nymcard.com don't carry this section. The nCore positioning lives in the hero sub-copy, the FAQ (#2, #5, #7), and the cross-sell banners instead.
+- §6 **Underwriting** recast onto the `CodeArtifact` primitive — dark section frame, language tabs, line numbers, companion block beneath.
+- §7 **Industries** recast onto the `RailCarousel` sparse variant — eyebrow, copy, link. No icon.
+- §10 **Final CTA** cross-sell recast as two `CrossSellBanner` items (Cards and Money Movement, per `lending.md` §Cross-sell).
+- Adds §8 **Migration** (the canonical arc has no Migration section; Lending has a real migration story for existing portfolios and books).
 
 **Story arc:**
 
 1. Hero — What is this?
 2. Logo strip — Who else uses this?
-3. Why embed credit — What does this product do for me?
+3. Why embed credit — What does this do for me?
 4. Credit journey — What can I configure?
-5. Lending built into the payment stack — Why NymCard? *(cinematic centerpiece)*
-6. Underwriting — How does decisioning work?
-7. Industries — Who in my space uses this?
-8. Deployment — Can I deploy how I need?
-9. Migration — Can I switch without breaking things?
-10. FAQ — What about edge cases?
-11. Final CTA — Where do I go next?
+5. Underwriting — How does decisioning work?
+6. Industries — Who in my space uses this?
+7. Deployment — Can I deploy how I need?
+8. Migration — Can I switch without breaking things?
+9. FAQ — What about edge cases?
+10. Final CTA + cross-sell — Where do I go next?
 
 ---
 
@@ -36,7 +46,7 @@ Embed credit into every payment flow.
 
 **Sub-copy:**
 
-Launch BNPL, installment, revolving credit, and working capital programs on nCore.
+Launch BNPL, installment, revolving credit, and working capital programs on nCore. You retain the lending relationship; NymCard provides the infrastructure.
 
 **Primary CTA:** Talk to us
 
@@ -144,31 +154,7 @@ Run conventional interest, flat fee, or reducing balance structures — with the
 
 ---
 
-# 5. Built on nCore *(cinematic centerpiece)*
-
-**Eyebrow:** Infrastructure
-
-**Headline:**
-
-Lending built into the payment stack.
-
-**Body:**
-
-NymCard runs Lending on nCore — the same platform that runs your card and payment programs. One customer record, one ledger, one audit trail. NymCard provides the infrastructure. You retain the lending relationship and regulatory responsibility.
-
-**Visual:**
-
-The page's most-produced moment. Full-width architecture diagram showing four horizontal layers stacked vertically — *Your application*, *nCore platform*, *NymCard products*, *Schemes and rails*.
-
-The middle layer (nCore) is dominant — brand gradient, glowing edge. Sitting on top of it, the *NymCard products* layer shows three connected modules: *Cards*, *Lending*, *Money Movement*. Beneath, the *Schemes and rails* layer shows Visa, Mastercard, and local rails.
-
-Motion sequence: a credit application enters at the top from *Your application*. As it flows down, it passes through *Embedded Lending* where the decisioning happens, then routes laterally to *Card Issuing* where the credit limit is set on a card, and the same flow continues down through the schemes layer where the disbursement settles. Throughout the animation, a single thread visualizes the customer record persisting across all three NymCard products — making the "one customer record, one ledger, one audit trail" claim visible.
-
-The ambient state, after the animation completes, shows a faint continuous data flow between the three NymCard products on the nCore layer — reinforcing that they are not separate systems but one platform.
-
----
-
-# 6. Underwriting
+# 5. Underwriting
 
 **Eyebrow:** Decisioning
 
@@ -184,7 +170,7 @@ Connect to credit bureaus, open banking data, or your own scoring model. Adjust 
 
 **Visual:**
 
-Copy left, glass config panel right. The panel contains a JSON config object that completes line by line:
+`CodeArtifact` primitive. Dark section frame across both columns. Copy left, code panel right. The code panel carries language tabs across the top (active tab in cyan — *JSON*, with *cURL* and *Node* available), line numbers down the gutter, and restrained syntax highlight (cyan keywords, lighter strings and comments). The JSON config object completes line by line:
 
 ```json
 {
@@ -198,11 +184,19 @@ Copy left, glass config panel right. The panel contains a JSON config object tha
 }
 ```
 
-As the config completes, a live decisioning visualization appears alongside the panel. Three applicant cards animate through the rules in sequence: applicant A clears the threshold and renders as approved with a credit limit calculated against the configured range; applicant B falls below the threshold and renders as declined with the reasoning visible; applicant C triggers a manual review state. The visualization makes the configured rules visible by showing them apply in real time.
+As the config completes, a live decisioning visualization renders beneath the code. Three applicant cards animate through the rules in sequence: applicant A clears the threshold and renders as approved with a credit limit calculated against the configured range; applicant B falls below the threshold and renders as declined with the reasoning visible; applicant C triggers a manual review state. The visualization makes the configured rules visible by showing them apply in real time.
+
+**Companion block beneath the code panel:**
+
+*Heading:* Decisioning you can defend
+
+*Body:* Bureau, open banking, and transaction-history signals combine with your own scoring model — every decision is logged with the rules and inputs that produced it.
+
+*Tertiary link:* Read the underwriting docs →
 
 ---
 
-# 7. Industries
+# 6. Industries
 
 **Eyebrow:** Industries
 
@@ -216,36 +210,35 @@ Banks, fintechs, retailers, telecoms, healthcare providers, and mobility platfor
 
 **Visual:**
 
-Apple-style horizontal card row on a dark background. Three to four cards visible at once depending on viewport, with arrow controls to scroll right. Cards are illuminated tiles — clean, generous padding, no atmospheric backgrounds, no imagery. The cinematic feel comes from spacing, typographic rhythm, smooth scroll, hover lift, and the color accent on the opening word of each card body.
+`RailCarousel` — sparse variant. Apple-style horizontal card row on a dark background. Three to four cards visible at once depending on viewport, with arrow controls to scroll right. Cards are large, generous illuminated tiles — clean, roomy padding, no atmospheric backgrounds, no imagery, no icon. The cinematic feel comes from scale, spacing, typographic rhythm, smooth scroll, hover lift, and the color accent on the opening word of each card body.
 
 **Each card composition:**
 
 - Eyebrow (small, uppercase, brand accent color): industry name
-- Small icon at top-left in the accent color
 - Body copy: opening word in accent color, rest in dark text
 - Subtle arrow at bottom-right linking to the industry page
 
 **Cards (accent colors rotate across the brand palette):**
 
-**CONSUMER BANKING** — *"Revolving credit, installment plans, and credit cards on one platform."*
+**CONSUMER BANKING** — *"Revolving credit, installment plans, and credit cards on one platform."* → /industries/consumer-banking
 
-**COMMERCIAL BANKING** — *"Working capital, invoice financing, and SME credit lines that scale."*
+**COMMERCIAL BANKING** — *"Working capital, invoice financing, and SME credit lines that scale."* → /industries/commercial-banking
 
-**FINTECHS** — *"Launch BNPL, installment, and digital-first credit products."*
+**FINTECHS** — *"Launch BNPL, installment, and digital-first credit products."* → /industries/fintechs
 
-**RETAIL & MARKETPLACES** — *"BNPL and installment options at checkout to lift basket size."*
+**RETAIL & MARKETPLACES** — *"BNPL and installment options at checkout to lift basket size."* → /industries/retail
 
-**TELECOMS** — *"Device financing and consumer installment plans inside your customer relationship."*
+**TELECOMS** — *"Device financing and consumer installment plans inside your customer relationship."* → /industries/telecoms
 
-**HEALTHCARE** — *"Patient financing embedded at the point of care."*
+**HEALTHCARE** — *"Patient financing embedded at the point of care."* → /industries/healthcare
 
-**AUTOMOTIVE** — *"Dealer-linked auto financing and lease structures."*
+**AUTOMOTIVE** — *"Dealer-linked auto financing and lease structures."* → /industries/automotive
 
 Carousel mechanics: arrow controls, drag/swipe enabled, indicator dots at the bottom. No auto-advance. Smooth easing on scroll, subtle lift and shadow on hover.
 
 ---
 
-# 8. Deployment
+# 7. Deployment
 
 **Eyebrow:** Deployment
 
@@ -275,7 +268,7 @@ Three equal cards on a dark background. Each card features a Linear/Vercel-style
 
 ---
 
-# 9. Migration
+# 8. Migration
 
 **Eyebrow:** Migration
 
@@ -293,7 +286,7 @@ Horizontal flow visualization, full width. Five stages laid out left to right: *
 
 ---
 
-# 10. FAQ
+# 9. FAQ
 
 *(No eyebrow.)*
 
@@ -333,7 +326,7 @@ NymCard operates as a regulated infrastructure provider. nCore is PCI DSS certif
 
 ---
 
-# 11. Final CTA
+# 10. Final CTA
 
 *(No eyebrow. Centered composition.)*
 
@@ -349,23 +342,27 @@ Launch BNPL, installment, revolving credit, and working capital programs on infr
 
 **Secondary CTA:** Read the docs
 
-**Two adjacent product cards beneath:**
+**Cross-sell banners beneath (CrossSellBanner shape, two banners in a row):**
 
-**Card Issuing →**
+**Banner 1**
 
-Debit, credit, and prepaid cards on one infrastructure layer.
+- `leadIn:` Cards
+- `body:` Issue debit, credit, and prepaid cards on the same nCore platform behind your credit programs.
+- `link.label:` See Cards →
+- `link.href:` /products/card-issuing
 
-**Identity →**
+**Banner 2**
 
-KYC, KYB, IDV, and ongoing monitoring across every credit program.
-
----
+- `leadIn:` Money Movement
+- `body:` Disburse loans and move repayments across domestic rails, cross-border, and FX — on one platform.
+- `link.label:` See Money Movement →
+- `link.href:` /products/money-movement
 
 ---
 
 # META
 
-**Page title:**  Lending — Credit Infrastructure for BNPL, Installment, and Revolving Credit | NymCard
+**Page title:** Lending — Credit Infrastructure for BNPL, Installment, and Revolving Credit | NymCard
 
 **Meta description:** Launch BNPL, installment, revolving credit, and working capital programs on nCore. Configure underwriting, disbursement, and collections through one platform. NymCard provides the credit infrastructure; you retain the lending relationship.
 
@@ -376,7 +373,23 @@ KYC, KYB, IDV, and ongoing monitoring across every credit program.
 **Internal links:**
 
 - "nCore" (first mention) → /platform/ncore
-- "Card Issuing" → /products/card-issuing
+- "Cards" / "Card Issuing" → /products/card-issuing
 - "Money Movement" → /products/money-movement
-- "Identity" (where KYC/KYB is referenced) → /products/identity
 - "Financial Crime" (where compliance is referenced) → /products/financial-crime
+
+---
+
+# Changelog
+
+**v2 → v3 (23 May 2026):** Structural realignment to the Cards v10 model.
+
+- **Dropped §5 Built on nCore** entirely. Owner direction: product pages on nymcard.com don't carry the canonical arc's "cinematic centerpiece" section. The nCore positioning is preserved across other sections — the hero sub-copy now carries the *"You retain the lending relationship; NymCard provides the infrastructure"* framing previously buried in §5's body, and FAQ #2 / #5 / #7 carry the funding-boundary, one-platform, and regulatory statements respectively.
+- **Restructured §5 Underwriting (renumbered from v2 §6)** onto the `CodeArtifact` primitive — dark section frame, language tabs (JSON active, cURL/Node available), line numbers, restrained syntax highlight. The JSON config block carries over verbatim. The live decisioning visualization moves from "alongside the panel" to "beneath the code" to match the CodeArtifact composition. Added a companion block beneath the code panel — heading + body + tertiary link — mirroring Cards v10 §5.
+- **Restructured §6 Industries (renumbered from v2 §7)** onto the `RailCarousel` sparse variant. Industry copy carries over verbatim. Dropped the "Small icon at top-left in the accent color" line from the per-card spec. Added `/industries/...` hrefs per the Cards v10 pattern.
+- **Restructured §10 Final CTA (renumbered from v2 §11)** — converted the two adjacent product cards into two `CrossSellBanner` items with `leadIn / body / link.label / link.href` structure. Cross-sell pair swapped from *Card Issuing + Identity* to *Cards + Money Movement* per `lending.md` §Cross-sell (the fact file wins). Identity removed — per `architecture.md`, Identity is a capability inside Financial Crime, not a standalone product.
+- **§3 Why embed credit kept.** Unlike Cards (which skipped §3 because its hero answered "what does this do for me"), Lending's four outcomes — new revenue, higher conversion, retention, faster time to market — are substantively distinct from the hero and earn their place.
+- **Hero sub-copy** lightly extended with a second sentence carrying the funding-boundary framing previously in dropped §5: *"You retain the lending relationship; NymCard provides the infrastructure."*
+- **§8 Migration kept.** Lending has a real migration story (existing portfolios, books, and credit programs) per the v2 §9 body. Same Migration section as Cards v10 §8.
+- **All other sections renumber** from v2's §6–§11 → v3's §5–§10. Content unchanged in §1 Hero (apart from the sub-copy extension), §2 Logo strip, §3 Why embed credit, §4 Credit journey, §7 Deployment, §8 Migration, §9 FAQ.
+- **META internal links** updated — *Identity* removed; *Card Issuing* renamed to *Cards / Card Issuing* to match the cross-sell.
+- Decision applied: project memory `ncore-centerpiece-removed-from-product-pages.md` and the page-arc amendment marking §5 as "optional on product pages."

@@ -1,28 +1,35 @@
 import type { ReactNode } from "react";
 import { AmbientGlow } from "./AmbientGlow";
 import { BlueprintOverlay } from "./BlueprintOverlay";
-import { InfraGrid } from "./InfraGrid";
 import { KineticRibbon } from "./KineticRibbon";
 import { TopologyTraces } from "./TopologyTraces";
 
 // ── Atmosphere presets ─────────────────────────────────────────────────────
 //
-// Opinionated, pre-composed background bundles built from the low-level
-// visual primitives. Drop one straight into a Section's `backgrounds` slot:
+// Pre-composed background bundles. Drop one into a Section's `backgrounds`
+// slot:
 //
 //   <Section backgrounds={<SectionAtmosphere preset="technical" />}>
 //
-// Each preset is tuned to a section's job in the homepage progression
-// (design-system.md §9.8 motion budget) and stays inside the restraint rules
-// — at most three layers, at most one kinetic/ambient motion per preset:
+// v2 reset (Phase 1.5): each preset is paired with the new KineticRibbon
+// intensities (`calm` near-silence, `ambient` quieter default, `peak`
+// energised). The presets carry the same five identities, but the
+// composition between intensity, glow placement and tone makes each read
+// as its own state — never a single dimmer.
 //
-//   calm       — dotted grid + one drifting glow. Quiet mid-page sections.
-//   technical  — line grid + blueprint frame + glow. nCore / architecture.
-//   signal     — dotted grid + topology pulses + glow. Orchestration moments.
-//   kinetic    — kinetic ribbon + glow. Products / Solutions energy.
-//   peak       — peak ribbon + bright glow. Final CTA, hero-adjacent moments.
+//   calm       — a single quiet cyan moment over near-silent atmosphere.
+//                Background sections, supporting copy. The recessive default.
+//   technical  — an indigo depth zone on the calm field + a blueprint frame.
+//                For documentation / API surfaces; reads architectural.
+//   signal     — cyan + violet poles on ambient atmosphere + a topology
+//                undercurrent. The "system is alive" middle state.
+//   kinetic    — a single stronger cyan moment over ambient atmosphere.
+//                Products / Solutions energy — present without competing.
+//   peak       — a cyan core + a violet counterweight over peak atmosphere.
+//                The richest event; one per page maximum.
 //
-// For full control, compose the primitives directly instead of using a preset.
+// Cool only — cyan, indigo, restrained violet. No warm tones, no rainbow. The
+// colour moments are static zones; the atmosphere variant carries the motion.
 
 export type AtmospherePreset =
   | "calm"
@@ -34,34 +41,47 @@ export type AtmospherePreset =
 const PRESETS: Record<AtmospherePreset, ReactNode> = {
   calm: (
     <>
-      <InfraGrid variant="dots" fade="radial" />
-      <AmbientGlow placement="top-right" tone="cyan" size="lg" intensity="subtle" />
-    </>
-  ),
-  technical: (
-    <>
-      <InfraGrid variant="lines" fade="top" />
-      <BlueprintOverlay corners ticks />
+      <KineticRibbon intensity="calm" />
       <AmbientGlow
-        placement="bottom-left"
-        tone="indigo"
+        placement="top-right"
+        tone="cyan"
         size="md"
         intensity="subtle"
         drift={false}
       />
     </>
   ),
-  signal: (
+  technical: (
     <>
-      <InfraGrid variant="dots" fade="radial" />
-      <TopologyTraces density="medium" />
+      <KineticRibbon intensity="calm" />
       <AmbientGlow
-        placement="center"
-        tone="cyan"
+        placement="bottom-left"
+        tone="indigo"
         size="lg"
         intensity="subtle"
         drift={false}
       />
+      <BlueprintOverlay corners ticks />
+    </>
+  ),
+  signal: (
+    <>
+      <KineticRibbon intensity="ambient" />
+      <AmbientGlow
+        placement="top-right"
+        tone="cyan"
+        size="md"
+        intensity="subtle"
+        drift={false}
+      />
+      <AmbientGlow
+        placement="bottom-left"
+        tone="violet"
+        size="md"
+        intensity="subtle"
+        drift={false}
+      />
+      <TopologyTraces density="medium" />
     </>
   ),
   kinetic: (
@@ -69,9 +89,9 @@ const PRESETS: Record<AtmospherePreset, ReactNode> = {
       <KineticRibbon intensity="ambient" />
       <AmbientGlow
         placement="top-right"
-        tone="purple"
-        size="md"
-        intensity="subtle"
+        tone="cyan"
+        size="lg"
+        intensity="standard"
         drift={false}
       />
     </>
@@ -84,6 +104,13 @@ const PRESETS: Record<AtmospherePreset, ReactNode> = {
         tone="cyan"
         size="lg"
         intensity="standard"
+        drift={false}
+      />
+      <AmbientGlow
+        placement="bottom-left"
+        tone="violet"
+        size="md"
+        intensity="subtle"
         drift={false}
       />
     </>

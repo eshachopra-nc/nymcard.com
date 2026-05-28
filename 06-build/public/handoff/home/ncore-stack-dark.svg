@@ -1,0 +1,69 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>nCore layered stack — dark</title>
+  <desc>The nCore engine as the foundation at the base, with five platform layers rising above it and a cyan signal trace down each edge.</desc>
+
+  <defs>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="ambientBlur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="44"/>
+    </filter>
+
+    <linearGradient id="edge" x1="180" y1="80" x2="720" y2="820" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#9FB0D0" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.50"/>
+    </linearGradient>
+    <linearGradient id="nCoreFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5B4FD9" stop-opacity="0.36"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0.28"/>
+    </linearGradient>
+    <linearGradient id="nCoreSheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="ambient" cx="50%" cy="50%" r="58%">
+      <stop offset="0" stop-color="#22D3EE" stop-opacity="0.22"/>
+      <stop offset="0.55" stop-color="#5B4FD9" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#0E1A33" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="450" cy="440" rx="400" ry="430" fill="url(#ambient)" filter="url(#ambientBlur)"/>
+
+  <!-- five platform layers — drawn top (back) to bottom (front) -->
+  <g>
+    <path d="M450 100 L735 250 L450 400 L165 250 Z" fill="#FFFFFF" fill-opacity="0.045" stroke="url(#edge)" stroke-width="1.15"/>
+    <path d="M450 164 L735 314 L450 464 L165 314 Z" fill="#FFFFFF" fill-opacity="0.06" stroke="url(#edge)" stroke-width="1.15"/>
+    <path d="M450 228 L735 378 L450 528 L165 378 Z" fill="#FFFFFF" fill-opacity="0.075" stroke="url(#edge)" stroke-width="1.15"/>
+    <path d="M450 292 L735 442 L450 592 L165 442 Z" fill="#FFFFFF" fill-opacity="0.095" stroke="url(#edge)" stroke-width="1.15"/>
+    <path d="M450 356 L735 506 L450 656 L165 506 Z" fill="#FFFFFF" fill-opacity="0.12" stroke="url(#edge)" stroke-width="1.15"/>
+  </g>
+
+  <!-- nCore foundation slab — the base, in front of the layers -->
+  <g filter="url(#softGlow)">
+    <path d="M165 616V654C165 661 170 667 177 671L438 809C446 813 454 813 462 809L723 671C730 667 735 661 735 654V616"
+          fill="#1A2547" fill-opacity="0.6" stroke="url(#edge)" stroke-width="1.2"/>
+    <path d="M450 466 L735 616 L450 766 L165 616 Z" fill="url(#nCoreFill)" stroke="url(#edge)" stroke-width="1.6"/>
+    <path d="M165 616 L450 766 L735 616" stroke="#22D3EE" stroke-opacity="0.7" stroke-width="2"/>
+    <path d="M450 466 L735 616 L450 766 L165 616 Z" fill="url(#nCoreSheen)"/>
+  </g>
+
+  <!-- cyan signal trace — left edge -->
+  <path d="M190 250 L157 287 L230 324 L157 361 L230 398 L157 435 L230 472 L157 509 L230 546 L157 583 L222 616"
+        fill="none" stroke="#22D3EE" stroke-opacity="0.26" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M190 250 L157 287 L230 324 L157 361 L230 398 L157 435 L230 472 L157 509 L230 546 L157 583 L222 616"
+        fill="none" stroke="#67E8F9" stroke-opacity="1" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- cyan signal trace — right edge -->
+  <path d="M710 250 L743 287 L670 324 L743 361 L670 398 L743 435 L670 472 L743 509 L670 546 L743 583 L678 616"
+        fill="none" stroke="#22D3EE" stroke-opacity="0.26" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M710 250 L743 287 L670 324 L743 361 L670 398 L743 435 L670 472 L743 509 L670 546 L743 583 L678 616"
+        fill="none" stroke="#67E8F9" stroke-opacity="1" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

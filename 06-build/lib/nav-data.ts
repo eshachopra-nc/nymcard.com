@@ -9,9 +9,6 @@ import {
   Building2,
   Layers,
   ShieldAlert,
-  ShieldCheck,
-  Gauge,
-  Fingerprint,
   FileCheck2,
   Landmark,
   Home,
@@ -26,6 +23,10 @@ import {
   MessageSquare,
   FileText,
   Megaphone,
+  CalendarClock,
+  Globe2,
+  Send,
+  Wallet,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -58,12 +59,18 @@ export interface NavItemConfig {
   label: string
   href?: string
   dropdown?: {
-    type: 'platform' | 'products' | 'industries' | 'company'
+    type: 'platform' | 'products' | 'industries' | 'company' | 'solutions'
     items?: DropdownItem[]
     leftLabel?: string
     leftItems?: SimpleItem[]
     rightLabel?: string
     rightItems?: SimpleItem[]
+    // For type === 'solutions' — two product-card grids stacked vertically:
+    // "By Use Case" on top, "By Industry" below.
+    useCaseLabel?: string
+    useCaseItems?: ProductItem[]
+    industryLabel?: string
+    industryItems?: ProductItem[]
   }
 }
 
@@ -106,72 +113,51 @@ const platformItems: ProductItem[] = [
 ]
 
 /* ═══════════════════════════════════════════════════════
-   2. PRODUCTS — 9 items, 3×3 grid
+   2. PRODUCTS — 6 items, 3×2 grid. The six products on nCore
+   per architecture.md (Identity, Fraud Monitoring, ACS / 3DS,
+   and Risk Management are capabilities inside Financial Crime,
+   not standalone products — per Lending copy v3).
 ═══════════════════════════════════════════════════════ */
 const productItems: ProductItem[] = [
   {
     kind: 'product',
-    id: 'cards',
-    label: 'Cards',
-    description: 'Debit, credit, prepaid cards',
-    href: '/products/cards',
+    id: 'card-issuing',
+    label: 'Card Issuing',
+    description: 'Debit, credit, and prepaid cards',
+    href: '/products/card-issuing',
     icon: CreditCard,
   },
   {
     kind: 'product',
+    id: 'lending',
+    label: 'Lending',
+    description: 'BNPL, installment, and revolving credit',
+    href: '/products/lending',
+    icon: TrendingUp,
+  },
+  {
+    kind: 'product',
     id: 'money-movement',
-    label: 'Cross-Border & FX',
-    description: 'Domestic and cross-border payments',
+    label: 'Money Movement',
+    description: 'Cross-border payments, FX, and corridors',
     href: '/products/money-movement',
     icon: ArrowLeftRight,
   },
   {
     kind: 'product',
-    id: 'embedded-lending',
-    label: 'Lending',
-    description: 'Decisioning and servicing infrastructure',
-    href: '/products/embedded-lending',
-    icon: TrendingUp,
-  },
-  {
-    kind: 'product',
-    id: 'identity',
-    label: 'Identity',
-    description: 'KYC, KYB, identity verification',
-    href: '/products/identity',
-    icon: Fingerprint,
-  },
-  {
-    kind: 'product',
-    id: 'fraud-monitoring',
-    label: 'Fraud Monitoring',
-    description: 'Real-time transaction screening',
-    href: '/products/fraud-monitoring',
-    icon: ShieldAlert,
-  },
-  {
-    kind: 'product',
-    id: 'risk-management',
-    label: 'Risk Management',
-    description: 'Portfolio risk scoring and limits',
-    href: '/products/risk-management',
-    icon: Gauge,
-  },
-  {
-    kind: 'product',
-    id: 'acs-3ds',
-    label: 'ACS / 3DS',
-    description: 'Issuer authentication and 3D Secure',
-    href: '/products/acs-3ds',
-    icon: ShieldCheck,
-  },
-  {
-    kind: 'product',
-    id: 'stablecoin-settlement',
-    label: 'Stablecoin Settlement',
-    description: '24/7 digital asset settlement',
-    href: '/products/stablecoin-settlement',
+    id: 'settlement',
+    label: 'Settlement',
+    description: 'Bank-grade stablecoin settlement',
+    href: '/products/settlement',
     icon: Layers,
+  },
+  {
+    kind: 'product',
+    id: 'financial-crime',
+    label: 'Financial Crime',
+    description: 'KYC, AML, 3D Secure, and fraud monitoring',
+    href: '/products/financial-crime',
+    icon: ShieldAlert,
   },
   {
     kind: 'product',
@@ -184,11 +170,12 @@ const productItems: ProductItem[] = [
 ]
 
 /* ═══════════════════════════════════════════════════════
-   3. INDUSTRIES — 10 items, 5×2 grid (same card as Products)
+   3. INDUSTRIES — 11 items, 4×3 grid (same card as Products)
 ═══════════════════════════════════════════════════════ */
 const industryItems: ProductItem[] = [
   { kind: 'product', id: 'commercial-banking',  label: 'Commercial Banking',   description: 'SME and corporate payments',          href: '/industries/commercial-banking',  icon: Building2    },
   { kind: 'product', id: 'retail-banking',       label: 'Retail Banking',       description: 'Digital banking capabilities',        href: '/industries/retail-banking',      icon: Home         },
+  { kind: 'product', id: 'neobanks',             label: 'Neobanks',             description: 'Full digital bank, API-first',         href: '/industries/neobanks',            icon: Wallet       },
   { kind: 'product', id: 'exchange-houses',      label: 'Exchange Houses',      description: 'Cross-border payment infrastructure', href: '/industries/exchange-houses',     icon: Shield       },
   { kind: 'product', id: 'fintechs',             label: 'Fintechs',             description: 'Launch regulated payment products',   href: '/industries/fintechs',            icon: Zap          },
   { kind: 'product', id: 'telecommunications',  label: 'Telecommunications',   description: 'Embedded financial experiences',      href: '/industries/telecommunications',  icon: Phone        },
@@ -197,6 +184,21 @@ const industryItems: ProductItem[] = [
   { kind: 'product', id: 'healthcare',          label: 'Healthcare',           description: 'Patient and provider payments',       href: '/industries/healthcare',          icon: Heart        },
   { kind: 'product', id: 'government',          label: 'Government',           description: 'Disbursement and payment systems',    href: '/industries/government',          icon: Landmark     },
   { kind: 'product', id: 'mobility',            label: 'Mobility',             description: 'Payments for transport ecosystems',   href: '/industries/mobility',            icon: Car          },
+]
+
+/* ═══════════════════════════════════════════════════════
+   3b. SOLUTIONS — Use Cases (7 items, outcome-led) — mirrors
+   the homepage Solutions / Use Cases section. Pairs with
+   industryItems above.
+═══════════════════════════════════════════════════════ */
+const useCaseItems: ProductItem[] = [
+  { kind: 'product', id: 'commercial-payments', label: 'Run a commercial card programme', description: 'SME and corporate cards, with Visa',           href: '/solutions/commercial-payments', icon: Building2     },
+  { kind: 'product', id: 'launch-a-bank',       label: 'Launch a bank',                   description: 'Accounts, cards, payments, ledger',            href: '/solutions/launch-a-bank',       icon: Landmark      },
+  { kind: 'product', id: 'embedded-finance',    label: 'Embed financial products',        description: 'Cards & credit inside your product',           href: '/solutions/embedded-finance',    icon: Layers        },
+  { kind: 'product', id: 'buy-now-pay-later',   label: 'Offer buy now, pay later',        description: 'Decisioning and servicing at checkout',         href: '/solutions/buy-now-pay-later',   icon: CalendarClock },
+  { kind: 'product', id: 'disbursements',       label: 'Disburse at scale',               description: 'Payouts to suppliers, gig workers, payroll',    href: '/solutions/disbursements',       icon: Send          },
+  { kind: 'product', id: 'remittances',         label: 'Power remittances',               description: 'Cross-border send-and-receive across MEA',      href: '/solutions/remittances',         icon: Globe2        },
+  { kind: 'product', id: 'mobile-wallet',       label: 'Launch a mobile wallet',          description: 'Consumer or agent-led wallets, P2P and CICO',   href: '/solutions/mobile-wallet',       icon: Wallet        },
 ]
 
 /* ═══════════════════════════════════════════════════════
@@ -215,7 +217,9 @@ const companyRightItems: SimpleItem[] = [
 ]
 
 /* ═══════════════════════════════════════════════════════
-   FULL NAV CONFIG — Platform · Products · Industries · Company
+   FULL NAV CONFIG — Platform · Products · Solutions · Company
+   "Solutions" replaces the standalone "Industries" entry; its
+   dropdown stacks "By Use Case" on top and "By Industry" below.
 ═══════════════════════════════════════════════════════ */
 export const NAV_ITEMS: NavItemConfig[] = [
   {
@@ -229,9 +233,15 @@ export const NAV_ITEMS: NavItemConfig[] = [
     dropdown: { type: 'products', items: productItems },
   },
   {
-    id: 'industries',
-    label: 'Industries',
-    dropdown: { type: 'industries', items: industryItems },
+    id: 'solutions',
+    label: 'Solutions',
+    dropdown: {
+      type: 'solutions',
+      useCaseLabel: 'By Use Case',
+      useCaseItems,
+      industryLabel: 'By Industry',
+      industryItems,
+    },
   },
   {
     id: 'company',

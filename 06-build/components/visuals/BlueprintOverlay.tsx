@@ -1,19 +1,21 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 import type { CSSProperties } from "react";
+import { ease } from "./motion";
+import { visual, withAlpha } from "./palette";
 
 // ── Blueprint-style atmospheric overlay ────────────────────────────────────
 //
-// The "infrastructure documentation" framing — the registration marks,
-// measurement ticks and crosshair language of a technical drawing
-// (reference-analysis.md → linear-stack-illustration, stripe-4-column-layout).
+// Operational framing — present enough to feel structural and cinematic, but
+// never an engineering diagram. Corner brackets anchor the composition, a
+// measured ruler of ticks gives it operational boundaries, and — when
+// `animated` — a cyan probe drifts slowly across, an instrument-grade hint.
 //
-// Where InfraGrid fills a section with a structural field, BlueprintOverlay
-// frames it: corner brackets that anchor the composition, a ruler of ticks
-// along the edges, an optional centre crosshair. Together they make a section
-// read as a deliberately drawn system rather than a styled box.
-//
-// Pure CSS borders, themed via `currentColor` (navy at low alpha on light,
-// white at low alpha on dark) — static, so it stays a server component.
-// Decorative: aria-hidden, pointer-events-none.
+// The line between "operational" and "technical diagram" is density: defined
+// corners and a moderate ruler read as infrastructure; a dense grid of ticks
+// reads as CAD. This sits on the operational side. The probe is the only
+// motion and respects prefers-reduced-motion.
 
 const CORNERS = [
   {
@@ -42,8 +44,9 @@ export function BlueprintOverlay({
   corners = true,
   ticks = true,
   crosshair = false,
+  animated = true,
   inset = 24,
-  tickCount = 24,
+  tickCount = 14,
   className,
 }: {
   /** L-shaped registration brackets at the four corners. */
@@ -52,16 +55,20 @@ export function BlueprintOverlay({
   ticks?: boolean;
   /** A small crosshair at the composition centre. */
   crosshair?: boolean;
+  /** A slow cyan scanning probe. Default on; off under reduced motion. */
+  animated?: boolean;
   /** Distance of the frame from the section edge, px. */
   inset?: number;
   /** Number of ticks per edge. */
   tickCount?: number;
   className?: string;
 }) {
+  const reduced = useReducedMotion();
+
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 overflow-hidden text-brand-navy/[0.22] dark:text-white/[0.2] ${className ?? ""}`}
+      className={`pointer-events-none absolute inset-0 overflow-hidden text-brand-navy/[0.18] dark:text-white/[0.16] ${className ?? ""}`}
     >
       {corners &&
         CORNERS.map((c) => (
@@ -85,6 +92,37 @@ export function BlueprintOverlay({
           <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-current" />
         </div>
       )}
+
+      {animated && !reduced && <ScanProbe inset={inset} />}
+    </div>
+  );
+}
+
+// A faint cyan probe that drifts slowly back and forth across the frame.
+function ScanProbe({ inset }: { inset: number }) {
+  return (
+    <div className="absolute" style={{ inset }}>
+      <motion.div
+        className="absolute inset-y-0 w-px"
+        style={{ background: withAlpha(visual.cyan, 0.34) }}
+        initial={{ left: "0%" }}
+        animate={{ left: ["0%", "100%"] }}
+        transition={{
+          duration: 12,
+          ease: ease.inOut,
+          repeat: Infinity,
+          repeatType: "reverse",
+        }}
+      >
+        {/* Probe head — a small lit coordinate marker. */}
+        <span
+          className="absolute -top-[3px] left-1/2 size-1.5 -translate-x-1/2 rounded-full"
+          style={{
+            background: withAlpha(visual.cyan, 0.85),
+            boxShadow: `0 0 6px ${withAlpha(visual.cyan, 0.55)}`,
+          }}
+        />
+      </motion.div>
     </div>
   );
 }
@@ -113,7 +151,7 @@ function TickRuler({
         <span
           key={i}
           className="block w-px bg-current"
-          style={{ height: i % 4 === 0 ? 9 : 4 }}
+          style={{ height: i % 4 === 0 ? 8 : 4 }}
         />
       ))}
     </div>

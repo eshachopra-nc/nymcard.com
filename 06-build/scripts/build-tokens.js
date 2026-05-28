@@ -63,14 +63,31 @@ for (const [key, value] of Object.entries(tokens.radius)) {
 }
 
 // --- Typography (font families) ---------------------------------------------
-// next/font injects --font-inter and --font-plex-mono on <html>. Satoshi is
-// loaded via Fontshare stylesheet (no Google Fonts equivalent).
-// --font-sans is also pointed at Inter so shadcn components inherit our body face.
+// next/font/google injects --font-geist-sans and --font-geist-mono on <html>
+// (configured in app/layout.tsx). Single sans family used for both display
+// and body per Phase 0 typography swap (2026-05): Geist for everything,
+// Geist Mono for code. --font-sans is pointed at Geist so shadcn / tw
+// components inherit the same face automatically.
 section("Fonts");
-lines.push(`  --font-display: Satoshi, system-ui, sans-serif;`);
-lines.push(`  --font-body: var(--font-inter), system-ui, sans-serif;`);
-lines.push(`  --font-sans: var(--font-inter), system-ui, sans-serif;`);
-lines.push(`  --font-mono: var(--font-plex-mono), ui-monospace, monospace;`);
+lines.push(`  --font-display: var(--font-geist-sans), system-ui, sans-serif;`);
+lines.push(`  --font-body: var(--font-geist-sans), system-ui, sans-serif;`);
+lines.push(`  --font-sans: var(--font-geist-sans), system-ui, sans-serif;`);
+lines.push(`  --font-mono: var(--font-geist-mono), ui-monospace, monospace;`);
+
+// --- Shadows ----------------------------------------------------------------
+// Generates `shadow-{name}` utilities for the light shadow scale (xs, sm, md,
+// lg, xl, lift) and `shadow-dark-{name}` utilities for the dark scale. Tokens
+// like `shadow-lift` and `shadow-dark-lift` become Tailwind utility classes
+// the hover system can compose with.
+section("Shadows");
+for (const [key, value] of Object.entries(tokens.shadow.light ?? {})) {
+  if (typeof value !== "string") continue;
+  lines.push(`  --shadow-${key}: ${value};`);
+}
+for (const [key, value] of Object.entries(tokens.shadow.dark ?? {})) {
+  if (typeof value !== "string") continue;
+  lines.push(`  --shadow-dark-${key}: ${value};`);
+}
 
 // --- Spacing ----------------------------------------------------------------
 // Skipped intentionally: every value in tokens.spacing.scale (0,4,8,12,...,160)
@@ -139,8 +156,8 @@ export const surfaceWhite = tokens.color.surface.white;
 export const surfaceSoft  = tokens.color.surface.soft;
 export const radiusButton = tokens.radius.button;
 export const radiusGlass  = tokens.radius.xl;  // Glass panels use radius-xl per design-system.md §5
-export const fontSatoshi  = tokens.typography["font-family"].display;
-export const fontInter    = tokens.typography["font-family"].body;
+export const fontDisplay  = tokens.typography["font-family"].display;
+export const fontBody     = tokens.typography["font-family"].body;
 export const fontMono     = tokens.typography["font-family"].mono;
 `;
 

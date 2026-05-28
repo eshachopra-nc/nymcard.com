@@ -48,7 +48,8 @@ export const tokens = {
     "accent": {
       "teal": "#0EA5E9",
       "cyan": "#22D3EE",
-      "indigo": "#5B6DD8"
+      "indigo": "#5B6DD8",
+      "violet": "#6D28D9"
     },
     "semantic": {
       "success": "#10B981",
@@ -130,9 +131,9 @@ export const tokens = {
   },
   "typography": {
     "font-family": {
-      "display": "Satoshi, system-ui, sans-serif",
-      "body": "Inter, system-ui, sans-serif",
-      "mono": "'IBM Plex Mono', ui-monospace, monospace"
+      "display": "var(--font-geist-sans), system-ui, sans-serif",
+      "body": "var(--font-geist-sans), system-ui, sans-serif",
+      "mono": "var(--font-geist-mono), ui-monospace, monospace"
     },
     "font-weight": {
       "regular": 400,
@@ -380,13 +381,15 @@ export const tokens = {
       "sm": "0 2px 8px 0 rgba(14, 26, 51, 0.04), 0 1px 2px 0 rgba(14, 26, 51, 0.06)",
       "md": "0 8px 24px -4px rgba(14, 26, 51, 0.06), 0 4px 8px -2px rgba(14, 26, 51, 0.04)",
       "lg": "0 24px 48px -12px rgba(14, 26, 51, 0.08), 0 8px 16px -4px rgba(14, 26, 51, 0.04)",
-      "xl": "0 32px 64px -16px rgba(14, 26, 51, 0.10), 0 16px 32px -8px rgba(14, 26, 51, 0.06)"
+      "xl": "0 32px 64px -16px rgba(14, 26, 51, 0.10), 0 16px 32px -8px rgba(14, 26, 51, 0.06)",
+      "lift": "0 2px 6px -1px rgba(14, 26, 51, 0.06), 0 18px 36px -10px rgba(14, 26, 51, 0.14)"
     },
     "dark": {
       "none": "none",
       "sm": "0 1px 0 0 rgba(255, 255, 255, 0.04) inset",
       "md": "0 1px 0 0 rgba(255, 255, 255, 0.06) inset, 0 8px 24px -4px rgba(0, 0, 0, 0.4)",
-      "lg": "0 1px 0 0 rgba(255, 255, 255, 0.08) inset, 0 24px 48px -12px rgba(0, 0, 0, 0.5)"
+      "lg": "0 1px 0 0 rgba(255, 255, 255, 0.08) inset, 0 24px 48px -12px rgba(0, 0, 0, 0.5)",
+      "lift": "0 1px 0 0 rgba(255, 255, 255, 0.07) inset, 0 18px 36px -10px rgba(0, 0, 0, 0.55)"
     },
     "ring": {
       "default": "0 0 0 4px rgba(48, 77, 187, 0.16)",
@@ -721,7 +724,7 @@ export const tokens = {
         "one-primary-per-section": true,
         "primary-uses-navy-not-brand-blue": true,
         "no-radius-pill-on-buttons": true,
-        "radius-is-20px-not-24px": "Reduced from 24px in v1.1 — 20px reads more institutional alongside Satoshi typography, glass panels, and gradients."
+        "radius-is-20px-not-24px": "Reduced from 24px in v1.1 — 20px reads more institutional alongside Geist Sans typography, glass panels, and gradients."
       }
     }
   },
@@ -755,6 +758,6 @@ export const surfaceWhite = tokens.color.surface.white;
 export const surfaceSoft  = tokens.color.surface.soft;
 export const radiusButton = tokens.radius.button;
 export const radiusGlass  = tokens.radius.xl;  // Glass panels use radius-xl per design-system.md §5
-export const fontSatoshi  = tokens.typography["font-family"].display;
-export const fontInter    = tokens.typography["font-family"].body;
+export const fontDisplay  = tokens.typography["font-family"].display;
+export const fontBody     = tokens.typography["font-family"].body;
 export const fontMono     = tokens.typography["font-family"].mono;

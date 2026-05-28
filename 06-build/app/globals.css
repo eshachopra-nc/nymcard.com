@@ -62,6 +62,7 @@
   --color-accent-teal: #0EA5E9;
   --color-accent-cyan: #22D3EE;
   --color-accent-indigo: #5B6DD8;
+  --color-accent-violet: #6D28D9;
   --color-surface-white: #FFFFFF;
   --color-surface-soft: #F4F6FF;
   --color-surface-card: #FFFFFF;
@@ -100,10 +101,24 @@
   --radius-pill: 9999px;
 
   /* Fonts */
-  --font-display: Satoshi, system-ui, sans-serif;
-  --font-body: var(--font-inter), system-ui, sans-serif;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-display: var(--font-geist-sans), system-ui, sans-serif;
+  --font-body: var(--font-geist-sans), system-ui, sans-serif;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Shadows */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px 0 rgba(14, 26, 51, 0.04);
+  --shadow-sm: 0 2px 8px 0 rgba(14, 26, 51, 0.04), 0 1px 2px 0 rgba(14, 26, 51, 0.06);
+  --shadow-md: 0 8px 24px -4px rgba(14, 26, 51, 0.06), 0 4px 8px -2px rgba(14, 26, 51, 0.04);
+  --shadow-lg: 0 24px 48px -12px rgba(14, 26, 51, 0.08), 0 8px 16px -4px rgba(14, 26, 51, 0.04);
+  --shadow-xl: 0 32px 64px -16px rgba(14, 26, 51, 0.10), 0 16px 32px -8px rgba(14, 26, 51, 0.06);
+  --shadow-lift: 0 2px 6px -1px rgba(14, 26, 51, 0.06), 0 18px 36px -10px rgba(14, 26, 51, 0.14);
+  --shadow-dark-none: none;
+  --shadow-dark-sm: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset;
+  --shadow-dark-md: 0 1px 0 0 rgba(255, 255, 255, 0.06) inset, 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+  --shadow-dark-lg: 0 1px 0 0 rgba(255, 255, 255, 0.08) inset, 0 24px 48px -12px rgba(0, 0, 0, 0.5);
+  --shadow-dark-lift: 0 1px 0 0 rgba(255, 255, 255, 0.07) inset, 0 18px 36px -10px rgba(0, 0, 0, 0.55);
 }
 /* nymcard-tokens:end */
 
@@ -244,4 +259,105 @@
 .dd-card:hover::before {
   opacity: 1;
   animation-play-state: running;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ANIMATED RIM ON HOVER — Product cards (homepage Products)
+   Same nc-border-spin keyframe + @property as .dd-card, but
+   tuned for larger cells: a slower, subtler conic with
+   transparent stops so the ring reads as a gradient line
+   travelling around the rim, not a full coloured outline.
+═══════════════════════════════════════════════════════ */
+.nc-rim-hover {
+  position: relative;
+}
+
+.nc-rim-hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.25px;
+  background: conic-gradient(
+    from var(--nc-angle) at 50% 50%,
+    transparent 0%,
+    #22D3EE 18%,
+    #5B4FD9 38%,
+    transparent 58%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+  animation: nc-border-spin 4s linear infinite paused;
+}
+
+.nc-rim-hover:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* ═══════════════════════════════════════════════════════
+   CARD HOVER VOCABULARY — .nc-card-hover
+   The canonical hover behaviour for interactive card surfaces
+   across the site. Applied via class so every card stays in sync;
+   never re-implemented inline.
+
+   Pattern: Stripe / Apple / Anthropic style — the whole card
+   translateY(-4px) lifts and picks up the `--shadow-lift` token
+   on hover. Linear's restrained no-lift approach was considered
+   and rejected for this phase: the cards still carry placeholder
+   product UIs awaiting Phase 2, and without inside-the-card motion
+   a non-lifting hover reads as no hover at all. When real product
+   UIs land, §8.6 of design-system.md can be revisited.
+
+   Motion respects prefers-reduced-motion — the lift collapses
+   to a no-op when the user has reduced motion enabled.
+═══════════════════════════════════════════════════════ */
+.nc-card-hover {
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.nc-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+
+.dark .nc-card-hover:hover {
+  box-shadow: var(--shadow-dark-lift);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nc-card-hover,
+  .nc-card-hover:hover {
+    transition: box-shadow 120ms ease-out, border-color 120ms ease-out;
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   Global reduced-motion backstop. The MotionProvider
+   (reducedMotion="user") covers Framer Motion; this covers
+   everything else — raw CSS keyframes, SVG SMIL, scroll
+   behavior. Near-instant rather than fully 0s so a finished
+   end-state still paints. Belt-and-suspenders per the
+   accessibility reference; CLAUDE.md Rule 6.
+═══════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

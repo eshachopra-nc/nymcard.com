@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono } from "next/font/google";
-import { Navbar } from "@/components/sections/Navbar";
+import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider, themeInitScript } from "@/lib/theme-provider";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  weight: ["400", "500", "600"],
+// Geist Sans is the single sans family the site renders in — display AND body.
+// One family is intentional: reduces font loading, increases distinctiveness,
+// signals AI-native credibility. Variable weight axis (100-900); we use 400/500
+// for body and 500-700 for display via the type scale.
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
-  weight: ["400"],
+// Geist Mono for code surfaces (CodeArtifact §8.17) and the styleguide eyebrows.
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -23,6 +25,12 @@ export const metadata: Metadata = {
   description: "Full-stack payments infrastructure.",
 };
 
+// ── Root layout — bare shell ───────────────────────────────────────────────
+//
+// Only the things that *every* route needs: html / body, fonts, theme
+// provider. Marketing-site chrome (Navbar, page rails) lives in
+// app/(site)/layout.tsx so it doesn't bleed into /studio.
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,33 +39,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700&display=swap"
-        />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="relative min-h-full flex flex-col font-body bg-surface-white text-text-primary dark:bg-surface-dark-base dark:text-text-on-brand">
-        <ThemeProvider>
-          {/* Page rails — Stripe / Linear visual-continuity pattern. */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-[1]"
-          >
-            <div className="mx-auto h-full max-w-7xl relative">
-              <div className="absolute inset-y-0 left-0 w-px bg-brand-navy/[0.06] dark:bg-white/[0.06]" />
-              <div className="absolute inset-y-0 right-0 w-px bg-brand-navy/[0.06] dark:bg-white/[0.06]" />
-              <div className="absolute left-0 right-0 top-[88px] h-px bg-brand-navy/[0.06] dark:bg-white/[0.06]" />
-            </div>
-          </div>
-
-          <Navbar />
-          {children}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

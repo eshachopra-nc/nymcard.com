@@ -14,11 +14,9 @@ import { visual, withAlpha } from "./palette";
 // What it is NOT: a laser line, a neon beam, a sci-fi energy blast. The sweep
 // is a layered luminous ripple, not a hard edge.
 //
-//   linear variant — three stacked layers travelling together (§9.5.1):
+//   linear variant — two stacked cyan layers travelling together (§9.5.1):
 //     1. atmospheric halo  — extra-wide, heavily blurred cyan bloom
 //     2. cyan band         — bright at the trailing edge, soft bloom
-//     3. trailing shadow   — navy fade that dims the not-yet-scanned area,
-//                            so the band reads as casting light forward
 //   radial variant — concentric cyan rings expanding from centre, for
 //     biometric / face-scan surfaces with no reading direction.
 //
@@ -35,9 +33,9 @@ type ScanIntensity = "subtle" | "standard";
 
 // Layer alphas. `subtle` is for quiet ambient scanning; `standard` for a card
 // that is explicitly demonstrating AI processing.
-const ALPHA: Record<ScanIntensity, { band: number; halo: number; shadow: number }> = {
-  subtle: { band: 0.3, halo: 0.13, shadow: 0.2 },
-  standard: { band: 0.5, halo: 0.22, shadow: 0.34 },
+const ALPHA: Record<ScanIntensity, { band: number; halo: number }> = {
+  subtle: { band: 0.3, halo: 0.13 },
+  standard: { band: 0.5, halo: 0.22 },
 };
 
 export function ScanSweep({
@@ -93,14 +91,14 @@ function LinearSweep({
   rest,
 }: {
   direction: ScanDirection;
-  alpha: { band: number; halo: number; shadow: number };
+  alpha: { band: number; halo: number };
   animate: boolean;
   sweep: number;
   rest: number;
 }) {
-  // The band group is drawn for a downward sweep (bright trailing edge on top,
-  // shadow below). For an upward sweep we flip it on Y, which reverses the
-  // gradient and moves the shadow above — physically correct either way.
+  // The band group is drawn for a downward sweep (bright trailing edge on top).
+  // For an upward sweep we flip it on Y, which reverses the gradient so the
+  // bright trailing edge stays behind the travel direction — correct either way.
   const flipped = direction === "up";
   const travel = flipped ? ["100%", "-100%"] : ["-100%", "100%"];
 
@@ -108,7 +106,7 @@ function LinearSweep({
     // Reduced motion / paused → a calm static band resting mid-surface.
     return (
       <div className="absolute inset-x-0 top-[42%] h-[16%]" style={{ transform: flipped ? "scaleY(-1)" : undefined }}>
-        <SweepLayers alpha={{ ...alpha, band: alpha.band * 0.5, shadow: 0, halo: alpha.halo * 0.6 }} />
+        <SweepLayers alpha={{ ...alpha, band: alpha.band * 0.5, halo: alpha.halo * 0.6 }} />
       </div>
     );
   }
@@ -136,8 +134,8 @@ function LinearSweep({
   );
 }
 
-// Halo + band + trailing shadow, positioned for a downward sweep.
-function SweepLayers({ alpha }: { alpha: { band: number; halo: number; shadow: number } }) {
+// Halo + cyan band, positioned for a downward sweep.
+function SweepLayers({ alpha }: { alpha: { band: number; halo: number } }) {
   return (
     <>
       {/* Atmospheric halo — extends past the side edges, heavily blurred. */}
@@ -149,16 +147,6 @@ function SweepLayers({ alpha }: { alpha: { band: number; halo: number; shadow: n
             alpha.halo,
           )}, ${withAlpha(visual.cyan, 0)})`,
           filter: "blur(30px)",
-        }}
-      />
-      {/* Trailing shadow — dims the area the band has not reached yet. */}
-      <div
-        className="absolute inset-x-0 top-[26%] h-[44%]"
-        style={{
-          background: `linear-gradient(to bottom, ${withAlpha(
-            visual.navy,
-            alpha.shadow,
-          )}, ${withAlpha(visual.navy, 0)})`,
         }}
       />
       {/* Cyan band — bright trailing edge fading to the transparent leading edge. */}
@@ -184,7 +172,7 @@ function RadialSweep({
   sweep,
   rest,
 }: {
-  alpha: { band: number; halo: number; shadow: number };
+  alpha: { band: number; halo: number };
   animate: boolean;
   sweep: number;
   rest: number;

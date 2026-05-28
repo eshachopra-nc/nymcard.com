@@ -6,17 +6,18 @@ import { toneHex, withAlpha, type VisualTone } from "./palette";
 
 // ── Ambient glow system ────────────────────────────────────────────────────
 //
-// Soft atmospheric depth — a single blurred radial light source placed off a
-// composition edge. This is the "soft atmospheric depth" primitive: it makes a
-// section feel lit from somewhere rather than evenly flat.
+// Soft atmospheric depth — a volumetric light source anchored off a
+// composition edge. Not a flat coloured disc: a compact bright core inside a
+// wide, gently-eased halo, so it reads as light with real falloff rather than
+// a gradient that simply stops.
+//
+//   • volumetric core  — a tight, multi-stop bright centre
+//   • diffusion halo   — a wide, low-alpha bleed that gives the light volume
 //
 // Motion is ambient (design-system.md §9.4): a slow, low-amplitude drift so the
-// light feels alive without ever reading as a moving object. Amplitude stays
-// inside the §9.4 envelope (small translate, opacity left static).
-// prefers-reduced-motion freezes the glow in place.
-//
-// Restraint: at most one or two glows in a composition, always behind content,
-// always cool-tone. It is lighting, never a coloured fill.
+// light feels alive without ever reading as a moving object. At most one or
+// two glows in a composition, always behind content, always cool-tone.
+// prefers-reduced-motion freezes it in place.
 
 type Placement =
   | "top-left"
@@ -27,9 +28,9 @@ type Placement =
 type GlowSize = "sm" | "md" | "lg";
 type GlowIntensity = "subtle" | "standard";
 
-const SIZE_PX: Record<GlowSize, number> = { sm: 420, md: 620, lg: 840 };
+const SIZE_PX: Record<GlowSize, number> = { sm: 480, md: 700, lg: 920 };
 
-// Core alpha of the radial gradient. Both sit low — a glow is bloom, not fill.
+// Core alpha. Both sit low — a glow is bloom, not fill.
 const CORE_ALPHA: Record<GlowIntensity, number> = {
   subtle: 0.14,
   standard: 0.24,
@@ -44,6 +45,20 @@ const ANCHOR: Record<Placement, CSSProperties> = {
   "bottom-right": { bottom: 0, right: 0, transform: "translate(38%, 42%)" },
   center: { top: "50%", left: "50%", transform: "translate(-50%, -50%)" },
 };
+
+// Compact volumetric core layered over a wide diffusion halo.
+function volumetricLight(hex: string, core: number): string {
+  return (
+    `radial-gradient(circle, ${withAlpha(hex, core)} 0%, ${withAlpha(
+      hex,
+      core * 0.58,
+    )} 14%, ${withAlpha(hex, core * 0.26)} 28%, ${withAlpha(hex, 0)} 50%),` +
+    `radial-gradient(circle, ${withAlpha(hex, core * 0.34)} 0%, ${withAlpha(
+      hex,
+      core * 0.13,
+    )} 42%, ${withAlpha(hex, 0)} 82%)`
+  );
+}
 
 export function AmbientGlow({
   placement = "top-right",
@@ -77,17 +92,14 @@ export function AmbientGlow({
           width: px,
           height: px,
           ...ANCHOR[placement],
-          background: `radial-gradient(circle, ${withAlpha(
-            hex,
-            CORE_ALPHA[intensity],
-          )} 0%, ${withAlpha(hex, 0)} 70%)`,
-          // Extra blur deepens the bloom so even the gradient edge is feathered.
-          filter: "blur(56px)",
+          background: volumetricLight(hex, CORE_ALPHA[intensity]),
+          // Extra blur softens even the gradient's own steps into pure light.
+          filter: "blur(52px)",
         }}
         animate={animated ? { x: [0, 22, 0], y: [0, -16, 0] } : undefined}
         transition={
           animated
-            ? { duration: 24, ease: "easeInOut", repeat: Infinity }
+            ? { duration: 26, ease: "easeInOut", repeat: Infinity }
             : undefined
         }
       />

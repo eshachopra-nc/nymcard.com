@@ -37,6 +37,8 @@ If a future addition can't be explained in one sentence as "this does X that not
 | **Brand iconography** | Bespoke SVG | Product icons in the bento grid, illustrative iconography. Bespoke because brand distinctiveness shows here. |
 | **Raster images** | Next.js `<Image>` | Client logos, photographic content. Built-in optimisation, lazy loading, responsive sizing. |
 | **Animated visuals** | Inline SVG (with Framer Motion or native `<animate>` for gradient stops) | Hero kinetic gradient, dark-section kinetic ribbon, architecture diagrams. Inline so we can animate. |
+| **Content / CMS** | Sanity | Headless CMS for marketing-page content — typed schemas queried via GROQ, so content is managed and updated independently of code deploys. |
+| **PortableText rendering** | `@portabletext/react` | Renders Sanity's PortableText (block-content) JSON into React for editorial pages (blog, newsroom). Sanity-maintained companion to `next-sanity` — no alternative provides the same fidelity for marks, lists, links, and inline image blocks. |
 
 ---
 
@@ -195,6 +197,40 @@ Image handling, built into Next.js. No additional library needed.
 
 ---
 
+### Sanity
+
+The headless CMS. A structured content store the marketing site reads from.
+
+**What it does:** Typed content schemas (document and section models), a hosted content store, a GROQ query API, and an editing studio for non-engineers.
+
+**Why we need it specifically:**
+- Page content can be managed and updated without a code deploy.
+- Typed schemas keep content structured and consistent across pages.
+- GROQ + the Next.js data layer let pages fetch their content (build-time where possible).
+
+**Implementation note:** Pages are mapped into Sanity by the CMS integration engineer — section schemas, documents, and a Sanity client with GROQ queries in the Next.js data layer. Copy is currently authored in `02-copy/` markdown; until authoring formally moves into Sanity, `02-copy/` remains the source of truth and Sanity mirrors it.
+
+**What it doesn't do:** Styling, motion, layout — Sanity carries content only.
+
+---
+
+### `@portabletext/react`
+
+The Sanity-blessed React renderer for PortableText (Sanity's block-content JSON format).
+
+**What it does:** Walks a PortableText array and renders each block to a React element. Comes with sensible default components for blocks, marks, lists, and links; lets us override any one of them with our own typography and link components.
+
+**Why we need it specifically:**
+- Editorial pages (`/company/blog/*`, `/company/newsroom/*`) author their body content as PortableText in Studio. This is the standard library that converts that JSON to JSX.
+- Hand-rolling a renderer means reimplementing block / mark / link / list handling and re-doing it every time the schema gains a new block type. The library handles all of that.
+- ~10KB gzipped. One job. Maintained by Sanity in lockstep with the Studio.
+
+**Implementation note:** We wrap it in a small `<PortableTextBody />` component that supplies our type styles (`prose`-like classes built from `tokens.json` typography) and an `image` block component that turns Sanity image refs into `<Image>` elements via `@sanity/image-url`.
+
+**What it doesn't do:** PortableText *editing* (that happens in Studio), HTML output (use `@portabletext/to-html` for non-React contexts — we don't currently need that), Markdown conversion.
+
+---
+
 ## What's explicitly out
 
 These are libraries that were considered and rejected, with reasoning. Documenting them here so they don't get re-added by accident.
@@ -210,7 +246,7 @@ These are libraries that were considered and rejected, with reasoning. Documenti
 | **Radix Icons (as primary set)** | Lucide has broader coverage. Radix Icons as a fallback for primitives is acceptable but not the default. |
 | **Aceternity UI / Magic UI / Tailwind UI components** | Pre-built marketing component libraries. Same failure mode as 21st.dev: Claude Code doesn't see them in the codebase and won't reach for them correctly. We build marketing components ourselves. |
 | **Redux / Zustand / Jotai / any global state library** | Page-level state via React. Persistent state in URL. No application-level state needs justify a library. |
-| **Sanity / Contentful / any headless CMS** | Notion is the source of truth for copy. Claude Code reads copy from Notion via MCP. CMS is out of scope. |
+| **Contentful / other headless CMS** | Sanity is the chosen CMS — see the stack table. One CMS only; a second creates content drift. |
 | **Storybook** | Useful in principle, premature now. Add later if the component library grows beyond a single team's working memory. |
 
 ---
@@ -296,7 +332,7 @@ How the stack maps to actual files in the `06-build/` directory:
 ├── lib/
 │   ├── tokens.ts                   ← Auto-generated from tokens.json
 │   ├── motion-tokens.ts            ← Helper for Framer Motion to read motion tokens
-│   └── notion.ts                   ← MCP client for fetching copy
+│   └── sanity.ts                   ← Sanity client + GROQ queries
 ├── public/
 │   ├── icons/                      ← Bespoke SVG product icons
 │   └── logos/                      ← Client logos
@@ -326,7 +362,7 @@ The list of "don't do this" libraries from the "What's explicitly out" section b
 
 ## Document control
 
-- **Version:** 1.1 (May 2026)
+- **Version:** 1.3 (May 2026)
 - **Owner:** Esha (VP Marketing) and the engineering effort
 - **Authority over:** Technical library choices for nymcard.com
 - **Subordinate to:** `design-system.md` and `tokens.json`
@@ -334,6 +370,8 @@ The list of "don't do this" libraries from the "What's explicitly out" section b
 
 ### Change log
 
+- **v1.3 (May 2026):** `@portabletext/react` added to the stack to render Sanity PortableText body content on editorial pages (blog, newsroom). No realistic alternative — it's the Sanity-maintained companion to `next-sanity`. Wrapped in a small `<PortableTextBody />` component that maps blocks to design-system typography.
+- **v1.2 (May 2026):** Sanity adopted as the project CMS. The previous "no CMS" position is reversed — marketing-page content is now managed in Sanity, mapped in by the CMS integration engineer. Copy authoring remains in `02-copy/` markdown until a formal move into Sanity is decided; until then Sanity mirrors `02-copy/`.
 - **v1.1 (May 2026):** Tailwind v4 CSS-first adopted as the token-output target. `scripts/build-tokens.js` now emits a `@theme` block in `app/globals.css` instead of writing a JS-based `tailwind.config.js`. Rationale: Tailwind v4 became the `create-next-app` default after the original stack was locked, and the v4-native `@theme` pattern keeps us aligned with shadcn/ui's v4 setup and the wider Next.js ecosystem direction. `tokens.json` remains the single source of truth — only the output target changed; the script still runs in `prebuild`, still produces Tailwind utility classes directly from token names (`bg-brand-primary`, `rounded-button`, `font-display`, etc.), and the generated block is delimited by `nymcard-tokens:start` / `nymcard-tokens:end` markers so it regenerates without touching shadcn's own `@theme` block.
 - **v1.0 (May 2026):** Initial stack decision document.
 

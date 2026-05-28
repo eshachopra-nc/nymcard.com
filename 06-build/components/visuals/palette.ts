@@ -27,6 +27,7 @@ export const visual = {
   cyan: tokens.color.accent.cyan, // #22D3EE — scan / highlight
   teal: tokens.color.accent.teal, // #0EA5E9 — technical accent
   indigo: tokens.color.accent.indigo, // #5B6DD8 — gradient bridge
+  violet: tokens.color.accent.violet, // #6D28D9 — deep gradient anchor; chip / glow only, never a CTA
   purple: tokens.color.brand.purple, // #5B4FD9 — gradient mid
   primary: tokens.color.brand.primary, // #304DBB — infrastructure blue
   navy: tokens.color.brand.navy, // #0E1A33 — depth / shadow
@@ -34,11 +35,12 @@ export const visual = {
 } as const;
 
 /** Tones a consumer can pick for glow / trace primitives. Cyan is the default. */
-export type VisualTone = "cyan" | "indigo" | "purple" | "primary";
+export type VisualTone = "cyan" | "indigo" | "violet" | "purple" | "primary";
 
 export const toneHex: Record<VisualTone, string> = {
   cyan: visual.cyan,
   indigo: visual.indigo,
+  violet: visual.violet,
   purple: visual.purple,
   primary: visual.primary,
 };
