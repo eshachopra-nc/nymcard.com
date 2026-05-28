@@ -72,7 +72,7 @@ export function Section({
       id={id}
       aria-label={ariaLabel}
       className={cn(
-        "relative py-20 sm:py-28 lg:py-32",
+        "relative py-16 sm:py-24 lg:py-28",
         BG[bg],
         !overflowVisible && "overflow-hidden",
         className,
