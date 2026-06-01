@@ -32,11 +32,21 @@ export function sheetsServiceConfigured(): boolean {
   );
 }
 
+/** Normalise a private key pasted into an env var — tolerant of the common
+ *  mistakes (surrounding quotes, literal `\n` instead of newlines, stray
+ *  whitespace) so it works however it was entered in the Vercel dashboard. */
+function normalizePrivateKey(raw: string): string {
+  return raw
+    .trim()
+    .replace(/^["']|["']$/g, "") // accidental surrounding quotes
+    .replace(/\\n/g, "\n") // literal \n → real newlines
+    .trim();
+}
+
 async function getAccessToken(): Promise<string> {
-  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL as string;
-  const key = (process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY as string).replace(
-    /\\n/g,
-    "\n",
+  const email = (process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || "").trim();
+  const key = normalizePrivateKey(
+    process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY || "",
   );
 
   const now = Math.floor(Date.now() / 1000);
@@ -72,10 +82,18 @@ async function getAccessToken(): Promise<string> {
   return json.access_token;
 }
 
+/** Pull the bare spreadsheet id out of whatever was pasted — accepts the raw id
+ *  or a full Sheet URL (…/spreadsheets/d/THE_ID/edit#gid=0). */
+function extractSheetId(raw: string): string {
+  const v = raw.trim();
+  const m = v.match(/\/d\/([a-zA-Z0-9-_]+)/);
+  return m ? m[1] : v;
+}
+
 /** Append one row (array of cell values) to the configured Sheet. */
 export async function appendRowToSheet(row: (string | number)[]): Promise<void> {
-  const sheetId = process.env.CONTACT_SHEET_ID as string;
-  const range = process.env.CONTACT_SHEET_RANGE || "A:K";
+  const sheetId = extractSheetId(process.env.CONTACT_SHEET_ID || "");
+  const range = (process.env.CONTACT_SHEET_RANGE || "A:K").trim();
   const token = await getAccessToken();
 
   const url =
