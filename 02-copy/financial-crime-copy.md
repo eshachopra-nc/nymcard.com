@@ -14,12 +14,12 @@
 
 Ten-section product page derived from the locked arc in `00-strategy/about-nymcard/page-arc.md`, modeled structurally on `02-copy/card-issuing-copy.md` (Cards Draft v10). Voice modeled on Stripe, Vercel, Linear, Brex. Primary buyer is the technical Head of Financial Crime / CCO — vocabulary skews to signals, decisioning, audit trail, and regulatory readiness.
 
-Financial Crime is **one layer** of nCore. Fraud, risk monitoring, identity, and ACS / 3D Secure are presented as **capabilities within the layer**, not as separate products. The page enforces this framing throughout — no standalone Fraud, Risk, 3DS, or Identity sections.
+Financial Crime is **one layer** of nCore. Identity, fraud, risk, AML & sanctions, and 3D Secure are presented as **five capabilities of the single layer** — distinct sections, tied together by the §3 lead-in and the shared customer record, pipeline, and ledger, so they never read as separate products. (Owner direction, 1 Jun 2026: present the five as distinct sections; this supersedes the earlier "no standalone sections" rule. The single-layer framing is preserved by the connective lead-in, not by collapsing them into one bento.)
 
 Deviations from the canonical arc (each doing real work on this page):
 
 - Skips the arc's Section 3 "Why Financial Crime" — the hero already states the unification claim, and the bento + decisioning console answer the outcome question more concretely than four outcome tiles would.
-- Splits the capability story into two consecutive sections: §3 **Capabilities** (asymmetric bento — Fraud, Risk monitoring, Identity, ACS / 3D Secure) and §4 **Decisioning console** (FeatureShowcase — full-width animated dashboard).
+- Splits the capability story into two consecutive sections: §3 **Risk controls** (five alternating editorial rows — Identity, Fraud monitoring, Risk management, AML & sanctions, 3D Secure) and §4 **Decisioning console** (FeatureShowcase — full-width animated dashboard).
 - Drops the arc's Section 5 "Built on nCore" cinematic centerpiece. Per locked decision (2026-05-23), product pages on nymcard.com don't carry this section. The nCore positioning lives in the hero, the FAQ, and the cross-sell banners instead.
 - No Migration section. The fact file does not surface a legacy-risk-vendor migration story; adding one would be fabrication.
 
@@ -27,7 +27,7 @@ Deviations from the canonical arc (each doing real work on this page):
 
 1. Hero — What is this?
 2. Logo strip — Who else uses this?
-3. Capabilities — What can I actually do with it? *(asymmetric bento, 5 tiles)*
+3. Risk controls — What can I actually do with it? *(five alternating editorial capability rows)*
 4. Decisioning console — Can I see why a decision was made? *(FeatureShowcase)*
 5. Configuration — How do I configure and integrate it?
 6. Industries — Who in my space uses this?
@@ -71,51 +71,51 @@ Beneath the logo row, a single quiet trust line: **Principal member of Visa and 
 
 ---
 
-# 3. Capabilities
+# 3. Risk controls
 
-**Eyebrow:** Capabilities
+**No eyebrow** — the lead-in headline leads (CLAUDE.md v1.5).
 
-**Headline:**
+**Lead-in headline:**
 
-One layer, every risk control your team needs.
+One layer, one customer record.
 
-**Body:**
+**Lead-in body:**
 
-Fraud, AML transaction monitoring, sanctions screening, identity, and 3D Secure — decided against the same customer record and the same signal pipeline.
+Identity, fraud, risk, AML, and 3D Secure are capabilities of a single layer — every event flows through the same pipeline and is decided against the same model of who your customer is.
 
-**Visual:**
+**Visual / layout:**
 
-Asymmetric bento. Four tiles on a six-column grid:
+Five distinct capability sections as alternating editorial rows (`TextImageRow`, design-system §8.20) — text-left / text-right alternating, each with its own bespoke coded visual. Order: Identity → Fraud monitoring → Risk management → AML & sanctions → 3D Secure. The lead-in keeps the "one layer, not five products" framing so the distinct sections never read as separate products.
 
-- Row 1 — **Fraud management** (full-width showpiece, two rows tall).
-- Row 2 — **Risk monitoring** (half-width) + **Identity** (half-width), side by side.
-- Row 3 — **ACS / 3D Secure** (full-width).
+**1. Identity**
 
-Each tile carries a live UI snippet as its primary visual. Editorial spacing, no atmospheric backgrounds — the UIs do the work.
+KYC, KYB, and identity verification at onboarding, with ongoing monitoring and periodic reviews — on the same customer record the rest of the layer reads from.
 
-**(Full-width, tall) Fraud management**
+*UI:* Customer-record card — verified status, KYC / KYB / IDV chips, document lifecycle (ID, proof of address, liveness) with check states, and a next-review date.
 
-Real-time decisioning on every card authorization — approve, challenge, or block — with the reason behind every score.
+**2. Fraud monitoring**
 
-*UI snippet:* A live authorization stream with three decisions visible at once. Each row expands on hover to reveal the SHAP attribution beneath the score — top contributing signals listed with their weights. A small toggle at the top switches between card-present, card-not-present, account takeover, and app-based fraud views; the model and signal mix update accordingly.
+Real-time fraud decisioning on every authorization — approve, challenge, or block across card-present, card-not-present, account-takeover, and app-based fraud, with SHAP attribution behind every score.
 
-**(Half-width) Risk monitoring**
+*UI:* An authorization with an APPROVE decision over SHAP attribution bars — top contributing signals with signed weights.
 
-Configurable AML typologies, customer risk ratings, and sanctions screening on every transaction, beneficiary, and onboarding.
+**3. Risk management**
 
-*UI snippet:* A typology editor panel — a structuring rule with thresholds and time windows on the left, a live alert feed on the right. A customer detail row shifts from MEDIUM to HIGH risk as a new alert posts, with the review cadence updating in line.
+A live Customer Risk Rating, low to very high, drives thresholds, review cadence, and monitoring intensity per customer — with one case system across fraud, AML, and compliance.
 
-**(Half-width) Identity**
+*UI:* Customer Risk Rating tiers (low → very high) with the active tier marked, and the review cadence, monitoring intensity, and thresholds it drives.
 
-KYC, KYB, identity verification, and ongoing monitoring on the same customer record the rest of the layer reads from.
+**4. AML & sanctions**
 
-*UI snippet:* A customer record surface with KYC status, document lifecycle, and periodic review schedule. A new document uploads and re-verifies inline; the next review date recomputes; an ongoing-monitoring chip stays steady throughout.
+AML transaction monitoring against configurable typologies, plus sanctions and PEP screening on every transaction, beneficiary, and onboarding — with STR/SAR generation and filing under maker-checker.
 
-**(Full-width) ACS / 3D Secure**
+*UI:* A structuring typology in alert, a beneficiary PEP-screening match, and an STR drafted under maker-checker.
 
-Issuer-side step-up authentication driven by the same enriched signals as the rest of the layer.
+**5. 3D Secure**
 
-*UI snippet:* A CNP authorization arriving, the ACS panel surfacing a frictionless / challenge decision with the signals that drove it, and the resulting authorization completing beneath.
+Issuer-side ACS step-up authentication for card-not-present payments, with challenge decisions driven by the same enriched signals as fraud scoring.
+
+*UI:* A card-not-present authorization raising a step-up challenge with its reasons, an OTP entry, and a verified → authorized result.
 
 ---
 
@@ -180,13 +180,7 @@ AML rules, sanctions lists, and risk thresholds — versioned, applied in real t
 
 As the config completes, a small approval state renders beneath the code — an inline confirmation that the rule was versioned and applied, with a hash entry written to the ledger.
 
-**Companion block beneath the code panel:**
-
-*Heading:* Versioned, auditable, applied in real time
-
-*Body:* Every rule change, list update, and threshold edit is versioned, logged, and reversible — on the same API surface that drives fraud, AML, identity, and 3DS.
-
-*Tertiary link:* Read the configuration docs →
+<!-- Companion block ("Versioned, auditable, applied in real time" + body + "Read the configuration docs" link) removed per owner direction, 1 Jun 2026. -->
 
 ---
 
@@ -358,6 +352,8 @@ Run fraud, AML, identity, and 3D Secure on one layer of nCore.
 ---
 
 # Changelog
+
+**v2 → v3 (1 Jun 2026):** §3 redesigned per owner direction from a single capabilities bento into **five distinct capability sections** as alternating editorial rows — Identity, Fraud monitoring, Risk management, AML & sanctions, 3D Secure — each with its own bespoke coded visual. "Risk monitoring" was split into **Risk management** (Customer Risk Rating → thresholds / cadence / intensity + case management) and **AML & sanctions** (typologies + sanctions/PEP screening + STR/SAR). A connective lead-in ("One layer, one customer record.") preserves the single-layer framing, superseding the prior "no standalone sections" rule. Each row's visual reuses the homepage hero-carousel handoff surface for that capability (identity / fraud-monitoring / risk-management / acs-3ds; AML & sanctions uses the `financial-crime` asset), rendered on the glass kit via `HandoffVisual`. Copy is baked into `components/composition/FinancialCrimeControls.tsx` (rendered via the `financial-crime` slug branch, mirroring CardProgramsBento / LendingCreditJourney) — the seed `capabilities` field is no longer the render source for §3. The trust band and the §6 Industries section are also suppressed on this page (owner direction). Not re-seeded to Sanity.
 
 **v1 → v2 (29 May 2026):** Removed the "nine signal engines" tile from the §3 Capabilities bento and promoted **ACS / 3D Secure** to full-width, so the bento is now four tiles (Fraud full-width tall → Risk monitoring + Identity → ACS / 3D Secure full-width). The nine-signal concept still lives in the §1 hero and §4 decisioning pipeline. Staged in `scripts/docs/financial-crime.ts`; not yet re-seeded to Sanity.
 

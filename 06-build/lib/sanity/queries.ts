@@ -74,6 +74,20 @@ const MIGRATION_CONSOLE = `
   tracks[] { label, pct }
 `;
 
+// ── siteConfig (singleton) ─────────────────────────────────────────────────
+// Site-wide settings. `alertBanner` drives the announcement bar pinned above
+// the navbar; when the singleton (or the object) is absent the app falls back
+// to a code-level default in components/sections/AlertBanner.
+export const siteConfigQuery = groq`
+  *[_type == "siteConfig"][0] {
+    defaultTrustLine,
+    footerTagline,
+    contactEmail,
+    linkedInUrl,
+    alertBanner { enabled, tag, message, href, linkLabel }
+  }
+`;
+
 // ── productPage by slug ────────────────────────────────────────────────────
 export const productPageBySlugQuery = groq`
   *[_type == "productPage" && slug.current == $slug][0] {

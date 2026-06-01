@@ -1,0 +1,336 @@
+/* ============================================================
+   NymCard Design System — Colors, Type, Spacing, Motion
+   Authoritative tokens from tokens.json v1.3.0 + design-system.md
+   ============================================================ */
+
+/* ---------- Web fonts -------------------------------------
+   Phase 0 (2026-05) retired Satoshi / Inter / IBM Plex Mono.
+   In production the Next.js build loads Geist Sans + Geist Mono
+   via next/font/google. In this static kit Geist Sans loads
+   from the brand-shipped files in fonts/; Geist Mono still
+   pulls from Google Fonts (no local TTF supplied yet).
+   ---------------------------------------------------------- */
+
+@font-face {
+  font-family: "Geist";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/Geist-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Geist";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/Geist-Medium.ttf") format("truetype");
+}
+@font-face {
+  /* Declared for completeness — the design system forbids italics;
+     this face exists only so the cascade doesn't synthesise one. */
+  font-family: "Geist";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/Geist-MediumItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Geist";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/Geist-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Geist";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/Geist-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Geist";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("fonts/Geist-Black.ttf") format("truetype");
+}
+
+/* Geist Mono — still from Google Fonts until local files ship. */
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap");
+
+:root {
+  /* ---------- Brand (cool only — no warm tones, ever) ---- */
+  --brand-primary: #304DBB;
+  --brand-primary-hover: #2840A0;
+  --brand-primary-active: #1F3389;
+  --brand-purple: #5B4FD9;
+  --brand-purple-soft: rgba(91, 79, 217, 0.3);
+  --brand-navy: #0E1A33;
+  --brand-navy-soft: #1A2547;
+
+  /* ---------- Surfaces (light, default) ----------------- */
+  --surface-white: #FFFFFF;
+  --surface-soft: #F4F6FF;
+  --surface-card: #FFFFFF;
+  --surface-glass: rgba(255, 255, 255, 0.7);
+  --surface-border-subtle: #E8EBF5;
+  --surface-border-stronger: #D1D7E8;
+
+  /* ---------- Surfaces (dark — first-class theme) ------- */
+  --surface-dark: #0E1A33;
+  --surface-dark-elevated: #1A2547;
+  --surface-dark-glass: rgba(26, 37, 71, 0.6);
+  --surface-dark-border: rgba(255, 255, 255, 0.08);
+  --surface-dark-border-stronger: rgba(255, 255, 255, 0.16);
+
+  /* ---------- Text ------------------------------------- */
+  --text-primary: #0E1A33;
+  --text-secondary: #4A5578;
+  --text-muted: #7A839E;
+  --text-on-brand: #FFFFFF;
+  --text-link: #304DBB;
+  --text-link-hover: #2840A0;
+
+  --text-dark-primary: #FFFFFF;
+  --text-dark-secondary: rgba(255, 255, 255, 0.7);
+  --text-dark-muted: rgba(255, 255, 255, 0.5);
+  --text-dark-link: #7B9AFF;
+  --text-dark-link-hover: #A5BBFF;
+
+  /* ---------- Accents (cool only) ---------------------- */
+  --accent-teal: #0EA5E9;
+  --accent-cyan: #22D3EE;
+  --accent-indigo: #5B6DD8;
+  --accent-violet: #6D28D9;
+
+  /* ---------- Semantic --------------------------------- */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger:  #EF4444;
+  --color-info:    #0EA5E9;
+
+  /* ---------- Gradients (max 3 stops, directional) ----- */
+  --gradient-hero-kinetic: linear-gradient(
+    225deg,
+    var(--accent-cyan) 0%,
+    var(--brand-purple) 50%,
+    var(--brand-primary) 100%
+  );
+  --gradient-section-ambient: linear-gradient(
+    180deg,
+    rgba(91, 79, 217, 0.05) 0%,
+    var(--surface-soft) 100%
+  );
+  --gradient-dark-ribbon: linear-gradient(
+    90deg,
+    var(--accent-indigo) 0%,
+    var(--brand-purple) 50%,
+    var(--accent-cyan) 100%
+  );
+  --gradient-cta-echo: linear-gradient(
+    135deg,
+    var(--brand-primary) 0%,
+    var(--brand-purple) 100%
+  );
+
+  /* ---------- Typography (single sans family) ----------- */
+  /* Geist Sans does display + body. Geist Mono does code.
+     --font-display kept as a separate token for legacy CSS
+     that still references it; both resolve to Geist now. */
+  --font-display: "Geist", "Geist Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body:    "Geist", "Geist Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "Geist Mono", ui-monospace, "SFMono-Regular", "Menlo", monospace;
+
+  /* Next.js parity tokens for downstream consumers. */
+  --font-geist-sans: var(--font-body);
+  --font-geist-mono: var(--font-mono);
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Type scale — desktop. Use semantic classes below. */
+  --display-xl-size: 72px;   --display-xl-lh: 80px;   --display-xl-ls: -0.02em;
+  --display-lg-size: 64px;   --display-lg-lh: 72px;   --display-lg-ls: -0.02em;
+  --h1-size: 48px;           --h1-lh: 56px;           --h1-ls: -0.015em;
+  --h2-size: 36px;           --h2-lh: 44px;           --h2-ls: -0.01em;
+  --h3-size: 28px;           --h3-lh: 36px;           --h3-ls: -0.01em;
+  --h4-size: 22px;           --h4-lh: 30px;           --h4-ls: -0.005em;
+  --body-lg-size: 18px;      --body-lg-lh: 28px;
+  --body-size: 16px;         --body-lh: 26px;
+  --body-sm-size: 14px;      --body-sm-lh: 22px;
+  --caption-size: 12px;      --caption-lh: 18px;
+  --code-size: 14px;         --code-lh: 22px;
+  --nav-size: 15px;          --nav-lh: 20px;          --nav-ls: -0.005em;
+
+  /* ---------- Spacing (4px base) ----------------------- */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  32px;
+  --space-8:  40px;
+  --space-9:  48px;
+  --space-10: 64px;
+  --space-11: 96px;
+  --space-12: 120px;
+  --space-13: 160px;
+
+  --gutter-mobile: 16px;
+  --gutter-tablet: 32px;
+  --gutter-laptop: 48px;
+  --gutter-desktop: 80px;
+
+  --container-narrow: 720px;
+  --container-default: 1200px;
+  --container-wide: 1440px;
+
+  /* ---------- Radii ------------------------------------ */
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-button: 20px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 9999px;
+
+  /* ---------- Shadows (navy-tinted; never pure black) -- */
+  --shadow-xs: 0 1px 2px 0 rgba(14, 26, 51, 0.04);
+  --shadow-sm: 0 2px 8px 0 rgba(14, 26, 51, 0.04), 0 1px 2px 0 rgba(14, 26, 51, 0.06);
+  --shadow-md: 0 8px 24px -4px rgba(14, 26, 51, 0.06), 0 4px 8px -2px rgba(14, 26, 51, 0.04);
+  --shadow-lg: 0 24px 48px -12px rgba(14, 26, 51, 0.08), 0 8px 16px -4px rgba(14, 26, 51, 0.04);
+  --shadow-xl: 0 32px 64px -16px rgba(14, 26, 51, 0.10), 0 16px 32px -8px rgba(14, 26, 51, 0.06);
+  /* Canonical §8.6 card-hover shadow. Pair with translateY(-4px). */
+  --shadow-lift: 0 2px 6px -1px rgba(14, 26, 51, 0.06), 0 18px 36px -10px rgba(14, 26, 51, 0.14);
+
+  --shadow-dark-sm: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset;
+  --shadow-dark-md: 0 1px 0 0 rgba(255, 255, 255, 0.06) inset, 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+  --shadow-dark-lg: 0 1px 0 0 rgba(255, 255, 255, 0.08) inset, 0 24px 48px -12px rgba(0, 0, 0, 0.5);
+  --shadow-dark-lift: 0 1px 0 0 rgba(255, 255, 255, 0.07) inset, 0 18px 36px -10px rgba(0, 0, 0, 0.55);
+
+  --ring-default: 0 0 0 4px rgba(48, 77, 187, 0.16);
+  --ring-dark:    0 0 0 4px rgba(91, 79, 217, 0.24);
+
+  /* ---------- Motion ----------------------------------- */
+  --dur-instant: 80ms;
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 400ms;
+  --dur-deliberate: 600ms;
+  --dur-cinematic: 1000ms;
+  --dur-ambient-slow: 8s;
+  --dur-ambient-mid: 4s;
+  --dur-ambient-fast: 2s;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---------- Dividers --------------------------------- */
+  --divider-vertical: 1px solid rgba(14, 26, 51, 0.06);
+  --divider-dotted:   1px dotted rgba(14, 26, 51, 0.10);
+  --divider-horizontal: 1px solid rgba(14, 26, 51, 0.06);
+}
+
+/* ============================================================
+   Dark theme — first-class (v1.3, Linear pattern).
+   Apply .dark on <html> or any ancestor to flip surfaces / text.
+   The dark scope must NOT re-declare brand colours — they stay
+   constant across themes. Only surface, text, and shadow tokens
+   swap.
+   ============================================================ */
+.dark,
+[data-theme="dark"] {
+  --surface-white: #0E1A33;
+  --surface-soft: #1A2547;
+  --surface-card: #1A2547;
+  --surface-glass: rgba(26, 37, 71, 0.6);
+  --surface-border-subtle: rgba(255, 255, 255, 0.08);
+  --surface-border-stronger: rgba(255, 255, 255, 0.16);
+
+  --text-primary:   var(--text-dark-primary);
+  --text-secondary: var(--text-dark-secondary);
+  --text-muted:     var(--text-dark-muted);
+  --text-link:      var(--text-dark-link);
+  --text-link-hover:var(--text-dark-link-hover);
+
+  --shadow-xs:   var(--shadow-dark-sm);
+  --shadow-sm:   var(--shadow-dark-sm);
+  --shadow-md:   var(--shadow-dark-md);
+  --shadow-lg:   var(--shadow-dark-lg);
+  --shadow-xl:   var(--shadow-dark-lg);
+  --shadow-lift: var(--shadow-dark-lift);
+
+  --divider-vertical:   1px solid rgba(255, 255, 255, 0.06);
+  --divider-dotted:     1px dotted rgba(255, 255, 255, 0.10);
+  --divider-horizontal: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ============================================================
+   Base + semantic typography
+   ============================================================ */
+
+html, body {
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  line-height: var(--body-lh);
+  color: var(--text-primary);
+  background: var(--surface-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* Semantic helpers — use directly or as a reference. */
+.display-xl { font: var(--fw-bold) var(--display-xl-size)/var(--display-xl-lh) var(--font-display); letter-spacing: var(--display-xl-ls); }
+.display-lg { font: var(--fw-bold) var(--display-lg-size)/var(--display-lg-lh) var(--font-display); letter-spacing: var(--display-lg-ls); }
+.h1 { font: var(--fw-bold) var(--h1-size)/var(--h1-lh) var(--font-display); letter-spacing: var(--h1-ls); }
+.h2 { font: var(--fw-bold) var(--h2-size)/var(--h2-lh) var(--font-display); letter-spacing: var(--h2-ls); }
+.h3 { font: var(--fw-medium) var(--h3-size)/var(--h3-lh) var(--font-display); letter-spacing: var(--h3-ls); }
+.h4 { font: var(--fw-medium) var(--h4-size)/var(--h4-lh) var(--font-display); letter-spacing: var(--h4-ls); }
+
+.body-lg { font: var(--fw-regular) var(--body-lg-size)/var(--body-lg-lh) var(--font-body); }
+.body    { font: var(--fw-regular) var(--body-size)/var(--body-lh) var(--font-body); }
+.body-sm { font: var(--fw-regular) var(--body-sm-size)/var(--body-sm-lh) var(--font-body); color: var(--text-secondary); }
+.caption { font: var(--fw-regular) var(--caption-size)/var(--caption-lh) var(--font-body); color: var(--text-muted); }
+.code    { font: var(--fw-regular) var(--code-size)/var(--code-lh) var(--font-mono); }
+.nav     { font: var(--fw-medium) var(--nav-size)/var(--nav-lh) var(--font-body); letter-spacing: var(--nav-ls); }
+
+.button-lg { font: var(--fw-semibold) 16px/24px var(--font-body); }
+.button    { font: var(--fw-medium) 14px/20px var(--font-body); }
+
+/* Mobile shrink for display sizes only — body stays. */
+@media (max-width: 767px) {
+  :root {
+    --display-xl-size: 50px; --display-xl-lh: 58px;
+    --display-lg-size: 44px; --display-lg-lh: 52px;
+    --h1-size: 36px; --h1-lh: 44px;
+    --h2-size: 28px; --h2-lh: 36px;
+    --h3-size: 24px; --h3-lh: 32px;
+    --h4-size: 20px; --h4-lh: 28px;
+    --body-lg-size: 17px; --body-lg-lh: 26px;
+  }
+}
+
+/* Reduced motion overrides — disable ambient/cinematic/kinetic. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

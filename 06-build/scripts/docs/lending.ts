@@ -14,7 +14,7 @@ export const lendingDoc = {
   hero: {
     headline: "Embed credit into every payment flow.",
     body: "Launch BNPL, installment, revolving credit, and working capital programs on nCore. You retain the lending relationship; NymCard provides the infrastructure.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     visualLabel: "credit program",
   },
@@ -56,7 +56,7 @@ export const lendingDoc = {
     eyebrow: "Decisioning",
     headline: "Configure underwriting rules through the API.",
     body: "Connect to credit bureaus, open banking data, or your own scoring model. Adjust limits, pricing, and approval logic by segment and product.",
-    docsLink: { label: "Read the underwriting docs", href: "/docs/underwriting" },
+    docsLink: { label: "Read the underwriting docs", href: "https://docs.nymcard.com/" },
     tabs: withKeys(
       [
         { label: "JSON", language: "json", code: `{\n  "segment": "consumer",\n  "credit_structure": "revolving",\n  "scoring_model": "partner_internal_v2",\n  "data_sources": ["bureau", "open_banking", "transaction_history"],\n  "credit_limit_range": [500, 25000],\n  "approval_threshold": 720,\n  "pricing_tier": "risk_based"\n}` },
@@ -68,7 +68,7 @@ export const lendingDoc = {
     companion: {
       heading: "Decisioning you can defend",
       body: "Bureau, open banking, and transaction-history signals combine with your own scoring model — every decision is logged with the rules and inputs that produced it.",
-      link: { label: "Read the underwriting docs", href: "/docs/underwriting" },
+      link: { label: "Read the underwriting docs", href: "https://docs.nymcard.com/" },
     },
   },
   industries: {
@@ -76,13 +76,13 @@ export const lendingDoc = {
     headline: "Credit programs for every industry.",
     items: withKeys(
       [
-        { eyebrow: "Consumer banking", copy: "Revolving credit, installment plans, and credit cards on one platform.", link: { label: "See consumer banking", href: "/industries/consumer-banking" } },
+        { eyebrow: "Consumer banking", copy: "Revolving credit, installment plans, and credit cards on one platform.", link: { label: "See consumer banking", href: "/industries/retail-banking" } },
         { eyebrow: "Commercial banking", copy: "Working capital, invoice financing, and SME credit lines that scale.", link: { label: "See commercial banking", href: "/industries/commercial-banking" } },
         { eyebrow: "Fintechs", copy: "Launch BNPL, installment, and digital-first credit products.", link: { label: "See fintechs", href: "/industries/fintechs" } },
-        { eyebrow: "Retail and marketplaces", copy: "BNPL and installment options at checkout to lift basket size.", link: { label: "See retail", href: "/industries/retail" } },
-        { eyebrow: "Telecoms", copy: "Device financing and consumer installment plans inside your customer relationship.", link: { label: "See telecoms", href: "/industries/telecoms" } },
+        { eyebrow: "Retail and marketplaces", copy: "BNPL and installment options at checkout to lift basket size.", link: { label: "See retail", href: "/industries/retail-marketplaces" } },
+        { eyebrow: "Telecoms", copy: "Device financing and consumer installment plans inside your customer relationship.", link: { label: "See telecoms", href: "/industries/telecommunications" } },
         { eyebrow: "Healthcare", copy: "Patient financing embedded at the point of care.", link: { label: "See healthcare", href: "/industries/healthcare" } },
-        { eyebrow: "Automotive", copy: "Dealer-linked auto financing and lease structures.", link: { label: "See automotive", href: "/industries/automotive" } },
+        { eyebrow: "Automotive", copy: "Dealer-linked auto financing and lease structures.", link: { label: "See automotive", href: "/industries/mobility" } },
       ],
       "ind",
     ),
@@ -178,7 +178,7 @@ export const lendingDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Launch BNPL, installment, revolving credit, and working capital programs on infrastructure built to scale.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
   crossSell: withKeys(

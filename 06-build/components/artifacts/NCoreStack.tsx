@@ -26,12 +26,16 @@ import { InfraIcon, type IconName, AmbientGlow } from "@/components/visuals";
 //     stark ambient orb.
 //   • Layer surfaces are slightly more glassy / less panel-like.
 
+// Canonical six layers + order, from 02-copy/nCore-copy.revised.md §"the six":
+// Cards · Lending · Money Movement · Settlement · Financial Crime ·
+// Reconciliation. "Settlement" folds in stablecoin settlement and sits before
+// Financial Crime.
 const PRODUCTS: { name: string; icon: IconName }[] = [
   { name: "Cards", icon: "cards" },
   { name: "Lending", icon: "lending" },
   { name: "Money Movement", icon: "money-movement" },
+  { name: "Settlement", icon: "settlement" },
   { name: "Financial Crime", icon: "fraud" },
-  { name: "Stablecoin Settlement", icon: "settlement" },
   { name: "Reconciliation", icon: "reconciliation" },
 ];
 
@@ -68,7 +72,7 @@ export function NCoreStack({ className }: { className?: string }) {
   return (
     <motion.div
       role="img"
-      aria-label="The nCore platform — six products (Cards, Lending, Money Movement, Financial Crime, Stablecoin Settlement, Reconciliation) on the nCore engine, with a cyan light wave rising from the engine up through every layer."
+      aria-label="The nCore platform — six products (Cards, Lending, Money Movement, Settlement, Financial Crime, Reconciliation) on the nCore engine, with a cyan light wave rising from the engine up through every layer."
       className={cn("relative mx-auto w-full max-w-[420px]", className)}
       initial={reduced ? false : "hidden"}
       animate={reduced ? undefined : "shown"}

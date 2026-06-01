@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 // focus ring. Native elements throughout — accessible, uncontrolled by
 // default. Cool palette only.
 
-const CONTROL =
+export const CONTROL =
   "w-full rounded-md border border-surface-border-stronger bg-surface-white px-3.5 py-2.5 " +
   "font-body text-sm text-text-primary shadow-xs outline-none transition-colors placeholder:text-text-muted " +
   "focus-visible:border-brand-primary focus-visible:ring-4 focus-visible:ring-brand-primary/15 " +
@@ -90,12 +90,18 @@ export function Select({
 }
 
 // Checkbox / radio — a native input recoloured via accent-color, plus a label.
+// `labelClassName` overrides the default (secondary) label colour — e.g. pass a
+// primary-text class when the options need full readable weight.
 function Tickable({
   type,
   label,
   className,
+  labelClassName,
   ...props
-}: InputHTMLAttributes<HTMLInputElement> & { label: string }) {
+}: InputHTMLAttributes<HTMLInputElement> & {
+  label: string;
+  labelClassName?: string;
+}) {
   return (
     <label className={cn("inline-flex items-center gap-2.5", className)}>
       <input
@@ -103,7 +109,12 @@ function Tickable({
         className="size-4 shrink-0 accent-brand-primary outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/15"
         {...props}
       />
-      <span className="font-body text-sm text-text-secondary dark:text-text-dark-secondary">
+      <span
+        className={cn(
+          "font-body text-sm text-text-secondary dark:text-text-dark-secondary",
+          labelClassName,
+        )}
+      >
         {label}
       </span>
     </label>
@@ -111,13 +122,19 @@ function Tickable({
 }
 
 export function Checkbox(
-  props: Omit<InputHTMLAttributes<HTMLInputElement>, "type"> & { label: string },
+  props: Omit<InputHTMLAttributes<HTMLInputElement>, "type"> & {
+    label: string;
+    labelClassName?: string;
+  },
 ) {
   return <Tickable type="checkbox" {...props} />;
 }
 
 export function Radio(
-  props: Omit<InputHTMLAttributes<HTMLInputElement>, "type"> & { label: string },
+  props: Omit<InputHTMLAttributes<HTMLInputElement>, "type"> & {
+    label: string;
+    labelClassName?: string;
+  },
 ) {
   return <Tickable type="radio" {...props} />;
 }

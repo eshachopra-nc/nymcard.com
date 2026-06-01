@@ -14,7 +14,7 @@ export const reconciliationDoc = {
   hero: {
     headline: "Reconcile across every product and system, automatically.",
     body: "Reconciliation runs on nCore, matching activity across your NymCard products and the external systems they connect to.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     visualLabel: "reconciliation streams",
   },
@@ -33,19 +33,6 @@ export const reconciliationDoc = {
     ),
   },
   // No FeatureShowcase, no Configuration, no Migration, Reconciliation is intentionally thin per copy.
-  industries: {
-    eyebrow: "Industries",
-    headline: "Reconciliation for every business on nCore.",
-    items: withKeys(
-      [
-        { eyebrow: "Banks", copy: "Reconcile card, payment, and settlement activity across the portfolio.", link: { label: "See banks", href: "/industries/banks" } },
-        { eyebrow: "Fintechs", copy: "Match transactions across products and partner systems as you scale.", link: { label: "See fintechs", href: "/industries/fintechs" } },
-        { eyebrow: "Digital businesses", copy: "Reconcile embedded card and payment flows against your own ledger.", link: { label: "See digital businesses", href: "/industries/digital-businesses" } },
-        { eyebrow: "Marketplaces", copy: "Match payouts, fees, and settlement across buyers and sellers.", link: { label: "See marketplaces", href: "/industries/marketplaces" } },
-      ],
-      "ind",
-    ),
-  },
   deployment: {
     eyebrow: "Deployment",
     headline: "Deploy in the cloud, on-soil, or on-premise.",
@@ -76,7 +63,7 @@ export const reconciliationDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "See how Reconciliation runs across your products and the systems you connect to.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
   crossSell: withKeys(

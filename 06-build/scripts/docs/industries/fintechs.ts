@@ -26,7 +26,7 @@ export const fintechsDoc = {
   hero: {
     headline: "Build financial products without building infrastructure.",
     body: "Card issuing, embedded lending, payments, and compliance, modular, API-first, ready to configure for your product.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     visualLabel: "fintech product surface",
   },
 
@@ -131,7 +131,7 @@ export const fintechsDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Launch your fintech product on infrastructure built to scale.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

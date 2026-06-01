@@ -27,7 +27,7 @@ export const retailBankingDoc = {
   hero: {
     headline: "The digital banking your customers expect.",
     body: "Consumer cards, credit programs, digital wallets, and embedded lending, integrated with the core you already run.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     visualLabel: "consumer banking surface",
   },
 
@@ -139,7 +139,7 @@ export const retailBankingDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Launch consumer cards, credit, and digital wallets on infrastructure built for retail banks.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

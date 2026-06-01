@@ -27,7 +27,7 @@ export const retailMarketplacesDoc = {
   hero: {
     headline: "Embed payments and credit into the commerce experience.",
     body: "Gift cards, BNPL, co-branded cards, and seller payouts, built for retail and marketplace platforms that own the full payment experience.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     visualLabel: "commerce checkout surface",
   },
 
@@ -138,7 +138,7 @@ export const retailMarketplacesDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Launch co-branded cards, BNPL, gift cards, and seller payouts on one platform.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

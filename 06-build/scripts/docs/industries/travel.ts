@@ -26,7 +26,7 @@ export const travelDoc = {
   hero: {
     headline: "Payments that disappear into the travel experience.",
     body: "Multi-currency cards, travel wallets, corporate expense programs, and agent disbursements, on one platform, under your brand.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     visualLabel: "travel app surface",
   },
 
@@ -145,7 +145,7 @@ export const travelDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Launch multi-currency cards, wallets, and disbursements for travel on one platform.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

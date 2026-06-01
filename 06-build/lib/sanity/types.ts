@@ -15,6 +15,24 @@ export type SanityLink = {
   href: string;
 };
 
+// ── Site config (singleton) ────────────────────────────────────────────────
+
+export type SanityAlertBanner = {
+  enabled?: boolean;
+  tag?: string;
+  message?: string;
+  href?: string;
+  linkLabel?: string;
+};
+
+export type SanitySiteConfig = {
+  defaultTrustLine?: string;
+  footerTagline?: string;
+  contactEmail?: string;
+  linkedInUrl?: string;
+  alertBanner?: SanityAlertBanner;
+};
+
 export type SanityPageHero = {
   topLine?: string;
   headline: string;

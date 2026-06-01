@@ -27,7 +27,7 @@ export const mobilityDoc = {
   hero: {
     headline: "Pay drivers, manage fleets, and finance vehicles on one platform.",
     body: "Driver payouts, fleet cards, auto financing, and customer payment programs, built for mobility platforms managing distributed networks at scale.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     visualLabel: "mobility ops surface",
   },
 
@@ -146,7 +146,7 @@ export const mobilityDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Pay drivers, run fleets, and finance vehicles on one platform.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

@@ -16,7 +16,7 @@ export function FinalCTA() {
     <CTASection
       headline="Ready to launch?"
       body="Launch on infrastructure built to scale."
-      primaryCta={{ label: "Talk to us", href: "#contact" }}
+      primaryCta={{ label: "Talk to us", href: "/company/contact" }}
       ribbon="ambient"
       backgrounds={
         <>

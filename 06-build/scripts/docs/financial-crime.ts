@@ -14,10 +14,16 @@ export const financialCrimeDoc = {
   hero: {
     headline: "Cover the full risk perimeter on one layer.",
     body: "Fraud, AML, sanctions, identity, and 3D Secure run on one customer record, one ledger, one audit trail — built into nCore.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     visualLabel: "decisioning console",
   },
+  // NOTE (1 Jun 2026): §3 now renders from the hardcoded FinancialCrimeControls
+  // component (five editorial capability rows — Identity, Fraud, Risk, AML &
+  // sanctions, 3D Secure) via the `financial-crime` slug branch in
+  // ProductPageRenderer — NOT from this `capabilities` field. Copy source of
+  // truth is ../../02-copy/financial-crime-copy.md §3. Retained for Sanity
+  // schema shape only; no longer the §3 render source.
   capabilities: {
     eyebrow: "Capabilities",
     headline: "One layer, every risk control your team needs.",
@@ -53,26 +59,8 @@ export const financialCrimeDoc = {
       ],
       "tab",
     ),
-    companion: {
-      heading: "Versioned, auditable, applied in real time",
-      body: "Every rule change, list update, and threshold edit is versioned, logged, and reversible — on the same API surface that drives fraud, AML, identity, and 3DS.",
-      link: { label: "Read the configuration docs", href: "/docs/configuration" },
-    },
-  },
-  industries: {
-    eyebrow: "Industries",
-    headline: "Risk infrastructure for every industry.",
-    items: withKeys(
-      [
-        { eyebrow: "Banks", copy: "Fraud, AML, and identity on one regulated layer.", link: { label: "See banks", href: "/industries/banks" } },
-        { eyebrow: "Fintechs", copy: "Launch a risk stack alongside cards and lending.", link: { label: "See fintechs", href: "/industries/fintechs" } },
-        { eyebrow: "Wallets", copy: "Account-takeover and app-based fraud built into auth.", link: { label: "See wallets", href: "/industries/wallets" } },
-        { eyebrow: "Remittance", copy: "Sanctions screening and corridor monitoring on every transfer.", link: { label: "See remittance", href: "/industries/remittance" } },
-        { eyebrow: "Digital assets", copy: "Onboarding, monitoring, and screening for crypto flows.", link: { label: "See digital assets", href: "/industries/digital-assets" } },
-        { eyebrow: "Lending platforms", copy: "Identity, fraud, and risk inside origination and servicing.", link: { label: "See lending platforms", href: "/industries/lending" } },
-      ],
-      "ind",
-    ),
+    // Companion block removed (owner direction, 1 Jun 2026). The §5 renderer
+    // also suppresses it for financial-crime, so this stays in sync on reseed.
   },
   deployment: {
     eyebrow: "Deployment",
@@ -106,7 +94,7 @@ export const financialCrimeDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Run fraud, AML, identity, and 3D Secure on one layer of nCore.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
   crossSell: withKeys(

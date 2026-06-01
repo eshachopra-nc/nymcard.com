@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Crime Suite — NymCard</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="dashboards/app.css">
+<style>
+/* ── Financial Crime extensions ── */
+.view { display: none; }
+.view.active { display: block; }
+
+.dec-chip {
+  display: inline-flex; align-items: center;
+  height: 22px; padding: 0 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.04em; white-space: nowrap;
+}
+.dec-approve { background: rgba(16,185,129,0.12); color: #047857; }
+.dec-challenge { background: rgba(245,158,11,0.13); color: #B45309; }
+.dec-block { background: rgba(239,68,68,0.12); color: #B91C1C; }
+
+.dark .dec-approve  { background: rgba(16,185,129,0.18); color: #34D399; }
+.dark .dec-challenge{ background: rgba(245,158,11,0.18); color: #FBBF24; }
+.dark .dec-block    { background: rgba(239,68,68,0.18);  color: #F87171; }
+
+.risk-chip {
+  display: inline-flex; align-items: center;
+  height: 20px; padding: 0 7px;
+  border-radius: var(--radius-sm);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.rc-low      { background: rgba(16,185,129,0.12); color: #047857; }
+.rc-medium   { background: rgba(34,211,238,0.14); color: #0E7C8E; }
+.rc-high     { background: rgba(245,158,11,0.13); color: #B45309; }
+.rc-veryhigh { background: rgba(239,68,68,0.12);  color: #B91C1C; }
+.dark .rc-low      { color: #34D399; }
+.dark .rc-medium   { color: #67E8F9; }
+.dark .rc-high     { color: #FBBF24; }
+.dark .rc-veryhigh { color: #F87171; }
+
+.score-wrap { position: relative; width: 38px; height: 38px; flex-shrink: 0; }
+
+.signal-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.signal-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px; font-weight: 500;
+  background: var(--surface-soft);
+  border: 1px solid var(--surface-border-subtle);
+  color: var(--text-secondary);
+}
+.signal-badge .sd { width: 6px; height: 6px; border-radius: 50%; background: var(--color-success); }
+
+.live-pulse {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-family: var(--font-mono); color: var(--text-muted);
+}
+.live-pulse .ld {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--color-success);
+  animation: pulse var(--dur-ambient-mid) var(--ease-in-out) infinite;
+}
+
+.stream-cols {
+  display: grid;
+  grid-template-columns: 38px 130px 1fr 88px 84px;
+  align-items: center; gap: 12px;
+}
+
+.shap-row {
+  display: grid;
+  grid-template-columns: 156px 1fr 50px;
+  align-items: center; gap: 12px;
+  padding: 7px 0;
+}
+.shap-row:not(:last-child) { border-bottom: 1px solid var(--surface-border-subtle); }
+.shap-track { height: 10px; background: var(--surface-soft); border-radius: 3px; overflow: hidden; }
+.shap-track > span { display: block; height: 100%; border-radius: 3px; }
+
+.typo-row {
+  display: grid; grid-template-columns: 148px 1fr 48px;
+  align-items: center; gap: 12px;
+  padding: 9px 20px;
+  border-bottom: 1px solid var(--surface-border-subtle);
+}
+.typo-row:last-child { border-bottom: none; }
+
+.risk-tier-row {
+  display: grid; grid-template-columns: 76px 1fr 68px 52px;
+  align-items: center; gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--surface-border-subtle);
+}
+.risk-tier-row:last-child { border-bottom: none; }
+
+.str-row {
+  display: grid; grid-template-columns: 84px 1fr 120px 80px;
+  align-items: center; gap: 12px;
+  padding: 11px 24px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--surface-border-subtle);
+}
+.str-row:last-child { border-bottom: none; }
+
+.identity-tier {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-border-subtle);
+  background: var(--surface-soft);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.identity-tier .it-val { font-size: 20px; font-weight: 600; letter-spacing: -0.015em; }
+.identity-tier .it-sub { font-size: 12px; color: var(--text-muted); }
+
+.prio-bar { width: 3px; border-radius: 2px; align-self: stretch; flex-shrink: 0; }
+.prio-critical { background: var(--color-danger); }
+.prio-high     { background: var(--color-warning); }
+.prio-medium   { background: var(--accent-indigo); }
+.prio-low      { background: var(--text-muted); }
+
+.ring-wrap { position: relative; width: 110px; height: 110px; margin: 0 auto 16px; }
+.ring-wrap .rc { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2; }
+.ring-wrap .rc .big { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.ring-wrap .rc .sm  { font-size: 10px; color: var(--text-muted); }
+
+.doc-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--surface-border-subtle);
+}
+.doc-row:last-child { border-bottom: none; }
+.doc-icon {
+  width: 28px; height: 28px; border-radius: var(--radius-md);
+  background: var(--surface-soft);
+  display: grid; place-items: center; flex-shrink: 0;
+  color: var(--text-secondary);
+}
+.doc-icon svg { width: 14px; height: 14px; }
+
+.theme-toggle {
+  width: 38px; height: 38px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-border-subtle);
+  background: var(--surface-white);
+  display: grid; place-items: center;
+  cursor: pointer; color: var(--text-secondary);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.theme-toggle:hover { background: var(--surface-soft); }
+.theme-toggle svg { width: 17px; height: 17px; }
+
+@media (max-width: 1100px) {
+  .stream-cols { grid-template-columns: 38px 1fr 80px 80px; }
+  .stream-cols .sc-kind { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- ══════════ SIDEBAR ══════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand">
+      <div class="sb-logo">
+        <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <path d="M3 13.5L8.5 3.5L14 13.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5.5 10H11.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="sb-wordmark">Nym<b>Card</b></span>
+    </div>
+
+    <div class="sb-nav">
+      <div class="sb-section">Financial Crime</div>
+
+      <button class="nav-item active" onclick="showView('overview',this)">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor"><rect x="2" y="2" width="6" height="6" rx="1.5" stroke-width="1.6"/><rect x="10" y="2" width="6" height="6" rx="1.5" stroke-width="1.6"/><rect x="2" y="10" width="6" height="6" rx="1.5" stroke-width="1.6"/><rect x="10" y="10" width="6" height="6" rx="1.5" stroke-width="1.6"/></svg>
+        <span class="nav-label">Overview</span>
+      </button>
+
+      <button class="nav-item" onclick="showView('fraud',this)">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor"><path d="M9 2L2 6v3.5C2 13 5 15.5 9 16.5c4-1 7-3.5 7-7V6L9 2z" stroke-width="1.6" stroke-linejoin="round"/><path d="M6.5 9l2 2 3-3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="nav-label">Fraud Monitoring</span>
+      </button>
+
+      <button class="nav-item" onclick="showView('risk',this)">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor"><circle cx="9" cy="9" r="6.5" stroke-width="1.6"/><path d="M9 6v4" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="12.5" r="0.8" fill="currentColor"/></svg>
+        <span class="nav-label">Risk Management</span>
+      </button>
+
+      <button class="nav-item" onclick="showView('aml',this)">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor"><path d="M3 5h12M3 9h12M3 13h7" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span class="nav-label">AML &amp; Monitoring</span>
+      </button>
+
+      <button class="nav-item" onclick="showView('identity',this)">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor"><circle cx="9" cy="6.5" r="2.5" stroke-width="1.6"/><path d="M3.5 15c0-2.76 2.46-5 5.5-5s5.5 2.24 5.5 5" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span class="nav-label">Identity &amp; KYC</span>
+      </button>
+
+      <div class="sb-section" style="margin-top:10px">Platform</div>
+
+      <button class="nav-item">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor"><path d="M4 2h10a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-width="1.6"/><path d="M6 6h6M6 9.5h4" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span class="nav-label">Audit Ledger</span>
+      </button>
+
+      <button class="nav-item">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor"><path d="M9 2a6 6 0 1 0 0 12A6 6 0 0 0 9 2z" stroke-width="1.6"/><path d="M9 6v4l2.5 1.5" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span class="nav-label">Case Management</span>
+      </button>
+    </div>
+
+    <div class="sb-foot">
+      <div class="avatar">SR</div>
+      <div class="who">
+        <b>Sarah R.</b>
+        <span>Chief Risk Officer</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════════ MAIN ══════════ -->
+  <div class="main">
+    <header class="topbar">
+      <button class="tb-collapse" onclick="document.getElementById('sidebar').classList.toggle('collapsed')">
+        <svg viewBox="0 0 17 17" fill="none" stroke="currentColor"><path d="M3 4.5h11M3 8.5h11M3 12.5h11" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div class="tb-title">
+        <span class="tb-crumb">Financial Crime</span>
+        <h1 id="pageTitle">Overview</h1>
+      </div>
+      <div class="live-pulse" style="margin-left:16px">
+        <span class="ld"></span>
+        <span id="liveTs">Live · —</span>
+      </div>
+      <div class="tb-search" style="margin-left:auto">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" style="width:16px;height:16px"><circle cx="7" cy="7" r="4.5" stroke-width="1.5"/><path d="M11 11l2.5 2.5" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span style="font-size:13px;color:var(--text-muted)">Search events, customers…</span>
+        <span class="kbd">⌘K</span>
+      </div>
+      <div class="seg">
+        <button class="on" onclick="setRange(this)">24h</button>
+        <button onclick="setRange(this)">7d</button>
+        <button onclick="setRange(this)">30d</button>
+      </div>
+      <button class="theme-toggle" onclick="toggleDark()" title="Toggle theme">
+        <svg id="themeIcon" viewBox="0 0 18 18" fill="none" stroke="currentColor"><circle cx="9" cy="9" r="3.5" stroke-width="1.5"/><path d="M9 1.5V3M9 15v1.5M1.5 9H3M15 9h1.5M3.7 3.7l1.05 1.05M13.25 13.25l1.05 1.05M3.7 14.3l1.05-1.05M13.25 4.75l1.05-1.05" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <button class="tb-icon">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor"><path d="M9 2a5 5 0 0 1 5 5v3l1.5 2.5H2.5L4 10V7a5 5 0 0 1 5-5z" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 14.5a2 2 0 0 0 4 0" stroke-width="1.5"/></svg>
+        <span class="dot"></span>
+      </button>
+    </header>
+
+    <main class="content">
+
+      <!-- ═══ OVERVIEW ═══ -->
+      <div class="view active" id="view-overview">
+        <div class="page-head">
+          <div class="lede">
+            <h2>Financial Crime Suite</h2>
+            <p>Five controls on one customer record — fraud, AML, sanctions, identity, and 3D Secure.</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" style="width:15px;height:15px"><path d="M8 2v9M4 8l4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13h12" stroke-width="1.5" stroke-linecap="round"/></svg>Export</button>
+            <button class="btn btn-primary"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" style="width:15px;height:15px"><path d="M8 2v12M2 8h12" stroke-width="1.5" stroke-linecap="round"/></svg>New case</button>
+          </div>
+        </div>
+
+        <div class="grid kpis">
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Open alerts</span><span class="k-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="8" cy="8" r="5.5" stroke-width="1.5"/><path d="M8 5.5v3" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="11" r="0.7" fill="currentColor"/></svg></span></div>
+            <div class="k-val">342</div>
+            <div class="k-foot"><span class="delta up"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 10V3M3 6.5l3.5-3.5 3.5 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+12</span><span class="note">vs yesterday</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">High + very high risk</span><span class="k-ico" style="background:rgba(239,68,68,0.10);color:var(--color-danger)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M8 2L1.5 13.5h13L8 2z" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6v3.5" stroke-width="1.7" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">2,192</div>
+            <div class="k-foot"><span class="delta up"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 10V3M3 6.5l3.5-3.5 3.5 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+3.1%</span><span class="note">of portfolio</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Cases in review</span><span class="k-ico" style="background:rgba(245,158,11,0.10);color:var(--color-warning)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke-width="1.5"/><path d="M5 3V2M11 3V2M2 7h12" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">47</div>
+            <div class="k-foot"><span class="delta down"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 3v7M3 6.5l3.5 3.5 3.5-3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>−6</span><span class="note">from yesterday</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">SAR / STR filed MTD</span><span class="k-ico" style="background:rgba(91,79,217,0.10);color:var(--brand-purple)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M4 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-width="1.5"/><path d="M5.5 6h5M5.5 9h3" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">23</div>
+            <div class="k-foot"><span class="delta up"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 10V3M3 6.5l3.5-3.5 3.5 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+4</span><span class="note">vs last month</span></div>
+          </div>
+        </div>
+
+        <div class="grid g-2-1" style="margin-bottom:16px">
+          <div class="panel">
+            <div class="panel-head"><h3>Customer risk distribution</h3><div class="right"><span class="badge slate">472,592 customers</span></div></div>
+            <div class="panel-body" id="ov-riskDist"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Recent rating changes</h3><span class="sub">Last 60 min</span></div>
+            <div id="ov-watchlist"></div>
+          </div>
+        </div>
+
+        <div class="grid cols-3" style="margin-bottom:16px">
+          <div class="panel">
+            <div class="panel-head"><h3>Fraud decisions · 14d</h3></div>
+            <div class="panel-body"><svg id="ov-trendChart" class="chart" height="130"></svg></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Alert typologies</h3><span class="sub">Open alerts</span></div>
+            <div id="ov-typologies"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Live decisions</h3><div class="right"><span class="live-pulse"><span class="ld"></span>Live</span></div></div>
+            <div id="ov-miniStream" style="max-height:206px;overflow:hidden"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Signal engines</h3><span class="sub">All 9 operational — every event enriched before decisioning</span><div class="right"><span class="badge green"><span class="bd"></span>All nominal</span></div></div>
+          <div class="panel-body"><div class="signal-grid" id="ov-signals"></div></div>
+        </div>
+      </div>
+
+      <!-- ═══ FRAUD MONITORING ═══ -->
+      <div class="view" id="view-fraud">
+        <div class="page-head">
+          <div class="lede"><h2>Fraud Monitoring</h2><p>Real-time decisioning on every authorization — APPROVE, CHALLENGE, or BLOCK with SHAP attribution on every score.</p></div>
+          <div class="page-actions"><button class="btn">Configure rules</button><button class="btn btn-primary">Review queue</button></div>
+        </div>
+
+        <div class="grid kpis">
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Decisions today</span><span class="k-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="8" cy="8" r="5.5" stroke-width="1.5"/><path d="M8 5v3.5l2 1.5" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">1.92<span class="unit">M</span></div>
+            <div class="k-foot"><span class="delta up"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 10V3M3 6.5l3.5-3.5 3.5 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+2.4%</span><span class="note">vs yesterday</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Approval rate</span><span class="k-ico" style="background:rgba(16,185,129,0.10);color:var(--color-success)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M3 8l3.5 3.5 6.5-7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="k-val">96.1<span class="unit">%</span></div>
+            <div class="k-foot"><span style="font-size:12px;color:var(--color-success);font-weight:600">Nominal</span><span class="note" style="margin-left:4px">within baseline</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Block rate</span><span class="k-ico" style="background:rgba(239,68,68,0.10);color:var(--color-danger)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="8" cy="8" r="5.5" stroke-width="1.5"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">0.84<span class="unit">%</span></div>
+            <div class="k-foot"><span class="delta down"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 3v7M3 6.5l3.5 3.5 3.5-3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>−0.12%</span><span class="note">vs yesterday</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Fraud caught</span><span class="k-ico" style="background:rgba(48,77,187,0.10);color:var(--brand-primary)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M8 2l1.9 4.1L14 7l-3 3.1.7 4.4L8 12.3l-3.7 2.2.7-4.4L2 7l4.1-.9L8 2z" stroke-width="1.5" stroke-linejoin="round"/></svg></span></div>
+            <div class="k-val">$1.46<span class="unit">M</span></div>
+            <div class="k-foot"><span class="delta up"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 10V3M3 6.5l3.5-3.5 3.5 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+8.4%</span><span class="note">today</span></div>
+          </div>
+        </div>
+
+        <div class="grid g-2-1" style="margin-bottom:16px">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Live authorization stream</h3>
+              <div class="right"><span class="live-pulse"><span class="ld"></span>Live</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:38px 130px 1fr 88px 84px;gap:12px;padding:0 24px;height:36px;align-items:center;background:var(--surface-soft);border-bottom:1px solid var(--surface-border-subtle)">
+              <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">Score</span>
+              <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">Reference</span>
+              <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">Transaction</span>
+              <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);text-align:right">Amount</span>
+              <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">Decision</span>
+            </div>
+            <div id="fraudStream" style="max-height:380px;overflow-y:auto"></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="panel">
+              <div class="panel-head"><h3>Signal attribution</h3><span class="sub">Last BLOCK · score 91</span></div>
+              <div class="panel-body">
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+                  <div style="font-size:42px;font-weight:700;letter-spacing:-0.03em;color:var(--color-danger);font-variant-numeric:tabular-nums;line-height:1">91</div>
+                  <div style="display:flex;flex-direction:column;gap:5px">
+                    <span style="font-size:12px;color:var(--text-muted)">Risk score</span>
+                    <span class="dec-chip dec-block">BLOCK</span>
+                  </div>
+                </div>
+                <div id="shapBars"></div>
+                <div class="muted-note" style="margin-top:12px"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" style="width:13px;height:13px"><circle cx="7" cy="7" r="5" stroke-width="1.4"/><path d="M7 4.5v3" stroke-width="1.4" stroke-linecap="round"/></svg>SHAP attribution — top contributing signals</div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><h3>3DS challenge</h3></div>
+              <div class="panel-body">
+                <div class="statstrip">
+                  <div class="st"><div class="l">Frictionless</div><div class="v" style="color:var(--color-success)">86.9%</div></div>
+                  <div class="st"><div class="l">Challenged</div><div class="v" style="color:var(--color-warning)">3.1%</div></div>
+                  <div class="st"><div class="l">OTP pass rate</div><div class="v">79.4%</div></div>
+                </div>
+                <div class="muted-note" style="margin-top:12px">Same enriched signals as fraud scoring drive challenge decisions.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Decision rate · 14 days</h3>
+            <div class="right">
+              <div class="legend">
+                <span class="lg"><span class="sw" style="background:var(--color-success)"></span>Approve %</span>
+                <span class="lg"><span class="sw" style="background:var(--color-warning)"></span>Challenge %</span>
+                <span class="lg"><span class="sw" style="background:var(--color-danger)"></span>Block %</span>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body"><svg id="decisionTrend" class="chart" height="150"></svg></div>
+        </div>
+      </div>
+
+      <!-- ═══ RISK MANAGEMENT ═══ -->
+      <div class="view" id="view-risk">
+        <div class="page-head">
+          <div class="lede"><h2>Risk Management</h2><p>Customer Risk Rating — low to very high — drives review cadence, thresholds, and monitoring intensity across your portfolio.</p></div>
+          <div class="page-actions"><button class="btn">Configure thresholds</button><button class="btn btn-primary">Review queue</button></div>
+        </div>
+
+        <div class="grid kpis">
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Total customers</span><span class="k-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="6" cy="5.5" r="2" stroke-width="1.5"/><path d="M2 13c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="5.5" r="1.5" stroke-width="1.5"/><path d="M12 10.5c1.7 0 3 1.1 3 2.5" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">472.6<span class="unit">K</span></div>
+            <div class="k-foot"><span class="delta up"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 10V3M3 6.5l3.5-3.5 3.5 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+1.4%</span><span class="note">MoM</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">High-risk customers</span><span class="k-ico" style="background:rgba(245,158,11,0.10);color:var(--color-warning)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M8 2L1.5 13.5h13L8 2z" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6v3.5" stroke-width="1.7" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">1,884</div>
+            <div class="k-foot"><span class="delta up"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 10V3M3 6.5l3.5-3.5 3.5 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+3.1%</span><span class="note">vs last week</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Very high risk</span><span class="k-ico" style="background:rgba(239,68,68,0.10);color:var(--color-danger)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="8" cy="8" r="5.5" stroke-width="1.5"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">308</div>
+            <div class="k-foot"><span class="delta up"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 10V3M3 6.5l3.5-3.5 3.5 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+12</span><span class="note">this week</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">KYC reviews due</span><span class="k-ico" style="background:rgba(91,79,217,0.10);color:var(--brand-purple)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke-width="1.5"/><path d="M5 3V2M11 3V2M2 7h12" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">318</div>
+            <div class="k-foot"><span class="note" style="color:var(--color-warning)">62 overdue · action required</span></div>
+          </div>
+        </div>
+
+        <div class="grid g-1-2" style="margin-bottom:16px">
+          <div class="panel">
+            <div class="panel-head"><h3>Portfolio distribution</h3></div>
+            <div class="panel-body">
+              <div class="ring-wrap">
+                <svg id="riskDonut" width="110" height="110" viewBox="0 0 110 110"></svg>
+                <div class="rc"><span class="big">0.46%</span><span class="sm">HIGH+</span></div>
+              </div>
+              <div id="riskTiers"></div>
+              <div class="muted-note" style="margin-top:14px"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" style="width:13px;height:13px"><circle cx="7" cy="7" r="5" stroke-width="1.4"/><path d="M7 4.5v3" stroke-width="1.4" stroke-linecap="round"/></svg>Rating drives review cadence and monitoring intensity</div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Review queue</h3><span class="sub">Upcoming KYC reviews by risk tier</span><div class="right"><span class="badge amber"><span class="bd"></span>62 overdue</span></div></div>
+            <div id="reviewQueue" style="max-height:320px;overflow-y:auto"></div>
+          </div>
+        </div>
+
+        <div class="grid cols-2">
+          <div class="panel">
+            <div class="panel-head"><h3>Rating changes · 24h</h3></div>
+            <div id="ratingChanges"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Active risk rules</h3><div class="right"><button class="btn" style="height:28px;font-size:12px">Edit</button></div></div>
+            <div style="overflow-x:auto">
+              <table class="tbl" style="min-width:400px">
+                <thead><tr><th>Rule ID</th><th>Type</th><th>Threshold</th><th>Risk filter</th><th>Status</th></tr></thead>
+                <tbody id="rulesBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ AML & MONITORING ═══ -->
+      <div class="view" id="view-aml">
+        <div class="page-head">
+          <div class="lede"><h2>AML &amp; Monitoring</h2><p>Transaction monitoring against configurable typologies. Sanctions and PEP screening on every transaction, beneficiary, and onboarding event.</p></div>
+          <div class="page-actions"><button class="btn">Configure typologies</button><button class="btn btn-primary">Generate STR</button></div>
+        </div>
+
+        <div class="grid kpis">
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Open alerts</span><span class="k-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="8" cy="8" r="5.5" stroke-width="1.5"/><path d="M8 5.5v3" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="11" r="0.7" fill="currentColor"/></svg></span></div>
+            <div class="k-val">342</div>
+            <div class="k-foot"><span class="delta up"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 10V3M3 6.5l3.5-3.5 3.5 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+12</span><span class="note">vs yesterday</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Active typologies</span><span class="k-ico" style="background:rgba(34,211,238,0.12);color:#0E7C8E"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M2 4h12M4 8h8M6 12h4" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">6</div>
+            <div class="k-foot"><span class="delta flat">4 draft rules pending</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Sanctions hits</span><span class="k-ico" style="background:rgba(239,68,68,0.10);color:var(--color-danger)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="8" cy="8" r="5.5" stroke-width="1.5"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">41</div>
+            <div class="k-foot"><span class="delta up"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 10V3M3 6.5l3.5-3.5 3.5 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+8</span><span class="note">vs last 7 days</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">STR / SAR filed MTD</span><span class="k-ico" style="background:rgba(91,79,217,0.10);color:var(--brand-purple)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M4 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-width="1.5"/><path d="M5.5 6h5M5.5 9h3" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">23</div>
+            <div class="k-foot"><span class="delta up"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor"><path d="M6.5 10V3M3 6.5l3.5-3.5 3.5 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+4</span><span class="note">vs last month</span></div>
+          </div>
+        </div>
+
+        <div class="grid g-1-2" style="margin-bottom:16px">
+          <div class="panel">
+            <div class="panel-head"><h3>Alert typologies</h3><span class="sub">342 open</span></div>
+            <div id="aml-typologies"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Alert queue</h3>
+              <div class="right"><div class="seg"><button class="on">All</button><button>Open</button><button>Escalated</button></div></div>
+            </div>
+            <div style="overflow-x:auto">
+              <table class="tbl"><thead><tr><th>Alert</th><th>Typology</th><th>Customer</th><th class="num">Amount</th><th>Status</th></tr></thead>
+              <tbody id="alertQueue"></tbody></table>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>SAR / STR filing queue</h3><span class="sub">Maker-checker enforced — AI Ops Assistant drafts, analyst approves</span><div class="right"><span class="badge blue"><span class="bd"></span>Maker-checker active</span></div></div>
+          <div id="strQueue"></div>
+        </div>
+      </div>
+
+      <!-- ═══ IDENTITY & KYC ═══ -->
+      <div class="view" id="view-identity">
+        <div class="page-head">
+          <div class="lede"><h2>Identity &amp; KYC</h2><p>KYC, KYB, and IDV at onboarding — with ongoing monitoring and periodic reviews on the same customer record as fraud and AML.</p></div>
+          <div class="page-actions"><button class="btn">Export KYC report</button><button class="btn btn-primary">Review pending</button></div>
+        </div>
+
+        <div class="grid kpis">
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Verified customers</span><span class="k-ico" style="background:rgba(16,185,129,0.10);color:var(--color-success)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M3 8l3.5 3.5 6.5-7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="k-val">469.1<span class="unit">K</span></div>
+            <div class="k-foot"><span style="font-size:12px;color:var(--color-success);font-weight:600">99.3%</span><span class="note" style="margin-left:4px">of portfolio</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Pending KYC</span><span class="k-ico" style="background:rgba(245,158,11,0.10);color:var(--color-warning)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="8" cy="8" r="5.5" stroke-width="1.5"/><path d="M8 5v3.5l2 1.5" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">1,284</div>
+            <div class="k-foot"><span class="delta flat">avg 18 min to complete</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Reviews due</span><span class="k-ico" style="background:rgba(239,68,68,0.10);color:var(--color-danger)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke-width="1.5"/><path d="M5 3V2M11 3V2M2 7h12" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
+            <div class="k-val">318</div>
+            <div class="k-foot"><span class="note" style="color:var(--color-danger)">62 overdue</span></div>
+          </div>
+          <div class="kpi">
+            <div class="k-top"><span class="k-label">Document issues</span><span class="k-ico" style="background:rgba(245,158,11,0.10);color:var(--color-warning)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M4 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-width="1.5"/><path d="M8 5.5v3" stroke-width="1.7" stroke-linecap="round"/><circle cx="8" cy="10.5" r="0.7" fill="currentColor"/></svg></span></div>
+            <div class="k-val">147</div>
+            <div class="k-foot"><span class="delta flat">Expired or unreadable</span></div>
+          </div>
+        </div>
+
+        <div class="grid cols-3" style="margin-bottom:16px">
+          <div class="panel">
+            <div class="panel-head"><h3>Verification type</h3></div>
+            <div class="panel-body">
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;color:var(--text-secondary)">KYC — Individual</span><span style="font-family:var(--font-mono);font-size:12px">412,000</span></div><div class="meter"><span style="width:87%;background:var(--brand-primary)"></span></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;color:var(--text-secondary)">KYB — Business</span><span style="font-family:var(--font-mono);font-size:12px">43,200</span></div><div class="meter"><span style="width:9%;background:var(--accent-indigo)"></span></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;color:var(--text-secondary)">IDV only</span><span style="font-family:var(--font-mono);font-size:12px">13,900</span></div><div class="meter"><span style="width:3%;background:var(--accent-cyan)"></span></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;color:var(--text-secondary)">Liveness verified</span><span style="font-family:var(--font-mono);font-size:12px">398,400</span></div><div class="meter"><span style="width:84%;background:var(--color-success)"></span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Document types</h3><span class="sub">Active checks</span></div>
+            <div id="docLifecycle"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Review cadence</h3><span class="sub">By risk tier</span></div>
+            <div class="panel-body" style="display:flex;flex-direction:column;gap:10px">
+              <div class="identity-tier" style="border-color:rgba(16,185,129,0.3)"><span class="risk-chip rc-low" style="align-self:flex-start">LOW</span><div class="it-val">Every 5 years</div><div class="it-sub">410,400 customers · standard monitoring</div></div>
+              <div class="identity-tier" style="border-color:rgba(34,211,238,0.3)"><span class="risk-chip rc-medium" style="align-self:flex-start">MEDIUM</span><div class="it-val">Every 2 years</div><div class="it-sub">58,400 customers · enhanced monitoring</div></div>
+              <div class="identity-tier" style="border-color:rgba(245,158,11,0.3)"><span class="risk-chip rc-high" style="align-self:flex-start">HIGH</span><div class="it-val">Annual</div><div class="it-sub">1,884 customers · intensive monitoring</div></div>
+              <div class="identity-tier" style="border-color:rgba(239,68,68,0.3)"><span class="risk-chip rc-veryhigh" style="align-self:flex-start">VERY HIGH</span><div class="it-val">Every 6 months</div><div class="it-sub">308 customers · maximum scrutiny</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Pending KYC queue</h3>
+            <div class="right"><div class="seg"><button class="on">All</button><button>Overdue</button><button>In progress</button></div></div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="tbl"><thead><tr><th>Customer</th><th>Type</th><th>Risk tier</th><th>Documents</th><th>Due</th><th>Status</th></tr></thead>
+            <tbody id="kycQueue"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="dashboards/data.js"></script>
+<script>
+/* ── Dark mode ── */
+const html = document.documentElement;
+function toggleDark() {
+  html.classList.toggle('dark');
+  localStorage.setItem('nc-fc-theme', html.classList.contains('dark') ? 'dark' : 'light');
+  updateThemeIcon();
+}
+function updateThemeIcon() {
+  const dark = html.classList.contains('dark');
+  document.getElementById('themeIcon').innerHTML = dark
+    ? '<path d="M14 10.5A6 6 0 0 1 7.5 4a6 6 0 1 0 6.5 6.5z" stroke-width="1.5" stroke-linejoin="round" fill="none" stroke="currentColor"/>'
+    : '<circle cx="9" cy="9" r="3.5" stroke-width="1.5" fill="none" stroke="currentColor"/><path d="M9 1.5V3M9 15v1.5M1.5 9H3M15 9h1.5M3.7 3.7l1.05 1.05M13.25 13.25l1.05 1.05M3.7 14.3l1.05-1.05M13.25 4.75l1.05-1.05" stroke-width="1.5" stroke-linecap="round" fill="none" stroke="currentColor"/>';
+}
+(function() {
+  const saved = localStorage.getItem('nc-fc-theme');
+  if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme:dark)').matches)) {
+    html.classList.add('dark');
+  }
+  updateThemeIcon();
+})();
+
+/* ── View navigation ── */
+const TITLES = { overview: 'Overview', fraud: 'Fraud Monitoring', risk: 'Risk Management', aml: 'AML & Monitoring', identity: 'Identity & KYC' };
+function showView(id, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('pageTitle').textContent = TITLES[id];
+}
+
+/* ── Segmented controls ── */
+function setRange(btn) {
+  btn.closest('.seg').querySelectorAll('button').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+/* ── Live clock ── */
+setInterval(() => {
+  const t = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  document.getElementById('liveTs').textContent = 'Live · ' + t;
+}, 1000);
+
+/* ── Helpers ── */
+function scoreDonut(score) {
+  const r = 17, c = 19, circ = 2 * Math.PI * r;
+  const pct = score / 100;
+  const col = score < 30 ? '#10B981' : score < 65 ? '#F59E0B' : '#EF4444';
+  return `<svg width="38" height="38" viewBox="0 0 38 38">
+    <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="var(--surface-soft)" stroke-width="3.5"/>
+    <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${col}" stroke-width="3.5"
+      stroke-dasharray="${pct*circ} ${circ}" stroke-linecap="round" transform="rotate(-90 ${c} ${c})"/>
+    <text x="${c}" y="${c}" text-anchor="middle" dominant-baseline="central"
+      font-family="var(--font-mono)" font-size="9" font-weight="600" fill="${col}">${score}</text>
+  </svg>`;
+}
+
+function decChip(d) {
+  const cls = { APPROVE:'dec-approve', CHALLENGE:'dec-challenge', BLOCK:'dec-block' }[d] || 'dec-approve';
+  return `<span class="dec-chip ${cls}">${d}</span>`;
+}
+
+function rChip(t) {
+  const cls = { LOW:'rc-low', MEDIUM:'rc-medium', HIGH:'rc-high', 'VERY HIGH':'rc-veryhigh' }[t] || 'rc-low';
+  return `<span class="risk-chip ${cls}">${t}</span>`;
+}
+
+/* ── Fraud stream ── */
+const STREAM = [
+  { ref:'AUTH ····7741', amt:'$248.00',   kind:'CNP · Online retail',  score:12, dec:'APPROVE' },
+  { ref:'AUTH ····5520', amt:'$1,940.00', kind:'CNP · Electronics',    score:68, dec:'CHALLENGE' },
+  { ref:'AUTH ····8830', amt:'$92.40',    kind:'CP · Fuel',            score: 8, dec:'APPROVE' },
+  { ref:'AUTH ····2214', amt:'$3,500.00', kind:'CNP · Cross-border',   score:91, dec:'BLOCK' },
+  { ref:'AUTH ····6657', amt:'$54.10',    kind:'CP · Grocery',         score: 5, dec:'APPROVE' },
+  { ref:'AUTH ····1109', amt:'$780.00',   kind:'CNP · Travel',         score:73, dec:'CHALLENGE' },
+  { ref:'AUTH ····4488', amt:'$36.50',    kind:'CP · Restaurant',      score: 4, dec:'APPROVE' },
+  { ref:'AUTH ····9921', amt:'$2,100.00', kind:'CNP · Wire transfer',  score:87, dec:'BLOCK' },
+  { ref:'AUTH ····0034', amt:'$450.00',   kind:'CNP · Apparel',        score:22, dec:'APPROVE' },
+  { ref:'AUTH ····3312', amt:'$124.00',   kind:'CP · Grocery',         score: 9, dec:'APPROVE' },
+];
+let streamPtr = 0;
+
+function makeStreamRow(t) {
+  const ts = new Date().toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+  return `<div style="display:grid;grid-template-columns:38px 130px 1fr 88px 84px;align-items:center;gap:12px;padding:10px 24px;border-bottom:1px solid var(--surface-border-subtle);animation:streamIn var(--dur-base) var(--ease-out)">
+    ${scoreDonut(t.score)}
+    <span style="font-family:var(--font-mono);font-size:12px;color:var(--text-primary)">${t.ref}</span>
+    <div style="display:flex;flex-direction:column;gap:1px">
+      <span style="font-size:13px;color:var(--text-secondary)">${t.kind}</span>
+      <span style="font-size:11px;color:var(--text-muted)">${ts}</span>
+    </div>
+    <span style="font-family:var(--font-mono);font-size:13px;text-align:right;color:var(--text-primary);font-variant-numeric:tabular-nums">${t.amt}</span>
+    ${decChip(t.dec)}
+  </div>`;
+}
+
+function makeMiniRow(t) {
+  const ts = new Date().toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+  return `<div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--surface-border-subtle);animation:streamIn var(--dur-base) var(--ease-out)">
+    ${scoreDonut(t.score)}
+    <div style="flex:1;min-width:0"><div style="font-size:12px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.kind}</div><div style="font-size:10.5px;color:var(--text-muted)">${ts}</div></div>
+    ${decChip(t.dec)}
+  </div>`;
+}
+
+function seedStream() {
+  const el = document.getElementById('fraudStream');
+  const mini = document.getElementById('ov-miniStream');
+  STREAM.forEach(t => { el && (el.innerHTML += makeStreamRow(t)); });
+  STREAM.slice(0,4).forEach(t => { mini && (mini.innerHTML += makeMiniRow(t)); });
+}
+
+function tickStream() {
+  const t = STREAM[streamPtr % STREAM.length]; streamPtr++;
+  const el = document.getElementById('fraudStream');
+  const mini = document.getElementById('ov-miniStream');
+  if (el) {
+    el.insertAdjacentHTML('afterbegin', makeStreamRow(t));
+    while (el.children.length > 18) el.removeChild(el.lastChild);
+  }
+  if (mini) {
+    mini.insertAdjacentHTML('afterbegin', makeMiniRow(t));
+    while (mini.children.length > 4) mini.removeChild(mini.lastChild);
+  }
+}
+
+/* ── SVG chart helper ── */
+function lineChart(svgId, series, colors, height) {
+  const svg = document.getElementById(svgId);
+  if (!svg) return;
+  const W = svg.parentElement.clientWidth - 2 || 380;
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', height);
+  const P = { t:8, r:14, b:22, l:32 };
+  const iW = W - P.l - P.r, iH = height - P.t - P.b;
+  const all = series.flatMap(s => s.data);
+  const lo = Math.min(...all) - 0.5, hi = Math.max(...all) + 0.5;
+  const n = series[0].data.length;
+  const x = i => P.l + (i / (n-1)) * iW;
+  const y = v => P.t + iH - ((v - lo) / (hi - lo)) * iH;
+  let out = '';
+  for (let i = 0; i <= 3; i++) {
+    const yy = P.t + (iH/3)*i;
+    out += `<line x1="${P.l}" y1="${yy}" x2="${W-P.r}" y2="${yy}" stroke="var(--surface-border-subtle)" stroke-width="1"/>`;
+  }
+  series.forEach((s, si) => {
+    const pts = s.data.map((v,i) => `${x(i)},${y(v)}`).join(' ');
+    out += `<polyline points="${pts}" fill="none" stroke="${colors[si]}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>`;
+  });
+  const labels = DATA.days14;
+  labels.forEach((d, i) => {
+    if (i % 3 === 0) out += `<text x="${x(i)}" y="${height-3}" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">${d}</text>`;
+  });
+  svg.innerHTML = out;
+}
+
+/* ── Render functions ── */
+function renderRiskDist(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const dist = DATA.risk.distribution;
+  const total = dist.reduce((a,d) => a + d.value, 0);
+  el.innerHTML = dist.map(d => {
+    const pct = (d.value / total * 100).toFixed(1);
+    return `<div class="risk-tier-row">
+      <span style="font-size:13px;font-weight:500;color:${d.color}">${d.label}</span>
+      <div class="bar-track" style="height:9px"><span style="background:${d.color};width:${Math.max(pct,0.3)}%"></span></div>
+      <span style="font-family:var(--font-mono);font-size:12px;text-align:right;color:var(--text-primary)">${d.value.toLocaleString()}</span>
+      <span style="font-family:var(--font-mono);font-size:11px;text-align:right;color:var(--text-muted)">${pct}%</span>
+    </div>`;
+  }).join('');
+}
+
+function renderTypologies(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const total = DATA.risk.typologies.reduce((a,t) => a + t.value, 0);
+  el.innerHTML = DATA.risk.typologies.map(t => `
+    <div class="typo-row">
+      <span style="font-size:13px;color:var(--text-secondary)">${t.label}</span>
+      <div class="bar-track" style="height:8px"><span style="background:${t.color};width:${(t.value/total*100).toFixed(0)}%"></span></div>
+      <span style="font-family:var(--font-mono);font-size:12px;text-align:right">${t.value}</span>
+    </div>`).join('');
+}
+
+function renderWatchlist() {
+  const el = document.getElementById('ov-watchlist');
+  if (!el) return;
+  const items = [
+    ...DATA.risk.watch,
+    { cust:'Customer ····7734', seg:'Retail',      from:'MEDIUM',    to:'HIGH',      why:'Suspicious beneficiary', t:'52m ago' },
+    { cust:'Customer ····5531', seg:'Commercial',  from:'LOW',       to:'MEDIUM',    why:'Dormant reactivation',   t:'1h ago'  },
+  ];
+  el.innerHTML = items.map(c => `
+    <div class="lrow">
+      <div class="lr-ico" style="background:rgba(239,68,68,0.08);color:var(--color-danger)">
+        <svg viewBox="0 0 17 17" fill="none" stroke="currentColor"><path d="M8.5 2L2 13.5h13L8.5 2z" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.5 7v3" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </div>
+      <div class="lr-main"><b>${c.cust} · ${c.seg}</b><span>${c.why}</span></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
+        <div style="display:flex;align-items:center;gap:5px">${rChip(c.from)}<span style="font-size:10px;color:var(--text-muted)">→</span>${rChip(c.to)}</div>
+        <span style="font-size:11px;color:var(--text-muted)">${c.t}</span>
+      </div>
+    </div>`).join('');
+}
+
+function renderSignals() {
+  const el = document.getElementById('ov-signals');
+  if (!el) return;
+  el.innerHTML = DATA.fraud.engines.map(e => `
+    <div class="signal-badge"><span class="sd"></span>${e}</div>`).join('');
+}
+
+function renderShap() {
+  const el = document.getElementById('shapBars');
+  if (!el) return;
+  el.innerHTML = DATA.fraud.shap.map(s => {
+    const pct = (s.w * 100).toFixed(0);
+    const col = s.dir === 'risk' ? 'var(--color-danger)' : 'var(--color-success)';
+    return `<div class="shap-row">
+      <span style="font-size:12.5px;color:var(--text-secondary)">${s.sig}</span>
+      <div class="shap-track"><span style="background:${col};width:${Math.min(pct*2.8,100)}%"></span></div>
+      <span style="font-family:var(--font-mono);font-size:12px;text-align:right;color:${col}">${s.dir==='risk'?'+':'−'}${pct}%</span>
+    </div>`;
+  }).join('');
+}
+
+function renderDonut() {
+  const svg = document.getElementById('riskDonut');
+  if (!svg) return;
+  const dist = DATA.risk.distribution;
+  const total = dist.reduce((a,d) => a + d.value, 0);
+  const cx = 55, cy = 55, r = 40, sw = 13;
+  const circ = 2 * Math.PI * r;
+  let offset = 0, out = '';
+  dist.forEach(d => {
+    const pct = d.value / total;
+    const dash = pct * circ;
+    out += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${d.color}" stroke-width="${sw}"
+      stroke-dasharray="${dash} ${circ}" stroke-dashoffset="${-offset}" transform="rotate(-90 ${cx} ${cy})"/>`;
+    offset += dash;
+  });
+  svg.innerHTML = out;
+}
+
+function renderRiskTiers() {
+  const el = document.getElementById('riskTiers');
+  if (!el) return;
+  const dist = DATA.risk.distribution;
+  const total = dist.reduce((a,d) => a + d.value, 0);
+  el.innerHTML = dist.map(d => {
+    const pct = (d.value/total*100).toFixed(1);
+    return `<div class="risk-tier-row">
+      <span style="font-size:13px;font-weight:500;color:${d.color}">${d.label}</span>
+      <div class="bar-track" style="height:8px"><span style="background:${d.color};width:${Math.max(pct,0.2)}%"></span></div>
+      <span style="font-family:var(--font-mono);font-size:12px;text-align:right;color:var(--text-primary)">${d.value.toLocaleString()}</span>
+      <span style="font-family:var(--font-mono);font-size:11px;text-align:right;color:var(--text-muted)">${pct}%</span>
+    </div>`;
+  }).join('');
+}
+
+function renderReviewQueue() {
+  const el = document.getElementById('reviewQueue');
+  if (!el) return;
+  const q = [
+    { cust:'Customer ····2055', tier:'VERY HIGH', due:'Overdue 14d', seg:'Commercial', prio:'prio-critical' },
+    { cust:'Customer ····4471', tier:'HIGH',      due:'Overdue 7d',  seg:'Commercial', prio:'prio-high' },
+    { cust:'Customer ····9182', tier:'MEDIUM',    due:'Due today',   seg:'Consumer',   prio:'prio-high' },
+    { cust:'Customer ····7734', tier:'HIGH',      due:'Due in 2d',   seg:'Retail',     prio:'prio-high' },
+    { cust:'Customer ····3301', tier:'MEDIUM',    due:'Due in 5d',   seg:'Consumer',   prio:'prio-medium' },
+    { cust:'Customer ····1102', tier:'HIGH',      due:'Due in 7d',   seg:'Commercial', prio:'prio-medium' },
+    { cust:'Customer ····6678', tier:'LOW',       due:'Due in 14d',  seg:'Consumer',   prio:'prio-low' },
+  ];
+  el.innerHTML = q.map(r => `
+    <div class="lrow" style="gap:10px">
+      <div class="prio-bar ${r.prio}"></div>
+      <div class="lr-main"><b>${r.cust}</b><span>${r.seg}</span></div>
+      ${rChip(r.tier)}
+      <span style="font-size:12.5px;color:${r.due.startsWith('Overdue')||r.due==='Due today'?'var(--color-danger)':'var(--text-secondary)'};font-weight:${r.due.startsWith('Overdue')?600:400};flex-shrink:0">${r.due}</span>
+      <button class="btn" style="height:26px;font-size:11.5px;flex-shrink:0">Review</button>
+    </div>`).join('');
+}
+
+function renderRatingChanges() {
+  const el = document.getElementById('ratingChanges');
+  if (!el) return;
+  const items = [
+    ...DATA.risk.watch,
+    { cust:'Customer ····4108', seg:'Consumer',   from:'LOW',    to:'MEDIUM',    why:'New geo activity',   t:'2h ago' },
+    { cust:'Customer ····5531', seg:'Commercial', from:'MEDIUM', to:'HIGH',      why:'Beneficiary match',  t:'3h ago' },
+    { cust:'Customer ····0044', seg:'Consumer',   from:'HIGH',   to:'MEDIUM',    why:'Review cleared',     t:'4h ago' },
+  ];
+  el.innerHTML = items.map(c => `
+    <div class="lrow">
+      <div class="lr-main"><b>${c.cust} · ${c.seg}</b><span>${c.why} · ${c.t}</span></div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+        ${rChip(c.from)}
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 7h6M8 5l2 2-2 2" stroke="var(--text-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        ${rChip(c.to)}
+      </div>
+    </div>`).join('');
+}
+
+function renderRules() {
+  const el = document.getElementById('rulesBody');
+  if (!el) return;
+  el.innerHTML = DATA.risk.rules.map(r => `
+    <tr>
+      <td class="mono t-strong">${r.id}</td>
+      <td>${r.type}</td>
+      <td class="mono">${r.thr}</td>
+      <td>${r.risk}</td>
+      <td><span class="badge ${r.status==='Active'?'green':'slate'}"><span class="bd"></span>${r.status}</span></td>
+    </tr>`).join('');
+}
+
+function renderAlertQueue() {
+  const el = document.getElementById('alertQueue');
+  if (!el) return;
+  const alerts = [
+    { id:'ALT-44120', typo:'Structuring',          cust:'Customer ····2055', amt:'$28,400', status:'Escalated' },
+    { id:'ALT-44118', typo:'Sanctions hit',         cust:'Customer ····9902', amt:'$12,000', status:'Open' },
+    { id:'ALT-44115', typo:'Rapid movement',        cust:'Customer ····4471', amt:'$54,200', status:'Open' },
+    { id:'ALT-44112', typo:'Velocity',              cust:'Customer ····6678', amt:'$9,800',  status:'Open' },
+    { id:'ALT-44110', typo:'High-risk geo',         cust:'Customer ····3301', amt:'$7,200',  status:'Under review' },
+    { id:'ALT-44108', typo:'Structuring',           cust:'Customer ····1102', amt:'$18,900', status:'Open' },
+    { id:'ALT-44105', typo:'Dormant reactivation',  cust:'Customer ····8812', amt:'$3,400',  status:'Closed' },
+  ];
+  el.innerHTML = alerts.map(a => {
+    const sc = { Escalated:'red', Open:'amber', 'Under review':'blue', Closed:'slate' }[a.status]||'slate';
+    return `<tr><td class="mono t-strong">${a.id}</td><td>${a.typo}</td><td class="mono">${a.cust}</td><td class="num">${a.amt}</td><td><span class="badge ${sc}"><span class="bd"></span>${a.status}</span></td></tr>`;
+  }).join('');
+}
+
+function renderStrQueue() {
+  const el = document.getElementById('strQueue');
+  if (!el) return;
+  const strs = [
+    { id:'SAR-2026-041', cust:'Customer ····2055', type:'SAR', typo:'Structuring + Sanctions proximity', status:'Awaiting approval', who:'A. Rahman · 2h ago' },
+    { id:'STR-2026-040', cust:'Customer ····9902', type:'STR', typo:'Sanctions hit — beneficiary',       status:'Draft',            who:'AI Ops · 4h ago'   },
+    { id:'SAR-2026-039', cust:'Customer ····4471', type:'SAR', typo:'Rapid movement typology',           status:'Filed',            who:'M. Hassan · 1d ago' },
+    { id:'STR-2026-038', cust:'Customer ····5531', type:'STR', typo:'High-risk corridor transfer',       status:'Filed',            who:'S. Al-Amin · 2d ago'},
+  ];
+  el.innerHTML = strs.map(s => {
+    const sc = { 'Awaiting approval':'amber', Draft:'blue', Filed:'green' }[s.status]||'slate';
+    return `<div class="str-row">
+      <span class="mono t-strong">${s.id}</span>
+      <div style="display:flex;flex-direction:column;gap:1px"><span style="font-weight:500;color:var(--text-primary)">${s.typo}</span><span style="font-size:11.5px;color:var(--text-muted)">${s.cust}</span></div>
+      <span><span class="badge ${sc}"><span class="bd"></span>${s.status}</span></span>
+      <span style="font-size:11.5px;color:var(--text-muted)">${s.who}</span>
+    </div>`;
+  }).join('');
+}
+
+function renderDocLifecycle() {
+  const el = document.getElementById('docLifecycle');
+  if (!el) return;
+  const docs = [
+    { label:'Passport',          count:'284,100', ok:true  },
+    { label:'National ID',       count:'156,400', ok:true  },
+    { label:'Proof of address',  count:'412,200', ok:true  },
+    { label:'Liveness capture',  count:'398,400', ok:true  },
+    { label:'Trade license (KYB)',count:'41,800',  ok:true  },
+    { label:'Expired documents', count:'147',      ok:false },
+  ];
+  el.innerHTML = docs.map(d => `
+    <div class="doc-row">
+      <div class="doc-icon"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor"><path d="M3 2h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke-width="1.3"/><path d="M4.5 5h5M4.5 7.5h3" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+      <div class="lr-main"><b>${d.label}</b><span>${d.count} on file</span></div>
+      <span class="badge ${d.ok?'green':'amber'}"><span class="bd"></span>${d.ok?'Valid':'Action needed'}</span>
+    </div>`).join('');
+}
+
+function renderKycQueue() {
+  const el = document.getElementById('kycQueue');
+  if (!el) return;
+  const q = [
+    { cust:'Customer ····2801', type:'KYC', tier:'HIGH',      docs:'Pending liveness',    due:'Overdue 3d',  status:'Overdue' },
+    { cust:'Customer ····4419', type:'KYB', tier:'MEDIUM',    docs:'Trade license pending',due:'Due today',   status:'In progress' },
+    { cust:'Customer ····8831', type:'KYC', tier:'LOW',       docs:'ID uploaded',          due:'Due today',   status:'In progress' },
+    { cust:'Customer ····7712', type:'KYC', tier:'MEDIUM',    docs:'All submitted',        due:'Due in 1d',   status:'Pending review' },
+    { cust:'Customer ····0099', type:'KYB', tier:'HIGH',      docs:'UBO doc missing',      due:'Due in 2d',   status:'Action needed' },
+    { cust:'Customer ····3344', type:'KYC', tier:'LOW',       docs:'All submitted',        due:'Due in 5d',   status:'Pending review' },
+  ];
+  el.innerHTML = q.map(r => {
+    const sc = { Overdue:'red', 'In progress':'blue', 'Pending review':'amber', 'Action needed':'red' }[r.status]||'slate';
+    return `<tr>
+      <td class="mono t-strong">${r.cust}</td>
+      <td><span class="badge blue"><span class="bd"></span>${r.type}</span></td>
+      <td>${rChip(r.tier)}</td>
+      <td style="color:var(--text-secondary)">${r.docs}</td>
+      <td style="color:${r.due.startsWith('Overdue')?'var(--color-danger)':r.due==='Due today'?'var(--color-warning)':'var(--text-secondary)'};">${r.due}</td>
+      <td><span class="badge ${sc}"><span class="bd"></span>${r.status}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+/* ── Init ── */
+function drawCharts() {
+  const approve  = DATA.fraud.decisionTrend.approve;
+  const challenge= DATA.fraud.decisionTrend.challenge;
+  const block    = DATA.fraud.decisionTrend.block;
+  lineChart('ov-trendChart',   [{data:approve},{data:challenge},{data:block}], ['var(--color-success)','var(--color-warning)','var(--color-danger)'], 130);
+  lineChart('decisionTrend',   [{data:approve},{data:challenge},{data:block}], ['var(--color-success)','var(--color-warning)','var(--color-danger)'], 150);
+}
+
+function init() {
+  renderRiskDist('ov-riskDist');
+  renderWatchlist();
+  renderTypologies('ov-typologies');
+  renderTypologies('aml-typologies');
+  renderSignals();
+  renderShap();
+  renderDonut();
+  renderRiskTiers();
+  renderReviewQueue();
+  renderRatingChanges();
+  renderRules();
+  renderAlertQueue();
+  renderStrQueue();
+  renderDocLifecycle();
+  renderKycQueue();
+  seedStream();
+  setTimeout(drawCharts, 80);
+  setInterval(tickStream, 2200);
+}
+
+window.addEventListener('resize', drawCharts);
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

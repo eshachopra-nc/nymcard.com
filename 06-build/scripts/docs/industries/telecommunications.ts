@@ -26,7 +26,7 @@ export const telecommunicationsDoc = {
   hero: {
     headline: "Turn your subscribers into financial services customers.",
     body: "Cards, wallets, device financing, and embedded lending, launched under your brand, integrated with the billing and CRM systems you already run.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     visualLabel: "telco financial app",
   },
 
@@ -144,7 +144,7 @@ export const telecommunicationsDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Launch cards, wallets, and device financing for your subscribers on one platform.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

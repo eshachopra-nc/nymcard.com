@@ -14,7 +14,7 @@ export const cardIssuingDoc = {
   hero: {
     headline: "Launch the card program your customers need.",
     body: "Issue debit, credit, and prepaid cards on infrastructure built to scale with you.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     visualLabel: "card program",
   },
@@ -55,7 +55,7 @@ export const cardIssuingDoc = {
     companion: {
       heading: "Comprehensive configuration",
       body: "Limits, billing, installments, delinquency, and reporting — all configurable per program and per cardholder, on the same API surface.",
-      link: { label: "Read the configuration docs", href: "/docs/configuration" },
+      link: { label: "Read the configuration docs", href: "https://docs.nymcard.com/" },
     },
   },
   industries: {
@@ -63,10 +63,10 @@ export const cardIssuingDoc = {
     headline: "Card programs for every industry.",
     items: withKeys(
       [
-        { eyebrow: "Banks", copy: "Retail and commercial card portfolios on one platform.", link: { label: "See banks", href: "/industries/banks" } },
+        { eyebrow: "Banks", copy: "Retail and commercial card portfolios on one platform.", link: { label: "See banks", href: "/industries/retail-banking" } },
         { eyebrow: "Fintechs", copy: "Launch debit, credit, prepaid, and BNPL programs.", link: { label: "See fintechs", href: "/industries/fintechs" } },
-        { eyebrow: "Telecoms", copy: "Wallet-linked debit, prepaid, and rewards cards.", link: { label: "See telecoms", href: "/industries/telecoms" } },
-        { eyebrow: "Retail and marketplaces", copy: "Co-branded, gift, and payout cards for customers and sellers.", link: { label: "See retail", href: "/industries/retail" } },
+        { eyebrow: "Telecoms", copy: "Wallet-linked debit, prepaid, and rewards cards.", link: { label: "See telecoms", href: "/industries/telecommunications" } },
+        { eyebrow: "Retail and marketplaces", copy: "Co-branded, gift, and payout cards for customers and sellers.", link: { label: "See retail", href: "/industries/retail-marketplaces" } },
         { eyebrow: "Government", copy: "Prepaid and disbursement cards with auditable spend.", link: { label: "See government", href: "/industries/government" } },
         { eyebrow: "Mobility & fleet", copy: "Fuel and expense cards with category-level controls.", link: { label: "See mobility", href: "/industries/mobility" } },
       ],
@@ -165,7 +165,7 @@ export const cardIssuingDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Launch debit, credit, or prepaid card programs on infrastructure built to scale.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
   crossSell: withKeys(

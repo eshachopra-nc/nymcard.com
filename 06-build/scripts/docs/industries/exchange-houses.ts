@@ -27,7 +27,7 @@ export const exchangeHousesDoc = {
   hero: {
     headline: "Expand beyond remittance.",
     body: "Cards, wallets, cross-border payments, FX, and stablecoin settlement, built for exchange houses growing into broader financial services.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     visualLabel: "corridor map + FX",
   },
 
@@ -132,7 +132,7 @@ export const exchangeHousesDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Launch cards, wallets, cross-border payments, and stablecoin settlement on one platform.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

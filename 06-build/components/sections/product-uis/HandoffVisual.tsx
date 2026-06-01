@@ -45,20 +45,31 @@ export function HandoffVisual({
   slug,
   tone,
   pad = "default",
+  contentPad = "p-3 sm:p-4",
+  animated = true,
   className,
 }: {
   /** The handoff asset filename (without extension) under /public/handoff/. */
   slug: string;
   tone: BedTone;
   pad?: Pad;
+  /**
+   * Inner padding between the glass panel and the SVG. Default `p-3 sm:p-4`.
+   * Pass a larger value for assets whose artwork runs to its own viewBox edge
+   * (e.g. the fraud radar) so the full design reads inside the panel.
+   */
+  contentPad?: string;
+  /** Ambient translateY drift. Set false to hold the asset perfectly still. */
+  animated?: boolean;
   className?: string;
 }) {
   const reduced = useReducedMotion();
   const t = useTime();
   // Single ambient drift — translateY ±4px on an 8s sine. The one motion per
-  // cell; the SVG's own detail carries everything else.
+  // cell; the SVG's own detail carries everything else. Held still when
+  // `animated` is false or under prefers-reduced-motion.
   const y = useTransform(t, (v) =>
-    reduced ? 0 : Math.sin((v / 8000) * 2 * Math.PI) * 4,
+    reduced || !animated ? 0 : Math.sin((v / 8000) * 2 * Math.PI) * 4,
   );
 
   return (
@@ -74,7 +85,7 @@ export function HandoffVisual({
         <div className={cn("absolute inset-0", PAD[pad])}>
           <GlassSurface className="h-full w-full">
             <motion.div
-              className="grid h-full w-full place-items-center p-3 sm:p-4"
+              className={cn("grid h-full w-full place-items-center", contentPad)}
               style={{ y }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- handoff SVG asset */}

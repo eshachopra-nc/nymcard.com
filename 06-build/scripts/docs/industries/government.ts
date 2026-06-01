@@ -27,7 +27,7 @@ export const governmentDoc = {
   hero: {
     headline: "Disbursement infrastructure built for public accountability.",
     body: "Disbursement cards, payroll programs, SME support schemes, and cross-border payment infrastructure, with compliance, spend controls, and full audit trails built in.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     visualLabel: "disbursement console",
   },
 
@@ -146,7 +146,7 @@ export const governmentDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Launch disbursement, payroll, and inclusion programs on infrastructure built for accountability.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

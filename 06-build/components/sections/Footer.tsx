@@ -61,7 +61,14 @@ const LINK_GROUPS: { title: string; links: FooterLink[] }[] = [
   },
   {
     title: "Company",
-    links: ["About", "Careers", "Contact", "Resources", "Blog", "Newsroom"],
+    links: [
+      "About",
+      { label: "Careers", href: "mailto:careers@nymcard.com" },
+      { label: "Contact", href: "/company/contact" },
+      "Resources",
+      { label: "Blog", href: "/company/blog" },
+      { label: "Newsroom", href: "/company/newsroom" },
+    ],
   },
 ];
 

@@ -14,7 +14,7 @@ export const moneyMovementDoc = {
   hero: {
     headline: "Move money where your customers need it.",
     body: "Orchestrate cross-border payments, route corridors, and manage FX on infrastructure you control and monetize.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     visualLabel: "corridor map",
   },
@@ -58,7 +58,7 @@ export const moneyMovementDoc = {
     companion: {
       heading: "Corridor-level configuration",
       body: "Routes, fallback paths, FX spreads, settlement legs, and compliance profiles — all configurable per corridor and per partner program, on the same API surface.",
-      link: { label: "Read the configuration docs", href: "/docs/configuration" },
+      link: { label: "Read the configuration docs", href: "https://docs.nymcard.com/" },
     },
   },
   industries: {
@@ -66,13 +66,12 @@ export const moneyMovementDoc = {
     headline: "Money movement for every industry.",
     items: withKeys(
       [
-        { eyebrow: "Banks", copy: "International payments and treasury flows on one platform.", link: { label: "See banks", href: "/industries/banks" } },
+        { eyebrow: "Banks", copy: "International payments and treasury flows on one platform.", link: { label: "See banks", href: "/industries/retail-banking" } },
         { eyebrow: "Exchange houses", copy: "Corridor routing and FX with revenue on your side.", link: { label: "See exchange houses", href: "/industries/exchange-houses" } },
         { eyebrow: "Fintechs", copy: "Cross-border payouts, FX, and settlement through one API.", link: { label: "See fintechs", href: "/industries/fintechs" } },
-        { eyebrow: "Marketplaces", copy: "Pay sellers across currencies and countries.", link: { label: "See marketplaces", href: "/industries/marketplaces" } },
-        { eyebrow: "Telecoms", copy: "Remittance corridors connected to wallets and accounts.", link: { label: "See telecoms", href: "/industries/telecoms" } },
+        { eyebrow: "Marketplaces", copy: "Pay sellers across currencies and countries.", link: { label: "See marketplaces", href: "/industries/retail-marketplaces" } },
+        { eyebrow: "Telecoms", copy: "Remittance corridors connected to wallets and accounts.", link: { label: "See telecoms", href: "/industries/telecommunications" } },
         { eyebrow: "Government", copy: "Disbursement and cross-border programs with auditable flows.", link: { label: "See government", href: "/industries/government" } },
-        { eyebrow: "NBFIs and PSPs", copy: "Add corridors and FX without rebuilding.", link: { label: "See NBFIs and PSPs", href: "/industries/nbfis" } },
       ],
       "ind",
     ),
@@ -110,7 +109,7 @@ export const moneyMovementDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Orchestrate corridors, manage FX, and capture cross-border revenue on infrastructure built to scale.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
   crossSell: withKeys(

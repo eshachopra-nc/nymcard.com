@@ -67,7 +67,7 @@ const PRODUCTS: ProductCell[] = [
     description:
       "Launch debit, credit, and prepaid card programs with native processing and real-time controls.",
     Surface: CardsUI,
-    href: "/products/cards",
+    href: "/products/card-issuing",
     colSpan: 8,
   },
   {
@@ -126,30 +126,42 @@ const SPAN_LG: Record<ProductCell["colSpan"], string> = {
   8: "lg:col-span-8",
 };
 
-export function ProductsBento() {
+// `showHeader` lets a host section (e.g. the nCore Capabilities section, which
+// supplies its own coherent heading/intro above the grid) reuse this exact
+// bento WITHOUT the built-in header — so the page never doubles up headings.
+// Defaults to true: the homepage and every existing caller render unchanged.
+export function ProductsBento({ showHeader = true }: { showHeader?: boolean } = {}) {
   const reduced = useReducedMotion();
 
   return (
     <section
       aria-label="Products"
-      className="relative overflow-hidden bg-surface-white py-20 sm:py-24 lg:py-32 dark:bg-surface-dark-base"
+      className={cn(
+        "relative overflow-hidden bg-surface-white dark:bg-surface-dark-base",
+        // When the host supplies the heading above, drop the top padding so the
+        // grid reads as part of the host section, not a second stacked block.
+        showHeader ? "py-20 sm:py-24 lg:py-32" : "pb-12 pt-0 sm:pb-14 lg:pb-16",
+      )}
     >
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20">
         {/* Header — headline leads, no eyebrow. Asymmetric: headline left,
-            framing line aligned to a tighter measure. */}
-        <div className="max-w-2xl">
-          <h2 className="font-display text-3xl font-bold leading-[1.08] tracking-tight text-text-primary sm:text-4xl lg:text-[2.75rem] dark:text-text-on-brand">
-            Every product, one platform.
-          </h2>
-          <p className="mt-5 max-w-xl font-body text-base leading-relaxed text-text-secondary sm:text-lg dark:text-text-dark-secondary">
-            Every product runs on the same nCore — one customer record, one
-            ledger, one audit trail. Take what you need; the platform stays
-            consistent.
-          </p>
-        </div>
+            framing line aligned to a tighter measure. Suppressed when the host
+            section already provides the section heading/intro. */}
+        {showHeader && (
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl font-bold leading-[1.08] tracking-tight text-text-primary sm:text-4xl lg:text-[2.75rem] dark:text-text-on-brand">
+              Every product, one platform.
+            </h2>
+            <p className="mt-5 max-w-xl font-body text-base leading-relaxed text-text-secondary sm:text-lg dark:text-text-dark-secondary">
+              Every product runs on the same nCore — one customer record, one
+              ledger, one audit trail. Take what you need; the platform stays
+              consistent.
+            </p>
+          </div>
+        )}
 
         {/* The bento. */}
-        <div className="relative mt-12 sm:mt-14 lg:mt-16">
+        <div className={showHeader ? "relative mt-12 sm:mt-14 lg:mt-16" : "relative"}>
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6">
             {PRODUCTS.map((p, i) => {
               const wide = p.colSpan >= 7;

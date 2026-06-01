@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { AmbientGlow, ProductHeroRibbon } from "@/components/visuals";
 import { Button } from "@/components/ui/button";
 import { UIPlaceholder } from "./UIPlaceholder";
 
@@ -66,8 +65,31 @@ export function PageHero({
         className,
       )}
     >
-      {/* Restrained atmosphere — one ambient glow, never the kinetic field. */}
-      <AmbientGlow placement="top-right" tone="cyan" size="lg" intensity="subtle" />
+      {/* Background atmosphere — the handoff hero-background composition
+          (05-handoff/product-hero-bg-{light,dark}.svg): a diagonal navy→
+          indigo→cyan ribbon with a top-right halo and baked-in left + bottom
+          fades, so the copy column stays clean and the section dissolves into
+          what follows. Light/dark are separate assets; the section bg colour
+          matches each SVG's base fill as a fallback. Full-bleed, behind the
+          z-10 content. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element -- handoff SVG background */}
+        <img
+          src="/handoff/product-hero-bg-light.svg"
+          alt=""
+          className="absolute inset-0 size-full object-cover dark:hidden"
+          loading="eager"
+          decoding="async"
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element -- handoff SVG background */}
+        <img
+          src="/handoff/product-hero-bg-dark.svg"
+          alt=""
+          className="absolute inset-0 hidden size-full object-cover dark:block"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
 
       {/* Padding mirrors the homepage Hero (pt-24 / sm:pt-28 / lg:pt-32 +
           tight pb-10 on lg) so the trust-bar logos peek above the fold on
@@ -128,27 +150,6 @@ export function PageHero({
           )}
         </div>
       </div>
-
-      {/* Diagonal kinetic streak — thin, low-density, slanted down-left from
-          under the visual column to the bottom of the section. Container is
-          wider than the section so the rotated streak's corners stay clear of
-          the visible edges; the streak's own mask fades both ends. */}
-      {/* Kinetic ribbon — the painterly handoff atmosphere for product
-          heroes. Fills the section so the artwork's own composition drives
-          the layout; ambient drift + scale breathing + opacity pulse keep
-          it living. */}
-      {/* Text-forward heroes let the copy run to ~70%, so the ribbon is masked
-          to the right side — it fades in past the copy and reads as a right
-          accent rather than sitting behind the headline. Two-column heroes keep
-          the full-bleed ribbon (the visual column occupies the right). */}
-      <ProductHeroRibbon
-        className={cn(
-          // Dialled down to a soft accent (it read heavy/ugly at full strength).
-          "opacity-60",
-          textOnly &&
-            "[-webkit-mask-image:linear-gradient(to_right,transparent_0%,transparent_52%,black_86%)] [mask-image:linear-gradient(to_right,transparent_0%,transparent_52%,black_86%)]",
-        )}
-      />
     </section>
   );
 }

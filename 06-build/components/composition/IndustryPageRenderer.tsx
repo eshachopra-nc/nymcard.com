@@ -2,7 +2,7 @@ import { IndustryPage, type IndustryPageProps } from "./IndustryPage";
 import type { CrossSellItem } from "./CrossSellBanner";
 import type { OutcomeChip } from "./OutcomeChips";
 import { iconByName } from "@/lib/sanity/icon-map";
-import { fixVoice, fixHref } from "@/lib/sanity/voice-overrides";
+import { fixVoice, fixDocHrefs } from "@/lib/sanity/voice-overrides";
 import { industryRowVisual } from "@/components/sections/industry-uis";
 import type { SanityIndustryPage } from "@/lib/sanity/types";
 
@@ -17,7 +17,11 @@ import type { SanityIndustryPage } from "@/lib/sanity/types";
 
 type Props = { doc: SanityIndustryPage };
 
-export function IndustryPageRenderer({ doc }: Props) {
+export function IndustryPageRenderer({ doc: rawDoc }: Props) {
+  // Correct dead/legacy link destinations everywhere in the doc before render
+  // (seed already fixed; covers live Sanity until the next reseed).
+  const doc = fixDocHrefs(rawDoc);
+
   const outcomes = doc.outcomes.map((o) => ({
     icon: iconByName(o.iconName),
     label: o.label,
@@ -61,21 +65,11 @@ export function IndustryPageRenderer({ doc }: Props) {
     })),
     payKit,
     platform: doc.platform,
-    developer: {
-      ...doc.developer,
-      body: fixVoice(doc.developer.body),
-      link: { ...doc.developer.link, href: fixHref(doc.developer.link.href) },
-    },
+    developer: { ...doc.developer, body: fixVoice(doc.developer.body) },
     crossSell,
     faqHeadline: doc.faq.headline,
     faqItems: doc.faq.items.map((it) => ({ ...it, answer: fixVoice(it.answer) })),
-    finalCta: {
-      ...doc.finalCta,
-      headline: fixVoice(doc.finalCta.headline),
-      secondaryCta: doc.finalCta.secondaryCta
-        ? { ...doc.finalCta.secondaryCta, href: fixHref(doc.finalCta.secondaryCta.href) }
-        : doc.finalCta.secondaryCta,
-    },
+    finalCta: { ...doc.finalCta, headline: fixVoice(doc.finalCta.headline) },
   };
 
   return <IndustryPage {...props} />;

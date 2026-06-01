@@ -14,7 +14,7 @@ export const settlementDoc = {
   hero: {
     headline: "Settle across corridors in real time.",
     body: "Bank-grade settlement infrastructure for cross-border, multi-currency, and stablecoin flows — on one regulated platform.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     visualLabel: "settlement corridor",
   },
@@ -53,23 +53,8 @@ export const settlementDoc = {
     companion: {
       heading: "One configuration surface",
       body: "Corridors, rails, currencies, pre-funding, and compliance — all configurable per program, on the same API surface as Cards and Money Movement.",
-      link: { label: "Read the configuration docs", href: "/docs/configuration" },
+      link: { label: "Read the configuration docs", href: "https://docs.nymcard.com/" },
     },
-  },
-  industries: {
-    eyebrow: "Industries",
-    headline: "Settlement for every cross-border business.",
-    items: withKeys(
-      [
-        { eyebrow: "Banks", copy: "Cross-border settlement and corridor liquidity on one platform.", link: { label: "See banks", href: "/industries/banks" } },
-        { eyebrow: "Exchange houses", copy: "Settle remittance corridors in real time and free up correspondent capital.", link: { label: "See exchange houses", href: "/industries/exchange-houses" } },
-        { eyebrow: "PSPs and EMIs", copy: "Add a stablecoin settlement layer without standing up a separate blockchain system.", link: { label: "See PSPs and EMIs", href: "/industries/psps" } },
-        { eyebrow: "Marketplaces", copy: "Pay cross-border vendors and sellers on real-time rails.", link: { label: "See marketplaces", href: "/industries/marketplaces" } },
-        { eyebrow: "Telecoms", copy: "Settle international B2B flows on 24/7 corridors.", link: { label: "See telecoms", href: "/industries/telecoms" } },
-        { eyebrow: "Government", copy: "Run controlled digital settlement programs within a compliance-aligned framework.", link: { label: "See government", href: "/industries/government" } },
-      ],
-      "ind",
-    ),
   },
   deployment: {
     eyebrow: "Deployment",
@@ -104,7 +89,7 @@ export const settlementDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Run cross-border, multi-currency, and stablecoin settlement on one regulated platform.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
   crossSell: withKeys(

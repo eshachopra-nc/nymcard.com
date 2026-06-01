@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 680" width="1440" height="680" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <clipPath id="frame-light">
+      <rect width="1440" height="680"></rect>
+    </clipPath>
+
+    
+    <linearGradient id="ribbon-light" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0"></stop>
+      <stop offset="18%" stop-color="#0EA5E9" stop-opacity="0.36"></stop>
+      <stop offset="38%" stop-color="#5B4FD9" stop-opacity="0.48"></stop>
+      <stop offset="55%" stop-color="#304DBB" stop-opacity="0.40"></stop>
+      <stop offset="72%" stop-color="#5B4FD9" stop-opacity="0.20"></stop>
+      <stop offset="92%" stop-color="#5B4FD9" stop-opacity="0"></stop>
+    </linearGradient>
+
+    
+    <radialGradient id="halo-light" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#5B4FD9" stop-opacity="0.14"></stop>
+      <stop offset="100%" stop-color="#5B4FD9" stop-opacity="0"></stop>
+    </radialGradient>
+
+    
+    <linearGradient id="left-light" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="634" y2="0">
+      <stop offset="0%" stop-color="#F4F6FF"></stop>
+      <stop offset="25%" stop-color="#F4F6FF"></stop>
+      <stop offset="100%" stop-color="#F4F6FF" stop-opacity="0"></stop>
+    </linearGradient>
+
+    
+    <linearGradient id="bottom-light" gradientUnits="userSpaceOnUse" x1="0" y1="550" x2="0" y2="680">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+      <stop offset="100%" stop-color="#FFFFFF"></stop>
+    </linearGradient>
+  </defs>
+
+  
+  <rect width="1440" height="680" fill="#F4F6FF"></rect>
+
+  <g clip-path="url(#frame-light)">
+    
+    <rect x="604.8" y="-544" width="936" height="1904" fill="url(#ribbon-light)" transform="rotate(-24 604.8 -544)"></rect>
+
+    
+    <ellipse cx="1181" cy="272" rx="792" ry="442" fill="url(#halo-light)"></ellipse>
+
+    
+    <rect width="1440" height="680" fill="url(#left-light)"></rect>
+
+    
+    <rect x="0" y="550" width="1440" height="130" fill="url(#bottom-light)"></rect>
+  </g>
+</svg>

@@ -25,7 +25,7 @@ export const commercialBankingDoc = {
   hero: {
     headline: "The infrastructure behind modern commercial banking.",
     body: "Cards, cross-border payments, expense workflows, and embedded credit, deployed under your brand, integrated with the core you already run.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     visualLabel: "commercial banking dashboard",
   },
 
@@ -142,7 +142,7 @@ export const commercialBankingDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Launch corporate cards, cross-border payments, and embedded credit on infrastructure built for banks.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

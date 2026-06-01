@@ -54,11 +54,14 @@ export function RibbonKinetic() {
         loading="eager"
         decoding="async"
       />
-      {/* Dark — alpha cutout: the ribbon on transparent, against midnight navy. */}
+      {/* Dark — alpha cutout: the ribbon on transparent, against midnight navy.
+          Toned down vs light (owner direction): the cyan reads bright and crisp
+          against near-black, so we soften it slightly — a touch less opacity and
+          a sub-pixel blur take the hard edge off without losing the streak. */}
       <motion.img
         src="/handoff/home/home-hero-ribbon-cutout.png"
         alt=""
-        className="absolute inset-0 hidden size-full object-cover dark:block"
+        className="absolute inset-0 hidden size-full object-cover opacity-[0.78] blur-[1.2px] dark:block"
         style={{ x, y, scale, rotate, transformOrigin: "center" }}
         loading="eager"
         decoding="async"

@@ -26,7 +26,7 @@ export const neobanksDoc = {
   hero: {
     headline: "Launch your neobank on infrastructure that's already built.",
     body: "Cards, accounts, payments, lending, and compliance, modular, API-first, ready to configure for your market.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     visualLabel: "neobank app surface",
   },
 
@@ -138,7 +138,7 @@ export const neobanksDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Launch your neobank on infrastructure built to scale.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

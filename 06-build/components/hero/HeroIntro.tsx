@@ -69,7 +69,7 @@ export function HeroIntro() {
         className="flex flex-col gap-3 sm:flex-row sm:gap-4 mt-2"
       >
         <a
-          href="#contact"
+          href="/company/contact"
           className="inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-brand-navy text-text-on-brand rounded-button px-7 py-2.5 font-body font-semibold text-base transition-all duration-150 hover:-translate-y-px hover:shadow-[var(--shadow-lift)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/15 dark:bg-accent-cyan dark:text-brand-navy dark:hover:shadow-[var(--shadow-dark-lift)] dark:focus-visible:ring-brand-purple/25"
         >
           {COPY.primaryCta}

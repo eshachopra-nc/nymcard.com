@@ -244,7 +244,7 @@ function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
         )
       })}
       <Link
-        href="/contact"
+        href="/company/contact"
         onClick={onNavigate}
         className="mt-1 inline-flex items-center justify-center rounded-button bg-brand-navy px-5 py-3 text-sm font-medium text-white no-underline dark:bg-accent-cyan dark:text-brand-navy"
       >
@@ -254,20 +254,29 @@ function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
   )
 }
 
-export function Navbar() {
+export function Navbar({ bannerHeight = 0 }: { bannerHeight?: number }) {
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const [scrolled, setScrolled]     = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  // When an alert banner sits above the nav, the nav starts below it and
+  // rides up as the banner scrolls away, pinning to the top once it's gone.
+  const [navTop, setNavTop]         = useState(bannerHeight)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const reduced = useReducedMotion()
   const { theme } = useTheme()
   const isDark = theme === 'dark'
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 20)
+      const next = bannerHeight > 0 ? Math.max(0, bannerHeight - y) : 0
+      setNavTop((prev) => (prev === next ? prev : next))
+    }
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [bannerHeight])
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -368,7 +377,7 @@ export function Navbar() {
      * The visual card is position: absolute inside the fixed header and grows
      * freely downward when a dropdown is open without shifting any page content.
      */
-    <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 999, overflow: 'visible' }}>
+    <header style={{ position: 'fixed', top: navTop, left: 0, right: 0, zIndex: 999, overflow: 'visible' }}>
       {/* No flow spacer — HeroSection paddingTop handles the clearance */}
 
       <div
@@ -436,7 +445,7 @@ export function Navbar() {
           <div className="z-10 flex flex-shrink-0 items-center gap-2">
             <ThemeToggle />
             <Link
-              href="/contact"
+              href="/company/contact"
               className="hidden items-center rounded-button bg-brand-navy px-5 py-2 text-sm font-medium text-white no-underline transition-all duration-150 hover:-translate-y-px hover:shadow-[var(--shadow-lift)] sm:inline-flex dark:bg-accent-cyan dark:text-brand-navy dark:hover:shadow-[var(--shadow-dark-lift)]"
             >
               Talk to us

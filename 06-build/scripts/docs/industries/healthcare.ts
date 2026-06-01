@@ -27,7 +27,7 @@ export const healthcareDoc = {
   hero: {
     headline: "Payment infrastructure that keeps up with patient expectations.",
     body: "Patient financing, staff disbursements, procurement cards, and insurance payouts, structured, compliant, and built for healthcare providers managing complex payment flows.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     visualLabel: "healthcare ops surface",
   },
 
@@ -145,7 +145,7 @@ export const healthcareDoc = {
   finalCta: {
     headline: "Talk to us.",
     body: "Launch patient financing, staff disbursements, and procurement programs on one platform.",
-    primaryCta: { label: "Talk to us", href: "#contact" },
+    primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

@@ -1,5 +1,6 @@
 import { CardGrid, type CardGridLayout, type CardGridCardType } from "./CardGrid";
 import { CardProgramsBento } from "./CardProgramsBento";
+import { FinancialCrimeControls } from "./FinancialCrimeControls";
 import { CodeArtifact } from "./CodeArtifact";
 import { CrossSellBanner, type CrossSellItem } from "./CrossSellBanner";
 import { CTASection } from "./CTASection";
@@ -14,9 +15,9 @@ import { RailCarousel } from "./RailCarousel";
 import { cn } from "@/lib/utils";
 import { Footer } from "@/components/sections/Footer";
 import { Section } from "@/components/sections/Section";
-import { TrustBar, PrincipalMemberTrustLine } from "./TrustBar";
 import {
   CardControlsDashboard,
+  FinancialCrimeConsole,
   HandoffVisual,
   NamedSurface,
   type BedTone,
@@ -28,7 +29,7 @@ const handoffName = (slug: string, label: string) =>
   `${slug}-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
 import { MigrationConsole, TopologyTraces } from "@/components/visuals";
 import { iconByName } from "@/lib/sanity/icon-map";
-import { fixHref } from "@/lib/sanity/voice-overrides";
+import { fixDocHrefs } from "@/lib/sanity/voice-overrides";
 import { heroVisualFor } from "@/lib/sanity/hero-visual-map";
 import { capabilityVisual } from "@/lib/sanity/capability-visual-map";
 import { featureVisualFor } from "@/lib/sanity/feature-visual-map";
@@ -53,11 +54,32 @@ import type {
 
 type Props = { doc: SanityProductPage };
 
-export function ProductPageRenderer({ doc }: Props) {
-  // Repoint the legacy "/docs" CTA href to the real developer docs host (the
-  // seed is already updated; this covers the live Sanity copy pre-reseed).
-  const fixCta = <T extends { href: string } | undefined>(c: T): T =>
-    c ? ({ ...c, href: fixHref(c.href) } as T) : c;
+// Products whose §6 "Industries" grid is dropped — they sell mainly into banks,
+// so a broad industries rail isn't relevant (owner direction, Jun 2026).
+const NO_INDUSTRIES_GRID = new Set(["financial-crime", "settlement", "reconciliation"]);
+
+// The 11 real /industries/* pages. The Industries grid only renders tiles that
+// point at one of these, so an orphan segment tile (e.g. "NBFIs & PSPs" with no
+// page) is dropped rather than rendered as a 404.
+const REAL_INDUSTRY_HREFS = new Set([
+  "/industries/commercial-banking",
+  "/industries/retail-banking",
+  "/industries/neobanks",
+  "/industries/exchange-houses",
+  "/industries/fintechs",
+  "/industries/telecommunications",
+  "/industries/retail-marketplaces",
+  "/industries/travel",
+  "/industries/healthcare",
+  "/industries/government",
+  "/industries/mobility",
+]);
+
+export function ProductPageRenderer({ doc: rawDoc }: Props) {
+  // Correct dead/legacy link destinations everywhere in the doc (e.g. "/docs",
+  // wrong industry slugs) before rendering. Seed docs are already fixed; this
+  // covers the live Sanity copy until the next reseed.
+  const doc = fixDocHrefs(rawDoc);
 
   const [csA, csB] = doc.crossSell;
   const crossSell: [CrossSellItem, CrossSellItem] = [
@@ -85,7 +107,7 @@ export function ProductPageRenderer({ doc }: Props) {
         headline={doc.hero.headline}
         body={doc.hero.body}
         primaryCta={doc.hero.primaryCta}
-        secondaryCta={fixCta(doc.hero.secondaryCta)}
+        secondaryCta={doc.hero.secondaryCta}
         visualLabel={doc.hero.visualLabel}
         visual={heroVisualFor(doc.slug)}
         // Text-forward F-pattern across all product heroes: there's no real
@@ -95,17 +117,9 @@ export function ProductPageRenderer({ doc }: Props) {
         textOnly
       />
 
-      {/* §2 Trust band — the network/certification line on the SAME soft
-          surface as the hero, so it reads as a quiet continuation, not a stray
-          white stripe between sections. */}
-      <TrustBar logos={[]} trustLine={<PrincipalMemberTrustLine />} background="soft" />
-      {doc.trustLine && (
-        <div className="bg-surface-white py-4 text-center dark:bg-surface-dark-base">
-          <p className="mx-auto max-w-3xl px-4 font-body text-[13px] leading-relaxed text-text-secondary dark:text-text-dark-secondary">
-            {doc.trustLine}
-          </p>
-        </div>
-      )}
+      {/* §2 Trust band removed from all product pages (owner direction,
+          1 Jun 2026) — neither the network/cert marquee nor the trustLine text
+          renders on any product page. */}
 
       {/* §3a Why tiles (optional — Lending uses this). Lending renders the
           approved clean modular cards (Lending.html §3); other pages keep the
@@ -128,6 +142,11 @@ export function ProductPageRenderer({ doc }: Props) {
           TODO: drive this choice from Sanity (e.g. capabilities.layout). */}
       {doc.slug === "card-issuing" ? (
         <CardProgramsBento />
+      ) : doc.slug === "financial-crime" ? (
+        // §3 Risk controls — five distinct capability sections as alternating
+        // editorial rows (Identity, Fraud, Risk, AML & sanctions, 3D Secure),
+        // each with its own coded visual. Copy baked in; not the capability bento.
+        <FinancialCrimeControls />
       ) : doc.slug === "lending" && doc.capabilities ? (
         // §4 Credit journey — the approved Lending.html bento of six
         // self-contained product-UI tiles (handoff v1.0), not the generic
@@ -152,8 +171,10 @@ export function ProductPageRenderer({ doc }: Props) {
 
       {/* §4 FeatureShowcase (optional). Card Issuing carries the live,
           coded Program-Management dashboard (CardControlsDashboard — "Control
-          every card and every transaction."); every other page loads its real
-          handoff surface (HandoffVisual). No eyebrow: the headline leads. */}
+          every card and every transaction."); Financial Crime carries the live
+          fraud decisioning console (FinancialCrimeConsole — "See why every
+          decision was made."); every other page loads its real handoff surface
+          (HandoffVisual). No eyebrow: the headline leads. */}
       {doc.featureShowcase &&
         (() => {
           const fv = featureVisualFor(doc.slug);
@@ -165,6 +186,8 @@ export function ProductPageRenderer({ doc }: Props) {
               ui={
                 doc.slug === "card-issuing" ? (
                   <CardControlsDashboard />
+                ) : doc.slug === "financial-crime" ? (
+                  <FinancialCrimeConsole />
                 ) : (
                   <div className="aspect-[16/10] w-full sm:aspect-[2/1]">
                     <NamedSurface
@@ -194,8 +217,8 @@ export function ProductPageRenderer({ doc }: Props) {
                 </p>
                 {doc.configuration.docsLink && (
                   <a
-                    href={fixHref(doc.configuration.docsLink.href)}
-                    {...(/^https?:\/\//i.test(fixHref(doc.configuration.docsLink.href))
+                    href={doc.configuration.docsLink.href}
+                    {...(/^https?:\/\//i.test(doc.configuration.docsLink.href)
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}
                     className="mt-6 inline-flex items-center gap-2 font-body text-sm font-semibold text-accent-cyan transition-colors hover:text-accent-cyan/80"
@@ -210,8 +233,11 @@ export function ProductPageRenderer({ doc }: Props) {
                   viz={doc.slug === "lending" ? <LendingDecisioningViz /> : undefined}
                   companion={
                     // Lending drops the in-panel companion block (the
-                    // "Decisioning you can defend" copy lives in the left column).
-                    doc.slug !== "lending" && doc.configuration.companion
+                    // "Decisioning you can defend" copy lives in the left
+                    // column); Financial Crime drops it too (owner direction,
+                    // 1 Jun 2026 — the "Versioned, auditable…" block is removed).
+                    !["lending", "financial-crime"].includes(doc.slug) &&
+                    doc.configuration.companion
                       ? {
                           heading: doc.configuration.companion.heading,
                           body: doc.configuration.companion.body,
@@ -231,15 +257,19 @@ export function ProductPageRenderer({ doc }: Props) {
         </section>
       )}
 
-      {/* §6 Industries — RailCarousel sparse, light */}
-      {doc.industries && (
+      {/* §6 Industries — RailCarousel sparse, light. Dropped for the
+          bank-focused products (NO_INDUSTRIES_GRID); elsewhere only tiles that
+          point at a real industry page render (orphan segments filtered out). */}
+      {doc.industries && !NO_INDUSTRIES_GRID.has(doc.slug) && (
         <RailCarousel
           variant="sparse"
           background="light"
           // No section eyebrow — headline leads (CLAUDE.md v1.5). Per-card
           // industry labels stay: they're real content, not a scaffolding label.
           headline={doc.industries.headline}
-          items={doc.industries.items.map((item, i) => ({
+          items={doc.industries.items
+            .filter((item) => REAL_INDUSTRY_HREFS.has(item.link.href))
+            .map((item, i) => ({
             id: `${item.eyebrow
               .toLowerCase()
               .replace(/[^a-z0-9]+/g, "-")
@@ -315,7 +345,7 @@ export function ProductPageRenderer({ doc }: Props) {
         headline={doc.finalCta.headline}
         body={doc.finalCta.body}
         primaryCta={doc.finalCta.primaryCta}
-        secondaryCta={fixCta(doc.finalCta.secondaryCta)}
+        secondaryCta={doc.finalCta.secondaryCta}
         backgrounds={<TopologyTraces density="medium" tone="cyan" />}
       />
       {/* Cross-sell — clearly separated from the closing CTA above it: a top

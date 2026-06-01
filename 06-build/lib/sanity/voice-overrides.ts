@@ -55,9 +55,35 @@ import { DOCS_URL } from "@/lib/external-links";
 
 const HREF_FIXES: Record<string, string> = {
   "/docs": DOCS_URL,
+  "/docs/configuration": DOCS_URL,
+  "/docs/underwriting": DOCS_URL,
+  // Wrong / legacy industry slugs in product-page cross-links → the real routes.
+  "/industries/banks": "/industries/retail-banking",
+  "/industries/retail": "/industries/retail-marketplaces",
+  "/industries/telecoms": "/industries/telecommunications",
+  "/industries/automotive": "/industries/mobility",
+  "/industries/consumer-banking": "/industries/retail-banking",
+  "/industries/marketplaces": "/industries/retail-marketplaces",
+  "/industries/remittance": "/industries/exchange-houses",
 };
 
 /** Return the corrected destination for an href, or the href unchanged. */
 export function fixHref(href: string): string {
   return HREF_FIXES[href] ?? href;
+}
+
+/** Deep-walk a (plain JSON) Sanity doc and rewrite every `href` string via
+ *  fixHref — so dead/legacy links are corrected wherever they sit in the
+ *  document, present or future, without threading fixHref through each field.
+ *  Same no-reseed rationale; becomes a no-op once the seed is reseeded. */
+export function fixDocHrefs<T>(value: T): T {
+  if (Array.isArray(value)) return value.map((v) => fixDocHrefs(v)) as unknown as T;
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value)) {
+      out[k] = k === "href" && typeof v === "string" ? fixHref(v) : fixDocHrefs(v);
+    }
+    return out as T;
+  }
+  return value;
 }
