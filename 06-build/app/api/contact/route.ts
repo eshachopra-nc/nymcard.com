@@ -92,10 +92,6 @@ export async function POST(request: Request) {
     entry.consent,
   ];
 
-  // Header-gated diagnostic — `x-debug: 1` surfaces the underlying error in the
-  // response (never shown to normal visitors). Used to debug the live wiring.
-  const debug = request.headers.get("x-debug") === "1";
-
   // 1) Service account — works with a private, org-restricted Sheet.
   if (sheetsServiceConfigured()) {
     try {
@@ -104,13 +100,7 @@ export async function POST(request: Request) {
     } catch (err) {
       console.error("[contact] Sheets append failed:", err);
       return NextResponse.json(
-        {
-          ok: false,
-          error: "Could not store the entry.",
-          ...(debug
-            ? { detail: err instanceof Error ? err.message : String(err) }
-            : {}),
-        },
+        { ok: false, error: "Could not store the entry." },
         { status: 502 },
       );
     }

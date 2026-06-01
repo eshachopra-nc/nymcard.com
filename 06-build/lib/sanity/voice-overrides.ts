@@ -54,6 +54,10 @@ export function fixVoice(s: string): string {
 import { DOCS_URL } from "@/lib/external-links";
 
 const HREF_FIXES: Record<string, string> = {
+  // The old "#contact" anchor → the real Contact page. The seed docs are already
+  // updated to /company/contact; this corrects the still-live Sanity data on
+  // render (no reseed), so every product/industry CTA reaches the page now.
+  "#contact": "/company/contact",
   "/docs": DOCS_URL,
   "/docs/configuration": DOCS_URL,
   "/docs/underwriting": DOCS_URL,
