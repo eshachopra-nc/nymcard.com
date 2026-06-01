@@ -1,0 +1,216 @@
+/* ============================================================
+   Lending §4 — Credit journey
+   "Text + UI inside a card" treatment (matches the homepage
+   ProductsBento): a bordered card with the product-UI zone on
+   top and the heading + description below. Scoped under .lcj.
+   Theme-aware via CSS custom properties (one .dark override
+   block). Bespoke product-UI surfaces; cool palette only.
+   ============================================================ */
+.lcj {
+  --lcj-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --lcj-ease-std: cubic-bezier(0.4, 0, 0.2, 1);
+  /* themeable tokens (light defaults) */
+  --t-primary: #0E1A33;
+  --t-secondary: #4A5578;
+  --t-muted: #7A839E;
+  --line: rgba(14, 26, 51, 0.08);
+  --line-strong: rgba(14, 26, 51, 0.10);
+  --btn-bg: rgba(255, 255, 255, 0.62);
+  --track: rgba(48, 77, 187, 0.10);
+  --card-bg: #FFFFFF;
+  --card-border: #E8EBF5;
+  --eyebrow: #304DBB;
+  --ui-bg:
+    radial-gradient(72% 60% at 84% 4%, var(--a1, rgba(34, 211, 238, 0.18)) 0%, transparent 60%),
+    radial-gradient(80% 72% at 8% 100%, var(--a2, rgba(48, 77, 187, 0.16)) 0%, transparent 64%),
+    linear-gradient(160deg, #F3F7FF 0%, #FBFCFF 70%);
+}
+.dark .lcj {
+  --t-primary: #EAF0FF;
+  --t-secondary: rgba(233, 239, 255, 0.66);
+  --t-muted: rgba(233, 239, 255, 0.45);
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.14);
+  --btn-bg: rgba(255, 255, 255, 0.06);
+  --track: rgba(255, 255, 255, 0.12);
+  --card-bg: #131F3A;
+  --card-border: #26324F;
+  --eyebrow: #22D3EE;
+  --ui-bg:
+    radial-gradient(72% 60% at 84% 4%, rgba(34, 211, 238, 0.12) 0%, transparent 60%),
+    radial-gradient(80% 72% at 8% 100%, rgba(48, 77, 187, 0.22) 0%, transparent 64%),
+    linear-gradient(160deg, #101D38 0%, #16223F 70%);
+}
+.lcj .mono { font-variant-numeric: tabular-nums; }
+
+/* ---- even 3×2 grid — six equal cards ---- */
+.lcj .bento { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 404px; gap: 20px; }
+.lcj .cell { display: flex; min-height: 0; }
+
+/* ---- the card (bordered, theme-aware) ---- */
+.lcj .card {
+  display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden;
+  border-radius: 16px; border: 1px solid var(--card-border); background: var(--card-bg);
+  transition: transform 220ms var(--lcj-ease-std), box-shadow 220ms var(--lcj-ease-std), border-color 220ms var(--lcj-ease-std);
+}
+.lcj .card:hover { transform: translateY(-4px); box-shadow: 0 2px 6px -1px rgba(14, 26, 51, 0.06), 0 26px 52px -18px rgba(14, 26, 51, 0.16); }
+.dark .lcj .card:hover { box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.06) inset, 0 26px 52px -18px rgba(0, 0, 0, 0.55); }
+
+/* ---- UI zone (top, edge-to-edge cool field; no title inside) ---- */
+.lcj .ui {
+  position: relative; flex: 1; min-height: 0; overflow: hidden;
+  display: flex; flex-direction: column;
+  padding: 20px 22px; color: var(--t-primary);
+  border-top: 1px solid var(--card-border);
+  background: var(--ui-bg);
+}
+
+/* ---- card head (eyebrow + heading + description ABOVE the UI) ---- */
+.lcj .card-head { padding: 22px 22px 16px; }
+.lcj .card-head .eyebrow { margin: 0 0 9px; font-family: var(--font-mono, monospace); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--eyebrow); }
+.lcj .card-head h3 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--t-primary); }
+.lcj .card-head p { margin: 7px 0 0; font-size: 13px; line-height: 19px; color: var(--t-secondary); }
+
+/* ---- reveal (the .in class is toggled on the card when in view) ---- */
+.lcj .reveal { opacity: 0; transform: translateY(16px); }
+.lcj .card.in .reveal { opacity: 1; transform: none; transition: opacity 560ms var(--lcj-ease-out), transform 560ms var(--lcj-ease-out); }
+.lcj .card.in .reveal.d1 { transition-delay: 50ms; }
+.lcj .card.in .reveal.d2 { transition-delay: 120ms; }
+.lcj .card.in .reveal.d3 { transition-delay: 190ms; }
+
+/* ---- shared atoms ---- */
+.lcj .t-label { font-family: var(--font-mono, monospace); font-size: 11px; color: var(--t-muted); }
+.lcj .t-big { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; color: var(--t-primary); }
+.lcj .chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono, monospace); font-size: 11px; padding: 4px 9px; border-radius: 999px; border: 1px solid transparent; white-space: nowrap; }
+.lcj .chip--ok { color: #0E9F6E; background: rgba(16, 185, 129, 0.13); border-color: rgba(16, 185, 129, 0.24); }
+.dark .lcj .chip--ok { color: #6EE7B7; }
+.lcj .chip--ok .dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; }
+.lcj .meter { height: 8px; border-radius: 4px; background: var(--track); overflow: hidden; }
+.lcj .meter > span { display: block; height: 100%; width: 0; border-radius: 4px; background: linear-gradient(90deg, #304DBB, #22D3EE); transition: width 1100ms var(--lcj-ease-out); }
+.lcj .card.in .meter > span { width: var(--w, 26%); }
+
+/* ============================================================
+   §4a Card-linked credit — the real purple card + figures
+   ============================================================ */
+.lcj .clc { display: flex; flex-direction: column; height: 100%; }
+.lcj .cc { width: 100%; max-width: 208px; flex: none; }
+.lcj .clc-figs { margin-top: 18px; }
+.lcj .clc-row { display: flex; align-items: baseline; gap: 10px; margin-top: 6px; }
+.lcj .clc-of { font-family: var(--font-mono); font-size: 12px; color: var(--t-muted); }
+.lcj .clc-mrow { display: flex; justify-content: space-between; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--t-secondary); }
+.lcj .clc-rep { margin-top: auto; padding-top: 18px; }
+.lcj .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+.lcj .seg button { font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--t-secondary); cursor: pointer; padding: 9px 6px; border-radius: 10px; background: var(--btn-bg); border: 1px solid var(--line-strong); transition: all 180ms var(--lcj-ease-std); }
+.lcj .seg button:hover { border-color: rgba(48, 77, 187, 0.4); color: var(--t-primary); }
+.lcj .seg button.on { background: #304DBB; color: #fff; border-color: transparent; box-shadow: 0 6px 16px -6px rgba(48, 77, 187, 0.5); }
+.lcj .sched { margin-top: 12px; display: grid; grid-template-rows: 0fr; transition: grid-template-rows 360ms var(--lcj-ease-out); }
+.lcj .sched.open { grid-template-rows: 1fr; }
+.lcj .sched__in { overflow: hidden; min-height: 0; }
+.lcj .sched__hd { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--t-muted); padding: 10px 0 4px; }
+.lcj .srow { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-top: 1px solid var(--line); font-size: 12.5px; }
+.lcj .srow .lbl { color: var(--t-secondary); } .lcj .srow .amt { font-family: var(--font-mono); color: var(--t-primary); } .lcj .srow .due { font-family: var(--font-mono); font-size: 11px; color: var(--t-muted); } .lcj .srow .paid { font-family: var(--font-mono); font-size: 11px; color: #10B981; }
+
+/* ============================================================
+   §4b Origination — steps (no title)
+   ============================================================ */
+.lcj .steps { display: flex; flex-direction: column; gap: 0; }
+.lcj .step { display: grid; grid-template-columns: 30px 1fr; gap: 12px; padding: 7px 0; position: relative; }
+.lcj .step__rail { position: absolute; left: 14px; top: 20px; bottom: -7px; width: 2px; background: var(--line-strong); }
+.lcj .step:last-child .step__rail { display: none; }
+.lcj .step__dot { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; z-index: 1; }
+.lcj .step__dot.done { background: linear-gradient(135deg, #10B981, #22D3EE); }
+.lcj .step__dot.active { background: rgba(48, 77, 187, 0.14); border: 2px solid #5B6DD8; }
+.lcj .step__dot.active i { width: 7px; height: 7px; border-radius: 50%; background: #5B6DD8; }
+.lcj .step__dot svg { width: 15px; height: 15px; }
+.lcj .step b { font-size: 14px; font-weight: 500; display: block; color: var(--t-primary); }
+.lcj .step span { font-family: var(--font-mono); font-size: 10.5px; color: var(--t-muted); }
+.lcj .org-foot { margin-top: auto; padding-top: 14px; }
+
+/* ============================================================
+   §4c Decisioning — gauge (no title)
+   ============================================================ */
+.lcj .dec-wrap { display: flex; flex-direction: column; height: 100%; }
+.lcj .gauge { position: relative; width: 150px; height: 82px; margin: 2px auto 0; }
+.lcj .gauge svg { width: 150px; height: 82px; overflow: visible; }
+.lcj .gauge__track { stroke: var(--track); }
+.lcj .gauge__arc { stroke-dasharray: var(--len); stroke-dashoffset: var(--len); transition: stroke-dashoffset 1200ms var(--lcj-ease-out); }
+.lcj .card.in .gauge__arc { stroke-dashoffset: var(--off); }
+.lcj .gauge__needle { stroke: var(--t-primary); }
+.lcj .gauge__num { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; font-size: 28px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; color: var(--t-primary); }
+.lcj .gauge-cap { text-align: center; font-family: var(--font-mono); font-size: 10px; color: var(--t-muted); margin-top: 5px; }
+.lcj .dec-rows { margin-top: auto; padding-top: 12px; }
+.lcj .dec-row { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; padding: 6px 0; }
+.lcj .dec-row + .dec-row { border-top: 1px solid var(--line); }
+.lcj .dec-row .k { color: var(--t-secondary); } .lcj .dec-row .v { font-family: var(--font-mono); color: var(--t-primary); white-space: nowrap; }
+
+/* ============================================================
+   §4d Disbursement — destination selector (no title)
+   ============================================================ */
+.lcj .dest { display: flex; flex-direction: column; gap: 8px; }
+.lcj .dest__opt { display: flex; align-items: center; gap: 11px; padding: 9px 12px; border-radius: 11px; background: var(--btn-bg); border: 1px solid var(--line-strong); cursor: pointer; transition: all 180ms var(--lcj-ease-std); }
+.lcj .dest__opt:hover { border-color: rgba(48, 77, 187, 0.35); }
+.lcj .dest__opt.on { background: rgba(34, 211, 238, 0.10); border-color: rgba(34, 211, 238, 0.55); }
+.lcj .dest__ic { width: 24px; height: 24px; color: var(--t-secondary); flex: none; } .lcj .dest__opt.on .dest__ic { color: #22D3EE; }
+.lcj .dest__ic svg { width: 24px; height: 24px; }
+.lcj .dest__t { flex: 1; font-size: 13px; } .lcj .dest__t b { font-weight: 500; color: var(--t-primary); } .lcj .dest__t span { display: block; font-family: var(--font-mono); font-size: 10px; color: var(--t-muted); }
+.lcj .dest__rad { width: 18px; height: 18px; border-radius: 50%; border: 1.8px solid var(--line-strong); display: grid; place-items: center; flex: none; }
+.lcj .dest__opt.on .dest__rad { border-color: #22D3EE; background: linear-gradient(135deg, #22D3EE, #5B8DEF); }
+.lcj .dest__rad svg { width: 11px; height: 11px; opacity: 0; } .lcj .dest__opt.on .dest__rad svg { opacity: 1; }
+.lcj .dest-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 12px; }
+
+/* ============================================================
+   §4e Collections — cycle (no title)
+   ============================================================ */
+.lcj .col-head { display: flex; justify-content: space-between; align-items: center; }
+.lcj .col-cycle { margin-top: 16px; }
+.lcj .col-cyclehd { display: flex; justify-content: space-between; font-size: 12.5px; }
+.lcj .col-cyclehd .k { color: var(--t-secondary); } .lcj .col-cyclehd .v { font-family: var(--font-mono); color: var(--t-muted); }
+.lcj .col-bar { height: 8px; border-radius: 4px; background: var(--track); overflow: hidden; margin-top: 8px; }
+.lcj .col-bar > span { display: block; height: 100%; width: 0; border-radius: 4px; background: linear-gradient(90deg, #5B6DD8, #22D3EE); transition: width 1100ms var(--lcj-ease-out); }
+.lcj .card.in .col-bar > span { width: 50%; }
+.lcj .col-list { margin-top: auto; padding-top: 12px; }
+.lcj .col-row { display: flex; justify-content: space-between; font-size: 12.5px; padding: 7px 0; }
+.lcj .col-row + .col-row { border-top: 1px solid var(--line); }
+.lcj .col-row .k { color: var(--t-secondary); } .lcj .col-row .v { font-family: var(--font-mono); color: var(--t-primary); }
+
+/* ============================================================
+   §4f Repayment structures — chart + toggle (no title)
+   ============================================================ */
+/* repayment — stacked to fit a single equal cell */
+.lcj .rs-wrap { display: flex; flex-direction: column; gap: 12px; height: 100%; }
+.lcj .rs-chart { display: flex; flex-direction: column; min-width: 0; flex: 1; min-height: 0; }
+.lcj .rs-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.lcj .rs-bars { flex: 1; display: flex; align-items: flex-end; gap: 6px; min-height: 0; padding-top: 10px; }
+.lcj .rs-bar { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
+.lcj .rs-seg { width: 100%; border-radius: 2px 2px 0 0; height: 0; transition: height 620ms var(--lcj-ease-out); }
+.lcj .rs-seg.int { background: #22D3EE; } .lcj .rs-seg.prin { background: #304DBB; border-radius: 0; }
+.lcj .rs-bar .rs-seg:first-child { border-radius: 3px 3px 0 0; }
+.lcj .rs-x { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 10px; color: var(--t-muted); margin-top: 8px; }
+.lcj .rs-side { display: flex; flex-direction: column; gap: 10px; }
+.lcj .rs-toggle { display: flex; flex-direction: row; gap: 6px; }
+.lcj .rs-toggle button { flex: 1; text-align: center; font-family: var(--font-body); font-size: 11.5px; font-weight: 500; color: var(--t-secondary); cursor: pointer; padding: 8px 6px; border-radius: 9px; background: var(--btn-bg); border: 1px solid var(--line-strong); transition: all 180ms var(--lcj-ease-std); }
+.lcj .rs-toggle button:hover { border-color: rgba(48, 77, 187, 0.35); }
+.lcj .rs-toggle button.on { background: #304DBB; color: #fff; border-color: transparent; }
+.lcj .rs-stat { display: flex; align-items: baseline; justify-content: space-between; }
+.lcj .rs-legend { display: flex; gap: 12px; }
+.lcj .rs-legend span { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--t-secondary); }
+.lcj .rs-legend i { width: 9px; height: 9px; border-radius: 2px; }
+
+/* ---- responsive ---- */
+@media (max-width: 980px) {
+  .lcj .bento { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .lcj .bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .lcj .cell { min-height: 404px; }
+}
+
+/* ---- reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .lcj .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .lcj .meter > span, .lcj .col-bar > span { transition: none; }
+  .lcj .card { transition: none; }
+  .lcj .card:hover { transform: none; }
+  .lcj .gauge__arc { transition: none; }
+  .lcj .rs-seg { transition: none; }
+}

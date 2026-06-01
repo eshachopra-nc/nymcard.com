@@ -122,7 +122,9 @@ export function IndustryPage(props: IndustryPageProps) {
 
   return (
     <main>
-      {/* §1 Hero */}
+      {/* §1 Hero — text-forward when no approved visual is wired (matches
+          product pages); flips to a 2-column hero the moment a `hero.visual`
+          is provided. */}
       <PageHero
         topLine={hero.topLine}
         headline={hero.headline}
@@ -131,6 +133,7 @@ export function IndustryPage(props: IndustryPageProps) {
         secondaryCta={hero.secondaryCta}
         visualLabel={hero.visualLabel}
         visual={hero.visual}
+        textOnly={!hero.visual}
       />
 
       {/* Trust band — real network/certification line (no placeholder

@@ -36,17 +36,11 @@ import {
   RibbonField,
   RibbonStreak,
   ScanSweep,
-  SectionAtmosphere,
   SectionReveal,
-  SpotlightCard,
-  TonalDepth,
   TopologyTraces,
   visual,
-  type AtmospherePreset,
 } from "@/components/visuals";
 import {
-  AIExtraction,
-  type AIExtractionChip,
   CardGrid,
   type CardGridItem,
   CodeArtifact,
@@ -54,29 +48,20 @@ import {
   CrossSellBanner,
   type CrossSellItem,
   CTASection,
-  DenseCapabilityCard,
   DeveloperBlock,
   FAQ,
   type FAQItem,
-  FeatureCard,
   FeatureShowcase,
   FloatingOperationalPanel,
-  InfraDiagramFrame,
-  IntegrationsDiagram,
-  type IntegrationNode,
   OutcomeChips,
   type OutcomeChip,
   PageHero,
   PlatformChecklist,
   PrincipalMemberTrustLine,
   ProductCard,
-  ProductSpotlight,
   RailCarousel,
   type RailCarouselRichItem,
   type RailCarouselSparseItem,
-  RibbonInterlude,
-  ScaleStatsRibbon,
-  type ScaleStat,
   SplitEditorial,
   TextImageRow,
   TrustBar,
@@ -85,11 +70,10 @@ import {
 } from "@/components/composition";
 import { CardTreatment, CARD_TREATMENTS } from "@/components/visuals";
 import {
-  CardFanStack,
-  CardSurface,
   NCoreStack,
   PaymentCard,
 } from "@/components/artifacts";
+import { HandoffVisual } from "@/components/sections/product-uis";
 import {
   CardsUI,
   LendingUI,
@@ -97,6 +81,15 @@ import {
   SettlementUI,
   FinancialCrimeUI,
   ReconciliationUI,
+} from "@/components/sections/product-uis";
+import {
+  CardLinkedCreditUI,
+  OriginationUI,
+  DecisioningUI,
+  DisbursementUI,
+  CollectionsUI,
+  RepaymentStructuresUI,
+  DecisioningVisualization,
 } from "@/components/sections/product-uis";
 import { Button } from "@/components/ui/button";
 import {
@@ -652,60 +645,6 @@ const SAMPLE_OUTCOME_CHIPS: [OutcomeChip, OutcomeChip, OutcomeChip] = [
   },
 ];
 
-const PRESETS: AtmospherePreset[] = [
-  "calm",
-  "technical",
-  "signal",
-  "kinetic",
-  "peak",
-];
-
-// ── Phase-1 primitive sample data ──────────────────────────────────────────
-// The styleguide demos for §8.23 / §8.24 use realistic NymCard-flavored
-// placeholder figures. The real numbers are owned by marketing — these are
-// representative shapes, not claims.
-
-// Sample data for §8.23 ScaleStatsRibbon — four NymCard-flavored proof-of-
-// scale stats. Mix of formats so the count-up + formatter logic exercises
-// all branches.
-const SAMPLE_SCALE_STATS: ScaleStat[] = [
-  {
-    label: "Transactions processed on nCore",
-    value: 2_800_000_000,
-    format: "compact",
-  },
-  {
-    label: "Cards issued across programmes",
-    value: 12_400_000,
-    format: "compact",
-  },
-  {
-    label: "Settlement volume per year",
-    value: 18_300_000_000,
-    prefix: "$",
-    format: "compact",
-  },
-  {
-    label: "Platform uptime",
-    value: 99.99,
-    suffix: "%",
-    format: "number",
-  },
-];
-
-// Sample data for §8.24 IntegrationsDiagram — the canonical six NymCard
-// network integrations from 00-strategy/about-nymcard/architecture.md:
-// Visa, Mastercard, Visa Direct, Mastercard Cross-Border, Western Union,
-// MoneyGram. Labels render in Geist Mono via the primitive's text fallback.
-const SAMPLE_INTEGRATION_NODES: IntegrationNode[] = [
-  { name: "Visa" },
-  { name: "Mastercard" },
-  { name: "Visa Direct" },
-  { name: "Mastercard XB" },
-  { name: "Western Union" },
-  { name: "MoneyGram" },
-];
-
 // ── Design-token reference data ────────────────────────────────────────────
 // The values shown in the Foundations section, mirrored from design-system.md
 // §2 (type), §3 (colour) and §4 (spacing).
@@ -914,10 +853,8 @@ const NAV: { category: string; items: { label: string; id: string }[] }[] = [
       { label: "The ribbon", id: "family" },
       { label: "Product-page ribbon — ProductHeroRibbon", id: "ribbon-streak" },
       { label: "Ribbon — violet anchor proposal", id: "ribbon-violet" },
-      { label: "Ribbon recurrence — RibbonInterlude", id: "ribbon-recurrence" },
       { label: "Crosshair-marker rails", id: "crosshair-rails" },
       { label: "Supporting systems", id: "supporting" },
-      { label: "Atmosphere presets", id: "presets" },
       { label: "CardTreatment library", id: "card-treatments" },
     ],
   },
@@ -934,12 +871,9 @@ const NAV: { category: string; items: { label: string; id: string }[] }[] = [
     category: "Card surfaces",
     items: [
       { label: "ProductCard", id: "productcard" },
-      { label: "DenseCapabilityCard", id: "densecapabilitycard" },
       { label: "FloatingOperationalPanel", id: "floatingoperationalpanel" },
-      { label: "FeatureCard", id: "featurecard" },
-      { label: "AIExtraction", id: "aiextraction" },
       { label: "UIContainer / UIPlaceholder", id: "uicontainer-and-uiplaceholder" },
-      { label: "Homepage product UIs (§8.8 v4)", id: "product-uis" },
+      { label: "Homepage product UIs — coded surfaces on the glass kit (§8.8 v6)", id: "product-uis" },
     ],
   },
   {
@@ -956,13 +890,9 @@ const NAV: { category: string; items: { label: string; id: string }[] }[] = [
       { label: "TextImageRow — §8.20", id: "section-textimagerow" },
       { label: "PlatformChecklist — §8.21", id: "section-platformchecklist" },
       { label: "DeveloperBlock — §8.22", id: "section-developerblock" },
-      { label: "ScaleStatsRibbon — §8.23", id: "section-scalestatsribbon" },
-      { label: "IntegrationsDiagram — §8.24", id: "section-integrationsdiagram" },
       { label: "TrustBar — §8.25", id: "section-trustbar" },
       { label: "CardGrid", id: "section-cardgrid" },
       { label: "SplitEditorial", id: "section-spliteditorial" },
-      { label: "ProductSpotlight", id: "section-productspotlight" },
-      { label: "InfraDiagramFrame", id: "section-infradiagramframe" },
     ],
   },
   {
@@ -1358,20 +1288,6 @@ export default function VisualSystemPage() {
           </Stage>
         </Primitive>
 
-        <CompositionDemo
-          title="Hover lighting response"
-          desc="The responsive motion — the SpotlightCard's operational sheen and cursor-tracked light pool, over the design-system §8.6 hover sequence. Shown at a realistic product-card size."
-        >
-          <div className="relative overflow-hidden rounded-3xl border border-surface-border-subtle bg-surface-soft p-10 sm:p-14">
-            <KineticRibbon intensity="calm" focus="top-right" />
-            <div className="relative z-10 mx-auto max-w-[440px]">
-              <SpotlightCard>
-                <SampleCardBody title="Card issuing" />
-              </SpotlightCard>
-            </div>
-          </div>
-        </CompositionDemo>
-
         {/* ── HOVER VOCABULARY ──────────────────────────────────────────── */}
         <div id="hover-vocabulary" className="scroll-mt-12" />
         <CompositionDemo
@@ -1573,49 +1489,6 @@ export default function VisualSystemPage() {
           </div>
         </Container>
 
-        {/* ── RIBBON RECURRENCE — RibbonInterlude ───────────────────────────
-            The mid-page ribbon home. Phase 1.5 brings the kinetic ribbon
-            beyond the hero — CTASection (§8.14) is the closing echo,
-            RibbonInterlude is the connective beat between content sections. */}
-        <Container>
-          <div id="ribbon-recurrence" className="mt-16 scroll-mt-24">
-            <Heading
-              title="RibbonInterlude — the mid-page ribbon"
-              desc="The slim full-bleed kinetic-ribbon band that sits between content sections. The third visible home for the ribbon: hero opens, RibbonInterlude punctuates, CTASection closes. Hairline top + bottom edges so it reads as a deliberate interruption, not a section. Light, light/calm, and dark variants."
-            />
-            <div className="mt-5 space-y-2">
-              <div className="rounded-md bg-surface-white px-6 py-10 text-center font-mono text-[10px] uppercase tracking-wider text-text-muted dark:bg-surface-dark-elevated dark:text-text-dark-secondary">
-                A preceding section
-              </div>
-              <RibbonInterlude intensity="ambient" focus="bottom-right" height="md" />
-              <div className="rounded-md bg-surface-white px-6 py-10 text-center font-mono text-[10px] uppercase tracking-wider text-text-muted dark:bg-surface-dark-elevated dark:text-text-dark-secondary">
-                A following section
-              </div>
-            </div>
-            <div className="mt-8 space-y-2">
-              <div className="rounded-md bg-surface-white px-6 py-10 text-center font-mono text-[10px] uppercase tracking-wider text-text-muted dark:bg-surface-dark-elevated dark:text-text-dark-secondary">
-                Quiet variant — intensity=&ldquo;calm&rdquo;
-              </div>
-              <RibbonInterlude intensity="calm" focus="left" height="sm" />
-              <div className="rounded-md bg-surface-white px-6 py-10 text-center font-mono text-[10px] uppercase tracking-wider text-text-muted dark:bg-surface-dark-elevated dark:text-text-dark-secondary">
-                A following section
-              </div>
-            </div>
-            <div className="mt-8 space-y-2">
-              <div className="dark rounded-md bg-surface-dark-base px-6 py-10 text-center font-mono text-[10px] uppercase tracking-wider text-text-dark-secondary">
-                Dark variant — tone=&ldquo;dark&rdquo;
-              </div>
-              <RibbonInterlude intensity="peak" focus="bottom-right" tone="dark" height="lg" />
-              <div className="dark rounded-md bg-surface-dark-base px-6 py-10 text-center font-mono text-[10px] uppercase tracking-wider text-text-dark-secondary">
-                A following section
-              </div>
-            </div>
-            <p className="mt-4 max-w-2xl font-body text-[12px] leading-relaxed text-text-muted dark:text-text-dark-muted">
-              Use one per page maximum. The ribbon stays a signature — three homes (hero, RibbonInterlude, CTASection), no more.
-            </p>
-          </div>
-        </Container>
-
         {/* ── CROSSHAIR-MARKER RAILS ────────────────────────────────────────
             Locked page-rail signature. The production `CrosshairRails`
             primitive (components/visuals/CrosshairRails.tsx) ships in Phase 1
@@ -1813,29 +1686,6 @@ export default function VisualSystemPage() {
               </GlassPanel>
             </Centered>
           </Stage>
-          <Stage label="product card lighting" size="md">
-            <KineticRibbon intensity="calm" />
-            <div className="grid h-full place-items-center p-6">
-              <SpotlightCard className="w-full max-w-[240px]">
-                <SampleCardBody title="Module" />
-              </SpotlightCard>
-            </div>
-          </Stage>
-        </Primitive>
-
-        <Primitive
-          title="Tonal depth system"
-          desc="How tonal atmospheric depth is constructed across the system — the invisible environmental engine beneath the site. Not objects or stacked planes: layered tone. A calm tonal fade, a directional density composition, and a deep midnight-navy spatial field."
-        >
-          <Stage label="tonal fade" size="lg">
-            <TonalDepth variant="fade" />
-          </Stage>
-          <Stage label="directional density" size="lg">
-            <TonalDepth variant="directional" />
-          </Stage>
-          <Stage label="deep spatial atmosphere · dark" size="lg" dark>
-            <TonalDepth variant="spatial" />
-          </Stage>
         </Primitive>
 
         <Primitive
@@ -1852,27 +1702,6 @@ export default function VisualSystemPage() {
           <Stage label="topology undercurrent · dark" dark>
             <KineticRibbon intensity="calm" />
             <TopologyTraces density="medium" tone="cyan" />
-          </Stage>
-        </Primitive>
-
-        {/* ── ATMOSPHERE PRESETS ────────────────────────────────────────── */}
-        <Group
-          index="Presets"
-          label="Atmosphere presets"
-          lede="Pre-composed background bundles for a Section's `backgrounds` slot. Each is led by the atmosphere, then given a controlled, localised colour moment — so every preset has its own identity."
-        />
-
-        <Primitive
-          title="Section atmospheres — v2 (Phase 1.5)"
-          desc="The pre-composed atmosphere bundles, paired with the v2 KineticRibbon intensity reset. calm is near-silence (deeply dissolved, indigo-led); ambient is the new default speaking volume (cyan-led, recessive bloom); peak holds the energised moment. Each preset has its own identity — different placements, tones, supporting primitives — so the row reads as five distinct states, never one dimmer."
-        >
-          {PRESETS.map((preset) => (
-            <Stage key={preset} label={`preset · ${preset}`} size="md">
-              <SectionAtmosphere preset={preset} />
-            </Stage>
-          ))}
-          <Stage label="preset · peak · dark" size="md" dark>
-            <SectionAtmosphere preset="peak" />
           </Stage>
         </Primitive>
 
@@ -2095,41 +1924,6 @@ export default function VisualSystemPage() {
           />
         </CompositionDemo>
 
-        {/* ── DENSECAPABILITYCARD ───────────────────────────────────────── */}
-        <Group
-          index="DenseCapabilityCard"
-          label="DenseCapabilityCard"
-          lede="A denser enterprise surface — a metadata header, then capabilities in a structural hairline grid over a subtle topology undercurrent. For API capabilities and compliance modules."
-        />
-        <CompositionDemo
-          title="DenseCapabilityCard"
-          desc="Eyebrow + title + metadata row, then grouped capability lists in a hairline grid."
-        >
-          <DenseCapabilityCard
-            eyebrow="Platform API"
-            title="Issuing API capabilities"
-            meta={["v2.4", "REST + webhooks", "EU · MENA"]}
-            groups={[
-              {
-                label: "Card lifecycle",
-                items: [
-                  "Create and activate cards",
-                  "Freeze, replace and terminate",
-                  "Spend controls and limits",
-                ],
-              },
-              {
-                label: "Programme controls",
-                items: [
-                  "Multi-currency wallets",
-                  "Authorisation rules",
-                  "Settlement and reconciliation",
-                ],
-              },
-            ]}
-          />
-        </CompositionDemo>
-
         {/* ── FLOATINGOPERATIONALPANEL ──────────────────────────────────── */}
         <Group
           index="FloatingOperationalPanel"
@@ -2155,108 +1949,6 @@ export default function VisualSystemPage() {
               />
             </div>
           </div>
-        </CompositionDemo>
-
-        {/* ── FEATURECARD ───────────────────────────────────────────────── */}
-        <Group
-          index="FeatureCard"
-          label="FeatureCard"
-          lede="A large asymmetric bento card for homepage product spotlights — editorial spacing, atmosphere integrated into the surface, one directional light, an abstract visual zone. The flagship cell on the bento layout."
-        />
-        <CompositionDemo
-          title="FeatureCard — light & dark"
-          desc="Two instances on different surfaces. The card is the same primitive; the page tone changes around it."
-        >
-          <FeatureCard
-            eyebrow="Card issuing"
-            headline="Issue cards on infrastructure built for settlement speed"
-            body="A programmable issuing core for virtual and physical cards — multi-currency, region-aware, and ready to scale across every NymCard programme."
-            zoneLabel="issuing topology"
-          />
-          <div className="dark">
-            <FeatureCard
-              eyebrow="Embedded lending"
-              headline="Originate and service credit inside your own product"
-              body="Lending rails that sit natively in the customer journey — underwriting, disbursement and repayment composed into one operational surface."
-              zoneLabel="lending core"
-            />
-          </div>
-        </CompositionDemo>
-
-        {/* ── AIEXTRACTION ──────────────────────────────────────────────── */}
-        <Group
-          index="AIExtraction"
-          label="AIExtraction — §9.5.1 AI extraction"
-          lede="The AI-native data-extraction composition as a reusable primitive — the §9.5.1 choreographed loop (surface materialisation → scan ripple → contextual chip reveal) wired into one component. Two variants: linear (document / panel / ledger surfaces) and radial (biometric / face-scan surfaces). Phase 1.5 ships this as a styleguide demo; wiring into product pages comes in Phase 2 once real product UIs land."
-        />
-        <CompositionDemo
-          title="Linear variant — document extraction"
-          desc="The downward scan ripple sweeping a document surface. Materialises on view-in (scale-up + drift + blur), the cyan ripple travels top-to-bottom, then chips reveal with ≥300ms stagger and parallax-by-scale-delta — foreground chip scales 0.88 → 1, background chips 0.90 → 1. Status label flickers softly during the scan phase. Light and dark. prefers-reduced-motion settles everything to a static end state."
-        >
-          <div className="relative overflow-visible rounded-3xl border border-surface-border-subtle bg-surface-soft p-10 sm:p-14 lg:pr-72">
-            <KineticRibbon intensity="ambient" focus="top-right" />
-            <div className="relative z-10 mx-auto max-w-md">
-              <AIExtraction
-                variant="linear"
-                statusLabel="SCAN IN PROCESS…"
-                chips={[
-                  { label: "Vendor", value: "Acme Logistics", depth: "foreground" },
-                  { label: "Amount", value: "AED 12,480.00", depth: "foreground" },
-                  { label: "Status", value: "Authorised", depth: "background" },
-                ]}
-              />
-            </div>
-          </div>
-          <div className="dark relative overflow-visible rounded-3xl bg-surface-dark-base p-10 sm:p-14 lg:pr-72">
-            <KineticRibbon intensity="ambient" focus="bottom-right" />
-            <div className="relative z-10 mx-auto max-w-md">
-              <AIExtraction
-                variant="linear"
-                statusLabel="SCAN IN PROCESS…"
-                chips={[
-                  { label: "Vendor", value: "Acme Logistics", depth: "foreground" },
-                  { label: "Amount", value: "AED 12,480.00", depth: "foreground" },
-                  { label: "Status", value: "Authorised", depth: "background" },
-                ]}
-              />
-            </div>
-          </div>
-        </CompositionDemo>
-        <CompositionDemo
-          title="Radial variant — biometric extraction"
-          desc="The concentric-rings scan for biometric / face-scan surfaces with no reading direction. The Face ID aesthetic — three rings expand outward from the centre during the scan phase. Chip reveal logic identical to the linear variant; only the scan motion changes. Light and dark."
-        >
-          <div className="relative overflow-visible rounded-3xl border border-surface-border-subtle bg-surface-soft p-10 sm:p-14 lg:pr-72">
-            <KineticRibbon intensity="ambient" focus="left" />
-            <div className="relative z-10 mx-auto max-w-sm">
-              <AIExtraction
-                variant="radial"
-                statusLabel="ANALYSING…"
-                chips={[
-                  { label: "Match", value: "Verified", depth: "foreground" },
-                  { label: "Liveness", value: "Confirmed", depth: "foreground" },
-                  { label: "Confidence", value: "98.4%", depth: "background" },
-                ]}
-              />
-            </div>
-          </div>
-          <div className="dark relative overflow-visible rounded-3xl bg-surface-dark-base p-10 sm:p-14 lg:pr-72">
-            <KineticRibbon intensity="ambient" focus="top-right" />
-            <div className="relative z-10 mx-auto max-w-sm">
-              <AIExtraction
-                variant="radial"
-                statusLabel="ANALYSING…"
-                chips={[
-                  { label: "Match", value: "Verified", depth: "foreground" },
-                  { label: "Liveness", value: "Confirmed", depth: "foreground" },
-                  { label: "Confidence", value: "98.4%", depth: "background" },
-                ]}
-              />
-            </div>
-          </div>
-          <p className="font-body text-[12px] leading-relaxed text-text-muted dark:text-text-dark-muted">
-            Styleguide demo only — AIExtraction is documented in §9.5.1 and not yet wired into a marketing page. Adoption lands in Phase 2 alongside real product UIs.
-          </p>
         </CompositionDemo>
 
         {/* ── UICONTAINER / UIPLACEHOLDER ───────────────────────────────── */}
@@ -2332,94 +2024,102 @@ export default function VisualSystemPage() {
           </div>
         </CompositionDemo>
 
-        {/* ── HOMEPAGE PRODUCT UIs (§8.8 v5) ────────────────────────────── */}
+        {/* ── HOMEPAGE PRODUCT UIs — coded surfaces on the glass kit (§8.8 v6) ── */}
         <Group
           index="Product UIs"
-          label="Homepage product UIs"
-          lede="The six product-cell visuals that fill the homepage Products bento (§8.8 v5 — owner-locked 2026-05-26). Each cell loads a hand-crafted Claude Design SVG from /public/handoff/ on a soft tonal bed, with a subtle ambient float. The TypeScript layer owns composition + motion only; no procedural visual generation lives in the product UIs anymore. Three prior procedural passes (particle storms, isometric cubes, wireframe nodes, mono dashboard chrome) were rejected as sub-Stripe quality — this rebuild composes what Claude Design already shipped."
+          label="Homepage product UIs — coded surfaces on the glass kit"
+          lede="The six homepage Products cells (§8.8 v6). Each is its OWN bespoke, hand-authored, tokenized React + SVG surface — distinct from one another and from the hero carousel — composed on the CANONICAL GLASS KIT (§8.1): GlassSurface (the frosted material, mirroring GlassPanel) floating on GlassAtmosphere (the rich, theme-aware, restrained cool field). This is the crux the whole system turns on — glass reads as glass only over a rich field, never a flat bed. Navy/cyan-led; purple appears only as an object accent (the Cards object), never the field. The prior v5 direction (every cell loading a reused /public/handoff SVG on a faint tonal bed) read flat and samey and was retired. Bar to match: /visual-system/glass. Each surface reveals on scroll-in and reacts on hover; cool-palette only; light + dark; reduced-motion safe."
         />
 
         <CompositionDemo
-          title="Cards — handoff cards-fan"
-          desc="Loads /handoff/cards.svg — the three-card layered fan. Slate-tonal bed. The wide hero cell of the bento; the asset is near-square (336×360) so it sits centred in the col-span-8 region with generous breathing room."
+          title="The six homepage cells — coded surfaces, light + dark"
+          desc="Cards · Lending · Money Movement · Settlement · Financial Crime · Reconciliation. Each fills its cell flush and floats glass over its own restrained cool field; the field deepens (not inverts to a light pane) on dark."
         >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="h-[380px] overflow-hidden rounded-2xl ring-1 ring-inset ring-surface-border-subtle/60">
-              <CardsUI />
+          {([false, true] as const).map((isDark) => (
+            <div
+              key={isDark ? "dark" : "light"}
+              className={cn(
+                "mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 first:mt-0",
+                isDark && "dark",
+              )}
+            >
+              {[
+                CardsUI,
+                LendingUI,
+                MoneyMovementUI,
+                SettlementUI,
+                FinancialCrimeUI,
+                ReconciliationUI,
+              ].map((Surface, i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    "relative aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-inset",
+                    isDark
+                      ? "bg-surface-dark-elevated/40 ring-surface-dark-border"
+                      : "bg-surface-white ring-surface-border-subtle/60",
+                  )}
+                >
+                  <Surface />
+                </div>
+              ))}
             </div>
-            <div className="dark h-[380px] overflow-hidden rounded-2xl bg-surface-dark-base">
-              <CardsUI />
+          ))}
+        </CompositionDemo>
+
+        {/* ── LENDING PRODUCT-PAGE SURFACES (/products/lending §4 + §5) ──── */}
+        <Group
+          index="Product UIs"
+          label="Lending product-page surfaces — distinct coded UIs"
+          lede="The Lending product page (/products/lending) gets bespoke, hand-authored, tokenized React + SVG surfaces — one per credit-journey stage in §4 and a live decisioning visualization in §5 — replacing the prior repeated handoff-SVG (every §4 cell resolved to the same embedded-lending.svg). Each §4 surface depicts THAT stage and is visually distinct: a card detail panel, an onboarding stepper, a decision-rules score gauge, a disbursement-target selector, a billing-cycle timeline, and a repayment-structure comparison chart. Each has a scroll-into-view entrance and a group-hover reaction; cool-palette only; light + dark; reduced-motion safe. Cards are straight (never tilted)."
+        />
+
+        <CompositionDemo
+          title="§4 Credit journey — six distinct surfaces (light + dark)"
+          desc="Card-linked credit (revolving meter + electric-violet card) · Origination (KYC/KYB stepper) · Decisioning (sources → score vs threshold) · Disbursement (card/account/wallet target) · Collections (billing-cycle timeline) · Repayment structures (three structure shapes compared). Each fills its bento cell flush; the per-cell tonal bed flips to a dark cool wash on dark."
+        >
+          {([false, true] as const).map((isDark) => (
+            <div
+              key={isDark ? "dark" : "light"}
+              className={cn(
+                "grid grid-cols-1 gap-4 overflow-hidden rounded-2xl p-4 sm:grid-cols-2 lg:auto-rows-[14rem] lg:grid-cols-6",
+                isDark
+                  ? "dark bg-surface-dark-base ring-1 ring-inset ring-surface-dark-border"
+                  : "bg-surface-white ring-1 ring-inset ring-surface-border-subtle",
+              )}
+            >
+              {(
+                [
+                  { Comp: CardLinkedCreditUI, span: "lg:col-span-3", tall: true },
+                  { Comp: OriginationUI, span: "lg:col-span-3", tall: false },
+                  { Comp: DecisioningUI, span: "lg:col-span-3", tall: false },
+                  { Comp: DisbursementUI, span: "lg:col-span-3", tall: false },
+                  { Comp: CollectionsUI, span: "lg:col-span-3", tall: false },
+                  { Comp: RepaymentStructuresUI, span: "lg:col-span-6", tall: true },
+                ] as const
+              ).map(({ Comp, span, tall }, i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    "group relative overflow-hidden rounded-2xl border",
+                    "border-surface-border-subtle dark:border-surface-dark-border",
+                    span,
+                    tall && "lg:row-span-2",
+                  )}
+                >
+                  <Comp />
+                </div>
+              ))}
             </div>
-          </div>
+          ))}
         </CompositionDemo>
 
         <CompositionDemo
-          title="Lending — handoff embedded-lending"
-          desc="Loads /handoff/embedded-lending.svg — the decision-in-92ms moment with $4,200 approved and the four-instalment chip below. Pale cyan bed."
+          title="§5 Decisioning visualization — dark-only"
+          desc="Three applicants run through the configured rules in sequence: A clears the threshold (approved with a calculated limit), B falls below (declined, reasoning shown), C is routed to manual review. Values are coherent with the section's JSON config (threshold 720, limit range $500–$25,000). Lives beneath the CodeArtifact on the dark §5 frame. Reduced-motion renders the resolved end-state statically."
         >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="h-[380px] overflow-hidden rounded-2xl ring-1 ring-inset ring-surface-border-subtle/60">
-              <LendingUI />
-            </div>
-            <div className="dark h-[380px] overflow-hidden rounded-2xl bg-surface-dark-base">
-              <LendingUI />
-            </div>
-          </div>
-        </CompositionDemo>
-
-        <CompositionDemo
-          title="Money Movement — handoff money-movement"
-          desc="Loads /handoff/money-movement.svg — the wireframe globe with USD / EUR pills floating in the field, animated cyan arcs in the asset itself. Porcelain bed."
-        >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="h-[300px] overflow-hidden rounded-2xl ring-1 ring-inset ring-surface-border-subtle/60">
-              <MoneyMovementUI />
-            </div>
-            <div className="dark h-[300px] overflow-hidden rounded-2xl bg-surface-dark-base">
-              <MoneyMovementUI />
-            </div>
-          </div>
-        </CompositionDemo>
-
-        <CompositionDemo
-          title="Settlement — handoff stablecoin-settlement"
-          desc="Loads /handoff/stablecoin-settlement.svg — the USD → USDC → USD triptych across an on-ramp / off-ramp frame, 187ms settled-final, no SWIFT. Indigo bed."
-        >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="h-[300px] overflow-hidden rounded-2xl ring-1 ring-inset ring-surface-border-subtle/60">
-              <SettlementUI />
-            </div>
-            <div className="dark h-[300px] overflow-hidden rounded-2xl bg-surface-dark-base">
-              <SettlementUI />
-            </div>
-          </div>
-        </CompositionDemo>
-
-        <CompositionDemo
-          title="Financial Crime — handoff financial-crime"
-          desc="Loads /handoff/financial-crime.svg — the live fraud monitor card catching unusual velocity ($9,820 flagged, Marina P., three transactions in 60 seconds). Mist bed."
-        >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="h-[300px] overflow-hidden rounded-2xl ring-1 ring-inset ring-surface-border-subtle/60">
-              <FinancialCrimeUI />
-            </div>
-            <div className="dark h-[300px] overflow-hidden rounded-2xl bg-surface-dark-base">
-              <FinancialCrimeUI />
-            </div>
-          </div>
-        </CompositionDemo>
-
-        <CompositionDemo
-          title="Reconciliation — handoff reconciliation"
-          desc="Loads /handoff/reconciliation.svg — card-to-bank matching, 98.4% matched with one chip flagged for review. Violet bed."
-        >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="h-[300px] overflow-hidden rounded-2xl ring-1 ring-inset ring-surface-border-subtle/60">
-              <ReconciliationUI />
-            </div>
-            <div className="dark h-[300px] overflow-hidden rounded-2xl bg-surface-dark-base">
-              <ReconciliationUI />
-            </div>
+          <div className="dark overflow-hidden rounded-2xl bg-surface-dark-base p-6 ring-1 ring-inset ring-surface-dark-border sm:p-8">
+            <DecisioningVisualization />
           </div>
         </CompositionDemo>
 
@@ -2472,23 +2172,29 @@ export default function VisualSystemPage() {
         <div id="section-featureshowcase" className="scroll-mt-12">
           <CompositionDemo
             title="FeatureShowcase — §8.13 feature showcase"
-            desc="The Linear pattern — a two-column header (headline left, body right) over one large product-UI zone. One UI per showcase, never a grid. The header is exactly two columns on desktop. Light and dark (dark is permitted for a single technical showcase)."
+            desc="The Linear pattern — a two-column header (headline left, body right) over one large product-UI zone. No eyebrow: the headline leads (CLAUDE.md v1.5). The UI zone loads a real Claude Design handoff surface (HandoffVisual) — never the grey UIPlaceholder skeleton. One UI per showcase, never a grid. Light and dark (dark is permitted for a single technical showcase)."
           >
             <SectionFrame>
               <FeatureShowcase
-                eyebrow="Card controls"
                 headline="Every spend control, in one operational surface"
                 body="Set limits, freeze a card, route authorisations and reconcile settlement — composed into a single console rather than scattered across screens."
-                uiLabel="controls console"
+                ui={
+                  <div className="aspect-[16/10] w-full sm:aspect-[2/1]">
+                    <HandoffVisual slug="card-issuing" tone="slate" pad="loose" />
+                  </div>
+                }
               />
             </SectionFrame>
             <SectionFrame dark>
               <FeatureShowcase
-                eyebrow="Card controls"
                 headline="Every spend control, in one operational surface"
                 body="Set limits, freeze a card, route authorisations and reconcile settlement — composed into a single console rather than scattered across screens."
                 background="dark"
-                uiLabel="controls console"
+                ui={
+                  <div className="aspect-[16/10] w-full sm:aspect-[2/1]">
+                    <HandoffVisual slug="card-issuing" tone="slate" pad="loose" />
+                  </div>
+                }
               />
             </SectionFrame>
           </CompositionDemo>
@@ -2783,41 +2489,6 @@ export default function VisualSystemPage() {
           </CompositionDemo>
         </div>
 
-        {/* ── ScaleStatsRibbon — §8.23 ───────────────────────────────────── */}
-        <div id="section-scalestatsribbon" className="scroll-mt-12">
-          <CompositionDemo
-            title="ScaleStatsRibbon — §8.23 proof-of-scale dark moment"
-            desc="The proof-of-scale section as a primitive. Count-up stats lead, the kinetic ribbon idles beneath at ambient intensity, a violet glow anchors the row. Always dark — regardless of page theme — and forces .dark locally the way RailCarousel (sparse) does. The second visible home for the signature ribbon outside the hero. prefers-reduced-motion shows final values immediately."
-          >
-            <SectionFrame dark>
-              <ScaleStatsRibbon
-                eyebrow="Scale"
-                headline="The infrastructure already running at scale"
-                body="One programmable core — issuing, lending, payouts and settlement — processed by NymCard across every region."
-                stats={SAMPLE_SCALE_STATS}
-              />
-            </SectionFrame>
-          </CompositionDemo>
-        </div>
-
-        {/* ── IntegrationsDiagram — §8.24 ────────────────────────────────── */}
-        <div id="section-integrationsdiagram" className="scroll-mt-12">
-          <CompositionDemo
-            title="IntegrationsDiagram — §8.24 architecture & connectors story"
-            desc="The Stripe-architecture moment as a primitive. A central nCore hub with radial integration nodes connected by thin cyan lines that carry ambient data-flow pulses. Radial (not grid) because the story is &lsquo;one platform, many networks connecting through it&rsquo; — every node orbits the hub, every line passes through the centre. Default demo wires the canonical six NymCard integrations from architecture.md. Always dark; respects prefers-reduced-motion (no pulses, no entry animation)."
-          >
-            <SectionFrame dark>
-              <IntegrationsDiagram
-                eyebrow="Network"
-                headline="Built-in connectivity across the world's payment networks"
-                body="Visa, Mastercard, Visa Direct, Mastercard Cross-Border, Western Union and MoneyGram — connected to nCore so a programme runs against every rail through a single integration."
-                centerLabel="nCore"
-                nodes={SAMPLE_INTEGRATION_NODES}
-              />
-            </SectionFrame>
-          </CompositionDemo>
-        </div>
-
         {/* ── TrustBar — §8.25 ──────────────────────────────────────────── */}
         <div id="section-trustbar" className="scroll-mt-12">
           <CompositionDemo
@@ -2834,12 +2505,12 @@ export default function VisualSystemPage() {
               <TrustBar background="dark" />
             </SectionFrame>
             <SectionFrame>
-              <TrustBar trustLine={<PrincipalMemberTrustLine tone="light" />} />
+              <TrustBar trustLine={<PrincipalMemberTrustLine />} />
             </SectionFrame>
             <SectionFrame dark>
               <TrustBar
                 background="dark"
-                trustLine={<PrincipalMemberTrustLine tone="dark" />}
+                trustLine={<PrincipalMemberTrustLine />}
               />
             </SectionFrame>
           </CompositionDemo>
@@ -2968,35 +2639,6 @@ export default function VisualSystemPage() {
           </CompositionDemo>
         </div>
 
-        {/* ── PRODUCTSPOTLIGHT ──────────────────────────────────────────── */}
-        <div id="section-productspotlight" className="scroll-mt-12">
-          <CompositionDemo
-            title="ProductSpotlight — editorial text beside an embedded UI"
-            desc="An editorial text block beside an embedded UI zone — the UI is translucent and cyan-lit so the atmosphere reads through it, integrated rather than pasted on. Abstract skeleton placeholder only."
-          >
-            <ProductSpotlight
-              eyebrow="Identity"
-              headline="Verify identity without breaking the flow"
-              body="Identity and onboarding composed directly into the product surface — checks run in the atmosphere of the experience, not in a separate screen."
-            />
-          </CompositionDemo>
-        </div>
-
-        {/* ── INFRADIAGRAMFRAME ─────────────────────────────────────────── */}
-        <div id="section-infradiagramframe" className="scroll-mt-12">
-          <CompositionDemo
-            title="InfraDiagramFrame — infrastructure diagram container"
-            desc="The reusable container for infrastructure storytelling — nCore diagrams and system architecture. Editorial whitespace, a topology-aware environment, operational guide rails. The real diagram drops into the framed zone."
-          >
-            <div className="dark">
-              <InfraDiagramFrame
-                eyebrow="nCore"
-                headline="The infrastructure layer beneath every NymCard programme"
-              />
-            </div>
-          </CompositionDemo>
-        </div>
-
         {/* ════ ARTIFACTS ══════════════════════════════════════════════════ */}
 
         <Container>
@@ -3010,7 +2652,7 @@ export default function VisualSystemPage() {
             <p className="mt-2 max-w-2xl font-body text-sm leading-relaxed text-text-secondary dark:text-text-dark-secondary">
               Illustrative product artifacts from{" "}
               <code className="font-mono text-[12px]">components/artifacts/</code> — static visual props (the nCore stack
-              diagram, payment card surfaces, the card fan stack) that go{" "}
+              diagram, payment card surfaces) that go{" "}
               <em>inside</em> section primitives. Not interactive.
             </p>
           </div>
@@ -3061,7 +2703,7 @@ export default function VisualSystemPage() {
         <Group
           index="Surfaces"
           label="Card surface systems"
-          lede="The payment-card artifact and the three environments it sits inside. The bare PaymentCard is the foundational primitive — horizontal / vertical, light / dark, two corner-graphic treatments. CardFanStack composes three of them as a designed arrangement. CardSurface (rail / tokenized / embedded) wraps any PaymentCard with an environmental treatment — the card is passed in as a child."
+          lede="The payment-card artifact — the foundational primitive. Horizontal / vertical, light / dark, two corner-graphic treatments. Composed into product cards and hero surfaces across the site."
         />
 
         <CompositionDemo
@@ -3108,55 +2750,6 @@ export default function VisualSystemPage() {
           </div>
         </CompositionDemo>
 
-        <CompositionDemo
-          title="CardFanStack — the hero presentation"
-          desc="A fanned stack of three payment-card artifacts splayed from a shared centre and layered front to back — a designed arrangement, not a scatter. Composes the PaymentCard primitive; shown with horizontal and with vertical cards."
-        >
-          <div className="relative overflow-hidden rounded-3xl border border-surface-border-subtle bg-surface-soft p-10 sm:p-16">
-            <KineticRibbon intensity="calm" focus="top-right" />
-            <div className="relative z-10 mx-auto max-w-2xl">
-              <CardFanStack />
-            </div>
-          </div>
-          <div className="relative overflow-hidden rounded-3xl border border-surface-border-subtle bg-surface-soft p-10 sm:p-16">
-            <KineticRibbon intensity="calm" focus="left" />
-            <div className="relative z-10 mx-auto max-w-2xl">
-              <CardFanStack orientation="vertical" />
-            </div>
-          </div>
-        </CompositionDemo>
-
-        <CompositionDemo
-          title="CardSurface · Floating Rail"
-          desc="The card elevated above a programmable rail — a lit active segment and nodes beneath it, a contact shadow pooling on the rail. The card visibly runs on rails."
-        >
-          <CardSurface variant="rail" tone="dark">
-            <PaymentCard tone="dark" graphic="topology" network="visa" />
-          </CardSurface>
-        </CompositionDemo>
-
-        <CompositionDemo
-          title="CardSurface · Tokenized"
-          desc="The card credential resolved into secure tokens — signal traces run from the card to device and network token tiles. The card is the source; the tokens are what move."
-        >
-          <CardSurface variant="tokenized" tone="dark">
-            <PaymentCard
-              tone="dark"
-              graphic="topology"
-              network="visa"
-              label="credential"
-            />
-          </CardSurface>
-        </CompositionDemo>
-
-        <CompositionDemo
-          title="CardSurface · Atmospheric-Embedded"
-          desc="The card emerging from an edgeless atmospheric field — a cool glow it rises out of, the surface dissolving before any hard border. Paired with the ribbon graphic."
-        >
-          <CardSurface variant="embedded" tone="dark">
-            <PaymentCard tone="dark" graphic="ribbon" network="visa" />
-          </CardSurface>
-        </CompositionDemo>
       </main>
     </div>
   );

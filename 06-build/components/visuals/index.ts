@@ -25,6 +25,11 @@
 //     ScanSweep          — §2 scan / sweep effect system (overlay)
 //     SpotlightCard     — §6 product card lighting behaviour
 //
+//   Hero product illustrations (right-column PageHero visuals):
+//     RotatingCard       — the Card Issuing §1 hero: a 3D payment card
+//                          rotating on its vertical axis, surfacing live
+//                          activity and morphing debit → credit → prepaid
+//
 //   Page-rail signature:
 //     CrosshairRails     — the four corner crosshair-marker glyphs that frame
 //                          a section's content rectangle (the locked page-rail
@@ -43,16 +48,16 @@
 //     palette / motion   — token-resolved colour + motion constants
 
 export { KineticRibbon } from "./KineticRibbon";
+export { DiagonalRibbon } from "./DiagonalRibbon";
 export { CrosshairRails } from "./CrosshairRails";
 export { RibbonStreak } from "./RibbonStreak";
 export { ProductHeroRibbon } from "./ProductHeroRibbon";
 export { ScanSweep } from "./ScanSweep";
 export { GlassPanel } from "./GlassPanel";
+export { GlassAtmosphere, type AtmosphereTone } from "./GlassAtmosphere";
 export { AmbientGlow } from "./AmbientGlow";
 export { InfraGrid } from "./InfraGrid";
-export { SpotlightCard } from "./SpotlightCard";
 export { TopologyTraces } from "./TopologyTraces";
-export { TonalDepth } from "./TonalDepth";
 export { BlueprintOverlay } from "./BlueprintOverlay";
 export { SectionReveal } from "./SectionReveal";
 export {
@@ -61,14 +66,13 @@ export {
   iconLabels,
   type IconName,
 } from "./InfraIcon";
-export { SectionAtmosphere, type AtmospherePreset } from "./SectionAtmosphere";
 export { RibbonField, type RibbonFieldVariant } from "./RibbonField";
 export {
   CardTreatment,
   CARD_TREATMENTS,
   type CardTreatmentName,
 } from "./CardTreatment";
-export { MigrationFlow } from "./MigrationFlow";
+export { RotatingCard } from "./RotatingCard";
 export {
   MigrationConsole,
   type MigrationActivity,

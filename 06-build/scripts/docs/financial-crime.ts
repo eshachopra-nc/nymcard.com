@@ -13,24 +13,23 @@ export const financialCrimeDoc = {
     "Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001.",
   hero: {
     headline: "Cover the full risk perimeter on one layer.",
-    body: "Fraud, AML, sanctions, identity, and 3D Secure run on one customer record, one ledger, one audit trail, built into nCore.",
+    body: "Fraud, AML, sanctions, identity, and 3D Secure run on one customer record, one ledger, one audit trail — built into nCore.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     visualLabel: "decisioning console",
   },
   capabilities: {
     eyebrow: "Capabilities",
     headline: "One layer, every risk control your team needs.",
-    body: "Fraud, AML transaction monitoring, sanctions screening, identity, and 3D Secure, decided against the same customer record and the same signal pipeline.",
+    body: "Fraud, AML transaction monitoring, sanctions screening, identity, and 3D Secure — decided against the same customer record and the same signal pipeline.",
     layout: "bento",
     cardMode: "with-UI",
     items: withKeys(
       [
-        { eyebrow: "Fraud management", heading: "Fraud management", description: "Real-time decisioning on every card authorization, approve, challenge, or block, with the reason behind every score.", span: 6, tall: true, uiLabel: "Auth stream + SHAP attribution" },
+        { eyebrow: "Fraud management", heading: "Fraud management", description: "Real-time decisioning on every card authorization — approve, challenge, or block — with the reason behind every score.", span: 6, tall: true, uiLabel: "Auth stream + SHAP attribution" },
         { eyebrow: "Risk monitoring", heading: "Risk monitoring", description: "Configurable AML typologies, customer risk ratings, and sanctions screening on every transaction, beneficiary, and onboarding.", span: 3, uiLabel: "Typology editor + alert feed" },
         { eyebrow: "Identity", heading: "Identity", description: "KYC, KYB, identity verification, and ongoing monitoring on the same customer record the rest of the layer reads from.", span: 3, uiLabel: "Customer record + KYC lifecycle" },
-        { eyebrow: "ACS / 3D Secure", heading: "ACS / 3D Secure", description: "Issuer-side step-up authentication driven by the same enriched signals as the rest of the layer.", span: 3, uiLabel: "CNP step-up decision" },
-        { eyebrow: "Nine signal engines", heading: "The nine signal engines", description: "Every event passes through nine engines before any decision is made.", span: 3, uiLabel: "Nine engines in sequence" },
+        { eyebrow: "ACS / 3D Secure", heading: "ACS / 3D Secure", description: "Issuer-side step-up authentication driven by the same enriched signals as the rest of the layer.", span: 6, uiLabel: "CNP step-up decision" },
       ],
       "cap",
     ),
@@ -44,8 +43,8 @@ export const financialCrimeDoc = {
   configuration: {
     eyebrow: "Configuration",
     headline: "Configure typologies, thresholds, and screening through the API.",
-    body: "AML rules, sanctions lists, and risk thresholds, versioned, applied in real time, and logged to the ledger.",
-    docsLink: { label: "Read the docs", href: "/docs" },
+    body: "AML rules, sanctions lists, and risk thresholds — versioned, applied in real time, and logged to the ledger.",
+    docsLink: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     tabs: withKeys(
       [
         { label: "JSON", language: "json", code: `{\n  "rule_id": "structuring_v3",\n  "rule_type": "aml_typology",\n  "event_types": ["transfer", "cash_deposit"],\n  "threshold_amount": 9500,\n  "window_hours": 24,\n  "min_event_count": 3,\n  "customer_risk_filter": ["MEDIUM", "HIGH", "VERY_HIGH"],\n  "action": "alert_and_case",\n  "status": "active"\n}` },
@@ -56,7 +55,7 @@ export const financialCrimeDoc = {
     ),
     companion: {
       heading: "Versioned, auditable, applied in real time",
-      body: "Every rule change, list update, and threshold edit is versioned, logged, and reversible, on the same API surface that drives fraud, AML, identity, and 3DS.",
+      body: "Every rule change, list update, and threshold edit is versioned, logged, and reversible — on the same API surface that drives fraud, AML, identity, and 3DS.",
       link: { label: "Read the configuration docs", href: "/docs/configuration" },
     },
   },
@@ -78,7 +77,7 @@ export const financialCrimeDoc = {
   deployment: {
     eyebrow: "Deployment",
     headline: "Deploy in the cloud, on-soil, or on-premise.",
-    body: "Three deployment models on the same platform, pick the one that fits your regulatory and data-residency requirements.",
+    body: "Three deployment models on the same platform — pick the one that fits your regulatory and data-residency requirements.",
     items: withKeys(
       [
         { eyebrow: "Cloud", heading: "Cloud", description: "Multi-region, NymCard-hosted, fully managed." },
@@ -105,10 +104,10 @@ export const financialCrimeDoc = {
     ),
   },
   finalCta: {
-    headline: "Talk to our team.",
+    headline: "Talk to us.",
     body: "Run fraud, AML, identity, and 3D Secure on one layer of nCore.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
   crossSell: withKeys(
     [

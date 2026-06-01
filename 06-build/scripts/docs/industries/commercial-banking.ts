@@ -102,8 +102,8 @@ export const commercialBankingDoc = {
   developer: {
     eyebrow: "Developer",
     headline: "Built for your team to integrate.",
-    body: "Full API access, SDKs, sandbox, and webhooks, so your engineering team can move fast without waiting on us.",
-    link: { label: "Read the docs", href: "/docs" },
+    body: "Full API access, SDKs, sandbox, and webhooks — everything your engineering team needs to go from integration to launch.",
+    link: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 
   crossSell: withKeys(
@@ -140,9 +140,9 @@ export const commercialBankingDoc = {
   },
 
   finalCta: {
-    headline: "Talk to our team.",
+    headline: "Talk to us.",
     body: "Launch corporate cards, cross-border payments, and embedded credit on infrastructure built for banks.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

@@ -29,6 +29,7 @@ import {
   Wallet,
   type LucideIcon,
 } from 'lucide-react'
+import { DOCS_URL, API_CATALOG_URL } from './external-links'
 
 /* ─── ITEM SHAPES ──────────────────────────────────────── */
 
@@ -39,6 +40,8 @@ export interface ProductItem {
   description: string
   href: string
   icon: LucideIcon
+  /** Opens off-site in a new tab (target=_blank rel=noopener). */
+  external?: boolean
 }
 
 export interface SimpleItem {
@@ -48,6 +51,8 @@ export interface SimpleItem {
   description: string
   href: string
   icon: LucideIcon
+  /** Opens off-site in a new tab (target=_blank rel=noopener). */
+  external?: boolean
 }
 
 export type DropdownItem = ProductItem | SimpleItem
@@ -98,17 +103,19 @@ const platformItems: ProductItem[] = [
     kind: 'product',
     id: 'documentation',
     label: 'Documentation',
-    description: 'Read the developer documentation',
-    href: '/developers/guides',
+    description: 'Guides, references, and SDKs',
+    href: DOCS_URL,
     icon: BookOpen,
+    external: true,
   },
   {
     kind: 'product',
-    id: 'api-reference',
-    label: 'API Reference',
-    description: 'REST APIs and SDKs',
-    href: '/developers/api',
+    id: 'api-catalog',
+    label: 'API Catalog',
+    description: 'Browse the API specifications',
+    href: API_CATALOG_URL,
     icon: Code2,
+    external: true,
   },
 ]
 
@@ -172,7 +179,7 @@ const productItems: ProductItem[] = [
 /* ═══════════════════════════════════════════════════════
    3. INDUSTRIES — 11 items, 4×3 grid (same card as Products)
 ═══════════════════════════════════════════════════════ */
-const industryItems: ProductItem[] = [
+export const industryItems: ProductItem[] = [
   { kind: 'product', id: 'commercial-banking',  label: 'Commercial Banking',   description: 'SME and corporate payments',          href: '/industries/commercial-banking',  icon: Building2    },
   { kind: 'product', id: 'retail-banking',       label: 'Retail Banking',       description: 'Digital banking capabilities',        href: '/industries/retail-banking',      icon: Home         },
   { kind: 'product', id: 'neobanks',             label: 'Neobanks',             description: 'Full digital bank, API-first',         href: '/industries/neobanks',            icon: Wallet       },
@@ -217,9 +224,14 @@ const companyRightItems: SimpleItem[] = [
 ]
 
 /* ═══════════════════════════════════════════════════════
-   FULL NAV CONFIG — Platform · Products · Solutions · Company
-   "Solutions" replaces the standalone "Industries" entry; its
-   dropdown stacks "By Use Case" on top and "By Industry" below.
+   FULL NAV CONFIG — Platform · Products · Industries · Company
+   Top-level mirrors ../02-copy/Navigation.md (Platform, Products,
+   Industries, … Company). A prior build wrongly replaced the
+   standalone "Industries" entry with a "Solutions" dropdown whose
+   use-case items linked to /solutions/* routes that don't exist —
+   restored here to "Industries" (the 11 industry pages). The
+   use-case (`useCaseItems`) list is kept defined for a future
+   Solutions surface but is not in the nav.
 ═══════════════════════════════════════════════════════ */
 export const NAV_ITEMS: NavItemConfig[] = [
   {
@@ -233,15 +245,9 @@ export const NAV_ITEMS: NavItemConfig[] = [
     dropdown: { type: 'products', items: productItems },
   },
   {
-    id: 'solutions',
-    label: 'Solutions',
-    dropdown: {
-      type: 'solutions',
-      useCaseLabel: 'By Use Case',
-      useCaseItems,
-      industryLabel: 'By Industry',
-      industryItems,
-    },
+    id: 'industries',
+    label: 'Industries',
+    dropdown: { type: 'industries', items: industryItems },
   },
   {
     id: 'company',

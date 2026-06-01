@@ -26,7 +26,7 @@ type Slot = { slug: string; name: string };
 // exhaustive coverage.
 const PRODUCTS: Slot[] = [
   { slug: "cards",                 name: "Cards" },
-  { slug: "money-movement",        name: "Cross-Border & FX" },
+  { slug: "money-movement",        name: "Money Movement" },
   { slug: "embedded-lending",      name: "Lending" },
   { slug: "identity",              name: "Identity" },
   { slug: "fraud-monitoring",      name: "Fraud Monitoring" },

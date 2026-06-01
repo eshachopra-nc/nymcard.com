@@ -78,13 +78,9 @@ export {
   type CardGridCardType,
   type CardGridSurface,
 } from "./CardGrid";
-export { FeatureCard } from "./FeatureCard";
-export { ProductSpotlight } from "./ProductSpotlight";
-export { InfraDiagramFrame } from "./InfraDiagramFrame";
 export { SplitEditorial } from "./SplitEditorial";
 export { UIContainer } from "./UIContainer";
 export { ProductCard } from "./ProductCard";
-export { DenseCapabilityCard } from "./DenseCapabilityCard";
 export { FloatingOperationalPanel } from "./FloatingOperationalPanel";
 export { AbstractMark, Eyebrow } from "./atoms";
 
@@ -98,12 +94,6 @@ export { PortableTextBody } from "./PortableTextBody";
 // image) and image+text — that activate by the presence of `heroImage`.
 // `KindChip` is the shared mono uppercase chip reused by listing cards.
 export { ArticleCover, KindChip } from "./ArticleCover";
-// Phase 1.5 — the ribbon's mid-page home; the second visible recurrence of
-// the kinetic ribbon outside the hero (CTASection §8.14 is the third).
-export { RibbonInterlude } from "./RibbonInterlude";
-// Phase 1.5 — the §9.5.1 AI-extraction loop as a composition primitive.
-// Two variants: linear (document) and radial (biometric).
-export { AIExtraction, type AIExtractionChip } from "./AIExtraction";
 export { FAQ, type FAQItem } from "./FAQ";
 export { CrossSellBanner, type CrossSellItem } from "./CrossSellBanner";
 export {
@@ -133,18 +123,6 @@ export {
 export { ProductPageRenderer } from "./ProductPageRenderer";
 export { IndustryPageRenderer } from "./IndustryPageRenderer";
 
-// Phase-1 production primitives (design-system.md v2.1):
-export {
-  ScaleStatsRibbon,
-  type ScaleStatsRibbonProps,
-  type ScaleStat,
-  type ScaleStatFormat,
-} from "./ScaleStatsRibbon";
-export {
-  IntegrationsDiagram,
-  type IntegrationsDiagramProps,
-  type IntegrationNode,
-} from "./IntegrationsDiagram";
 export {
   TrustBar,
   PrincipalMemberTrustLine,

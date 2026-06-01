@@ -45,46 +45,41 @@ export type TrustBarProps = {
   className?: string;
 };
 
-function LogoMark({
-  label,
-  tone,
-}: {
-  label: string;
-  tone: "light" | "dark";
-}) {
+// Placeholder logo lockup — a neutral mark + wordmark bar, grayscale, so the
+// marquee reads as a row of (desaturated) client logos rather than bracketed
+// text. Deterministic small variety per item. Swap for real grayscale client
+// SVGs via the `logos` prop when they land. Theme-aware.
+function LogoMark({ label }: { label: string }) {
+  const n = parseInt(label.replace(/\D/g, ""), 10) || label.length;
+  const shape = ["rounded-md", "rounded-full", "rounded-[3px]"][n % 3];
+  const barW = ["w-12", "w-16", "w-20"][n % 3];
   return (
-    <span
-      className={cn(
-        "select-none whitespace-nowrap font-mono text-xs uppercase tracking-wider sm:text-sm",
-        // `tone` is explicit per-instance so the logos read correctly whether
-        // a light TrustBar is embedded in a dark page or vice versa. (Using
-        // `dark:` here would key off the page's theme, not the bar's surface,
-        // and white logos on a white bar disappear.)
-        tone === "dark"
-          ? "text-text-dark-secondary/70"
-          : "text-text-muted/80",
-      )}
-    >
-      [{label}]
+    <span aria-hidden="true" className="inline-flex select-none items-center gap-2 opacity-80">
+      <span className={cn("size-6 shrink-0 bg-text-muted/25 dark:bg-white/15", shape)} />
+      <span className={cn("h-2.5 rounded-full bg-text-muted/25 dark:bg-white/15", barW)} />
     </span>
   );
 }
 
 // Surface tokens per variant — kept here so the marquee and trust line stay
 // visually consistent. Edge fades derive from the `from-…` token of each.
+// `white` and `soft` are theme-aware — they follow the page theme so the bar
+// is never a bright band stranded in a dark page (the homepage/product/industry
+// bug). `dark` is the forced-dark variant for end-of-page composition (it also
+// adds `.dark` locally, so the `dark:` tokens below resolve there too).
 const SURFACE: Record<
   TrustBarBackground,
   { bg: string; from: string; border: string }
 > = {
   white: {
-    bg: "bg-surface-white",
-    from: "from-surface-white",
-    border: "border-surface-border-subtle/40",
+    bg: "bg-surface-white dark:bg-surface-dark-base",
+    from: "from-surface-white dark:from-surface-dark-base",
+    border: "border-surface-border-subtle/40 dark:border-surface-dark-border",
   },
   soft: {
-    bg: "bg-surface-soft",
-    from: "from-surface-soft",
-    border: "border-surface-border-subtle/40",
+    bg: "bg-surface-soft dark:bg-surface-dark-base",
+    from: "from-surface-soft dark:from-surface-dark-base",
+    border: "border-surface-border-subtle/40 dark:border-surface-dark-border",
   },
   dark: {
     bg: "bg-surface-dark-base",
@@ -112,7 +107,10 @@ export function TrustBar({
     <section
       aria-label="Trusted clients and certifications"
       className={cn(
-        "relative border-y",
+        // overflow-hidden clips the marquee to the viewport — without it the
+        // duplicated logo row (wider than a phone) forces horizontal page
+        // overflow on narrow screens.
+        "relative overflow-hidden border-y",
         surf.bg,
         surf.border,
         // The dark variant also forces .dark locally so any child text picks
@@ -146,11 +144,7 @@ export function TrustBar({
               // Reduced motion: first 6 logos, static, centred.
               <div className="flex h-full w-full items-center justify-center gap-x-12">
                 {logos.slice(0, 6).map((logo) => (
-                  <LogoMark
-                    key={logo}
-                    label={logo}
-                    tone={background === "dark" ? "dark" : "light"}
-                  />
+                  <LogoMark key={logo} label={logo} />
                 ))}
               </div>
             ) : (
@@ -167,11 +161,7 @@ export function TrustBar({
                 }}
               >
                 {[...logos, ...logos].map((logo, i) => (
-                  <LogoMark
-                    key={`${logo}-${i}`}
-                    label={logo}
-                    tone={background === "dark" ? "dark" : "light"}
-                  />
+                  <LogoMark key={`${logo}-${i}`} label={logo} />
                 ))}
               </motion.div>
             )}
@@ -184,10 +174,8 @@ export function TrustBar({
           className={cn(
             "px-6 text-center font-body text-xs leading-relaxed tracking-wide sm:text-sm",
             showMarquee && "mt-4",
-            // Same explicit-tone pattern as LogoMark — keys off the bar's own
-            // surface, not the page theme, so a light bar embedded in a dark
-            // page (or vice versa) reads correctly.
-            background === "dark" ? "text-text-dark-secondary" : "text-text-muted",
+            // Theme-aware, matching the now-theme-aware surface.
+            "text-text-muted dark:text-text-dark-secondary",
           )}
         >
           {trustLine}
@@ -219,20 +207,12 @@ export function TrustBar({
 //     `currentColor` SVGs so they inherit text tone — single asset, both
 //     surfaces.
 
-export function PrincipalMemberTrustLine({
-  tone = "light",
-}: {
-  /** Surface tone — match the parent TrustBar's `background`. */
-  tone?: "light" | "dark";
-}) {
-  // Visa needs the surface-specific variant; Mastercard, PCI DSS and ISO
-  // 27001 are single-asset and work on both surfaces.
-  const visaSrc = tone === "dark" ? "/logos/visa-white.svg" : "/logos/visa-full.svg";
+export function PrincipalMemberTrustLine() {
   // Logo classes — inline, baseline-aligned (`align-middle`), small enough to
   // sit inside the body-sm line height without pushing the line apart. The
   // Visa wordmark is broader than the others so it gets a slightly larger
   // height to read at the same visual weight.
-  const visaCls = "inline-block h-[14px] w-auto align-middle";
+  const visaCls = "h-[14px] w-auto align-middle";
   const mastercardCls = "inline-block h-[18px] w-auto align-middle";
   // PCI / ISO badges inherit text colour via `currentColor` in the SVGs.
   const badgeCls = "inline-block h-[16px] w-auto align-middle";
@@ -240,7 +220,9 @@ export function PrincipalMemberTrustLine({
   return (
     <span className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
       <span>Principal member of</span>
-      <img src={visaSrc} alt="Visa" className={visaCls} loading="lazy" decoding="async" />
+      {/* Visa is theme-reactive — navy wordmark on light, white on dark. */}
+      <img src="/logos/visa-full.svg" alt="Visa" className={cn(visaCls, "inline-block dark:hidden")} loading="lazy" decoding="async" />
+      <img src="/logos/visa-white.svg" alt="" aria-hidden="true" className={cn(visaCls, "hidden dark:inline-block")} loading="lazy" decoding="async" />
       <span>and</span>
       <img
         src="/logos/mastercard.svg"

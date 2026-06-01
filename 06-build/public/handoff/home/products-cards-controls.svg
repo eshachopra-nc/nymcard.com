@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" role="img" aria-label="Card with kinetic ribbon linked by a dotted connector to a card controls panel of toggles" font-family="Geist, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="cardsBed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F4F6FF"></stop>
+      <stop offset="1" stop-color="#FFFFFF"></stop>
+    </linearGradient>
+    <linearGradient id="cardFace" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1A2547"></stop>
+      <stop offset="1" stop-color="#0E1A33"></stop>
+    </linearGradient>
+    <linearGradient id="ribbonA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22D3EE"></stop>
+      <stop offset="0.5" stop-color="#5B4FD9"></stop>
+      <stop offset="1" stop-color="#304DBB"></stop>
+    </linearGradient>
+    <linearGradient id="ribbonB" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#A78BFA"></stop>
+      <stop offset="0.55" stop-color="#22D3EE"></stop>
+      <stop offset="1" stop-color="#5B8DEF"></stop>
+    </linearGradient>
+    <clipPath id="cardFaceClip"><rect x="0" y="0" width="270" height="170" rx="16"></rect></clipPath>
+    <clipPath id="frame"><rect x="0" y="0" width="600" height="400" rx="12"></rect></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect x="0" y="0" width="600" height="400" fill="url(#cardsBed)"></rect>
+    <rect x="0" y="0" width="600" height="1" fill="#22D3EE" fill-opacity="0.6"></rect>
+
+    
+    <g transform="translate(40 115)">
+      <rect x="0" y="0" width="270" height="170" rx="16" fill="url(#cardFace)"></rect>
+      <g clip-path="url(#cardFaceClip)">
+        
+        <path d="M -40 150 C 50 90, 130 140, 200 90 S 300 30, 330 45" fill="none" stroke="url(#ribbonA)" stroke-width="52" stroke-linecap="round" opacity="0.55"></path>
+        <path d="M -40 95 C 60 150, 140 95, 210 120 S 300 150, 330 110" fill="none" stroke="url(#ribbonB)" stroke-width="34" stroke-linecap="round" opacity="0.5"></path>
+        <path d="M -40 120 C 55 60, 140 115, 205 80 S 300 40, 330 60" fill="none" stroke="#22D3EE" stroke-width="7" stroke-linecap="round" opacity="0.7"></path>
+        <path d="M -40 135 C 60 175, 150 110, 215 135 S 300 165, 330 130" fill="none" stroke="#A78BFA" stroke-width="3.5" stroke-linecap="round" opacity="0.6"></path>
+      </g>
+      <rect x="0" y="0" width="270" height="170" rx="16" fill="none" stroke="#FFFFFF" stroke-opacity="0.08"></rect>
+      <line x1="0" y1="0" x2="270" y2="0" stroke="#22D3EE" stroke-opacity="0.5"></line>
+    </g>
+
+    
+    <circle cx="310" cy="200" r="4" fill="#22D3EE"></circle>
+    <line x1="314" y1="200" x2="356" y2="200" stroke="#22D3EE" stroke-opacity="0.75" stroke-width="1.5" stroke-dasharray="2 4" stroke-linecap="round"></line>
+    <circle cx="358" cy="200" r="3" fill="none" stroke="#22D3EE" stroke-width="1.5"></circle>
+
+    
+    <g transform="translate(360 84)">
+      <rect x="0" y="0" width="200" height="232" rx="14" fill="#FFFFFF" stroke="#E8EBF5"></rect>
+      <rect x="0" y="0" width="200" height="232" rx="14" fill="none" stroke="#22D3EE" stroke-opacity="0.16"></rect>
+
+      <text x="18" y="30" font-family="&#39;Geist Mono&#39;, ui-monospace, monospace" font-size="10" letter-spacing="1.6" fill="#7A839E">CARD CONTROLS</text>
+      <line x1="18" y1="44" x2="182" y2="44" stroke="#E8EBF5"></line>
+
+      
+      <g transform="translate(18 63)" stroke="#5B6DD8" stroke-width="1.4" fill="none" stroke-linecap="round">
+        <path d="M8 1 V15 M1 8 H15 M3.5 3.5 L12.5 12.5 M12.5 3.5 L3.5 12.5"></path>
+      </g>
+      <text x="46" y="76" font-family="Geist, system-ui, sans-serif" font-size="13" fill="#0E1A33">Freeze</text>
+      <g transform="translate(150 62)">
+        <rect x="0" y="0" width="32" height="18" rx="9" fill="#F4F6FF" stroke="#E8EBF5"></rect>
+        <circle cx="9" cy="9" r="6" fill="#FFFFFF" stroke="#D1D7E8"></circle>
+      </g>
+
+      
+      <g transform="translate(18 109)" stroke="#5B6DD8" stroke-width="1.4" fill="none">
+        <rect x="1" y="3" width="14" height="10" rx="1.5"></rect>
+        <circle cx="8" cy="8" r="2.4"></circle>
+      </g>
+      <text x="46" y="122" font-family="Geist, system-ui, sans-serif" font-size="13" fill="#0E1A33">ATM</text>
+      <g transform="translate(150 108)">
+        <rect x="0" y="0" width="32" height="18" rx="9" fill="#22D3EE" fill-opacity="0.18" stroke="#22D3EE" stroke-opacity="0.55"></rect>
+        <circle cx="23" cy="9" r="6" fill="#22D3EE"></circle>
+      </g>
+
+      
+      <g transform="translate(18 155)" stroke="#5B6DD8" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 5 H13 L12 14 H4 Z"></path>
+        <path d="M5.5 5 a2.5 2.5 0 0 1 5 0"></path>
+      </g>
+      <text x="46" y="168" font-family="Geist, system-ui, sans-serif" font-size="13" fill="#0E1A33">eCommerce</text>
+      <g transform="translate(150 154)">
+        <rect x="0" y="0" width="32" height="18" rx="9" fill="#22D3EE" fill-opacity="0.18" stroke="#22D3EE" stroke-opacity="0.55"></rect>
+        <circle cx="23" cy="9" r="6" fill="#22D3EE"></circle>
+      </g>
+
+      
+      <g transform="translate(18 201)" stroke="#5B6DD8" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 7.5 L15 2 L10.5 15 L8 9.5 Z"></path>
+      </g>
+      <text x="46" y="214" font-family="Geist, system-ui, sans-serif" font-size="13" fill="#0E1A33">Travel</text>
+      <g transform="translate(150 200)">
+        <rect x="0" y="0" width="32" height="18" rx="9" fill="#F4F6FF" stroke="#E8EBF5"></rect>
+        <circle cx="9" cy="9" r="6" fill="#FFFFFF" stroke="#D1D7E8"></circle>
+      </g>
+    </g>
+  </g>
+</svg>

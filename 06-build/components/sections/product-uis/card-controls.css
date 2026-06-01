@@ -1,0 +1,33 @@
+/* Range slider styling for the Card-controls console (scoped .cardctl).
+   The thumb/track pseudo-elements can't be expressed in Tailwind, so they
+   live here. Token-matched values; theme-aware track via the .dark scope. */
+.cardctl .cardctl-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  background: linear-gradient(90deg, #304DBB var(--pct, 40%), var(--cc-track, #E2E6F0) var(--pct, 40%));
+}
+.dark .cardctl .cardctl-range { --cc-track: rgba(255, 255, 255, 0.12); }
+.cardctl .cardctl-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #304DBB;
+  box-shadow: 0 1px 4px rgba(14, 26, 51, 0.2);
+  cursor: pointer;
+}
+.cardctl .cardctl-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #304DBB;
+  cursor: pointer;
+}
+.cardctl .cardctl-range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgba(48, 77, 187, 0.25); }

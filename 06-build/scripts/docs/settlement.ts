@@ -6,23 +6,22 @@ export const settlementDoc = {
   title: "Settlement",
   slug: { _type: "slug", current: "settlement" },
   metaTitle:
-    "Settlement, Real-time, multi-currency, and stablecoin settlement | NymCard",
+    "Settlement, Real-Time, Multi-Currency, and Stablecoin Rails | NymCard",
   metaDescription:
     "Bank-grade settlement infrastructure on nCore, real-time cross-border, multi-currency, and stablecoin settlement for regulated businesses. Principal member of Visa and Mastercard. Cloud, on-soil, or on-premise.",
   trustLine:
     "Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001.",
   hero: {
-    topLine: "Settlement on nCore: 24/7/365",
     headline: "Settle across corridors in real time.",
-    body: "Bank-grade settlement infrastructure for cross-border, multi-currency, and stablecoin flows, on one regulated platform.",
+    body: "Bank-grade settlement infrastructure for cross-border, multi-currency, and stablecoin flows — on one regulated platform.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     visualLabel: "settlement corridor",
   },
   capabilities: {
     eyebrow: "Capabilities",
     headline: "Run settlement end-to-end on one platform.",
-    body: "Cross-border execution, multi-rail routing, and treasury orchestration, with stablecoin and traditional rails inside one architecture.",
+    body: "Cross-border execution, multi-rail routing, and treasury orchestration — with stablecoin and traditional rails inside one architecture.",
     layout: "bento",
     cardMode: "with-UI",
     items: withKeys(
@@ -31,7 +30,7 @@ export const settlementDoc = {
         { eyebrow: "Multi-rail routing", heading: "Multi-rail routing", description: "Route across stablecoin and traditional rails by cost, speed, and corridor availability.", span: 3, uiLabel: "Rail comparison" },
         { eyebrow: "Stablecoin settlement", heading: "Stablecoin settlement", description: "Settle on USDC and USDT rails where applicable, with automated fiat-to-stablecoin bridges on either side.", span: 3, uiLabel: "Fiat / stablecoin bridge" },
         { eyebrow: "Embedded compliance", heading: "Embedded compliance", description: "AML, sanctions screening, and regulatory reporting run inside the settlement path.", span: 3, uiLabel: "Compliance inline" },
-        { eyebrow: "24/7/365 operations", heading: "24/7/365 operations", description: "Settle beyond banking hours, weekends, and holidays, no correspondent-banking window dependency.", span: 3, uiLabel: "Always-on indicator" },
+        { eyebrow: "24/7/365 operations", heading: "24/7/365 operations", description: "Settle beyond banking hours, weekends, and holidays — no correspondent-banking window dependency.", span: 3, uiLabel: "Always-on indicator" },
         { eyebrow: "Liquidity & treasury", heading: "Liquidity and treasury", description: "Orchestrate corridor-aware liquidity with stablecoin pre-funding, reduce collateral lock-up, and give treasury flexibility across markets.", span: 6, uiLabel: "Corridor liquidity dashboard" },
       ],
       "cap",
@@ -41,8 +40,8 @@ export const settlementDoc = {
   configuration: {
     eyebrow: "Configuration",
     headline: "Configure settlement through the API.",
-    body: "Corridor, rail preference, currency, pre-funding, and compliance rules, set per program, applied in real time.",
-    docsLink: { label: "Read the docs", href: "/docs" },
+    body: "Corridor, rail preference, currency, pre-funding, and compliance rules — set per program, applied in real time.",
+    docsLink: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     tabs: withKeys(
       [
         { label: "JSON", language: "json", code: `{\n  "corridor_id": "usd_eur",\n  "fiat_in": "USD",\n  "fiat_out": "EUR",\n  "primary_rail": "stablecoin",\n  "fallback_rail": "scheme",\n  "stablecoin": "USDC",\n  "pre_funding_position": 250000,\n  "compliance_profile": "standard",\n  "status": "active"\n}` },
@@ -53,7 +52,7 @@ export const settlementDoc = {
     ),
     companion: {
       heading: "One configuration surface",
-      body: "Corridors, rails, currencies, pre-funding, and compliance, all configurable per program, on the same API surface as Cards and Money Movement.",
+      body: "Corridors, rails, currencies, pre-funding, and compliance — all configurable per program, on the same API surface as Cards and Money Movement.",
       link: { label: "Read the configuration docs", href: "/docs/configuration" },
     },
   },
@@ -64,7 +63,7 @@ export const settlementDoc = {
       [
         { eyebrow: "Banks", copy: "Cross-border settlement and corridor liquidity on one platform.", link: { label: "See banks", href: "/industries/banks" } },
         { eyebrow: "Exchange houses", copy: "Settle remittance corridors in real time and free up correspondent capital.", link: { label: "See exchange houses", href: "/industries/exchange-houses" } },
-        { eyebrow: "PSPs & EMIs", copy: "Add a stablecoin settlement layer without standing up a separate blockchain system.", link: { label: "See PSPs & EMIs", href: "/industries/psps" } },
+        { eyebrow: "PSPs and EMIs", copy: "Add a stablecoin settlement layer without standing up a separate blockchain system.", link: { label: "See PSPs and EMIs", href: "/industries/psps" } },
         { eyebrow: "Marketplaces", copy: "Pay cross-border vendors and sellers on real-time rails.", link: { label: "See marketplaces", href: "/industries/marketplaces" } },
         { eyebrow: "Telecoms", copy: "Settle international B2B flows on 24/7 corridors.", link: { label: "See telecoms", href: "/industries/telecoms" } },
         { eyebrow: "Government", copy: "Run controlled digital settlement programs within a compliance-aligned framework.", link: { label: "See government", href: "/industries/government" } },
@@ -75,7 +74,7 @@ export const settlementDoc = {
   deployment: {
     eyebrow: "Deployment",
     headline: "Deploy in the cloud, on-soil, or on-premise.",
-    body: "Three deployment models on the same platform, pick the one that fits your regulatory and architectural requirements.",
+    body: "Three deployment models on the same platform — pick the one that fits your regulatory and architectural requirements.",
     items: withKeys(
       [
         { eyebrow: "Cloud", heading: "Cloud", description: "Multi-region, NymCard-hosted, fully managed." },
@@ -103,10 +102,10 @@ export const settlementDoc = {
     ),
   },
   finalCta: {
-    headline: "Talk to our team.",
+    headline: "Talk to us.",
     body: "Run cross-border, multi-currency, and stablecoin settlement on one regulated platform.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
   crossSell: withKeys(
     [

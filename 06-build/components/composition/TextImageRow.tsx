@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { UIPlaceholder } from "./UIPlaceholder";
+import { AmbientPlaceholder } from "./AmbientPlaceholder";
 import { Eyebrow } from "./atoms";
 
 // ── Text-image row (design-system.md §8.20) ────────────────────────────────
@@ -91,14 +91,16 @@ export function TextImageRow({
         )}
       </div>
 
-      {/* Visual column — order flips on lg+ per orientation. */}
+      {/* Visual column — order flips on lg+ per orientation. The placeholder
+          fallback uses AmbientPlaceholder so the awaiting-handoff slot reads
+          as a living surface (orbital cool blobs + cyan sheen). */}
       <div
         className={cn(
           "min-h-[16rem] lg:min-h-[20rem]",
           textRight ? "lg:order-1" : "lg:order-2",
         )}
       >
-        {visual ?? <UIPlaceholder label={visualLabel} scale="compact" />}
+        {visual ?? <AmbientPlaceholder label={visualLabel} aspect="min-h-[16rem] h-full lg:min-h-[20rem]" />}
       </div>
     </div>
   );

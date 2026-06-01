@@ -134,6 +134,7 @@ Display sizes reduce ~20%; body sizes stay constant for readability.
 - **Optical alignment matters for the hero.** When `display-xl` Geist 700 sits next to a button, the button aligns to the headline's cap-height visually, not the bounding box.
 - **No italics.** NymCard's voice is declarative — italics introduce a register that doesn't match.
 - **No all-caps anywhere.** No eyebrow style, no uppercase labels.
+- **Enforced on the homepage (2026-05-28).** The homepage redesign removed every uppercase / eyebrow scaffolding label from its section openers: sections now lead with a confident headline and strong hierarchy, not a mono-tracked label. The `Eyebrow` atom (`components/composition/atoms.tsx`) still exists for inner-page primitives that pre-date this rule, but it is **not** used at the top of any homepage section. `RailCarousel`'s `eyebrow` prop is now optional so a rail can lead with just its headline. New work follows the homepage pattern: drop the eyebrow; the headline and the section's position on the page carry the framing. (Matches the §0 anti-slop "eyebrow restraint" rule — the #1 templated-rhythm tell.)
 
 ### Reference anchors
 
@@ -198,8 +199,9 @@ The "feel alive" job that warm tones might have served is carried by motion (amb
 | Token | Hex | Usage |
 | --- | --- | --- |
 | `accent-teal` | `#0EA5E9` | Electric teal. Technical accents, code highlights, status indicators. |
-| `accent-cyan` | `#22D3EE` | Lifted cyan for gradient highlights. |
+| `accent-cyan` | `#22D3EE` | Lifted cyan for gradient highlights. The live-signal / scan highlight. |
 | `accent-indigo` | `#5B6DD8` | Bridges brand blue to brand purple in gradients. |
+| `accent-violet` | `#6D28D9` | Electric violet — the brand's deepest cool anchor. Committed as a **real voice** in hero and signature moments (the homepage hero ribbon, the nCore section atmosphere, the PaymentCard `electric` finish, scale-moment glows), not a timid ≤10% accent. Still cool-family; never a CTA fill (CTAs stay navy). Pairs with `brand-purple` (`#5B4FD9`) as the violet→purple gradient run. |
 
 ### Gradient palette
 
@@ -544,6 +546,14 @@ Translucent surfaces that float above the page with soft blur backing them.
 
 **Reference anchor:** `stripe-capabilities-single-card.png`, `stripe-nav-background-blur.png`, `linear-floating-dashboard.png`.
 
+**Canonical implementation (v-glass, 2026-05) — the kit, never reinvented:**
+- **Glass material = `components/visuals/GlassPanel.tsx`.** The one frosted-glass surface. Do not author another.
+- **The field glass floats on = `components/visuals/GlassAtmosphere.tsx`.** This operationalises the rule above ("never apply glass to a solid colour"): a theme-aware cool gradient field (the same role the kinetic ribbon plays behind the hero card). Glass on a faint/near-plain bed collapses to a flat rectangle — that was the regression this kit fixes.
+- **Product-UI cells DO use glass now.** This supersedes the older "not for bento product cards" note above: the homepage Products bento composes `GlassPanel` over `GlassAtmosphere` per cell (via `components/sections/product-uis/glass.tsx`, which delegates to the kit). What stays off-glass: trust band, credentials wall, plain editorial body cards.
+- **Palette lead = navy + cyan** (indigo/teal); **purple/violet are accent/contrast only, never the lead field** (NymCard identity; avoids the violet-led competitor). The atmosphere is **restrained + light-first** — soft pastel field in light, deep cool in dark, contained to the card, never a full-section colour wash.
+- **Motion:** static at rest; ambient field drift; scroll-in reveal; hover lifts the glass and brightens the field. `prefers-reduced-motion` safe.
+- **Proof + bar:** the `/visual-system/glass` styleguide route — its before/after makes the rule undeniable. Build and review every glass surface against it.
+
 ### 8.2 Floating UI / layered surfaces
 
 The "alive infrastructure" effect.
@@ -668,37 +678,42 @@ The Stripe pattern where one large card carries an entire section.
 
 **Reference anchor:** `stripe-capabilities-single-card.png` (canonical), `stripe-capabilities.png` (variant with abstract visualisation).
 
-### 8.8 Product cards (v5 — asymmetric bento, handoff SVG composition)
+### 8.8 Product cards (v6 — bespoke coded product-UI surfaces on the glass kit)
 
-A product card presents a single product on the homepage Products grid. Unlike a modular card (§8.5), which *describes* a product with copy and an icon, a product card *shows* the product — it carries one hand-crafted visual that makes the product legible at a glance.
+A product card presents a single product on the homepage Products grid. Unlike a modular card (§8.5), which *describes* a product with copy and an icon, a product card *shows* the product — it carries a small, premium "real screen" that makes the product legible at a glance.
 
-**Locked direction (2026-05-26, v5).** Three iterations (v2–v4) tried to paint the per-cell visuals procedurally in TypeScript — window-chrome dashboards (v2), cyan-edge tactical-instrument chrome with LIVE markers (v3), then six bespoke procedural modes (3D card object, painterly dot-storm, isometric cubes, scan-and-chip, mobile checkout-sheet, geometric line diagram) on a unified `TonalCardBed` (v4). All three were rejected as sub-Stripe quality.
+**Locked direction (2026-05-29, v6).** The history is three rejected swings and one resolution:
 
-v5 is the opposite move. **The visuals already exist** as hand-crafted Claude Design SVG assets in `/public/handoff/`. The hero `ProductCarousel` proves the pattern: load the SVG via `<img>` on a soft surface, add a Framer Motion ambient float, let the SVG carry the visual craft. The Products bento now does the same: TypeScript composes + adds motion only; **no procedural visual generation lives in the product UIs anymore.**
+- **v2–v4** painted each cell's visual procedurally in TypeScript (window-chrome dashboards, cyan-edge tactical chrome with LIVE markers, then six bespoke procedural modes on a unified `TonalCardBed`). Rejected as sub-Stripe quality.
+- **v5** swung the opposite way — load one hand-crafted Claude Design handoff SVG per cell via `<img>` on a soft tonal bed (`HandoffVisual`). Also rejected: reusing the hero's handoff assets made the cells read flat and samey, the faint tonal bed gave the frosted surfaces nothing to refract, and the SVGs did not map tightly to each product's copy.
+- **v6 is the resolution.** Each cell carries its OWN bespoke, hand-authored product-UI surface — tokenized React + SVG in the `components/sections/product-uis/*` library — DISTINCT from one another and from the hero carousel, each composed on the **canonical glass kit (§8.1)**.
 
-**When to use:** The homepage Products grid.
-**When not to use:** Solution, industry, or feature grids — those are modular cards (§8.5). Product-overview grids on inner pages — those carry the unified `ProductCard` (the simpler, calmer §8.8-adjacent primitive used inside a `CardGrid`).
+This direction is the crux the whole visual system turns on (see §8.1 "Canonical implementation (v-glass)"). The hero's DNA — `GlassPanel` floating over a rich kinetic field — is extracted into a kit and reused here: the surfaces are no longer flat panels or procedural dashboards; they are real product "screens" floating as **glass over a rich field**. Glass never sits on a solid/near-plain bed.
 
-#### The six cells — asset map
+**When to use:** The homepage Products grid (and any product-overview grid that *shows* products).
+**When not to use:** Solution, industry, or feature grids — those are modular cards (§8.5). Product-overview grids on inner pages that only *describe* — those carry the unified `ProductCard` (the simpler, calmer primitive used inside a `CardGrid`).
 
-Each homepage product cell loads a specific Claude Design SVG. **Never two adjacent on the same tonal bed.**
+#### The six cells
 
-| # | Product | Handoff asset | Tonal bed |
+Each cell is its own component in `components/sections/product-uis/`, distinct in layout, density and gesture. **Never two adjacent cells on the same atmosphere tone.**
+
+| # | Product | Surface component | Atmosphere tone |
 | --- | --- | --- | --- |
-| 1 | Cards | `/public/handoff/cards.svg` — three-card layered fan, premium card surfaces | `slate` |
-| 2 | Lending | `/public/handoff/embedded-lending.svg` — decision-in-92ms, $4,200 approved, four-instalment chip | `cyan` |
-| 3 | Money Movement | `/public/handoff/money-movement.svg` — wireframe globe with USD / EUR pills and animated arcs | `porcelain` |
-| 4 | Settlement | `/public/handoff/stablecoin-settlement.svg` — USD → USDC → USD triptych, 187ms settled, no SWIFT | `indigo` |
-| 5 | Financial Crime | `/public/handoff/financial-crime.svg` — live fraud monitor catching unusual velocity ($9,820 flagged) | `mist` |
-| 6 | Reconciliation | `/public/handoff/reconciliation.svg` — card-to-bank matching, 98.4%, one chip flagged for review | `violet` |
+| 1 | Cards | `CardsUI` — a straight card object + live controls (toggle / limit) | azure (navy / cyan) |
+| 2 | Lending | `LendingUI` — decision + instalment surface | cyan |
+| 3 | Money Movement | `MoneyMovementUI` — cross-border send / receive / convert | teal |
+| 4 | Settlement | `SettlementUI` — USD → USDC → USD chain, 24/7 incl. weekends, no SWIFT | indigo |
+| 5 | Financial Crime | `FinancialCrimeUI` — risk-score gauge + passed checks (KYC / AML / 3DS / Sanctions) | teal |
+| 6 | Reconciliation | `ReconciliationUI` — card-to-bank matching, exceptions flagged | indigo |
 
-**The unifying primitive** is `HandoffVisual` (`components/sections/product-uis/HandoffVisual.tsx`). It composes three things in ~30 lines per cell:
+Purple appears only as an *object* accent (e.g. the Cards object itself), never as the field — the bento is navy/cyan-led so it never reads purple (the Paymentology trap, §1).
 
-1. **Tonal bed** — a soft tinted gradient (six cool variants: `slate`, `porcelain`, `cyan`, `indigo`, `violet`, `mist`).
-2. **Handoff SVG** — loaded via `<img src="/handoff/{slug}.svg">`, `objectFit: contain`, centred in the bed.
-3. **Ambient float** — a Framer Motion translateY ±4px on an 8-second sine, suppressed under `prefers-reduced-motion`.
+#### The shared kit — `components/sections/product-uis/glass.tsx`
 
-**Light vs. dark beds.** The handoff SVGs are themed for light surfaces (white field, navy ink, cyan accents). In dark mode the bed becomes a translucent light pane (rgba(247,248,252,0.92) and family), letting the SVG read on its native light ground while the page stays dark — the same trick the hero carousel uses (`bg-white/40 + blur`). The per-tone tint persists as a faint cool wash under the light pane.
+Every surface composes from two primitives, so the six read as one dimensional material family rather than six flat panels:
+
+- **`GlassBed`** — the per-card field the glass floats on. Renders the canonical **`GlassAtmosphere`** (`components/visuals/GlassAtmosphere.tsx`): a theme-aware, restrained cool field (soft pastel pooling on near-white in light; a deep cool field in dark). It maps each legacy bento tone → an atmosphere tone, steering `violet` → `indigo` so the bento never reads purple-led. This is **not** the old faint ~8 % wash — that wash was the v5 flatness bug (§8.1: glass needs a rich field to refract).
+- **`GlassSurface`** — the frosted, dimensional glass panel, mirroring `GlassPanel` (§8.1): `white/70` + `blur(20px)` `saturate(180%)` in light, `surface-dark-glass` + `blur(24px)` in dark; the critical cyan top-edge hairline (the brand cue); a top-left directional bloom (lit material); a soft float shadow; `radius-xl`. The key surface in a cell may `bleed` a touch off the bed edge for depth (the Stripe technique).
 
 **Asymmetric bento layout (≥ lg).** Three rows, two cells per row, alternating wide/narrow:
 
@@ -714,11 +729,11 @@ Below `lg`, the grid collapses to a single column at natural aspect.
 
 | Element | Treatment |
 | --- | --- |
-| Visual area | `HandoffVisual` — tonal bed + handoff SVG + ambient float. Aspect varies by row (the "tall" Cards / Lending cells get more vertical room). |
+| Visual zone | The bespoke surface, rendered `absolute inset-0`, filling the cell flush to the top / left / right edges (no inner radius). The cell is `overflow-hidden rounded-2xl`, clipping the surface to the top corners. Wide cells get a wider, shorter aspect; narrow cells a taller one. |
 | Heading | Product name. `h3` Satoshi 600. |
-| Meta caption | A short mono · separated · caption (e.g. "Debit · Credit · Prepaid"). |
-| Description | One or two lines. `body-sm` Inter 400, `text-secondary`. |
-| Arrow chip | Top-right rounded chip, `brand-primary` at rest, `brand-purple` on hover (the §8.18 affordance). |
+| Meta caption | A short mono · separated · caption naming a *different* facet than the description (e.g. "Physical · Virtual · Tokenized") so it never echoes the copy. |
+| Description | One or two lines, verbatim from `../02-copy/Homepage.md`. `body-sm` Inter 400, `text-secondary`. |
+| Arrow chip | Top-right rounded chip — `brand-primary` at rest, `brand-purple` on hover (light) / `accent-cyan` (dark). The single navigation affordance. |
 
 **Spec:**
 
@@ -727,36 +742,33 @@ Below `lg`, the grid collapses to a single column at natural aspect.
 | Card surface | `surface-white` (`surface-dark-elevated/40` on dark) |
 | Card outer ring | `1px solid surface-border-subtle/60` — almost imperceptible so the cell reads as one object |
 | Card radius | `radius-lg` (16px) — `rounded-2xl` |
-| Visual area inner padding | Set on `HandoffVisual` via `pad="tight" | "default" | "loose"` |
+| Surface field | `GlassBed` → `GlassAtmosphere` (theme-aware, restrained, navy/cyan-led); glass surfaces float on it via `GlassSurface` |
 | Copy area padding | `space-7` (32px); `space-6` (24px) below `sm` |
 | Heading → meta | `space-2` (8px) |
 | Meta → description | `space-3` (12px) |
-| Hover | The canonical §8.6 lift (`.nc-card-hover`): `translateY(-4px)` + `shadow-lift` + outer ring deepens |
-| Ambient motion | translateY ±4px on 8s sine; suppressed under `prefers-reduced-motion` |
+| Hover | The canonical §8.6 lift (`.nc-card-hover`): `translateY(-4px)` + `shadow-lift` + outer ring deepens, plus the surface's own hover gesture |
+| Motion | atmosphere drifts ambiently; surface reveals on scroll-in (staggered) + one purposeful gesture; all suppressed under `prefers-reduced-motion` |
 
 #### Rules
 
-- **No procedural visual generation in product UIs.** The hard learning from v2–v4: TypeScript painting visuals will not match the bar Claude Design sets. Every visual loads from `/public/handoff/`. If a new product needs a visual that isn't there, commission it from Claude Design — don't paint it.
-- **No editing the handoff SVGs.** The assets are authored upstream. If a variant is genuinely needed (e.g. a dark-themed version of an asset that doesn't read on dark), ship it as a sibling file with a clear suffix; don't touch the original.
-- **No mono dashboard chrome on the cell.** No LIVE markers, no terminal-style headers, no status pills, no ticker counters in TypeScript. The SVG carries everything that lives inside the bed.
-- **No fake data invented in code.** All numbers, names, amounts, currencies live in the SVG (where Claude Design controls them). TypeScript does not insert "USD" or "$9,820" into the visual.
-- **Light AND dark both first-class.** The tonal beds carry light + dark variants; every cell is verified in both. The dark variant flips the bed to a translucent light pane so the SVG reads.
-- **One ambient motion per cell** — the 8s translateY drift, applied uniformly. The SVG's own SMIL animations (where present) provide the per-cell character. Both stop under `prefers-reduced-motion`.
-- **The arrow chip is the only navigation affordance.** Each card is a single link to the product page.
+- **Compose from the kit; never hand-author new glass or float glass on a flat bed.** `GlassSurface` over `GlassBed` / `GlassAtmosphere` only — the §8.1 rule, enforced in `CLAUDE.md` ("Design guardrails"). The v5 flatness came from frost on a faint wash.
+- **Each cell DISTINCT.** Never reuse one surface across cells, the hero, or the industries rail; an infrastructural icon is the only fallback.
+- **Navy/cyan-led, restrained, light-first.** Purple only as an object accent, never the field. The field is contained to the cell — never a full-section colour wash.
+- **Tokens only** (`visual` / `withAlpha`, Tailwind utilities) — no raw hex / px.
+- **No fake live tickers, no invented data** beyond what the copy supports; no mono dashboard chrome (LIVE markers, terminal headers, status pills) bolted on for effect.
+- **Verify light AND dark, scroll + hover, against `/visual-system/glass`** before "done".
 
 #### Reference anchors
 
-- `06-build/components/hero/ProductCarousel.tsx` — the proven pattern (CarouselCard, lines ~305–341). The Products bento is the same pattern applied to a bento layout.
-- `03-references/stripe/stripe-products-asymetric.png` — the asymmetric six-mode grid (layout reference).
+- **`/visual-system/glass`** — the canonical kit's before/after proof and the bar to match.
+- `06-build/components/visuals/GlassPanel.tsx` + `GlassAtmosphere.tsx` — the kit.
+- `06-build/components/hero/` — the hero's glass-over-field DNA this extends.
 
 #### What was retired
 
-- `ProductUIFrame` (window-chrome 3-dots, v1) — deleted earlier.
-- `ProductUISurface` (cyan top edge + corner crosshairs + LIVE marker, v3) — deleted earlier.
-- `TonalCardBed` (v4 — the soft tinted bed primitive) — folded into `HandoffVisual` and deleted; the six tonal variants live on as `BedTone`.
-- The procedural v4 visuals (`CardsUI` with `PaymentCard` layering, `LendingUI` phone sheet, `MoneyMovementUI` particle storm, `SettlementUI` isometric cubes, `FinancialCrimeUI` scan-and-chip, `ReconciliationUI` line diagram) — archived under `components/sections/product-uis/versions/`.
-- The procedural `NCoreStack` artifact — the new version loads `/public/handoff/home/ncore-stack-light.svg` + `ncore-stack-dark.svg`. Previous version archived under `components/artifacts/versions/`.
-- The `ProductCard` (composition primitive used by the symmetric `CardGrid`) **remains** for inner-page grids that still want the simple Light-Surface tile; the homepage Products section no longer uses it.
+- **v5 handoff-SVG-per-cell as the product-card direction.** `HandoffVisual` (`components/sections/product-uis/HandoffVisual.tsx`) loaded a single `/public/handoff/*.svg` on a faint tonal bed; reusing the hero's assets read flat and samey, and the faint bed gave the frost nothing to refract. `HandoffVisual` now composes the glass kit (atmosphere field + a `GlassSurface` holding the screen) so any surface still loading a handoff asset reads dimensional — but the homepage bento and the distinct product-page surfaces are coded UIs, not reused SVGs.
+- Earlier retirements stand: `ProductUIFrame` (v1 window-chrome), `ProductUISurface` (v3 cyan-edge + LIVE marker), `TonalCardBed` (v4, folded into beds).
+- The `ProductCard` composition primitive **remains** for inner-page modular grids that want the simple Light-Surface tile; the homepage Products section does not use it.
 
 ### 8.9 The card grid — `CardGrid`
 
@@ -1899,6 +1911,7 @@ Homepage alternation:
 
 ### Change log
 
+- **v2.3 (May 2026 — homepage redesign, motion-rich):** The homepage was fully reconceived to an instrument-grade, non-static standard (owner directive — "the operating system for moving money: structurally precise and ALIVE; not a Stripe clone"). System-level changes recorded here so the system stays one source of truth: (1) **`HandoffVisual` built (§8.8).** The unifying product-cell primitive the §8.8 spec described but the build never created now exists at `components/sections/product-uis/HandoffVisual.tsx` — tonal bed + handoff SVG (`objectFit: contain`) + one ambient translateY float. Every homepage Products and Solutions cell now carries a real Claude Design handoff surface; the prior **grey-skeleton `UIPlaceholder` cells and the procedural `CardsUI` / `LendingUI` / `MoneyMovementUI` / `SettlementUI` / `FinancialCrimeUI` / `ReconciliationUI` components are retired from the homepage** (they painted dashboards / particle storms / isometric cubes / mono window-chrome / invented data — the v2–v4 slop §8.8 already warned against). The procedural components remain on disk for any non-homepage references but are no longer used by the homepage or the styleguide. (2) **`ProductsBento` (new homepage section)** renders the §8.8 asymmetric bento (8/4 · 5/7 · 7/5) with crosshair-rail framing, staggered scroll reveal, the §8.6 lift, and an arrow chip per cell — replacing the old symmetric 3-col `CardGrid` Products section (archived to `versions/`). (3) **No-eyebrow enforcement** — every uppercase / eyebrow scaffolding label removed from homepage section openers (§2); `RailCarousel.eyebrow` is now optional; `RailCarouselRichItem.visual` slot added so the Solutions rail shows real product surfaces instead of `UIPlaceholder` chrome. (4) **nCore section art-directed as its own world** — bespoke `NCoreFoundation` (replacing the generic `SplitEditorial` instance) with a committed-violet atmosphere (`KineticRibbon` + violet `AmbientGlow`), a numbered 01/02/03 rail with violet markers, and the live `NCoreStack` (its `animate-ping` pulsing-dot removed — an AI-slop tell layered over motion that already lives). (5) **Motion mandate** — the hero opens with an orchestrated staggered page-load (`HeroIntro`: headline → sub → CTA on a cinematic beat); sections reveal on scroll (`SectionReveal` / per-section `whileInView`); `RibbonInterlude` (dark, `peak`) gives the page a mid-scroll rhythm break and the ribbon a recurrence. All motion is `prefers-reduced-motion` safe and token-driven (`lib/visuals/motion`). (6) **Committed violet** recorded in §3 as a real voice in hero/signature moments, not a ≤10% accent. (7) **No fabricated data** — the homepage carries no invented scale stats; proof-of-scale numbers were deliberately not added (ScaleStatsRibbon needs real values NymCard hasn't locked). The styleguide `/visual-system` "Homepage product UIs" group now demos `HandoffVisual` (light + dark) instead of the retired procedural components.
 - **v2.2 (May 2026 — Phase 1.5 aliveness reset):** Seven moves to make the system feel alive across light and dark without breaking the Phase 1 contract. (1) **Atmosphere intensity reset** — `KineticRibbon` intensities `calm` / `ambient` / `peak` pulled further apart so they read as three states, not a single dimmer; pocket and directional gradient alphas now scale with intensity. (2) **`SectionAtmosphere` presets v2** — each preset paired with the new intensities and a distinct composition (§8.29). (3) **`CardTreatment` v2 chromatic reset (§8.28)** — the four cell-treatments now carry their own chromatic identity (cyan / indigo / violet / ribbon) rather than the same KineticRibbon at different intensities; legacy `calm`/`ambient`/`trace`/`crest` names preserved as aliases. (4) **Hover vocabulary — `.nc-card-hover` utility + `shadow-lift` / `shadow-dark-lift` tokens (§6, §8.6).** §8.6 now specifies a Stripe / Apple / Anthropic translateY(-4px) lift on hover; Linear's no-lift approach rejected for this phase because card interiors are still placeholders awaiting Phase 2 product UIs. Applied across every interactive card surface (ProductCard, CardGrid cells, RailCarousel, CrossSellBanner). (5) **Section default scroll-tied reveal (§9.6)** — `Section` wraps `children` in `SectionReveal` by default so every content section fades up cinematically on first scroll into view; opt-out via `reveal={false}` for the hero / trust / footer. (6) **Kinetic ribbon recurrence beyond the hero** — `CTASection` §8.14 becomes ribbon-led (the closing echo of the hero ribbon), and new **§8.26 RibbonInterlude** introduces a slim mid-page ribbon band. The ribbon now has three visible homes per page: hero, RibbonInterlude (mid-page punctuation), CTASection (closing echo). (7) **§8.27 AIExtraction primitive** — the §9.5.1 choreographed loop codified into one composition primitive (linear + radial variants); shipped as a styleguide demo in /visual-system, wiring into product pages comes in Phase 2. Crosshair signature recurs quietly on rail-card hover (a small crosshair glyph slides in top-right) and is available as an opt-in `marker` on `Eyebrow` and `rails` on `Section`. All seven moves preserve the cool-only palette and the `prefers-reduced-motion` contract.
 - **v2.1 (May 2026):** Phase 1 production primitives shipped after the Phase 0 lock (Geist Sans/Mono adopted, `visual.violet` (#6D28D9) anchor token in, crosshair-marker rails locked as the page-rail signature, gradient bridges rejected and deleted). Four new primitives close the gaps the audit named: (1) **§8.23 ScaleStatsRibbon** — the proof-of-scale dark moment as a primitive (header above + horizontal count-up stat row over the kinetic ribbon at ambient intensity, violet glow anchor); the second visible home for the signature ribbon outside the hero. (2) **§8.24 IntegrationsDiagram** — the Stripe-architecture moment as a primitive (radial hub-and-spoke SVG with cyan data-flow pulses on the connecting lines; canonical six NymCard network nodes — Visa, Mastercard, Visa Direct, Mastercard Cross-Border, Western Union, MoneyGram). (3) **§8.25 TrustBar** — the homepage trust band promoted from `sections/` to a composition primitive with prop-driven `logos`, optional `trustLine`, and three surface variants (`white` / `soft` / `dark`). (4) **CrosshairRails** — the locked page-rail signature lifted from styleguide demo to a production visual primitive (`components/visuals/CrosshairRails.tsx`), documented under §7 Page rails. Numbering note: §8.23–§8.25 continue the §8.12–§8.22 section-template run with no gaps.
 - **v2.0 (May 2026):** Added four section-template primitives to close the gap between the industry-page arc (`00-strategy/about-nymcard/industry-page-arc.md`, locked 2026-05-25) and the system — the §8.19–§8.22 run continues the §8.12–§8.18 section-template numbering with no gaps: **§8.19 OutcomeChips** — the row of three buyer-side outcome chips that sits directly beneath an industry-page hero (icon + bold label + one sentence); **§8.20 TextImageRow** — the lighter copy ↔ visual row used in the industry-page "What you can build" section, alternating text-left / text-right (a new primitive, not a lifted-optional §8.7 SplitEditorial — the rationale is recorded in the §8.20 entry); **§8.21 PlatformChecklist** — the "Built for X" Platform section (heading + body + 4–6 bullet checklist + optional trust-chip strip); **§8.22 DeveloperBlock** — the slim mid-page developer call (heading + one-sentence body + tertiary "Read the docs →"), smaller than §8.14 so it doesn't compete with the closing CTA. All four are server components; all four resolve to the dark palette under `.dark`.

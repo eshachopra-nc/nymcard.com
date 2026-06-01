@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -57,10 +57,27 @@ export type RailCarouselRichItem = {
   name: string;
   /** One- or two-line description. */
   description: string;
-  /** A small list of feature lines — three is the rhythm. */
-  bullets: string[];
-  /** Caption for the UI placeholder zone at the top of the card. */
-  uiLabel: string;
+  /** A small list of feature lines — three is the rhythm. Optional: the
+   *  industries rail leads with an icon + one line and carries no bullets. */
+  bullets?: string[];
+  /** Caption for the UI placeholder zone at the top of the card (fallback). */
+  uiLabel?: string;
+  /**
+   * A real product-UI surface rendered in the card's visual zone. When
+   * provided it replaces the neutral UIPlaceholder — the preferred state, so
+   * the rail shows real product surfaces, not grey-skeleton chrome. Optional
+   * so callers without a delivered visual still render an on-system stand-in.
+   */
+  visual?: ReactNode;
+  /**
+   * A branded icon for the card's visual zone — the industries-rail shape,
+   * where each card represents an industry rather than a product UI. Rendered
+   * as a centred icon tile when no `visual` is supplied (icon beats reusing a
+   * product image, per the owner's direction).
+   */
+  icon?: ReactNode;
+  /** A short chip beside the icon — the industry name, in industries mode. */
+  tag?: string;
   /** Where the card links to. */
   href: string;
 };
@@ -91,7 +108,8 @@ export type RailCarouselProps =
   | {
       variant: "rich";
       items: RailCarouselRichItem[];
-      eyebrow: string;
+      /** Optional eyebrow. Omit it to lead with the headline (no-eyebrow rule). */
+      eyebrow?: string;
       headline: string;
       background?: "light" | "dark";
       /** Accessible label for the rail (e.g. "Use cases", "Industries"). */
@@ -101,7 +119,8 @@ export type RailCarouselProps =
   | {
       variant: "sparse";
       items: RailCarouselSparseItem[];
-      eyebrow: string;
+      /** Optional eyebrow. Omit it to lead with the headline (no-eyebrow rule). */
+      eyebrow?: string;
       headline: string;
       background?: "light" | "dark";
       ariaLabel?: string;
@@ -134,7 +153,7 @@ export function RailCarousel(props: RailCarouselProps) {
 
   return (
     <section
-      aria-label={ariaLabel ?? `${eyebrow} carousel`}
+      aria-label={ariaLabel ?? `${eyebrow ?? headline} carousel`}
       className={cn(
         "relative overflow-hidden py-20 sm:py-28 lg:py-32",
         dark
@@ -154,8 +173,13 @@ export function RailCarousel(props: RailCarouselProps) {
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20">
         <div className="flex items-end justify-between gap-6">
           <div className="max-w-[720px]">
-            <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="mt-4 font-display font-bold leading-[1.1] tracking-tight text-text-primary text-[28px] sm:text-[32px] lg:text-[40px] dark:text-text-on-brand">
+            {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+            <h2
+              className={cn(
+                "font-display font-bold leading-[1.1] tracking-tight text-text-primary text-[28px] sm:text-[32px] lg:text-[40px] dark:text-text-on-brand",
+                eyebrow && "mt-4",
+              )}
+            >
               {headline}
             </h2>
           </div>
@@ -242,20 +266,44 @@ function RichCard({
       className={cn(
         "nc-card-hover",
         "group relative flex shrink-0 snap-start flex-col gap-5 overflow-hidden rounded-2xl border p-7",
-        "border-surface-border-subtle bg-surface-white",
-        "shadow-[0_2px_8px_0_rgba(14,26,51,0.04),0_1px_2px_0_rgba(14,26,51,0.06)]",
-        "dark:border-surface-dark-border dark:bg-surface-dark-elevated dark:hover:border-surface-dark-border-stronger",
+        // Light: a faint cool surface gradient + deeper, layered shadow so the
+        // card reads dimensional on the soft section (it was flat before).
+        "border-surface-border-subtle bg-gradient-to-b from-surface-white to-surface-soft/60",
+        "shadow-[0_4px_14px_-4px_rgba(14,26,51,0.07),0_18px_40px_-16px_rgba(14,26,51,0.14)]",
+        "dark:border-surface-dark-border dark:from-surface-dark-elevated dark:to-surface-dark-elevated dark:shadow-none dark:hover:border-surface-dark-border-stronger",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/30 dark:focus-visible:ring-accent-cyan/40",
         "w-[86%] sm:w-[60%] md:w-[44%] lg:w-[32%]",
       )}
     >
-      {/* Crosshair signature — appears top-right on hover, the quiet
-          recurrence of the page-rail mark on a rail card. */}
+      {/* Cyan top-edge hairline — the system's front-edge cue (light only). */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-cyan/40 to-transparent dark:hidden"
+      />
+      {/* Crosshair signature — appears top-right on hover. */}
       <RailCrosshair />
-      {/* UI placeholder — neutral on-system stand-in until a real product UI exists. */}
-      <div className="h-[180px] sm:h-[200px]">
-        <UIPlaceholder label={item.uiLabel} scale="compact" />
-      </div>
+
+      {item.icon ? (
+        // Industries mode — a small icon + an industry-name chip, then the
+        // headline + description. No oversized container for a small icon.
+        <div className="flex items-center gap-3">
+          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.08] text-brand-primary ring-1 ring-brand-primary/10 transition-transform duration-300 group-hover:-translate-y-0.5 dark:bg-accent-cyan/[0.12] dark:text-accent-cyan dark:ring-white/10">
+            {item.icon}
+          </span>
+          {item.tag && (
+            <span className="rounded-pill border border-surface-border-subtle bg-surface-soft px-3 py-1 font-mono text-[11px] tracking-[0.08em] text-text-secondary dark:border-surface-dark-border dark:bg-surface-dark-elevated dark:text-text-dark-secondary">
+              {item.tag}
+            </span>
+          )}
+        </div>
+      ) : item.visual || item.uiLabel ? (
+        // Product / use-case mode — a real product-UI surface (or a stand-in).
+        <div className="h-[180px] overflow-hidden rounded-xl border border-surface-border-subtle/70 sm:h-[200px] dark:border-surface-dark-border/70">
+          {item.visual ?? (
+            <UIPlaceholder label={item.uiLabel ?? "product UI"} scale="compact" />
+          )}
+        </div>
+      ) : null}
 
       <div>
         <h3 className="font-display font-semibold text-text-primary text-xl leading-snug dark:text-text-on-brand">
@@ -266,20 +314,22 @@ function RichCard({
         </p>
       </div>
 
-      <ul className="space-y-2.5">
-        {item.bullets.map((bullet) => (
-          <li
-            key={bullet}
-            className="flex items-start gap-2.5 font-body text-[13px] leading-relaxed text-text-primary dark:text-text-on-brand"
-          >
-            <Check
-              aria-hidden="true"
-              className="mt-[3px] size-3.5 shrink-0 text-accent-cyan"
-            />
-            <span>{bullet}</span>
-          </li>
-        ))}
-      </ul>
+      {item.bullets && item.bullets.length > 0 && (
+        <ul className="space-y-2.5">
+          {item.bullets.map((bullet) => (
+            <li
+              key={bullet}
+              className="flex items-start gap-2.5 font-body text-[13px] leading-relaxed text-text-primary dark:text-text-on-brand"
+            >
+              <Check
+                aria-hidden="true"
+                className="mt-[3px] size-3.5 shrink-0 text-accent-cyan"
+              />
+              <span>{bullet}</span>
+            </li>
+          ))}
+        </ul>
+      )}
 
       <div className="mt-auto pt-3">
         <span className="inline-flex items-center gap-2 font-body text-sm font-semibold text-brand-primary transition-colors group-hover:text-brand-primary-hover dark:text-accent-cyan dark:group-hover:text-accent-cyan/80">

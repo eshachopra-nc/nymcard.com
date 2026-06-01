@@ -3,13 +3,14 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { ChevronDown, Menu, X } from 'lucide-react'
 import {
   NAV_ITEMS,
   type NavItemConfig,
   type ProductItem,
   type SimpleItem,
+  type DropdownItem,
 } from '@/lib/nav-data'
 import { useTheme } from '@/lib/theme-provider'
 import { ThemeToggle } from './ThemeToggle'
@@ -35,11 +36,40 @@ function IconGradientDef() {
 /* ═══════════════════════════════════════════════════════
    PRODUCT CARD
 ═══════════════════════════════════════════════════════ */
+// One card link, internal (`next/link`) or external (`<a target=_blank>`).
+function CardLink({
+  href,
+  external,
+  className,
+  onClick,
+  children,
+}: {
+  href: string
+  external?: boolean
+  className: string
+  onClick?: () => void
+  children: React.ReactNode
+}) {
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick} className={className}>
+        {children}
+      </a>
+    )
+  }
+  return (
+    <Link href={href} onClick={onClick} className={className}>
+      {children}
+    </Link>
+  )
+}
+
 function ProductCard({ item }: { item: ProductItem }) {
   const Icon = item.icon
   return (
-    <Link
+    <CardLink
       href={item.href}
+      external={item.external}
       className="dd-card flex flex-col gap-[5px] p-[14px_16px] rounded-[8px] border border-[#E8EAED] bg-white no-underline dark:border-surface-dark-border dark:bg-surface-dark-elevated"
     >
       <div className="flex items-center gap-[8px]">
@@ -51,7 +81,7 @@ function ProductCard({ item }: { item: ProductItem }) {
       <p className="m-0 text-[12px] font-normal text-[#6B7280] leading-[1.4] dark:text-white/60">
         {item.description}
       </p>
-    </Link>
+    </CardLink>
   )
 }
 
@@ -61,8 +91,9 @@ function ProductCard({ item }: { item: ProductItem }) {
 function SimpleCard({ item }: { item: SimpleItem }) {
   const Icon = item.icon
   return (
-    <Link
+    <CardLink
       href={item.href}
+      external={item.external}
       className="dd-card flex flex-col gap-[5px] p-[14px_16px] rounded-[8px] border border-[#E8EAED] bg-white no-underline dark:border-surface-dark-border dark:bg-surface-dark-elevated"
     >
       <div className="flex items-center gap-[8px]">
@@ -74,7 +105,7 @@ function SimpleCard({ item }: { item: SimpleItem }) {
       <p className="m-0 text-[12px] font-normal text-[#6B7280] leading-[1.4] dark:text-white/60">
         {item.description}
       </p>
-    </Link>
+    </CardLink>
   )
 }
 
@@ -159,10 +190,76 @@ function DropdownContent({ item }: { item: NavItemConfig }) {
 
 const NAV_HEIGHT = 76 // pt-2 (8) + h-[68px] (68)
 
+/* ═══════════════════════════════════════════════════════
+   MOBILE MENU — full nav collapsed behind a hamburger (<lg)
+═══════════════════════════════════════════════════════ */
+function itemsForMobile(item: NavItemConfig): DropdownItem[] {
+  const dd = item.dropdown
+  if (!dd) return []
+  if (dd.type === 'company') return [...(dd.leftItems ?? []), ...(dd.rightItems ?? [])]
+  if (dd.type === 'solutions') return [...(dd.useCaseItems ?? []), ...(dd.industryItems ?? [])]
+  return dd.items ?? []
+}
+
+function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
+  return (
+    <nav aria-label="Mobile" className="flex flex-col gap-6 px-6 pb-8 pt-1">
+      <IconGradientDef />
+      {NAV_ITEMS.map((item) => {
+        const items = itemsForMobile(item)
+        return (
+          <div key={item.id}>
+            <div className="mb-1.5 px-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6B7280] dark:text-white/50">
+              {item.label}
+            </div>
+            <div className="flex flex-col">
+              {items.map((it) => {
+                const Icon = it.icon
+                return (
+                  <CardLink
+                    key={it.id}
+                    href={it.href}
+                    external={it.external}
+                    onClick={onNavigate}
+                    className="flex items-start gap-3 rounded-[10px] px-2 py-2.5 no-underline transition-colors hover:bg-[rgba(48,77,187,0.05)] dark:hover:bg-white/[0.06]"
+                  >
+                    <Icon
+                      size={18}
+                      strokeWidth={1.5}
+                      style={{ stroke: 'url(#nc-icon-grad)', flexShrink: 0, marginTop: 2 } as React.CSSProperties}
+                    />
+                    <span className="flex flex-col">
+                      <span className="text-[15px] font-semibold leading-snug text-[#0A0A0A] dark:text-white">
+                        {it.label}
+                      </span>
+                      <span className="text-[13px] leading-snug text-[#6B7280] dark:text-white/60">
+                        {it.description}
+                      </span>
+                    </span>
+                  </CardLink>
+                )
+              })}
+            </div>
+          </div>
+        )
+      })}
+      <Link
+        href="/contact"
+        onClick={onNavigate}
+        className="mt-1 inline-flex items-center justify-center rounded-button bg-brand-navy px-5 py-3 text-sm font-medium text-white no-underline dark:bg-accent-cyan dark:text-brand-navy"
+      >
+        Talk to us
+      </Link>
+    </nav>
+  )
+}
+
 export function Navbar() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const [scrolled, setScrolled]     = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const reduced = useReducedMotion()
   const { theme } = useTheme()
   const isDark = theme === 'dark'
 
@@ -174,7 +271,10 @@ export function Navbar() {
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (!(e.target as Element).closest('header')) setActiveMenu(null)
+      if (!(e.target as Element).closest('header')) {
+        setActiveMenu(null)
+        setMobileOpen(false)
+      }
     }
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
@@ -182,10 +282,33 @@ export function Navbar() {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setActiveMenu(null)
+      if (e.key === 'Escape') {
+        setActiveMenu(null)
+        setMobileOpen(false)
+      }
     }
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
+  }, [])
+
+  // Lock body scroll while the mobile menu is open.
+  useEffect(() => {
+    if (!mobileOpen) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [mobileOpen])
+
+  // Close the mobile menu once the viewport reaches the desktop nav (lg).
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)')
+    const onChange = () => {
+      if (mq.matches) setMobileOpen(false)
+    }
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
   }, [])
 
   const openMenu     = useCallback((id: string) => {
@@ -207,7 +330,7 @@ export function Navbar() {
    * Glass + Tier 3 shadow only when the user has scrolled >20px OR a menu is open.
    * Explicit transparent-state values ensure clean CSS transitions on every property.
    */
-  const isMaterial = isOpen || scrolled
+  const isMaterial = isOpen || scrolled || mobileOpen
 
   const cardStyle: React.CSSProperties = isMaterial
     ? {
@@ -275,7 +398,7 @@ export function Navbar() {
             />
           </Link>
 
-          <nav className="absolute left-1/2 -translate-x-1/2 flex items-center" aria-label="Main">
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center lg:flex" aria-label="Main">
             {NAV_ITEMS.map(navItem => (
               <div key={navItem.id} onMouseEnter={() => openMenu(navItem.id)}>
                 <button
@@ -314,10 +437,20 @@ export function Navbar() {
             <ThemeToggle />
             <Link
               href="/contact"
-              className="inline-flex items-center rounded-button bg-brand-navy px-5 py-2 text-sm font-medium text-white no-underline transition-opacity hover:opacity-90 dark:bg-accent-cyan dark:text-brand-navy"
+              className="hidden items-center rounded-button bg-brand-navy px-5 py-2 text-sm font-medium text-white no-underline transition-all duration-150 hover:-translate-y-px hover:shadow-[var(--shadow-lift)] sm:inline-flex dark:bg-accent-cyan dark:text-brand-navy dark:hover:shadow-[var(--shadow-dark-lift)]"
             >
               Talk to us
             </Link>
+            <button
+              type="button"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
+              onClick={() => setMobileOpen((v) => !v)}
+              className="inline-flex size-9 items-center justify-center rounded-[8px] text-[#0A0A0A] transition-colors hover:bg-[rgba(48,77,187,0.05)] lg:hidden dark:text-white dark:hover:bg-white/[0.07]"
+            >
+              {mobileOpen ? <X size={20} strokeWidth={1.75} /> : <Menu size={20} strokeWidth={1.75} />}
+            </button>
           </div>
         </div>
 
@@ -338,6 +471,23 @@ export function Navbar() {
             )}
           </AnimatePresence>
         </div>
+
+        {/* ── Mobile menu — full nav collapsed behind the hamburger (<lg) ── */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              id="mobile-menu"
+              key="mobile-menu"
+              initial={reduced ? { opacity: 0 } : { opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduced ? { opacity: 0 } : { opacity: 0, y: -8 }}
+              transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
+              className="max-h-[calc(100vh-96px)] overflow-y-auto lg:hidden"
+            >
+              <MobileMenu onNavigate={() => setMobileOpen(false)} />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
       </div>
     </header>

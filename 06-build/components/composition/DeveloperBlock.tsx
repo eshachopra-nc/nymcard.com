@@ -31,8 +31,11 @@ type DeveloperBlockProps = {
 };
 
 const BG: Record<NonNullable<DeveloperBlockProps["background"]>, string> = {
-  white: "bg-surface-white",
-  soft: "bg-surface-soft",
+  // Light surfaces collapse onto the dark base in dark mode — the section's
+  // inner text already carries dark: variants. Without this, `white`/`soft`
+  // rendered a jarring full-width white band in dark mode.
+  white: "bg-surface-white dark:bg-surface-dark-base",
+  soft: "bg-surface-soft dark:bg-surface-dark-base",
   dark: "dark bg-surface-dark-base",
 };
 
@@ -61,6 +64,9 @@ export function DeveloperBlock({
           </p>
           <a
             href={link.href}
+            {...(/^https?:\/\//i.test(link.href)
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
             className="group mt-5 inline-flex items-center gap-0.5 font-body text-[15px] font-medium text-brand-primary outline-none transition-colors focus-visible:ring-4 focus-visible:ring-brand-primary/15 dark:text-accent-cyan"
           >
             {link.label}

@@ -97,7 +97,13 @@ export function CTASection({
           <h2
             className={cn(
               "max-w-xl font-display text-3xl font-bold leading-[1.12] tracking-tight sm:text-4xl lg:text-[2.75rem]",
-              dark ? "text-text-on-brand" : "text-text-primary",
+              // Theme-aware, not just background-prop-aware: a `soft` background
+              // still flips to dark surface under the dark theme, so the text
+              // must darken/lighten with the theme or it renders navy-on-navy
+              // (the unreadable dark-mode CTA the owner flagged).
+              dark
+                ? "text-text-on-brand"
+                : "text-text-primary dark:text-text-on-brand",
             )}
           >
             {headline}
@@ -105,7 +111,9 @@ export function CTASection({
           <p
             className={cn(
               "mt-5 max-w-lg font-body text-base leading-relaxed sm:text-lg",
-              dark ? "text-text-dark-secondary" : "text-text-secondary",
+              dark
+                ? "text-text-dark-secondary"
+                : "text-text-secondary dark:text-text-dark-secondary",
             )}
           >
             {body}

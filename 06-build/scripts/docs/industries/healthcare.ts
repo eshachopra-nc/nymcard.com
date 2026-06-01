@@ -106,7 +106,7 @@ export const healthcareDoc = {
   developer: {
     headline: "Built for your team to integrate.",
     body: "Full API access, SDKs, sandbox, and webhooks, with audit trails and regulatory reporting built in from day one.",
-    link: { label: "Read the docs", href: "/docs" },
+    link: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 
   crossSell: withKeys(
@@ -143,9 +143,9 @@ export const healthcareDoc = {
   },
 
   finalCta: {
-    headline: "Talk to our team.",
+    headline: "Talk to us.",
     body: "Launch patient financing, staff disbursements, and procurement programs on one platform.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

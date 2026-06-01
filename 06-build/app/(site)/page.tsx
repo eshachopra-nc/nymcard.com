@@ -3,9 +3,9 @@ import { Hero } from "@/components/hero/Hero";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Footer } from "@/components/sections/Footer";
 import { NCoreFoundation } from "@/components/sections/NCoreFoundation";
-import { Products } from "@/components/sections/Products";
+import { ProductsBento } from "@/components/sections/ProductsBento";
 import { UseCases } from "@/components/sections/UseCases";
-import { TrustBar, PrincipalMemberTrustLine } from "@/components/composition/TrustBar";
+import { TrustBar } from "@/components/composition/TrustBar";
 
 export default function HomePage() {
   return (
@@ -15,16 +15,19 @@ export default function HomePage() {
       <div id="hero" className="scroll-mt-24">
         <Hero />
       </div>
+      {/* Trust bar — a rotating client-logo marquee (placeholder logo lockups
+          for now), theme-aware, directly under the hero. Drop real grayscale
+          client SVGs into public/logos and pass `logos={[...]}` to go live. */}
       <div id="trust" className="scroll-mt-24">
-        <TrustBar logos={[]} trustLine={<PrincipalMemberTrustLine />} />
+        <TrustBar />
       </div>
       <div id="ncore" className="scroll-mt-24">
         <NCoreFoundation />
       </div>
       <div id="products" className="scroll-mt-24">
-        <Products />
+        <ProductsBento />
       </div>
-      <div id="use-cases" className="scroll-mt-24">
+      <div id="industries" className="scroll-mt-24">
         <UseCases />
       </div>
       <div id="final-cta" className="scroll-mt-24">

@@ -2,6 +2,8 @@ import { IndustryPage, type IndustryPageProps } from "./IndustryPage";
 import type { CrossSellItem } from "./CrossSellBanner";
 import type { OutcomeChip } from "./OutcomeChips";
 import { iconByName } from "@/lib/sanity/icon-map";
+import { fixVoice, fixHref } from "@/lib/sanity/voice-overrides";
+import { industryRowVisual } from "@/components/sections/industry-uis";
 import type { SanityIndustryPage } from "@/lib/sanity/types";
 
 // ── IndustryPageRenderer ───────────────────────────────────────────────────
@@ -19,7 +21,7 @@ export function IndustryPageRenderer({ doc }: Props) {
   const outcomes = doc.outcomes.map((o) => ({
     icon: iconByName(o.iconName),
     label: o.label,
-    body: o.body,
+    body: fixVoice(o.body),
   })) as [OutcomeChip, OutcomeChip, OutcomeChip];
 
   const payKit: CrossSellItem | undefined = doc.payKit
@@ -51,14 +53,29 @@ export function IndustryPageRenderer({ doc }: Props) {
     outcomes,
     challenge: doc.challenge,
     buildEyebrow: doc.build.eyebrow,
-    buildRows: doc.build.rows,
+    // Inject each row's bespoke coded surface (keyed by slug + order); rows
+    // without a registered surface fall back to the AmbientPlaceholder.
+    buildRows: doc.build.rows.map((row, i) => ({
+      ...row,
+      visual: industryRowVisual(doc.slug, i),
+    })),
     payKit,
     platform: doc.platform,
-    developer: doc.developer,
+    developer: {
+      ...doc.developer,
+      body: fixVoice(doc.developer.body),
+      link: { ...doc.developer.link, href: fixHref(doc.developer.link.href) },
+    },
     crossSell,
     faqHeadline: doc.faq.headline,
-    faqItems: doc.faq.items,
-    finalCta: doc.finalCta,
+    faqItems: doc.faq.items.map((it) => ({ ...it, answer: fixVoice(it.answer) })),
+    finalCta: {
+      ...doc.finalCta,
+      headline: fixVoice(doc.finalCta.headline),
+      secondaryCta: doc.finalCta.secondaryCta
+        ? { ...doc.finalCta.secondaryCta, href: fixHref(doc.finalCta.secondaryCta.href) }
+        : doc.finalCta.secondaryCta,
+    },
   };
 
   return <IndustryPage {...props} />;

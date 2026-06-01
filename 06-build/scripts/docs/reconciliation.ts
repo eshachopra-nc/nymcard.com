@@ -6,7 +6,7 @@ export const reconciliationDoc = {
   title: "Reconciliation",
   slug: { _type: "slug", current: "reconciliation" },
   metaTitle:
-    "Reconciliation, Automated Reconciliation Across Products and Systems | NymCard",
+    "Reconciliation, Automated Matching Across Products and Systems | NymCard",
   metaDescription:
     "Reconcile activity across every NymCard product and the external systems they connect to. Runs on nCore. PCI DSS Level 1 and ISO 27001 certified. Cloud, on-soil, or on-premise.",
   trustLine:
@@ -15,7 +15,7 @@ export const reconciliationDoc = {
     headline: "Reconcile across every product and system, automatically.",
     body: "Reconciliation runs on nCore, matching activity across your NymCard products and the external systems they connect to.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     visualLabel: "reconciliation streams",
   },
   capabilities: {
@@ -49,7 +49,7 @@ export const reconciliationDoc = {
   deployment: {
     eyebrow: "Deployment",
     headline: "Deploy in the cloud, on-soil, or on-premise.",
-    body: "Three deployment models on the same platform, pick the one that fits your regulatory and architectural requirements.",
+    body: "Three deployment models on the same platform — pick the one that fits your regulatory and architectural requirements.",
     items: withKeys(
       [
         { eyebrow: "Cloud", heading: "Cloud", description: "Multi-region, NymCard-hosted, fully managed." },
@@ -74,10 +74,10 @@ export const reconciliationDoc = {
     ),
   },
   finalCta: {
-    headline: "Talk to our team.",
+    headline: "Talk to us.",
     body: "See how Reconciliation runs across your products and the systems you connect to.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
   crossSell: withKeys(
     [

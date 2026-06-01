@@ -5,6 +5,7 @@ import {
   CTASection,
   PortableTextBody,
 } from "@/components/composition";
+import { DOCS_URL } from "@/lib/external-links";
 import { sanityClient } from "@/lib/sanity/client";
 import {
   allBlogPostSlugsQuery,
@@ -19,10 +20,10 @@ import type { SanityBlogPost } from "@/lib/sanity/types";
 
 // TODO: copy from ../02-copy/ once the per-article closing CTA copy is locked.
 const CTA_COPY = {
-  headline: "Talk to our team.",
+  headline: "Talk to us.",
   body: "See how NymCard helps banks and fintechs run modern payment programmes.",
   primaryCta: { label: "Talk to us", href: "/company/contact" },
-  secondaryCta: { label: "Read the docs", href: "/developers/guides" },
+  secondaryCta: { label: "Read the docs", href: DOCS_URL },
 } as const;
 
 async function getPost(slug: string): Promise<SanityBlogPost | null> {

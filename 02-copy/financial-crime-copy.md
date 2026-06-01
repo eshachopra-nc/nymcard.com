@@ -19,7 +19,7 @@ Financial Crime is **one layer** of nCore. Fraud, risk monitoring, identity, and
 Deviations from the canonical arc (each doing real work on this page):
 
 - Skips the arc's Section 3 "Why Financial Crime" — the hero already states the unification claim, and the bento + decisioning console answer the outcome question more concretely than four outcome tiles would.
-- Splits the capability story into two consecutive sections: §3 **Capabilities** (asymmetric bento — Fraud, Risk monitoring, Identity, ACS / 3D Secure, plus a dedicated tile naming the nine signal engines) and §4 **Decisioning console** (FeatureShowcase — full-width animated dashboard).
+- Splits the capability story into two consecutive sections: §3 **Capabilities** (asymmetric bento — Fraud, Risk monitoring, Identity, ACS / 3D Secure) and §4 **Decisioning console** (FeatureShowcase — full-width animated dashboard).
 - Drops the arc's Section 5 "Built on nCore" cinematic centerpiece. Per locked decision (2026-05-23), product pages on nymcard.com don't carry this section. The nCore positioning lives in the hero, the FAQ, and the cross-sell banners instead.
 - No Migration section. The fact file does not surface a legacy-risk-vendor migration story; adding one would be fabrication.
 
@@ -85,11 +85,11 @@ Fraud, AML transaction monitoring, sanctions screening, identity, and 3D Secure 
 
 **Visual:**
 
-Asymmetric bento. Five tiles on a six-column grid:
+Asymmetric bento. Four tiles on a six-column grid:
 
 - Row 1 — **Fraud management** (full-width showpiece, two rows tall).
-- Rows 2 — **Risk monitoring** (half-width) + **Identity** (half-width), side by side.
-- Row 3 — **ACS / 3D Secure** (half-width) + **The nine signal engines** (half-width), side by side.
+- Row 2 — **Risk monitoring** (half-width) + **Identity** (half-width), side by side.
+- Row 3 — **ACS / 3D Secure** (full-width).
 
 Each tile carries a live UI snippet as its primary visual. Editorial spacing, no atmospheric backgrounds — the UIs do the work.
 
@@ -111,17 +111,11 @@ KYC, KYB, identity verification, and ongoing monitoring on the same customer rec
 
 *UI snippet:* A customer record surface with KYC status, document lifecycle, and periodic review schedule. A new document uploads and re-verifies inline; the next review date recomputes; an ongoing-monitoring chip stays steady throughout.
 
-**(Half-width) ACS / 3D Secure**
+**(Full-width) ACS / 3D Secure**
 
 Issuer-side step-up authentication driven by the same enriched signals as the rest of the layer.
 
 *UI snippet:* A CNP authorization arriving, the ACS panel surfacing a frictionless / challenge decision with the signals that drove it, and the resulting authorization completing beneath.
-
-**(Half-width) The nine signal engines**
-
-Every event passes through nine engines before any decision is made.
-
-*UI snippet:* A vertical column of nine labeled engines — geographic physics, temporal context, session context, device trust, behavioral baseline, transition anomaly, merchant familiarity, registry metadata, entity state. An event drops in at the top and each engine lights in sequence as it contributes a signal, resolving into a decision at the bottom.
 
 ---
 
@@ -364,6 +358,8 @@ Run fraud, AML, identity, and 3D Secure on one layer of nCore.
 ---
 
 # Changelog
+
+**v1 → v2 (29 May 2026):** Removed the "nine signal engines" tile from the §3 Capabilities bento and promoted **ACS / 3D Secure** to full-width, so the bento is now four tiles (Fraud full-width tall → Risk monitoring + Identity → ACS / 3D Secure full-width). The nine-signal concept still lives in the §1 hero and §4 decisioning pipeline. Staged in `scripts/docs/financial-crime.ts`; not yet re-seeded to Sanity.
 
 **v0 → v1 (23 May 2026):** Initial draft.
 

@@ -73,7 +73,7 @@ export function TopologyTraces({
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 overflow-hidden text-brand-navy/[0.04] dark:text-white/[0.05] ${className ?? ""}`}
+      className={`pointer-events-none absolute inset-0 overflow-hidden text-brand-navy/[0.08] dark:text-white/[0.06] ${className ?? ""}`}
     >
       <svg
         className="size-full"

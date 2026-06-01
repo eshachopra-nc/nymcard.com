@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { visual, withAlpha } from "@/components/visuals";
@@ -71,6 +71,12 @@ export type CodeArtifactProps = {
    */
   companion?: CodeArtifactCompanion;
   /**
+   * Optional visualization slot rendered inside the same surface, between the
+   * code body and the companion — e.g. the lending §5 applicant-decisioning
+   * cards. Lets a page show "the config applied" without a second composition.
+   */
+  viz?: ReactNode;
+  /**
    * Surface variant. The artifact is designed for a dark Section 6 by default
    * (per the page-arc). Pass `light` if it ever needs to render against a
    * light surface.
@@ -84,6 +90,7 @@ export type CodeArtifactProps = {
 export function CodeArtifact({
   tabs,
   companion,
+  viz,
   background = "dark",
   initialTabIndex = 0,
   className,
@@ -220,6 +227,11 @@ export function CodeArtifact({
             </code>
           </pre>
         </div>
+
+        {/* Optional visualization slot — sits inside the same surface, between
+            the code body and the companion (e.g. the lending §5 applicant
+            decisioning cards). */}
+        {viz}
 
         {/* Companion block — sub-headline + body + tertiary link, beneath the
             code body inside the same surface. Optional. The Stripe reference

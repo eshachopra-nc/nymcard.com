@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" role="img" aria-label="Stablecoin Settlement product — SWIFT vs USDC rail comparison" font-family="Geist, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="sclBed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F4F6FF"></stop>
+      <stop offset="1" stop-color="#FFFFFF"></stop>
+    </linearGradient>
+    <linearGradient id="sclSelected" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22D3EE" stop-opacity="0.12"></stop>
+      <stop offset="1" stop-color="#5B4FD9" stop-opacity="0.06"></stop>
+    </linearGradient>
+    <clipPath id="sclFrame"><rect x="0" y="0" width="600" height="400" rx="12"></rect></clipPath>
+  </defs>
+
+  <g clip-path="url(#sclFrame)">
+    <rect x="0" y="0" width="600" height="400" fill="url(#sclBed)"></rect>
+    <rect x="0" y="0" width="600" height="1" fill="#22D3EE" fill-opacity="0.6"></rect>
+
+    <rect x="0" y="0" width="600" height="40" fill="#FFFFFF"></rect>
+    <line x1="0" y1="40" x2="600" y2="40" stroke="#E8EBF5"></line>
+    <circle cx="16" cy="20" r="2.5" fill="#22D3EE" fill-opacity="0.85"></circle>
+    <circle cx="26" cy="20" r="2.5" fill="#0E1A33" fill-opacity="0.15"></circle>
+    <circle cx="36" cy="20" r="2.5" fill="#0E1A33" fill-opacity="0.15"></circle>
+
+    <g transform="translate(32 56)">
+      <text x="0" y="14" font-family="&#39;Geist Mono&#39;, ui-monospace, monospace" font-size="10" letter-spacing="1.4" fill="#7A839E">SETTLING · USD → EUR</text>
+      <text x="0" y="42" font-family="Geist, system-ui, sans-serif" font-weight="600" font-size="22" fill="#0E1A33">$24,000.00</text>
+      <text x="536" y="42" font-family="&#39;Geist Mono&#39;, ui-monospace, monospace" font-size="10" letter-spacing="1.4" fill="#7A839E" text-anchor="end">BATCH #2847</text>
+    </g>
+
+    <text x="32" y="124" font-family="&#39;Geist Mono&#39;, ui-monospace, monospace" font-size="10" letter-spacing="1.4" fill="#7A839E">SELECT RAIL</text>
+
+    
+    <g transform="translate(32 138)">
+      <rect x="0" y="0" width="260" height="208" rx="12" fill="#FFFFFF" stroke="#E8EBF5"></rect>
+
+      <g transform="translate(20 20)">
+        <text x="0" y="14" font-family="Geist, system-ui, sans-serif" font-weight="600" font-size="14" fill="#0E1A33">SWIFT</text>
+        <text x="0" y="32" font-family="&#39;Geist Mono&#39;, ui-monospace, monospace" font-size="10" letter-spacing="1.4" fill="#7A839E">CORRESPONDENT BANKING</text>
+      </g>
+
+      <line x1="20" y1="68" x2="240" y2="68" stroke="#F4F6FF"></line>
+
+      <g transform="translate(20 110)">
+        <text x="0" y="10" font-family="&#39;Geist Mono&#39;, ui-monospace, monospace" font-size="9" letter-spacing="1.4" fill="#7A839E">SETTLEMENT</text>
+        <text x="0" y="40" font-family="Geist, system-ui, sans-serif" font-weight="500" font-size="28" fill="#0E1A33">2–3</text>
+        <text x="58" y="40" font-family="Geist, system-ui, sans-serif" font-size="14" fill="#7A839E">days</text>
+      </g>
+
+      <g transform="translate(20 188)">
+        <rect x="0" y="0" width="220" height="4" rx="2" fill="#F4F6FF"></rect>
+        <rect x="0" y="0" width="220" height="4" rx="2" fill="#7A839E" fill-opacity="0.35"></rect>
+      </g>
+    </g>
+
+    
+    <g transform="translate(308 138)">
+      <rect x="0" y="0" width="260" height="208" rx="12" fill="url(#sclSelected)"></rect>
+      <rect x="0" y="0" width="260" height="208" rx="12" fill="none" stroke="#22D3EE" stroke-opacity="0.6" stroke-width="1.5"></rect>
+
+      <g transform="translate(20 20)">
+        <text x="0" y="14" font-family="Geist, system-ui, sans-serif" font-weight="600" font-size="14" fill="#0E1A33">USDC</text>
+        <text x="0" y="32" font-family="&#39;Geist Mono&#39;, ui-monospace, monospace" font-size="10" letter-spacing="1.4" fill="#7A839E">STABLECOIN SETTLEMENT</text>
+      </g>
+
+      <line x1="20" y1="68" x2="240" y2="68" stroke="#22D3EE" stroke-opacity="0.2"></line>
+
+      <g transform="translate(20 110)">
+        <text x="0" y="10" font-family="&#39;Geist Mono&#39;, ui-monospace, monospace" font-size="9" letter-spacing="1.4" fill="#7A839E">SETTLEMENT</text>
+        <text x="0" y="40" font-family="Geist, system-ui, sans-serif" font-weight="500" font-size="28" fill="#0E1A33">Real-time</text>
+      </g>
+
+      <g transform="translate(20 188)">
+        <rect x="0" y="0" width="220" height="4" rx="2" fill="#22D3EE" fill-opacity="0.12"></rect>
+        <rect x="0" y="0" width="220" height="4" rx="2" fill="#22D3EE"></rect>
+      </g>
+    </g>
+
+    
+    <g transform="translate(32 368)">
+      <text x="0" y="10" font-family="&#39;Geist Mono&#39;, ui-monospace, monospace" font-size="9" letter-spacing="1.4" fill="#7A839E">FASTER BY</text>
+      <text x="72" y="10" font-family="&#39;Geist Mono&#39;, ui-monospace, monospace" font-size="10" fill="#0E1A33">2.9 days</text>
+    </g>
+  </g>
+</svg>

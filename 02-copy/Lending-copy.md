@@ -314,7 +314,7 @@ NymCard's decisioning layer supports connections to credit bureaus, open banking
 
 **5. Can NymCard integrate with my existing card program?**
 
-Yes. Embedded Lending runs on the same nCore platform as Card Issuing, with one customer record across both products. Card-linked credit, revolving credit limits, and installment plans on existing cards are all natively supported.
+Yes. Lending runs on the same nCore platform as Card Issuing, with one customer record across both products. Card-linked credit, revolving credit limits, and installment plans on existing cards are all natively supported.
 
 **6. What deployment models are available?**
 

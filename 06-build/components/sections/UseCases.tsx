@@ -3,25 +3,24 @@ import { HOMEPAGE_USE_CASES } from "@/lib/homepage-use-cases";
 
 // ── UseCases — homepage section ────────────────────────────────────────────
 //
-// The homepage "Use cases" rail. Now a thin shell over the RailCarousel
-// composition primitive (design-system.md §8.18) — the Stripe-style full-bleed
-// snap-scroll rail, the same one used for the product-page Section 7
-// (Industries) and any other props-driven horizontal rail on the site.
+// The homepage solutions rail. A thin shell over the RailCarousel composition
+// primitive (design-system.md §8.18) — the Stripe-style full-bleed snap-scroll
+// rail. Each card now carries a real Claude Design handoff SVG in its visual
+// zone (via the `visual` slot on RailCarouselRichItem) instead of a grey
+// UIPlaceholder — the rail shows real product surfaces, not skeleton chrome.
 //
-// Same surface, same cards, same behaviour as before — this is a refactor onto
-// the system primitive, not a redesign. Data lives in lib/homepage-use-cases.ts.
-//
-// TODO: copy from ../02-copy/Homepage.md §5 — back-fill into the copy file.
+// No eyebrow: the headline leads (enforces design-system.md §2 / the no-eyebrow
+// rule). Headline mirrored from ../02-copy/Homepage.md §5 (Solutions). Card
+// data lives in lib/homepage-use-cases.tsx.
 
 export function UseCases() {
   return (
     <RailCarousel
       variant="rich"
       background="light"
-      eyebrow="Use cases"
-      headline="Multiple ways to grow with NymCard"
+      headline="Built for the scale of modern finance"
       items={HOMEPAGE_USE_CASES}
-      ariaLabel="Use cases"
+      ariaLabel="Industries"
     />
   );
 }

@@ -76,7 +76,7 @@ Beneath the logo row, a single quiet trust line: **Principal member of Visa and 
 
 **Headline:**
 
-Issue debit, prepaid, and credit cards.
+Issue debit, credit, and prepaid cards.
 
 **Body:**
 

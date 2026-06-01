@@ -34,7 +34,7 @@
       <animate attributeName="r" values="3;11;11" keyTimes="0;0.65;1" dur="1.6s" repeatCount="indefinite"></animate>
       <animate attributeName="fill-opacity" values="0.55;0;0" keyTimes="0;0.65;1" dur="1.6s" repeatCount="indefinite"></animate>
     </circle>
-    <circle cx="100" cy="25" r="3" fill="#22D3EE"></circle>
+    <circle cx="100" cy="25" r="3" fill="#0EA5E9"></circle>
     <text x="112" y="28" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#0E1A33" letter-spacing="0.20em">INSTANT · SETTLEMENT</text>
   </g>
 
@@ -46,8 +46,8 @@
         <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
         <g transform="translate(-168 -180)">
 
-          <text x="119" y="130" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="7" font-weight="700" fill="#22D3EE" letter-spacing="0.22em">ON-RAMP</text>
-          <text x="217" y="130" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="7" font-weight="700" fill="#22D3EE" letter-spacing="0.22em">OFF-RAMP</text>
+          <text x="119" y="130" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="7" font-weight="700" fill="#304DBB" letter-spacing="0.22em">ON-RAMP</text>
+          <text x="217" y="130" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="7" font-weight="700" fill="#304DBB" letter-spacing="0.22em">OFF-RAMP</text>
 
           <g filter="url(#ssChipShadow)">
             <rect x="36" y="152" width="72" height="64" rx="14" fill="url(#ssFiatFill)" stroke="#22D3EE" stroke-opacity="0.40" stroke-width="1"></rect>
@@ -97,8 +97,8 @@
     <animate attributeName="opacity" values="0.30;1;0.30" keyTimes="0;0.5;1" dur="1.6s" repeatCount="indefinite"></animate>
   </g>
 
-  <text x="168" y="290" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="700" fill="#22D3EE" letter-spacing="-0.02em" filter="url(#ssCyanGlow)">187 ms</text>
-  <text x="168" y="310" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#22D3EE" letter-spacing="0.22em">SETTLED · FINAL</text>
+  <text x="168" y="290" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="700" fill="#304DBB" letter-spacing="-0.02em">187 ms</text>
+  <text x="168" y="310" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#0E1A33" letter-spacing="0.22em">SETTLED · FINAL</text>
 
-  <text x="168" y="334" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#4A5578" letter-spacing="0.04em">24/7 instant settlement<tspan fill="#7A88AC"> · </tspan><tspan fill="#22D3EE">no SWIFT</tspan></text>
+  <text x="168" y="334" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#4A5578" letter-spacing="0.04em">24/7 instant settlement<tspan fill="#7A88AC"> · </tspan><tspan fill="#304DBB" font-weight="700">no SWIFT</tspan></text>
 </svg>

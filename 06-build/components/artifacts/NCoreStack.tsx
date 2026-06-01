@@ -76,7 +76,7 @@ export function NCoreStack({ className }: { className?: string }) {
       {/* Soft tonal halo behind the stack — replaces the v3 hard ambient
           orb. Reads as the platform "sitting in" the page rather than
           floating on top. */}
-      <AmbientGlow placement="center" tone="cyan" size="lg" intensity="subtle" />
+      <AmbientGlow placement="center" tone="cyan" size="lg" intensity="standard" />
 
       <div className="relative">
         {/* Ascending engine-glow column. A soft cyan column behind the
@@ -158,12 +158,15 @@ function ProductLayer({
       variants={LAYER_VARIANTS}
       className={cn(
         "relative flex items-center gap-3.5 overflow-hidden rounded-[10px] px-3.5 py-2.5",
-        "border border-white/55 bg-white/70 backdrop-blur-md",
-        "dark:border-white/8 dark:bg-white/[0.04]",
+        // Glassy (transparent) like the hero/bento glass, so the cool field
+        // behind the stack refracts through and the layers read dimensional —
+        // not the opaque white pills they were.
+        "border border-white/70 bg-white/50 backdrop-blur-xl backdrop-saturate-[160%]",
+        "dark:border-white/[0.12] dark:bg-white/[0.05]",
         "transition-shadow duration-500",
         isLit
-          ? "shadow-[0_0_22px_-4px_rgba(34,211,238,0.55)] ring-1 ring-inset ring-accent-cyan/45"
-          : "shadow-[0_2px_8px_-4px_rgba(14,26,51,0.08)] ring-1 ring-inset ring-transparent",
+          ? "shadow-[0_0_24px_-4px_rgba(34,211,238,0.55)] ring-1 ring-inset ring-accent-cyan/45"
+          : "shadow-[0_12px_30px_-14px_rgba(14,26,51,0.22)] ring-1 ring-inset ring-white/40 dark:shadow-[0_14px_32px_-16px_rgba(0,0,0,0.5)] dark:ring-transparent",
       )}
     >
       {/* Cyan glow strip that washes the layer when lit. */}
@@ -237,10 +240,18 @@ function Engine({ bloom, reduced }: { bloom: boolean; reduced: boolean }) {
       )}
 
       <div className="relative z-10 flex items-center justify-center gap-2.5">
-        <span className="relative grid size-2 place-items-center">
-          <span className="absolute inset-0 rounded-full bg-accent-cyan/55 motion-safe:animate-ping" />
-          <span className="relative size-1.5 rounded-full bg-accent-cyan" />
-        </span>
+        {/* The engine signal — a steady cyan node that brightens when the
+            ascending wave reaches the engine. No ping/pulse loop (the rising
+            wave carries the "alive" reading; a pulsing dot would be an AI-slop
+            tell layered on top of motion that already lives). */}
+        <motion.span
+          aria-hidden="true"
+          className="relative size-1.5 rounded-full bg-accent-cyan"
+          animate={
+            reduced ? undefined : { opacity: bloom ? 1 : 0.55, scale: bloom ? 1.25 : 1 }
+          }
+          transition={reduced ? undefined : { duration: 0.6, ease: EASE }}
+        />
         <span className="font-display text-xl font-bold tracking-tight text-text-on-brand">
           nCore
         </span>

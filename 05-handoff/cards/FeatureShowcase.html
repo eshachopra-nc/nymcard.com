@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Card controls — FeatureShowcase</title>
+  <!--
+    NymCard · Card controls FeatureShowcase
+    Standalone reference for Claude Code handoff.
+
+    COMPONENT ANATOMY
+    =================
+    .fsc__shell           — mini app shell (CSS grid: 200px sidebar + 1fr main)
+      .fsc__sb            — dark navy sidebar (#101D38)
+        .fsc__sb-brand    — brand wordmark row
+        .fsc__sb-nav      — <nav> with .fsc__sb-item buttons (data-i attr)
+      .fsc__main          — white main area
+        .fsc__pane        — one per nav item; active pane has .active class
+          .fsc__topbar    — breadcrumb + pane title
+          .fsc__content   — KPI strip + table or sliders
+
+    INTERACTIONS
+    ============
+    • Sidebar nav: clicking .fsc__sb-item sets .active on that item and the
+      corresponding .fsc__pane (matched by index).
+    • Auto-cycles every 4s unless user clicks or hovers.
+    • Freeze pane: toggleFreeze(cb, idx) updates label + frozen count.
+    • Spend Controls pane: updateLimit(inp, max, id1, id2) updates KPI + slider label.
+    • MCC blocks pane: mccToggle(cb) updates the "N blocked" badge.
+    • Auth stream: streams rows from AUTHS[] every 2.2s via setInterval.
+
+    TOKEN MAPPING (for React/Next.js port)
+    ======================================
+    Navy sidebar bg  → var(--surface-dark) / #101D38
+    Active item bg   → rgba(34,211,238,0.12)  (cyan-12)
+    Active item text → var(--accent-cyan) / #22D3EE
+    KPI tile bg      → var(--surface-soft) / #F4F6FF
+    Toggle on        → rgba(16,185,129,0.2) + #10B981 thumb
+    Debit tag        → rgba(34,211,238,0.12) / #0E7490
+    Credit tag       → rgba(48,77,187,0.12) / #3730A3
+    Prepaid tag      → rgba(109,40,217,0.12) / #6D28D9
+    Decision ok      → rgba(16,185,129,0.1) / #059669
+    Decision blk     → rgba(239,68,68,0.1) / #DC2626
+    Decision rev     → rgba(245,158,11,0.1) / #D97706
+  -->
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #F0F3FA;
+      font-family: var(--font-body, system-ui, sans-serif);
+      -webkit-font-smoothing: antialiased; }
+    .page { display: grid; place-items: center; min-height: 100vh; padding: 48px 32px; }
+    
+  :root {
+    --font-body: "Geist", system-ui, -apple-system, sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
+    --brand-primary: #304DBB;
+    --text-primary: #0E1A33;
+    --text-secondary: #4A5578;
+    --text-muted: #7A839E;
+    --surface-soft: #F4F6FF;
+    --surface-border-subtle: #E8EBF5;
+    --surface-border-stronger: #D1D7E8;
+    --color-success: #10B981;
+    --color-danger: #EF4444;
+  }
+
+    /* ---- mini console shell replacing old fsc__body ---- */
+.fsc__shell {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 32px -8px rgba(14,26,51,0.14);
+  border: 1px solid var(--surface-border-subtle, #E8EBF5);
+  min-height: 460px;
+}
+/* dark sidebar */
+.fsc__sb {
+  background: #101D38;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.fsc__sb-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.fsc__sb-brand span {
+  font-family: var(--font-mono, 'Geist Mono', monospace);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.55);
+}
+.fsc__sb-brand svg { flex: none; }
+.fsc__sb-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 8px;
+}
+.fsc__sb-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  background: none;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--font-body, 'Geist', system-ui);
+  font-size: 13.5px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background 160ms, color 160ms;
+  white-space: nowrap;
+}
+.fsc__sb-item svg { width: 16px; height: 16px; flex: none; }
+.fsc__sb-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); }
+.fsc__sb-item.active { background: rgba(34,211,238,0.12); color: #22D3EE; }
+.fsc__sb-item.active svg { color: #22D3EE; }
+/* light main area */
+.fsc__main {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.fsc__pane { display: none; flex-direction: column; flex: 1; }
+.fsc__pane.active { display: flex; }
+.fsc__topbar {
+  padding: 16px 24px 14px;
+  border-bottom: 1px solid var(--surface-border-subtle, #E8EBF5);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.fsc__crumb {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted, #7A839E);
+}
+.fsc__panetitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary, #0E1A33);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+.fsc__content { padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+/* kpi strip */
+.fsc__kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.fsc__kpi { background: var(--surface-soft, #F4F6FF); border: 1px solid var(--surface-border-subtle, #E8EBF5); border-radius: 10px; padding: 12px 14px; }
+.fsc__kpi-l { font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: 0.08em; color: var(--text-muted, #7A839E); margin-bottom: 6px; text-transform: uppercase; }
+.fsc__kpi-v { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--text-primary, #0E1A33); font-variant-numeric: tabular-nums; }
+/* table */
+.fsc__table { flex: 1; }
+.fsc__tr { display: grid; grid-template-columns: 90px 68px 1fr auto; gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--surface-border-subtle, #E8EBF5); font-size: 13px; color: var(--text-secondary, #4A5578); }
+.fsc__tr:last-child { border-bottom: none; }
+.fsc__tr--hd { font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted, #7A839E); border-bottom: 1px solid var(--surface-border-stronger, #D1D7E8) !important; }
+.fsc__tr--4 { grid-template-columns: 1fr 60px 60px auto; }
+.fsc__tr--auth { grid-template-columns: 80px 1fr auto; }
+.fsc__mono { font-family: var(--font-mono, monospace); }
+.fsc__muted { color: var(--text-muted, #7A839E); }
+.fsc__sec { color: var(--text-secondary, #4A5578); font-size: 12px; }
+/* light toggles */
+.ltog { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; }
+.ltog input { display: none; }
+.ltog__t { width: 34px; height: 19px; border-radius: 10px; background: #E2E6F0; border: 1px solid #D1D7E8; position: relative; transition: background 200ms, border-color 200ms; flex: none; }
+.ltog__t::after { content: ""; position: absolute; top: 2px; left: 2px; width: 13px; height: 13px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(14,26,51,0.2); transition: left 200ms; }
+.ltog input:checked + .ltog__t { background: rgba(16,185,129,0.2); border-color: rgba(16,185,129,0.4); }
+.ltog input:checked + .ltog__t::after { left: 17px; background: #10B981; }
+.ltog__l { font-family: var(--font-mono, monospace); font-size: 11px; color: var(--text-muted, #7A839E); transition: color 200ms; }
+.ltog input:checked ~ .ltog__l { color: #10B981; }
+/* sliders */
+.fsc__sliders { display: flex; flex-direction: column; gap: 18px; }
+.fsc__slider-row { display: flex; flex-direction: column; gap: 7px; }
+.fsc__slider-hd { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-secondary, #4A5578); }
+.fsc__slider-hd .fsc__mono { color: var(--text-primary, #0E1A33); font-weight: 500; }
+.fsc__range { -webkit-appearance: none; width: 100%; height: 4px; border-radius: 2px; outline: none; background: linear-gradient(90deg, var(--brand-primary,#304DBB) var(--pct,40%), #E2E6F0 var(--pct,40%)); }
+.fsc__range::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 2px solid var(--brand-primary,#304DBB); box-shadow: 0 1px 4px rgba(14,26,51,0.2); cursor: pointer; }
+/* badges + live */
+.fsc__badge { font-family: var(--font-mono, monospace); font-size: 10px; padding: 3px 8px; border-radius: 8px; background: rgba(48,77,187,0.08); color: var(--brand-primary,#304DBB); border: 1px solid rgba(48,77,187,0.16); font-weight: 400; }
+.fsc__live { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono, monospace); font-size: 10px; color: #10B981; }
+.fsc__live i { width: 6px; height: 6px; border-radius: 50%; background: #10B981; animation: livepulse 1.8s ease-in-out infinite; }
+@keyframes livepulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+/* auth decision chips */
+.fsc__dec { font-family: var(--font-mono, monospace); font-size: 10px; padding: 3px 8px; border-radius: 6px; }
+.fsc__dec.ok { background: rgba(16,185,129,0.1); color: #059669; }
+.fsc__dec.blk { background: rgba(239,68,68,0.1); color: #DC2626; }
+.fsc__dec.rev { background: rgba(245,158,11,0.1); color: #D97706; }
+.fsc__auth-in { animation: authIn 360ms cubic-bezier(0.22,1,0.36,1); }
+@keyframes authIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+/* card type tags */
+.ctag { display: inline-flex; font-family: var(--font-mono, monospace); font-size: 10px; padding: 2px 7px; border-radius: 6px; }
+.ctag--debit  { background: rgba(34,211,238,0.12); color: #0E7490; }
+.ctag--credit { background: rgba(48,77,187,0.12); color: #3730A3; }
+.ctag--prepaid{ background: rgba(109,40,217,0.12); color: #6D28D9; }
+
+
+.fsc__pane { padding: 24px 28px; display: flex; flex-direction: column; gap: 0; height: 100%; }
+.con-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.con-label { font-family: var(--font-mono, 'Geist Mono', monospace); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+.con-live { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: 0.1em; color: #34D399; }
+.con-live i { width: 6px; height: 6px; border-radius: 50%; background: #34D399; animation: conpulse 1.8s ease-out infinite; }
+@keyframes conpulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.con-chip { font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 3px 8px; }
+.con-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.con-kpi { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px 14px; }
+.con-kpi__l { font-family: var(--font-mono, monospace); font-size: 10px; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
+.con-kpi__v { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; color: #fff; font-variant-numeric: tabular-nums; }
+.con-table { flex: 1; overflow: hidden; }
+.con-tr { display: grid; grid-template-columns: 100px 70px 1fr auto; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px; color: rgba(255,255,255,0.75); }
+.con-tr:last-child { border-bottom: none; }
+.con-tr--hd { font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: 0.08em; color: rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.1) !important; }
+.con-tr .mono { font-family: var(--font-mono, monospace); }
+.con-tr .muted { color: rgba(255,255,255,0.4); }
+.con-tr .sec { color: rgba(255,255,255,0.5); font-size: 12px; }
+.ctag { display: inline-flex; font-family: var(--font-mono, monospace); font-size: 10px; padding: 2px 7px; border-radius: 6px; }
+.ctag--debit { background: rgba(34,211,238,0.15); color: #22D3EE; }
+.ctag--credit { background: rgba(48,77,187,0.25); color: #818CF8; }
+.ctag--prepaid { background: rgba(109,40,217,0.25); color: #A78BFA; }
+/* toggles (dark variant) */
+.tog-wrap { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; }
+.tog-wrap input { display: none; }
+.tog { width: 34px; height: 19px; border-radius: 10px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.12); position: relative; transition: background 200ms; }
+.tog::after { content: ""; position: absolute; top: 2px; left: 2px; width: 13px; height: 13px; border-radius: 50%; background: rgba(255,255,255,0.6); transition: left 200ms, background 200ms; }
+.tog-wrap input:checked + .tog { background: rgba(34,211,238,0.25); border-color: rgba(34,211,238,0.4); }
+.tog-wrap input:checked + .tog::after { left: 17px; background: #22D3EE; }
+.tog-lbl { font-family: var(--font-mono, monospace); font-size: 11px; color: rgba(255,255,255,0.55); transition: color 200ms; }
+.tog-wrap input:checked ~ .tog-lbl { color: #22D3EE; }
+/* sliders */
+.con-sliders { display: flex; flex-direction: column; gap: 18px; margin-top: 4px; }
+.con-slider-row { display: flex; flex-direction: column; gap: 7px; }
+.con-slider-hd { display: flex; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,0.65); }
+.con-slider-hd .mono { color: #fff; font-family: var(--font-mono, monospace); }
+.range { -webkit-appearance: none; width: 100%; height: 4px; border-radius: 2px; outline: none; background: linear-gradient(90deg, #304DBB var(--pct,40%), rgba(255,255,255,0.12) var(--pct,40%)); }
+.range::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 2px 6px rgba(14,26,51,0.4); cursor: pointer; }
+/* auth stream */
+.auth-stream.con-table .con-tr { grid-template-columns: 56px 1fr auto; }
+.auth-dec { font-family: var(--font-mono, monospace); font-size: 10px; padding: 2px 8px; border-radius: 6px; }
+.auth-dec.ok { background: rgba(16,185,129,0.15); color: #34D399; }
+.auth-dec.blk { background: rgba(239,68,68,0.15); color: #F87171; }
+.auth-dec.rev { background: rgba(245,158,11,0.15); color: #FBBF24; }
+.auth-amt { font-family: var(--font-mono, monospace); color: #fff; font-size: 13px; }
+.auth-row-in { animation: authIn 380ms cubic-bezier(0.22,1,0.36,1); }
+@keyframes authIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
+
+.fsc__list { display:flex; flex-direction:column; padding:8px; border-right:1px solid var(--surface-border-subtle,#E8EBF5); background:var(--surface-soft,#F4F6FF); }
+.fsc__item { display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:12px; cursor:pointer; transition:all 180ms var(--ease-std); }
+.fsc__item:hover { background:rgba(48,77,187,0.05); }
+.fsc__item.active { background:#fff; box-shadow:0 2px 8px -2px rgba(14,26,51,0.10); }
+.fsc__item__ic { width:34px; height:34px; border-radius:9px; display:grid; place-items:center; flex:none; transition:background 180ms var(--ease-std); }
+.fsc__item.active .fsc__item__ic { background:rgba(48,77,187,0.10); }
+.fsc__item__ic svg { width:17px; height:17px; }
+.fsc__item__t { display:flex; flex-direction:column; gap:2px; min-width:0; }
+.fsc__item__t b { font-size:13.5px; font-weight:500; color:var(--text-primary,#0E1A33); }
+.fsc__item__t span { font-size:11px; color:var(--text-muted,#7A839E); line-height:1.4; }
+
+/* showcase panel */
+.fsc__panel { padding:28px; display:flex; flex-direction:column; gap:20px; min-height:520px; }
+.fsc__pane { display:none; flex-direction:column; gap:16px; height:100%; }
+.fsc__pane.active { display:flex; animation:paneIn 360ms var(--ease-out,cubic-bezier(0.22,1,0.36,1)); }
+@keyframes paneIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+
+/* freeze pane */
+.freeze-status { display:flex; align-items:center; justify-content:space-between; padding:18px 22px; background:var(--surface-soft,#F4F6FF); border:1px solid var(--surface-border-subtle,#E8EBF5); border-radius:14px; }
+.freeze-card { display:flex; align-items:center; gap:14px; }
+.freeze-card__face { width:64px; height:40px; border-radius:7px; background:linear-gradient(135deg,#1A2547,#0E1A33); position:relative; overflow:hidden; }
+.freeze-card__face::after { content:""; position:absolute; inset:0; background:rgba(14,26,51,0.6); opacity:0; transition:opacity 400ms var(--ease-std); }
+.freeze-card__face.frozen::after { opacity:1; }
+.freeze-card__pan { font-family:var(--font-mono); font-size:11px; color:var(--text-secondary,#4A5578); }
+.freeze-tog { position:relative; }
+.freeze-tog input { position:absolute; opacity:0; width:0; height:0; }
+.freeze-tog label { display:flex; width:46px; height:26px; border-radius:13px; background:#E2E6F0; cursor:pointer; transition:background 300ms var(--ease-std); position:relative; }
+.freeze-tog label::after { content:""; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:0 1px 4px rgba(14,26,51,0.2); transition:transform 300ms var(--ease-spring,cubic-bezier(0.34,1.56,0.64,1)); }
+.freeze-tog input:checked + label { background:var(--accent-cyan,#22D3EE); }
+.freeze-tog input:checked + label::after { transform:translateX(20px); }
+.freeze-tog input:checked + label + .freeze-state { color:var(--accent-cyan,#22D3EE); }
+.freeze-state { font-family:var(--font-mono); font-size:11px; color:var(--text-muted,#7A839E); margin-top:4px; text-align:center; }
+.freeze-cards-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.fcard { padding:12px 14px; background:var(--surface-soft,#F4F6FF); border:1px solid var(--surface-border-subtle,#E8EBF5); border-radius:10px; cursor:pointer; transition:all 180ms var(--ease-std); }
+.fcard:hover { border-color:var(--surface-border-stronger,#D1D7E8); }
+.fcard.frozen { border-color:rgba(34,211,238,0.5); background:rgba(34,211,238,0.06); }
+.fcard__top { display:flex; justify-content:space-between; margin-bottom:6px; }
+.fcard__pan { font-family:var(--font-mono); font-size:11px; color:var(--text-secondary,#4A5578); }
+.fcard__badge { font-family:var(--font-mono); font-size:9px; padding:2px 7px; border-radius:6px; }
+.fcard__badge.ok { background:rgba(16,185,129,0.12); color:#0E7C5A; }
+.fcard__badge.frozen { background:rgba(34,211,238,0.16); color:#0E7490; }
+.fcard__name { font-size:12px; color:var(--text-primary,#0E1A33); }
+
+/* limits pane */
+.limits-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.limit-ctl { background:var(--surface-soft,#F4F6FF); border:1px solid var(--surface-border-subtle,#E8EBF5); border-radius:14px; padding:18px; }
+.limit-ctl__label { font-size:12px; color:var(--text-secondary,#4A5578); margin-bottom:10px; }
+.limit-ctl__val { font-family:var(--font-mono); font-size:22px; font-weight:600; color:var(--text-primary,#0E1A33); margin-bottom:12px; font-variant-numeric:tabular-nums; }
+.range { width:100%; -webkit-appearance:none; appearance:none; height:6px; border-radius:3px; background:linear-gradient(to right,var(--brand-primary,#304DBB) var(--pct,40%),#E2E6F0 var(--pct,40%)); outline:none; cursor:pointer; }
+.range::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:#fff; border:2px solid var(--brand-primary,#304DBB); box-shadow:0 2px 6px rgba(14,26,51,0.18); cursor:pointer; }
+
+/* mcc pane */
+.mcc-list { display:flex; flex-direction:column; gap:8px; }
+.mcc-row { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-radius:11px; background:var(--surface-soft,#F4F6FF); border:1px solid var(--surface-border-subtle,#E8EBF5); transition:all 180ms var(--ease-std); }
+.mcc-row.blocked { background:rgba(239,68,68,0.05); border-color:rgba(239,68,68,0.2); }
+.mcc-row__l { display:flex; align-items:center; gap:10px; }
+.mcc-row__ic { width:28px; height:28px; border-radius:8px; background:#fff; border:1px solid var(--surface-border-subtle,#E8EBF5); display:grid; place-items:center; }
+.mcc-row__ic svg { width:14px; height:14px; }
+.mcc-row__name { font-size:13px; color:var(--text-primary,#0E1A33); }
+.mcc-row__code { font-family:var(--font-mono); font-size:10px; color:var(--text-muted,#7A839E); }
+.mcc-status { font-family:var(--font-mono); font-size:10px; padding:3px 8px; border-radius:6px; }
+.mcc-status.allowed { background:rgba(16,185,129,0.12); color:#0E7C5A; }
+.mcc-status.blocked { background:rgba(239,68,68,0.12); color:#B91C1C; }
+
+/* auth stream pane */
+.auth-stream { display:flex; flex-direction:column; gap:0; }
+.auth-row { display:grid; grid-template-columns:auto 1fr auto auto; gap:12px; align-items:center; padding:12px 16px; border-bottom:1px solid var(--surface-border-subtle,#E8EBF5); animation:rowIn 400ms var(--ease-out,cubic-bezier(0.22,1,0.36,1)); }
+.auth-row:last-child { border-bottom:none; }
+@keyframes rowIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
+.auth-decision { font-family:var(--font-mono); font-size:10px; padding:3px 8px; border-radius:6px; white-space:nowrap; }
+.auth-decision.ok { background:rgba(16,185,129,0.12); color:#0E7C5A; }
+.auth-decision.decline { background:rgba(239,68,68,0.12); color:#B91C1C; }
+.auth-merchant { display:flex; flex-direction:column; gap:1px; }
+.auth-merchant b { font-size:13px; font-weight:500; }
+.auth-merchant span { font-family:var(--font-mono); font-size:10.5px; color:var(--text-muted,#7A839E); }
+.auth-amt { font-family:var(--font-mono); font-size:13px; font-weight:500; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="fsc__shell">
+
+        <!-- dark sidebar -->
+        <aside class="fsc__sb">
+          <div class="fsc__sb-brand">
+            <svg width="16" height="16" viewBox="0 0 18 18"><path d="M9 0 18 8h-2.5v9H11v-5.5H7V17H2.5V8H0Z" fill="#fff"/></svg>
+            <span>nCore</span>
+          </div>
+          <nav class="fsc__sb-nav">
+            <button class="fsc__sb-item active" data-i="0">
+              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 1v16M1 9h16M3.5 3.5l11 11M14.5 3.5l-11 11"/></svg>
+              <span>Freeze</span>
+            </button>
+            <button class="fsc__sb-item" data-i="1">
+              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 1v16M13 4H7a3 3 0 1 0 0 6h4a3 3 0 1 1 0 6H4"/></svg>
+              <span>Spend Controls</span>
+            </button>
+            <button class="fsc__sb-item" data-i="2">
+              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M1 2h16l-6 7.5V16l-4 1.5V9.5z"/></svg>
+              <span>MCC blocks</span>
+            </button>
+            <button class="fsc__sb-item" data-i="3">
+              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 1 2 4v5c0 4 3 6 7 8 4-2 7-4 7-8V4z"/><path d="m6 9 2 2 4-4"/></svg>
+              <span>KYC / AML</span>
+            </button>
+          </nav>
+        </aside>
+
+        <!-- light main area -->
+        <div class="fsc__main">
+
+          <!-- Pane 0: Freeze -->
+          <div class="fsc__pane active" data-pane="freeze">
+            <div class="fsc__topbar">
+              <span class="fsc__crumb">Card controls</span>
+              <h3 class="fsc__panetitle">Freeze / Unfreeze</h3>
+            </div>
+            <div class="fsc__content">
+              <div class="fsc__kpis">
+                <div class="fsc__kpi"><div class="fsc__kpi-l">Active</div><div class="fsc__kpi-v" style="color:var(--color-success,#10B981)">1.84M</div></div>
+                <div class="fsc__kpi"><div class="fsc__kpi-l">Frozen</div><div class="fsc__kpi-v" id="frozenCount">96,204</div></div>
+                <div class="fsc__kpi"><div class="fsc__kpi-l">Blocked</div><div class="fsc__kpi-v" style="color:var(--color-danger,#EF4444)">48,120</div></div>
+              </div>
+              <div class="fsc__table">
+                <div class="fsc__tr fsc__tr--hd"><span>Card</span><span>Type</span><span>Program</span><span>State</span></div>
+                <div class="fsc__tr">
+                  <span class="fsc__mono fsc__muted">···· 8821</span>
+                  <span><span class="ctag ctag--debit">Debit</span></span>
+                  <span class="fsc__sec">Consumer</span>
+                  <label class="ltog"><input type="checkbox" checked onchange="toggleFreeze(this,0)"/><span class="ltog__t"></span><span class="ltog__l" id="tl0">Active</span></label>
+                </div>
+                <div class="fsc__tr">
+                  <span class="fsc__mono fsc__muted">···· 3204</span>
+                  <span><span class="ctag ctag--credit">Credit</span></span>
+                  <span class="fsc__sec">Revolving</span>
+                  <label class="ltog"><input type="checkbox" checked onchange="toggleFreeze(this,1)"/><span class="ltog__t"></span><span class="ltog__l" id="tl1">Active</span></label>
+                </div>
+                <div class="fsc__tr">
+                  <span class="fsc__mono fsc__muted">···· 1147</span>
+                  <span><span class="ctag ctag--prepaid">Prepaid</span></span>
+                  <span class="fsc__sec">Payroll</span>
+                  <label class="ltog"><input type="checkbox" checked onchange="toggleFreeze(this,2)"/><span class="ltog__t"></span><span class="ltog__l" id="tl2">Active</span></label>
+                </div>
+                <div class="fsc__tr">
+                  <span class="fsc__mono fsc__muted">···· 5590</span>
+                  <span><span class="ctag ctag--debit">Debit</span></span>
+                  <span class="fsc__sec">Business</span>
+                  <label class="ltog"><input type="checkbox" checked onchange="toggleFreeze(this,3)"/><span class="ltog__t"></span><span class="ltog__l" id="tl3">Active</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pane 1: Spend Controls -->
+          <div class="fsc__pane" data-pane="limits">
+            <div class="fsc__topbar">
+              <span class="fsc__crumb">Card controls</span>
+              <h3 class="fsc__panetitle">Spend Controls</h3>
+            </div>
+            <div class="fsc__content">
+              <div class="fsc__kpis">
+                <div class="fsc__kpi"><div class="fsc__kpi-l">Daily limit</div><div class="fsc__kpi-v fsc__mono" id="lv0">$4,000</div></div>
+                <div class="fsc__kpi"><div class="fsc__kpi-l">Per transaction</div><div class="fsc__kpi-v fsc__mono" id="lv1">$1,500</div></div>
+                <div class="fsc__kpi"><div class="fsc__kpi-l">Weekly ceiling</div><div class="fsc__kpi-v fsc__mono" id="lv2">$15,000</div></div>
+              </div>
+              <div class="fsc__sliders">
+                <div class="fsc__slider-row">
+                  <div class="fsc__slider-hd"><span>Daily spend limit</span><span class="fsc__mono" id="lv0b">$4,000</span></div>
+                  <input class="fsc__range" type="range" min="0" max="100" value="40" style="--pct:40%" oninput="updateLimit(this,10000,'lv0','lv0b')"/>
+                </div>
+                <div class="fsc__slider-row">
+                  <div class="fsc__slider-hd"><span>Per-transaction limit</span><span class="fsc__mono" id="lv1b">$1,500</span></div>
+                  <input class="fsc__range" type="range" min="0" max="100" value="15" style="--pct:15%" oninput="updateLimit(this,10000,'lv1','lv1b')"/>
+                </div>
+                <div class="fsc__slider-row">
+                  <div class="fsc__slider-hd"><span>Weekly ceiling</span><span class="fsc__mono" id="lv2b">$15,000</span></div>
+                  <input class="fsc__range" type="range" min="0" max="100" value="30" style="--pct:30%" oninput="updateLimit(this,50000,'lv2','lv2b')"/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pane 2: MCC blocks -->
+          <div class="fsc__pane" data-pane="mcc">
+            <div class="fsc__topbar">
+              <span class="fsc__crumb">Card controls</span>
+              <h3 class="fsc__panetitle">MCC blocks <span class="fsc__badge" id="mccBlockCount">3 blocked</span></h3>
+            </div>
+            <div class="fsc__content">
+              <div class="fsc__table">
+                <div class="fsc__tr fsc__tr--hd fsc__tr--4"><span>Category</span><span>MCC</span><span>Volume</span><span>Access</span></div>
+                <div class="fsc__tr fsc__tr--4"><span>Online retail</span><span class="fsc__mono fsc__muted">5999</span><span class="fsc__sec">High</span><label class="ltog"><input type="checkbox" checked onchange="mccToggle(this)"/><span class="ltog__t"></span></label></div>
+                <div class="fsc__tr fsc__tr--4"><span>Dining</span><span class="fsc__mono fsc__muted">5812</span><span class="fsc__sec">Medium</span><label class="ltog"><input type="checkbox" checked onchange="mccToggle(this)"/><span class="ltog__t"></span></label></div>
+                <div class="fsc__tr fsc__tr--4"><span>Fuel</span><span class="fsc__mono fsc__muted">5541</span><span class="fsc__sec">High</span><label class="ltog"><input type="checkbox" checked onchange="mccToggle(this)"/><span class="ltog__t"></span></label></div>
+                <div class="fsc__tr fsc__tr--4"><span>Gambling</span><span class="fsc__mono fsc__muted">7995</span><span class="fsc__sec">Low</span><label class="ltog"><input type="checkbox" onchange="mccToggle(this)"/><span class="ltog__t"></span></label></div>
+                <div class="fsc__tr fsc__tr--4"><span>Crypto exchange</span><span class="fsc__mono fsc__muted">6051</span><span class="fsc__sec">Low</span><label class="ltog"><input type="checkbox" onchange="mccToggle(this)"/><span class="ltog__t"></span></label></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pane 3: KYC / AML -->
+          <div class="fsc__pane" data-pane="auth">
+            <div class="fsc__topbar">
+              <span class="fsc__crumb">Card controls</span>
+              <h3 class="fsc__panetitle">KYC / AML in auth <span class="fsc__live"><i></i>Live</span></h3>
+            </div>
+            <div class="fsc__content">
+              <div class="fsc__kpis">
+                <div class="fsc__kpi"><div class="fsc__kpi-l">Approved</div><div class="fsc__kpi-v" style="color:var(--color-success,#10B981)">93.5%</div></div>
+                <div class="fsc__kpi"><div class="fsc__kpi-l">Challenged</div><div class="fsc__kpi-v" style="color:#F59E0B">4.1%</div></div>
+                <div class="fsc__kpi"><div class="fsc__kpi-l">Blocked</div><div class="fsc__kpi-v" style="color:var(--color-danger,#EF4444)">2.4%</div></div>
+              </div>
+              <div class="fsc__table fsc__table--auth" id="authStream">
+                <div class="fsc__tr fsc__tr--auth fsc__tr--hd"><span>Decision</span><span>Merchant · MCC</span><span>Amount</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /fsc__main -->
+      </div><!-- /fsc__shell -->
+  </div>
+
+  <script>
+(function() {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* pane state vars declared here so they exist before activateFsc(0) runs */
+  var _freezeTimers = [], _mccTimer, _authTimer, _authInterval, _authI = 0;
+  var fsc = document.querySelector("[data-fsc]");
+  if (fsc && fsc.querySelectorAll(".fsc__sb-item").length) {
+    var items = fsc.querySelectorAll(".fsc__sb-item");
+    var panes = fsc.querySelectorAll(".fsc__pane");
+    var fscTimer = null;
+    var fscIdx = 0;
+
+    function activateFsc(i) {
+      fscIdx = i;
+      items.forEach(function (it, j) { it.classList.toggle("active", j === i); });
+      panes.forEach(function (p, j) { p.classList.toggle("active", j === i); });
+      // trigger pane-specific behaviors
+      var pane = panes[i];
+      if (pane) {
+        if (pane.dataset.pane === "freeze") animateFreeze(pane);
+        if (pane.dataset.pane === "limits") animateLimits(pane);
+        if (pane.dataset.pane === "mcc") animateMcc(pane);
+        if (pane.dataset.pane === "auth") startAuthStream(pane);
+      }
+    }
+
+    function advanceFsc() { activateFsc((fscIdx + 1) % items.length); }
+    function startFsc() { if (!reduce) fscTimer = setInterval(advanceFsc, 4000); }
+    function stopFsc() { if (fscTimer) { clearInterval(fscTimer); fscTimer = null; } }
+
+    items.forEach(function (it, i) {
+      it.addEventListener("click", function () { stopFsc(); activateFsc(i); startFsc(); });
+    });
+    fsc.addEventListener("mouseenter", stopFsc);
+    fsc.addEventListener("mouseleave", startFsc);
+
+    activateFsc(0); startFsc();
+  }
+
+  /* pane: freeze — console toggle (new markup, no animation needed) */
+  function animateFreeze(pane) { /* handled by toggleFreeze() inline */ }
+
+  /* pane: limits — slider moves */
+  function animateLimits(pane) {
+    var ranges = pane.querySelectorAll(".range");
+    if (!ranges.length || reduce) return;
+    var vals = [[40,75],[30,60]];
+    ranges.forEach(function (r, i) {
+      var from = parseFloat(r.value) || vals[i][0], to = vals[i][1];
+      var t0 = performance.now(), dur = 1100;
+      (function step(t) {
+        var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1-k,3);
+        var v = from + (to - from) * e;
+        r.value = v; r.style.setProperty("--pct", v + "%");
+        var vEl = pane.querySelectorAll(".limit-ctl__val")[i];
+        if (vEl) { var fmts = ["$","$"]; vEl.textContent = fmts[i] + Math.round(v / 100 * (i===0?10000:1000)).toLocaleString("en-US"); }
+        if (k < 1) requestAnimationFrame(step);
+      })(performance.now());
+    });
+  }
+
+  /* pane: mcc — handled by mccToggle() inline */
+  function animateMcc(pane) { /* no-op */ }
+  function _oldMccRows(pane) {
+    var rows = pane.querySelectorAll(".mcc-row");
+    // reset
+    rows.forEach(function (r) { r.classList.remove("blocked"); var s = r.querySelector(".mcc-status"); s.textContent = "Allowed"; s.className = "mcc-status allowed"; });
+    clearTimeout(_mccTimer);
+    _mccTimer = setTimeout(function () {
+      var target = rows[2]; if (!target) return;
+      target.classList.add("blocked");
+      var s = target.querySelector(".mcc-status"); s.textContent = "Blocked"; s.className = "mcc-status blocked";
+    }, 900);
+  }
+
+  /* pane: auth — live stream */
+  var AUTHS = [
+    { m: "Amazon", mcc: "MCC 5999 · Online retail", amt: "$124.00", dec: "ok" },
+    { m: "Uber", mcc: "MCC 4121 · Ride-hail", amt: "$22.50", dec: "ok" },
+    { m: "Starbucks", mcc: "MCC 5814 · Dining", amt: "$6.80", dec: "ok" },
+    { m: "Netflix", mcc: "MCC 5815 · Streaming", amt: "$15.99", dec: "ok" },
+    { m: "Unknown merchant", mcc: "MCC 7995 · Gambling", amt: "$500.00", dec: "blk" },
+    { m: "Apple Store", mcc: "MCC 5732 · Electronics", amt: "$299.00", dec: "ok" },
+    { m: "Shell", mcc: "MCC 5541 · Fuel", amt: "$48.00", dec: "ok" },
+    { m: "Binance", mcc: "MCC 6051 · Crypto", amt: "$1,000.00", dec: "blk" },
+    { m: "Booking.com", mcc: "MCC 4722 · Travel", amt: "$340.00", dec: "rev" },
+    { m: "Walmart", mcc: "MCC 5411 · Groceries", amt: "$62.40", dec: "ok" },
+    // legacy (kept for _authI compat):
+    { m: "Noon.com", mcc: "MCC 5999 · Online retail", amt: "$148.00", ok: false, reason: "Category blocked" },
+    { m: "Starbucks", mcc: "MCC 5814 · Coffee", amt: "$18.00", ok: true },
+    { m: "Steam Games", mcc: "MCC 7995 · Gambling-adjacent", amt: "$29.99", ok: false, reason: "Category blocked" },
+  ];
+  function startAuthStream(pane) {
+    clearTimeout(_authTimer); clearInterval(_authInterval);
+    var host = pane.querySelector("#authStream"); if (!host) return;
+    host.innerHTML = '<div class="fsc__tr fsc__tr--auth fsc__tr--hd"><span>Decision</span><span>Merchant · MCC</span><span>Amount</span></div>';
+    function pushAuth() {
+      var a = AUTHS[_authI % AUTHS.length]; _authI++;
+      var label = a.dec==='ok'?'Approved': a.dec==='blk'?'Blocked':'Review';
+      var row = document.createElement("div"); row.className = "fsc__tr fsc__tr--auth fsc__auth-in";
+      row.innerHTML = "<span class='fsc__dec " + a.dec + "'>" + label + "</span>"
+        + "<span style='display:flex;flex-direction:column;gap:1px'><span style='color:#0E1A33;font-size:13px'>" + a.m + "</span><span style='font-family:var(--font-mono);font-size:10px;color:#7A839E'>" + a.mcc + "</span></span>"
+        + "<span style='font-family:var(--font-mono);font-size:13px;color:#0E1A33'>" + a.amt + "</span>";
+      host.prepend(row);
+      while (host.children.length > 5) host.lastChild.remove();
+    }
+    pushAuth(); pushAuth(); pushAuth();
+    if (!reduce) _authInterval = setInterval(pushAuth, 2200);
+  }
+
+  /* ---- §8 Migration ---- */
+  function runMigration(host) {
+    var stages = host.querySelectorAll(".fstage");
+    stages.forEach(function (s, i) { setTimeout(function () { s.classList.add("done"); }, reduce ? 0 : 350 + i * 480); });
+  }
+
+  /* ---- §9 FAQ ---- */
+  document.querySelectorAll(".faq__q").forEach(function (q) {
+    q.addEventListener("click", function () {
+      var item = q.closest(".faq__item");
+      item.classList.toggle("open", !item.classList.contains("open"));
+    });
+  });
+
+/* ---- Global helpers for FeatureShowcase inline onchange handlers ---- */
+function toggleFreeze(cb, idx) {
+  var lbl = document.getElementById('tl' + idx);
+  var cnt = document.getElementById('frozenCount');
+  if (lbl) lbl.textContent = cb.checked ? 'Active' : 'Frozen';
+  if (cnt) {
+    var cur = parseInt(cnt.textContent.replace(/,/g, ''), 10) || 96204;
+    cnt.textContent = (cb.checked ? cur - 1 : cur + 1).toLocaleString('en-US');
+  }
+}
+function updateLimit(inp, max, id1, id2) {
+  inp.style.setProperty("--pct", inp.value + "%");
+  var v = "$" + Math.round(inp.value / 100 * max).toLocaleString("en-US");
+  var a = document.getElementById(id1), b = document.getElementById(id2);
+  if (a) a.textContent = v; if (b) b.textContent = v;
+}
+function mccToggle(cb) {
+  var cnt = document.getElementById('mccBlockCount');
+  if (!cnt) return;
+  var blocked = [...document.querySelectorAll('[data-pane="mcc"] input[type=checkbox]')].filter(function(c){return !c.checked;}).length;
+  cnt.textContent = blocked + ' blocked';
+}
+})();
+
+/* ---- Global helpers for FeatureShowcase inline onchange handlers ---- */
+function toggleFreeze(cb, idx) {
+  var lbl = document.getElementById('tl' + idx);
+  var cnt = document.getElementById('frozenCount');
+  if (lbl) lbl.textContent = cb.checked ? 'Active' : 'Frozen';
+  if (cnt) {
+    var cur = parseInt(cnt.textContent.replace(/,/g, ''), 10) || 96204;
+    cnt.textContent = (cb.checked ? cur - 1 : cur + 1).toLocaleString('en-US');
+  }
+}
+function updateLimit(inp, max, id1, id2) {
+  inp.style.setProperty("--pct", inp.value + "%");
+  var v = "$" + Math.round(inp.value / 100 * max).toLocaleString("en-US");
+  var a = document.getElementById(id1), b = document.getElementById(id2);
+  if (a) a.textContent = v; if (b) b.textContent = v;
+}
+function mccToggle(cb) {
+  var cnt = document.getElementById('mccBlockCount');
+  if (!cnt) return;
+  var blocked = [...document.querySelectorAll('[data-pane="mcc"] input[type=checkbox]')].filter(function(c){return !c.checked;}).length;
+  cnt.textContent = blocked + ' blocked';
+}
+  </script>
+</body>
+</html>

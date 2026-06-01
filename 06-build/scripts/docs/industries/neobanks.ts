@@ -98,8 +98,8 @@ export const neobanksDoc = {
 
   developer: {
     headline: "Built for your team to integrate.",
-    body: "Full API access, SDKs, sandbox, and webhooks, so your engineering team can move fast without waiting on us.",
-    link: { label: "Read the docs", href: "/docs" },
+    body: "Full API access, SDKs, sandbox, and webhooks — everything your engineering team needs to go from integration to launch.",
+    link: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 
   crossSell: withKeys(
@@ -126,7 +126,7 @@ export const neobanksDoc = {
       [
         { question: "What is neobank infrastructure?", answer: "It's the platform a neobank uses to issue cards, run accounts, move money, extend credit, and meet compliance, all behind its own brand. NymCard provides this as a modular API-first stack on nCore." },
         { question: "How fast can a neobank launch on NymCard?", answer: "A core card program typically launches in less than three months, subject to market and program complexity. Larger programs with credit, lending, or multi-currency take longer." },
-        { question: "Do we need our own scheme membership?", answer: "No. NymCard is a principal member of Visa and Mastercard. You issue under our scheme membership unless you have your own and prefer to use it." },
+        { question: "Do we need our own scheme membership?", answer: "No. nCore is already integrated with Visa and Mastercard, so its built-in scheme connectivity lets you launch fast — or you can bring your own scheme setup if you prefer." },
         { question: "Can we start with cards and add lending later?", answer: "Yes. You can start with the Cards layer and add Lending, Money Movement, Settlement, Financial Crime, or Reconciliation as your product grows, one customer record across all products." },
         { question: "Where is compliance handled?", answer: "Inside the platform. KYC, AML, and sanctions screening run inside the authorization path, not a separate compliance vendor." },
         { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
@@ -136,9 +136,9 @@ export const neobanksDoc = {
   },
 
   finalCta: {
-    headline: "Talk to our team.",
+    headline: "Talk to us.",
     body: "Launch your neobank on infrastructure built to scale.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

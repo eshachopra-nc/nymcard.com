@@ -62,8 +62,8 @@ export function ProductHeroRibbon({ className }: { className?: string }) {
       <motion.img
         src={SRC}
         alt=""
-        className="absolute inset-0 size-full object-cover mix-blend-multiply [filter:saturate(1.4)_contrast(1.08)] dark:mix-blend-normal dark:[filter:saturate(1.3)_contrast(1.05)]"
-        style={{ x, y, scale, opacity, transformOrigin: "center" }}
+        className="absolute inset-0 size-full object-cover object-right [filter:saturate(1.75)_contrast(1.15)] dark:[filter:saturate(1.4)_contrast(1.08)]"
+        style={{ x, y, scale, opacity, transformOrigin: "right center" }}
         loading="eager"
         decoding="async"
       />

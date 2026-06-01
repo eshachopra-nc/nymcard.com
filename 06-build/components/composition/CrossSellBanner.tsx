@@ -1,47 +1,43 @@
-"use client";
-
-import { useRef, type MouseEvent, type ReactNode } from "react";
-import { ChevronRight } from "lucide-react";
+import type { ReactNode } from "react";
+import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { TopologyTraces, visual, withAlpha } from "@/components/visuals";
 
-// ── Cross-sell banner (design-system.md §8.16) ─────────────────────────────
+// ── Cross-sell "next" index (design-system.md §8.16) ───────────────────────
 //
-// A wide, low-profile banner that points to another page — the "you might
-// also want…" pattern. A 2-up row of equal banners; stacks to one column on
-// mobile.
+// A structural index that points to related pages — deliberately the OPPOSITE
+// visual family to the closing CTA above it (§8.14). The CTA is atmospheric:
+// centred, soft surface, kinetic ribbon + ambient glow. This is its inverse —
+// a crisp, FLAT, bordered panel split into equal halves by a hard divider,
+// type-led, with no gradient, glow, ribbon, or cursor wash. The contrast is
+// the whole point: the eye reads the soft close, then lands on a solid,
+// clearly-bounded "keep exploring" object, so the cross-sell never melts into
+// the CTA (the bug — both reading as the same soft cool surface).
 //
-// The banner reads as ONE card: a faint topology undercurrent fills the whole
-// surface, with a soft cyan wash that tracks the cursor on hover so the
-// surface feels lit and dimensional rather than flat. An optional `icon` (a
-// Lucide icon component) sits top-left in a small chip and matches the topic
-// — Cards / Money Movement / Settlement / Financial Crime.
+// Each half is the link in full (the arrow is the affordance, never a button).
+// `leadIn` is the destination NAME (display, bold); `body` is one supporting
+// line; `link.label` is a quiet mono action label. Two halves maximum; stacks
+// on mobile, divided by a horizontal rule instead of a vertical one.
 //
-// Rules: the lead-in runs IN-LINE into the body sentence, never a stacked
-// heading; two banners per row maximum; a cross-link, not a CTA — tertiary
-// link only. The `link.label` is plain text — the trailing arrow comes from
-// the ChevronRight icon (never a literal "→" in the data, never both at once).
-//
-// Client component — the cursor-tracked wash needs onMouseMove. The chevron
-// glide is pure CSS group-hover.
+// Server component — the only motion is a CSS group-hover arrow nudge + a flat
+// surface tint, so no client hooks are needed.
 
 export type CrossSellItem = {
-  /** The target page / product name — runs in-line into the body sentence. */
+  /** The target page / product name — the bold display heading for the half. */
   leadIn: string;
-  /** The body — continues straight from the lead-in. One or two lines. */
+  /** One supporting line under the name. */
   body: string;
-  /** Tertiary link — label (plain text) + href. The trailing arrow is rendered as an icon. */
+  /** The action label (plain text) + href. The whole half is the link. */
   link: { label: string; href: string };
   /**
-   * Optional icon node — sits top-left in a small chip, themed to the topic.
-   * Pass a pre-rendered Lucide element (`<CreditCard className="size-4" />`)
-   * so the function reference doesn't have to cross the Server→Client boundary.
+   * Optional icon node — sits in a small chip beside the name, themed to the
+   * topic. Pass a pre-rendered Lucide element (`<CreditCard className="size-4" />`)
+   * so the function reference doesn't cross the Server→Client boundary.
    */
   icon?: ReactNode;
 };
 
 type CrossSellBannerProps = {
-  /** One or two banners (two per row maximum, §8.16). */
+  /** One or two halves (two maximum, §8.16). */
   items: [CrossSellItem] | [CrossSellItem, CrossSellItem];
   className?: string;
 };
@@ -50,124 +46,73 @@ export function CrossSellBanner({ items, className }: CrossSellBannerProps) {
   return (
     <div
       className={cn(
-        "mx-auto grid w-full max-w-[1200px] gap-6 px-4 sm:px-6 lg:px-20",
-        items.length === 2 ? "lg:grid-cols-2" : "lg:grid-cols-1",
+        "mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-20",
         className,
       )}
     >
-      {items.map((item) => (
-        <Banner key={item.leadIn} item={item} />
-      ))}
+      <div
+        className={cn(
+          // Solid, hard-edged panel — the inverse of the soft atmospheric CTA.
+          "grid overflow-hidden rounded-2xl border",
+          "border-surface-border-subtle bg-surface-white",
+          "dark:border-surface-dark-border dark:bg-surface-dark-elevated",
+          // Hard dividers between halves are the structural signature: a
+          // horizontal rule when stacked, a vertical rule from lg up.
+          "divide-y divide-surface-border-subtle dark:divide-surface-dark-border",
+          items.length === 2 &&
+            "lg:grid-cols-2 lg:divide-x lg:divide-y-0",
+        )}
+      >
+        {items.map((item) => (
+          <Half key={item.leadIn} item={item} />
+        ))}
+      </div>
     </div>
   );
 }
 
-function Banner({ item }: { item: CrossSellItem }) {
-  const ref = useRef<HTMLAnchorElement | null>(null);
-
-  // Track cursor position on the card and surface it as CSS custom properties.
-  // The wash overlay reads them as `var(--cx) var(--cy)` to render a radial
-  // cyan halo that follows the cursor. Pure CSS otherwise.
-  const onMouseMove = (e: MouseEvent<HTMLAnchorElement>) => {
-    const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    el.style.setProperty("--cx", `${e.clientX - rect.left}px`);
-    el.style.setProperty("--cy", `${e.clientY - rect.top}px`);
-  };
-
+function Half({ item }: { item: CrossSellItem }) {
   return (
     <a
-      ref={ref}
-      onMouseMove={onMouseMove}
       href={item.link.href}
       className={cn(
-        "nc-card-hover",
-        "group relative isolate flex min-h-[7.5rem] flex-col justify-center overflow-hidden rounded-lg border",
-        "border-surface-border-subtle bg-surface-soft",
-        "dark:border-surface-dark-border dark:bg-surface-dark-elevated",
-        "outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/15 dark:focus-visible:ring-accent-cyan/20",
+        "group relative flex flex-col gap-3 p-7 outline-none transition-colors sm:p-9",
+        // Flat surface tint on hover/focus — no glow, no gradient bloom.
+        "hover:bg-surface-soft focus-visible:bg-surface-soft",
+        "dark:hover:bg-white/[0.03] dark:focus-visible:bg-white/[0.04]",
       )}
     >
-      {/* Topology undercurrent — fills the whole card as one infrastructural
-          texture. No seam, no clipped graphic zone. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-        <TopologyTraces density="medium" tone="cyan" />
-      </div>
-
-      {/* §8.16 colour moment — an abstract cool-gradient bloom bleeding from
-          the rounded right edge. The one vivid moment per banner; cool only
-          (violet anchor → cyan), restrained so it reads premium, not loud. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-0 w-2/3"
-        style={{
-          background: `radial-gradient(120% 110% at 100% 50%, ${withAlpha(
-            visual.violet,
-            0.16,
-          )}, ${withAlpha(visual.cyan, 0.07)} 46%, transparent 72%)`,
-        }}
-      />
-
-      {/* Cursor-tracked cyan wash — fades in on hover, follows the cursor.
-          The Stripe / Linear lit-surface pattern: gives the banner depth so it
-          reads as a lit panel rather than a flat tile. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(320px circle at var(--cx, 50%) var(--cy, 50%), ${withAlpha(
-            visual.cyan,
-            0.22,
-          )}, transparent 68%)`,
-        }}
-      />
-
-      <div className="relative z-10 flex items-start gap-4 p-6">
-        {item.icon ? (
-          <span
-            aria-hidden="true"
-            className={cn(
-              "relative mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-md transition-transform duration-300",
-              "bg-brand-primary/[0.08] text-brand-primary",
-              "group-hover:scale-105",
-              "dark:bg-accent-cyan/[0.12] dark:text-accent-cyan",
-            )}
-          >
-            {/* Soft halo behind the icon on hover — adds depth to the chip. */}
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          {item.icon ? (
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 -z-10 rounded-md opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100"
-              style={{
-                background: `radial-gradient(60% 60% at 50% 50%, ${withAlpha(
-                  visual.cyan,
-                  0.55,
-                )}, transparent 75%)`,
-              }}
-            />
-            {item.icon}
-          </span>
-        ) : null}
-
-        <div className="min-w-0">
-          <p className="max-w-[36rem] font-body text-[15px] leading-relaxed text-text-secondary dark:text-text-dark-secondary">
-            {/* Lead-in runs in-line into the body sentence — never a heading. */}
-            <span className="font-display font-semibold text-text-primary dark:text-text-on-brand">
-              {item.leadIn}
-            </span>{" "}
-            {item.body}
-          </p>
-          {/* Tertiary link — a cross-link, never a primary button. The arrow
-              lives on the ChevronRight icon only; the label is plain text. */}
-          <span className="mt-2.5 inline-flex items-center gap-1 font-body text-[15px] font-medium text-brand-primary dark:text-accent-cyan">
-            {item.link.label}
-            <ChevronRight
-              aria-hidden="true"
-              className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
-            />
+              className={cn(
+                "grid size-9 shrink-0 place-items-center rounded-lg ring-1 ring-inset",
+                "bg-brand-primary/[0.07] text-brand-primary ring-brand-primary/10",
+                "dark:bg-accent-cyan/[0.1] dark:text-accent-cyan dark:ring-white/10",
+              )}
+            >
+              {item.icon}
+            </span>
+          ) : null}
+          <span className="font-display text-lg font-semibold tracking-tight text-text-primary sm:text-xl dark:text-text-on-brand">
+            {item.leadIn}
           </span>
         </div>
+        <ArrowUpRight
+          aria-hidden="true"
+          className="size-5 shrink-0 text-text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 dark:text-text-dark-muted"
+        />
       </div>
+
+      <p className="max-w-[42rem] font-body text-[15px] leading-relaxed text-text-secondary dark:text-text-dark-secondary">
+        {item.body}
+      </p>
+
+      <span className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-brand-primary dark:text-accent-cyan">
+        {item.link.label}
+      </span>
     </a>
   );
 }

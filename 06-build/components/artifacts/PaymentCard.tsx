@@ -26,8 +26,12 @@ const VISA_LOGO = "/logos/visa-full.svg";
 type PaymentCardProps = {
   orientation?: "horizontal" | "vertical";
   tone?: "dark" | "light";
-  /** The corner graphic — a topology fragment, or an integrated ribbon slice. */
-  graphic?: "topology" | "ribbon";
+  /** The corner graphic — a topology fragment, an integrated ribbon slice, or
+   *  the signature concentric wave field. */
+  graphic?: "topology" | "ribbon" | "waves";
+  /** Surface finish — matte (default, restrained) or a premium electric
+   *  liquid-glass look: vivid violet, gloss highlights, and an outer glow. */
+  finish?: "matte" | "electric";
   /** An optional network logo, bottom-left. Off by default. */
   network?: "visa";
   /** A mono micro-label on the card — abstract, never a real card number. */
@@ -47,12 +51,14 @@ export function PaymentCard({
   orientation = "horizontal",
   tone = "dark",
   graphic = "topology",
+  finish = "matte",
   network,
   label = "programmable core",
   labelAlign = "top-right",
   className,
 }: PaymentCardProps) {
   const dark = tone === "dark";
+  const electric = finish === "electric";
   const labelEl = (
     <span
       className={cn(
@@ -65,7 +71,15 @@ export function PaymentCard({
   );
 
   // Surface — a tonal field built from palette tokens only.
-  const surface = dark
+  const surface = electric
+    ? // Electric liquid-glass — a deep, saturated violet base lit by a brighter
+      // electric-violet pool top-left and a cyan kiss bottom-right, sinking to
+      // navy only at the far edge. Gloss layers (ElectricGloss) give the wet
+      // finish; the violet stays rich, never washed pastel.
+      `radial-gradient(120% 105% at 16% -12%, ${withAlpha(visual.purple, 0.95)}, transparent 60%),` +
+      `radial-gradient(120% 120% at 104% 114%, ${withAlpha(visual.cyan, 0.5)}, transparent 46%),` +
+      `linear-gradient(150deg, ${visual.violet}, ${withAlpha(visual.violet, 0.92)} 48%, ${visual.navy} 112%)`
+    : dark
     ? `radial-gradient(122% 116% at 16% -8%, ${withAlpha(visual.primary, 0.6)}, transparent 60%),` +
       `radial-gradient(130% 122% at 96% 110%, ${withAlpha(visual.indigo, 0.4)}, transparent 62%),` +
       `linear-gradient(${visual.navy}, ${visual.navy})`
@@ -74,8 +88,10 @@ export function PaymentCard({
       `linear-gradient(${visual.white}, ${visual.white})`;
 
   const cardBase = cn(
-    "relative isolate overflow-hidden rounded-2xl ring-1 ring-inset",
-    dark
+    "relative isolate overflow-hidden rounded-xl ring-1 ring-inset",
+    electric
+      ? "ring-white/25 shadow-[0_28px_70px_-16px_rgba(91,79,217,0.62),0_0_48px_-8px_rgba(34,211,238,0.4)]"
+      : dark
       ? "shadow-[0_22px_46px_-18px_rgba(14,26,51,0.5)] ring-white/10"
       : "shadow-[0_18px_40px_-18px_rgba(14,26,51,0.2)] ring-brand-navy/10",
   );
@@ -85,9 +101,12 @@ export function PaymentCard({
     <>
       {graphic === "ribbon" ? (
         <CardRibbon dark={dark} />
+      ) : graphic === "waves" ? (
+        <CardWaves electric={electric} dark={dark} />
       ) : (
         <CardTopology dark={dark} />
       )}
+      {electric ? <ElectricGloss /> : null}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -199,6 +218,65 @@ function Chip({ dark }: { dark: boolean }) {
         strokeOpacity="0.55"
       />
     </svg>
+  );
+}
+
+// The signature concentric wave field — ripples sweeping from the lower-right,
+// the card's recurring graphic motif. Lighter on electric (white sheen lines),
+// cool-toned otherwise.
+function CardWaves({ electric, dark }: { electric: boolean; dark: boolean }) {
+  const stroke = electric ? visual.white : dark ? visual.cyan : visual.primary;
+  const rings = [34, 56, 78, 100, 122, 144, 166, 188];
+  return (
+    <svg
+      viewBox="0 0 320 200"
+      preserveAspectRatio="xMaxYMid slice"
+      className="pointer-events-none absolute inset-0 z-0 h-full w-full"
+      fill="none"
+      aria-hidden="true"
+    >
+      <g stroke={stroke} strokeWidth="1.3">
+        {rings.map((r, i) => (
+          <circle
+            key={r}
+            cx="296"
+            cy="150"
+            r={r}
+            strokeOpacity={(electric ? 0.55 : dark ? 0.3 : 0.22) * (1 - i * 0.08)}
+          />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
+// The premium liquid-glass gloss — a top glaze, a diagonal specular sweep and a
+// bottom depth sink. Layered over the electric surface to read as wet glass.
+function ElectricGloss() {
+  return (
+    <>
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: `linear-gradient(to bottom, ${withAlpha(visual.white, 0.16)}, transparent 28%)`,
+        }}
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: `linear-gradient(116deg, transparent 30%, ${withAlpha(visual.white, 0.26)} 46%, transparent 58%)`,
+        }}
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3"
+        style={{
+          background: `linear-gradient(to top, ${withAlpha(visual.navy, 0.55)}, transparent)`,
+        }}
+      />
+    </>
   );
 }
 

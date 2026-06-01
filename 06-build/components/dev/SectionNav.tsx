@@ -11,7 +11,7 @@ const SECTIONS = [
   { id: "trust", label: "Trust Bar" },
   { id: "ncore", label: "nCore" },
   { id: "products", label: "Products" },
-  { id: "solutions", label: "Solutions" },
+  { id: "industries", label: "Industries" },
   { id: "final-cta", label: "Final CTA" },
   { id: "footer", label: "Footer" },
 ];
@@ -34,6 +34,10 @@ export function SectionNav() {
     });
     return () => observer.disconnect();
   }, []);
+
+  // Dev-only review tool — never render in a production / preview build (so it
+  // can't appear in a CEO review). Stays visible on the local dev server.
+  if (process.env.NODE_ENV === "production") return null;
 
   return (
     <nav

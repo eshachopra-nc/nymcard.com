@@ -105,7 +105,7 @@ export const telecommunicationsDoc = {
   developer: {
     headline: "Built for your team to integrate.",
     body: "Full API access, SDKs, sandbox, and webhooks, so your engineering team connects NymCard to your billing and CRM without a full rebuild.",
-    link: { label: "Read the docs", href: "/docs" },
+    link: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 
   crossSell: withKeys(
@@ -142,9 +142,9 @@ export const telecommunicationsDoc = {
   },
 
   finalCta: {
-    headline: "Talk to our team.",
+    headline: "Talk to us.",
     body: "Launch cards, wallets, and device financing for your subscribers on one platform.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

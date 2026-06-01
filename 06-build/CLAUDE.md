@@ -20,6 +20,21 @@ You do not need to re-read these mid-session unless they have been updated. You 
 
 ---
 
+## Design guardrails — anchor to the visual system (EVERY agent, non-negotiable)
+
+These exist because work kept drifting flat: agents reinvented surfaces instead of leveraging the visual system, so the hero looked premium and everything else looked generic. Every design/build agent (ui-ux-designer, product-ui-designer, marketing-page-builder, qa-engineer) and Claude Code obey these. If a task would break one, stop and ask.
+
+1. **Compose from the visual system; never reinvent a surface.** The hero and the `/visual-system` styleguide are the standard. Build every section by composing existing canonical components/primitives — do not hand-author a new card, panel, glass, or atmosphere when one exists.
+2. **The canonical kit (use these, don't replace them):**
+   - **Glass = `components/visuals/GlassPanel.tsx`** (design-system.md §8.1). The one frosted-glass material.
+   - **Glass MUST float on a rich field, NEVER a solid/near-plain bed** (§8.1, verbatim: "never place glass over a solid colour — it reads over imagery or gradients"). Place `GlassPanel` over **`components/visuals/GlassAtmosphere.tsx`** or the kinetic ribbon — exactly what the hero card floats on. Frost on a faint wash collapses to a flat rectangle; that was the bento bug.
+   - **Reference + bar: `/visual-system/glass`.** Its before/after makes the rule undeniable. Match it; verify against it.
+   - Tokens only (`lib/tokens.ts` + Tailwind utilities + visual-engine `visual`/`withAlpha`); cool palette only; no raw hex/px.
+   - **RESTRAINT — light-first, never garish.** The atmosphere is theme-aware (soft pastel field in light, deep cool in dark) and is CONTAINED to the surface's own card — never a full-section colour wash. The page stays light-first and restrained (design-system.md §1); cool, but never a saturated rainbow. If a section looks colourful at full-page scale, it's wrong.
+3. **Motion model (uniform):** content is static at rest; the field may drift ambiently (hero-consistent); each surface reveals on scroll-into-view (`whileInView`, once) and has a hover signature (`group-hover`). Framer Motion only; every motion `prefers-reduced-motion` safe. No perpetual content animation, no AI-slop motion (pulsing dots, uniform fades, fake live tickers).
+4. **If the kit is missing something, STOP and propose adding it to the kit** (with a one-line rationale) — never ship a one-off. New primitives are folded back into `design-system.md` + `/visual-system` so the system stays one source of truth.
+5. **Verify before "done":** render light AND dark, drive hover/scroll (or audit the classes), check against the hero standard + `/visual-system`. A static, flat, or single-theme result is not done. qa-engineer gates this before any human review.
+
 ## What this repository is and is not
 
 This repository is the **build** for nymcard.com. Specifically: it converts approved designs into Next.js code, faithfully and without visual invention. Design happens upstream (in Claude Design and Stitch, captured as static artefacts in `../05-handoff/`). Copy happens upstream and is captured as Markdown files in `../02-copy/`. Your job is implementation fidelity, not creative direction.
@@ -312,13 +327,16 @@ A failed contribution is one that ships but introduces drift — a hardcoded hex
 
 ## Document control
 
-- **Version:** 1.3 (May 2026)
+- **Version:** 1.6 (May 2026)
 - **Owner:** Esha (VP Marketing) and the engineering effort
 - **Authority:** Rules of engagement for Claude Code in this repository
 - **Subordinate to:** `design-system.md`, `tokens.json`, `stack-decision.md`, `../02-copy/`, the NymCard MCD.
 
 ### Change log
 
+- **v1.6 (May 2026):** Canonical glass kit locked as the product-UI standard, **superseding v1.4 note (2)**. Product-UI cells (homepage Products bento, product-page UI zones, industry-page UIs) are **bespoke coded surfaces composed on the glass kit** — `GlassSurface` (the §8.1 material, mirroring `GlassPanel`) floating on `GlassAtmosphere` (the rich, theme-aware, restrained cool field). See design-system.md §8.1 "Canonical implementation (v-glass)" and §8.8 (v6), and the "Design guardrails" section above. The v5 direction (every cell loading a reused `/public/handoff/*.svg` on a faint tonal bed via `HandoffVisual`) is retired as the *product-card* direction — it read flat (frost on a faint wash) and samey (reused hero assets). `HandoffVisual` now composes the kit internally so any surface still loading a handoff asset reads dimensional, but new product UIs are distinct coded surfaces, never reused SVGs. The procedural `CardsUI`/`LendingUI`/etc. that v1.4 called "retired" are in fact the **current** coded surfaces (rebuilt on the kit). Bar to match + verify against: **`/visual-system/glass`**. Navy/cyan-led, restrained, light-first; purple is an object accent only (never the field — the Paymentology trap).
+- **v1.5 (May 2026):** No-eyebrow rule extended site-wide. Homepage AND inner-page section openers lead with the headline — the uppercase / mono-tracked `Eyebrow` scaffolding label is banned at the top of any marketing section. Per-card / per-cell `eyebrow` labels (a capability name, an industry name) stay — they are real content, not a scaffolding label.
+- **v1.4 (May 2026):** Homepage redesign POV recorded (design-system.md v2.3). Three standing rules carried forward from that pass: (1) **No eyebrows on homepage section openers.** The uppercase / mono-tracked `Eyebrow` scaffolding label is banned at the top of homepage sections — lead with the headline. The `Eyebrow` atom still exists for older inner-page primitives, but new homepage work never opens a section with it; `RailCarousel.eyebrow` is optional for this reason. This enforces design-system.md §2 ("No all-caps anywhere. No eyebrow style."). (2) **Product-UI cells load real handoff surfaces, never procedural fakes.** Use `HandoffVisual` (`components/sections/product-uis/HandoffVisual.tsx`) to compose a Claude Design handoff SVG on a tonal bed; never paint a dashboard, ticker, particle field or window-chrome placeholder in TypeScript, and never invent data (numbers live in the SVG). The procedural `CardsUI`/`LendingUI`/etc. are retired from the homepage. (3) **Motion is mandatory and motivated.** The homepage must not read static: an orchestrated page-load on the hero, scroll-tied reveals on sections, and the kinetic ribbon recurring (hero → RibbonInterlude → CTASection). Every animation is `prefers-reduced-motion` safe and reads its durations/easings from `lib/visuals/motion` (Framer Motion only — GSAP/Lottie/three.js remain banned). Committed violet (`accent-violet` #6D28D9) is a real voice in hero/signature moments, not a ≤10% accent; CTAs still stay navy.
 - **v1.0 (May 2026):** Initial document. Authored after `design-system.md` v1.2, `tokens.json` v1.2.0, and `stack-decision.md` v1.0 were locked.
 - **v1.1 (May 2026):** Copy source of truth moved to the `../02-copy/` Markdown files. All Notion references removed — copy is mirrored from `../02-copy/`, not fetched.
 - **v1.2 (May 2026):** Added Rule 9 — audit and build on the existing component and visual system before building any page or section; flag any genuinely new, off-system section or visual to the user first.

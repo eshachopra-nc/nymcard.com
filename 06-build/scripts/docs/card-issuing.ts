@@ -10,26 +10,25 @@ export const cardIssuingDoc = {
   metaDescription:
     "Launch debit, credit, and prepaid card programs on nCore, NymCard's full-stack payments platform. Principal member of Visa and Mastercard. Cloud, on-soil, or on-premise.",
   trustLine:
-    "Principal member of Visa and Mastercard · PCI DSS · ISO 27001.",
+    "Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001.",
   hero: {
-    topLine: "",
     headline: "Launch the card program your customers need.",
     body: "Issue debit, credit, and prepaid cards on infrastructure built to scale with you.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     visualLabel: "card program",
   },
   capabilities: {
     eyebrow: "Card programs",
-    headline: "Issue debit, prepaid, and credit cards.",
-    body: "One platform, one set of APIs, every card type your customers need, issued as physical, virtual, or tokenized.",
+    headline: "Issue debit, credit, and prepaid cards.",
+    body: "One platform, one set of APIs, every card type your customers need — issued as physical, virtual, or tokenized.",
     layout: "bento",
     cardMode: "with-UI",
     items: withKeys(
       [
         { eyebrow: "Debit", heading: "Debit", description: "Cards linked to live accounts with real-time authorization across consumer and commercial programs.", span: 3, uiLabel: "Transaction feed" },
         { eyebrow: "Prepaid", heading: "Prepaid", description: "Reloadable, gift, and disbursement cards with per-card spend tracking.", span: 3, uiLabel: "Top-up + ledger" },
-        { eyebrow: "Credit", heading: "Credit and installments", description: "Run revolving credit, BNPL, and installment plans, configure limits, billing cycles, grace periods, and repayment through the API.", span: 6, tall: true, uiLabel: "Credit + EMI" },
+        { eyebrow: "Credit", heading: "Credit and installments", description: "Run revolving credit, BNPL, and installment plans — configure limits, billing cycles, grace periods, and repayment through the API.", span: 6, tall: true, uiLabel: "Credit + EMI" },
       ],
       "cap",
     ),
@@ -37,14 +36,14 @@ export const cardIssuingDoc = {
   featureShowcase: {
     eyebrow: "Card controls",
     headline: "Control every card and every transaction.",
-    body: "Freeze cards, set limits, and block categories in real time, for any cardholder, on any program.",
+    body: "Freeze cards, set limits, and block categories in real time — for any cardholder, on any program.",
     uiLabel: "card controls dashboard",
   },
   configuration: {
     eyebrow: "Configuration",
     headline: "Configure every program through the API.",
-    body: "Credit limits, billing cycles, repayment, and installments, set per program, applied in real time.",
-    docsLink: { label: "Read the docs", href: "/docs" },
+    body: "Credit limits, billing cycles, repayment, and installments — set per program, applied in real time.",
+    docsLink: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     tabs: withKeys(
       [
         { label: "JSON", language: "json", code: `{\n  "program_type": "credit",\n  "credit_limit_amount": 10000,\n  "currency": "USD",\n  "billing_cycle_day": 1,\n  "grace_period_days": 21,\n  "minimum_payment_pct": 5,\n  "installments_enabled": true,\n  "status": "active"\n}` },
@@ -55,7 +54,7 @@ export const cardIssuingDoc = {
     ),
     companion: {
       heading: "Comprehensive configuration",
-      body: "Limits, billing, installments, delinquency, and reporting, all configurable per program and per cardholder, on the same API surface.",
+      body: "Limits, billing, installments, delinquency, and reporting — all configurable per program and per cardholder, on the same API surface.",
       link: { label: "Read the configuration docs", href: "/docs/configuration" },
     },
   },
@@ -67,7 +66,7 @@ export const cardIssuingDoc = {
         { eyebrow: "Banks", copy: "Retail and commercial card portfolios on one platform.", link: { label: "See banks", href: "/industries/banks" } },
         { eyebrow: "Fintechs", copy: "Launch debit, credit, prepaid, and BNPL programs.", link: { label: "See fintechs", href: "/industries/fintechs" } },
         { eyebrow: "Telecoms", copy: "Wallet-linked debit, prepaid, and rewards cards.", link: { label: "See telecoms", href: "/industries/telecoms" } },
-        { eyebrow: "Retail & marketplaces", copy: "Co-branded, gift, and payout cards for customers and sellers.", link: { label: "See retail", href: "/industries/retail" } },
+        { eyebrow: "Retail and marketplaces", copy: "Co-branded, gift, and payout cards for customers and sellers.", link: { label: "See retail", href: "/industries/retail" } },
         { eyebrow: "Government", copy: "Prepaid and disbursement cards with auditable spend.", link: { label: "See government", href: "/industries/government" } },
         { eyebrow: "Mobility & fleet", copy: "Fuel and expense cards with category-level controls.", link: { label: "See mobility", href: "/industries/mobility" } },
       ],
@@ -77,7 +76,7 @@ export const cardIssuingDoc = {
   deployment: {
     eyebrow: "Deployment",
     headline: "Deploy in the cloud, on-soil, or on-premise.",
-    body: "Three deployment models on the same platform, pick the one that fits your regulatory and architectural requirements.",
+    body: "Three deployment models on the same platform — pick the one that fits your regulatory and architectural requirements.",
     items: withKeys(
       [
         { eyebrow: "Cloud", heading: "Cloud", description: "Multi-region, NymCard-hosted, fully managed." },
@@ -90,7 +89,7 @@ export const cardIssuingDoc = {
   migration: {
     eyebrow: "Migration",
     headline: "Migrate from legacy infrastructure with agentic AI.",
-    body: "Discovery, mapping, configuration, parallel run, and cutover, handled by AI agents alongside your team.",
+    body: "Discovery, mapping, configuration, parallel run, and cutover — handled by AI agents alongside your team.",
     fromSystem: "Legacy processor",
     toSystem: "NymCard nCore",
     throughput: "540K cards/hr",
@@ -151,7 +150,7 @@ export const cardIssuingDoc = {
     headline: "Common questions.",
     items: withKeys(
       [
-        { question: "What card types can I issue on NymCard?", answer: "Debit, credit, and prepaid cards, physical, virtual, and tokenized, on the same platform." },
+        { question: "What card types can I issue on NymCard?", answer: "Debit, credit, and prepaid cards — physical, virtual, and tokenized — on the same platform." },
         { question: "Does NymCard own its processor, or use a third party?", answer: "NymCard owns nCore, its own processing platform, and is a principal member of Visa and Mastercard. No third-party processor sits between your application and the schemes." },
         { question: "Can I deploy NymCard on-premise?", answer: "Yes. NymCard supports cloud, on-soil, and on-premise deployment. Cloud is multi-region NymCard-hosted; on-soil is NymCard-hosted inside your country; on-premise runs inside your own data center." },
         { question: "How long does a card program take to launch?", answer: "Typically less than three months, subject to program complexity and market requirements. Larger or more configured programs can take longer." },
@@ -164,10 +163,10 @@ export const cardIssuingDoc = {
     ),
   },
   finalCta: {
-    headline: "Talk to our team.",
+    headline: "Talk to us.",
     body: "Launch debit, credit, or prepaid card programs on infrastructure built to scale.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
   crossSell: withKeys(
     [

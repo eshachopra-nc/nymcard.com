@@ -4,12 +4,25 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { DOCS_URL, API_CATALOG_URL, isExternalHref } from "@/lib/external-links";
 
-// Footer link groups — mirrored verbatim from ../02-copy/Homepage.md §7.
-const LINK_GROUPS = [
+// A footer link is either a bare label (placeholder href "#") or a label with
+// a real destination. External (http) hrefs open in a new tab.
+type FooterLink = string | { label: string; href: string };
+const linkLabel = (l: FooterLink) => (typeof l === "string" ? l : l.label);
+const linkHref = (l: FooterLink) => (typeof l === "string" ? "#" : l.href);
+
+// Footer link groups — mirrored from ../02-copy/Homepage.md §7. Real hrefs are
+// wired where a destination exists; the rest stay "#" until their routes land.
+const LINK_GROUPS: { title: string; links: FooterLink[] }[] = [
   {
     title: "Platform",
-    links: ["nCore", "Migration & Modernisation", "Documentation", "API Reference"],
+    links: [
+      "nCore",
+      "Migration & Modernisation",
+      { label: "Documentation", href: DOCS_URL },
+      { label: "API Catalog", href: API_CATALOG_URL },
+    ],
   },
   {
     title: "Products",
@@ -39,13 +52,11 @@ const LINK_GROUPS = [
   {
     title: "Solutions",
     links: [
-      "Run a commercial card programme",
-      "Launch a bank",
-      "Embed financial products",
-      "Offer buy now, pay later",
-      "Disburse at scale",
-      "Power remittances",
-      "Launch a mobile wallet",
+      "Commercial Banking",
+      "Banking as a Service",
+      "Embedded Finance",
+      "Buy Now Pay Later",
+      "Cross-Border & Remittance",
     ],
   },
   {
@@ -85,16 +96,21 @@ export function Footer() {
                 {group.title}
               </h3>
               <ul className="mt-4 space-y-2.5">
-                {group.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="font-body text-sm text-text-dark-secondary hover:text-text-on-brand transition-colors"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                {group.links.map((link) => {
+                  const href = linkHref(link);
+                  const ext = isExternalHref(href);
+                  return (
+                    <li key={linkLabel(link)}>
+                      <a
+                        href={href}
+                        {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="font-body text-sm text-text-dark-secondary hover:text-text-on-brand transition-colors"
+                      >
+                        {linkLabel(link)}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
@@ -133,7 +149,7 @@ export function Footer() {
   );
 }
 
-function FooterAccordion({ title, links }: { title: string; links: string[] }) {
+function FooterAccordion({ title, links }: { title: string; links: FooterLink[] }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border-b border-surface-dark-border">
@@ -154,16 +170,21 @@ function FooterAccordion({ title, links }: { title: string; links: string[] }) {
       </button>
       {open && (
         <ul className="pb-4 space-y-2.5">
-          {links.map((link) => (
-            <li key={link}>
-              <a
-                href="#"
-                className="font-body text-sm text-text-dark-secondary hover:text-brand-primary transition-colors"
-              >
-                {link}
-              </a>
-            </li>
-          ))}
+          {links.map((link) => {
+            const href = linkHref(link);
+            const ext = isExternalHref(href);
+            return (
+              <li key={linkLabel(link)}>
+                <a
+                  href={href}
+                  {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="font-body text-sm text-text-dark-secondary hover:text-brand-primary transition-colors"
+                >
+                  {linkLabel(link)}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

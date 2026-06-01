@@ -12,27 +12,26 @@ export const moneyMovementDoc = {
   trustLine:
     "Principal member of Visa and Mastercard · Connected to Visa Direct, Mastercard Cross-Border, Western Union, and MoneyGram · PCI DSS Level 1 · ISO 27001.",
   hero: {
-    topLine: "",
     headline: "Move money where your customers need it.",
-    body: "Orchestrate cross-border payments, route corridors, and manage FX on infrastructure you control, and monetize.",
+    body: "Orchestrate cross-border payments, route corridors, and manage FX on infrastructure you control and monetize.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     visualLabel: "corridor map",
   },
   capabilities: {
     eyebrow: "Capabilities",
     headline: "Orchestrate every flow, every corridor, every currency.",
-    body: "One platform for domestic flows, cross-border routing, FX, settlement, and compliance, with the revenue staying on your side of the spread.",
+    body: "One platform for domestic flows, cross-border routing, FX, settlement, and compliance — with the revenue staying on your side of the spread.",
     layout: "bento",
     cardMode: "with-UI",
     items: withKeys(
       [
         { eyebrow: "Payment orchestration", heading: "Payment orchestration", description: "Route domestic and international flows through the corridors you choose, with live visibility on every payment.", span: 6, tall: true, uiLabel: "Corridor map + tracking" },
-        { eyebrow: "Connectivity", heading: "Connectivity", description: "Visa Direct, Mastercard Cross-Border, Western Union, and MoneyGram, built in.", span: 3, uiLabel: "Networks" },
+        { eyebrow: "Connectivity", heading: "Connectivity", description: "Visa Direct, Mastercard Cross-Border, Western Union, and MoneyGram — built in.", span: 3, uiLabel: "Networks" },
         { eyebrow: "Settlement", heading: "Settlement and reconciliation", description: "Multi-currency settlement with automated reconciliation across every leg.", span: 3, uiLabel: "Settlement summary" },
         { eyebrow: "Compliance", heading: "Compliance-aware routing", description: "AML, sanctions, and transaction monitoring run inside the routing decision.", span: 3, uiLabel: "Routing decision tree" },
-        { eyebrow: "Activation", heading: "Corridor activation", description: "Activate new corridors without rebuilding, phased rollout, parallel routes, gradual consolidation.", span: 3, uiLabel: "Corridor activation" },
-        { eyebrow: "FX & treasury", heading: "FX and treasury", description: "Set your own FX pricing, manage spreads and liquidity, and keep the corridor revenue on your side.", span: 6, uiLabel: "Treasury console" },
+        { eyebrow: "Activation", heading: "Corridor activation", description: "Activate new corridors without rebuilding — phased rollout, parallel routes, gradual consolidation.", span: 3, uiLabel: "Corridor activation" },
+        { eyebrow: "FX and treasury", heading: "FX and treasury", description: "Set your own FX pricing, manage spreads and liquidity, and keep the corridor revenue on your side.", span: 6, uiLabel: "Treasury console" },
       ],
       "cap",
     ),
@@ -46,8 +45,8 @@ export const moneyMovementDoc = {
   configuration: {
     eyebrow: "Configuration",
     headline: "Configure routing and FX through the API.",
-    body: "Corridor preferences, FX spreads, settlement legs, and compliance rules, defined per corridor, applied in real time.",
-    docsLink: { label: "Read the docs", href: "/docs" },
+    body: "Corridor preferences, FX spreads, settlement legs, and compliance rules — defined per corridor, applied in real time.",
+    docsLink: { label: "Read the docs", href: "https://docs.nymcard.com/" },
     tabs: withKeys(
       [
         { label: "JSON", language: "json", code: `{\n  "corridor": "USD_PHP",\n  "primary_route": "visa_direct",\n  "fallback_route": "mastercard_xb",\n  "fx_spread_bps": 35,\n  "settlement_currency": "USD",\n  "settlement_leg": "T+0",\n  "compliance_profile": "standard",\n  "status": "active"\n}` },
@@ -58,7 +57,7 @@ export const moneyMovementDoc = {
     ),
     companion: {
       heading: "Corridor-level configuration",
-      body: "Routes, fallback paths, FX spreads, settlement legs, and compliance profiles, all configurable per corridor and per partner program, on the same API surface.",
+      body: "Routes, fallback paths, FX spreads, settlement legs, and compliance profiles — all configurable per corridor and per partner program, on the same API surface.",
       link: { label: "Read the configuration docs", href: "/docs/configuration" },
     },
   },
@@ -81,7 +80,7 @@ export const moneyMovementDoc = {
   deployment: {
     eyebrow: "Deployment",
     headline: "Deploy in the cloud, on-soil, or on-premise.",
-    body: "Three deployment models on the same platform, pick the one that fits your regulatory and architectural requirements.",
+    body: "Three deployment models on the same platform — pick the one that fits your regulatory and architectural requirements.",
     items: withKeys(
       [
         { eyebrow: "Cloud", heading: "Cloud", description: "Multi-region, NymCard-hosted, fully managed." },
@@ -96,8 +95,8 @@ export const moneyMovementDoc = {
     headline: "Common questions.",
     items: withKeys(
       [
-        { question: "What is Money Movement?", answer: "Money Movement is the money movement layer of nCore, NymCard's full-stack payments infrastructure platform. It is a multi-currency payment orchestration and FX layer: partners route corridors, manage FX pricing, orchestrate settlement, and capture corridor revenue. It is infrastructure, not a remittance network or FX broker." },
-        { question: "Does NymCard take the FX spread or corridor revenue?", answer: "No. The partner sets FX pricing and captures the spread. NymCard provides the infrastructure that makes the routing, pricing, and settlement possible, the revenue stays with the partner." },
+        { question: "What is Money Movement?", answer: "Money Movement is the money movement layer of nCore, NymCard's full-stack payments platform. It is a multi-currency payment orchestration and FX layer: partners route corridors, manage FX pricing, orchestrate settlement, and capture corridor revenue. It is infrastructure, not a remittance network or FX broker." },
+        { question: "Does NymCard take the FX spread or corridor revenue?", answer: "No. The partner sets FX pricing and captures the spread. NymCard provides the infrastructure that makes the routing, pricing, and settlement possible — the revenue stays with the partner." },
         { question: "Which networks and corridors are connected out of the box?", answer: "Visa Direct, Mastercard Cross-Border, Western Union, and MoneyGram are built in. Additional corridors can be activated per program." },
         { question: "Can I activate new corridors without disrupting my existing ones?", answer: "Yes. Corridors can be activated in parallel with existing routes, traffic can shift gradually, and consolidation happens on your timing. Existing revenue is not interrupted during the migration." },
         { question: "How does compliance fit into routing?", answer: "AML, sanctions, and transaction monitoring run inside the routing decision. Compliance-aware routing can re-route a payment around a flagged corridor and resolve through an alternate path." },
@@ -109,10 +108,10 @@ export const moneyMovementDoc = {
     ),
   },
   finalCta: {
-    headline: "Talk to our team.",
+    headline: "Talk to us.",
     body: "Orchestrate corridors, manage FX, and capture cross-border revenue on infrastructure built to scale.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
   crossSell: withKeys(
     [

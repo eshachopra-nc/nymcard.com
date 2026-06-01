@@ -106,7 +106,7 @@ export const travelDoc = {
   developer: {
     headline: "Built for your team to integrate.",
     body: "Full API access, SDKs, sandbox, and webhooks, pre-integrated with Visa, Mastercard, and international corridors so your team can move fast.",
-    link: { label: "Read the docs", href: "/docs" },
+    link: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 
   crossSell: withKeys(
@@ -143,9 +143,9 @@ export const travelDoc = {
   },
 
   finalCta: {
-    headline: "Talk to our team.",
+    headline: "Talk to us.",
     body: "Launch multi-currency cards, wallets, and disbursements for travel on one platform.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };

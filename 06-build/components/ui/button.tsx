@@ -1,5 +1,6 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { isExternalHref } from "@/lib/external-links";
 
 // ── Button ─────────────────────────────────────────────────────────────────
 //
@@ -32,10 +33,14 @@ const SIZE: Record<ButtonSize, string> = {
 };
 
 const SOLID_VARIANT: Record<"primary" | "secondary", string> = {
+  // Perceptible hover: a real elevation lift (shadow + 1px rise) that reads in
+  // both themes and still applies under prefers-reduced-motion (the global
+  // backstop only shortens the transition, the end-state paints). `opacity-90`
+  // alone was imperceptible — the "flat hover" the owner flagged.
   primary:
-    "bg-brand-navy text-text-on-brand hover:opacity-90 dark:bg-accent-cyan dark:text-brand-navy",
+    "bg-brand-navy text-text-on-brand hover:-translate-y-px hover:shadow-[var(--shadow-lift)] dark:bg-accent-cyan dark:text-brand-navy dark:hover:shadow-[var(--shadow-dark-lift)]",
   secondary:
-    "border border-surface-border-stronger bg-transparent text-text-primary hover:bg-surface-soft dark:border-surface-dark-border dark:text-text-on-brand dark:hover:bg-surface-dark-elevated",
+    "border border-surface-border-stronger bg-transparent text-text-primary hover:-translate-y-px hover:border-brand-primary/50 hover:bg-surface-soft hover:shadow-[var(--shadow-lift)] dark:border-surface-dark-border dark:text-text-on-brand dark:hover:border-surface-dark-border-stronger dark:hover:bg-surface-dark-elevated dark:hover:shadow-[var(--shadow-dark-lift)]",
 };
 
 type SharedProps = {
@@ -86,8 +91,15 @@ export function Button(props: ButtonAsButton | ButtonAsLink) {
   const domProps = omitConsumedProps(props);
 
   if (domProps.href !== undefined) {
+    // Off-site CTAs open in a new tab. Respect an explicit `target` if the
+    // caller already set one.
+    const external = isExternalHref(domProps.href);
+    const externalAttrs =
+      external && domProps.target === undefined
+        ? { target: "_blank", rel: "noopener noreferrer" as const }
+        : {};
     return (
-      <a {...domProps} className={classes}>
+      <a {...domProps} {...externalAttrs} className={classes}>
         {inner}
       </a>
     );

@@ -32,7 +32,7 @@ export const fintechsDoc = {
 
   outcomes: withKeys(
     [
-      { iconName: "Zap", label: "Ship faster", body: "Skip the infrastructure build. Go from integration to launch without waiting on us." },
+      { iconName: "Zap", label: "Ship faster", body: "Skip the infrastructure build. Go from integration to launch on your own schedule." },
       { iconName: "TrendingUp", label: "Revenue from day one", body: "Interchange, credit, and FX revenue embedded into your product from launch." },
       { iconName: "Layers", label: "Add capabilities as you scale", body: "Start with cards. Add lending, wallets, and cross-border when your product needs them." },
     ],
@@ -91,8 +91,8 @@ export const fintechsDoc = {
 
   developer: {
     headline: "Built for your team to integrate.",
-    body: "Full API access, SDKs, sandbox, and webhooks, so your engineering team can move from integration to launch without waiting on us.",
-    link: { label: "Read the docs", href: "/docs" },
+    body: "Full API access, SDKs, sandbox, and webhooks — everything your engineering team needs to go from integration to launch.",
+    link: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 
   crossSell: withKeys(
@@ -118,7 +118,7 @@ export const fintechsDoc = {
     items: withKeys(
       [
         { question: "What is fintech payment infrastructure?", answer: "It's the platform a fintech uses to issue cards, run lending, move money, and meet compliance, without building processing, scheme connectivity, or compliance from scratch. NymCard provides this as a modular API-first stack on nCore." },
-        { question: "Do we need scheme membership to issue cards?", answer: "No. NymCard is a principal member of Visa and Mastercard. You issue under our scheme membership unless you bring your own." },
+        { question: "Do we need scheme membership to issue cards?", answer: "No. nCore comes with built-in scheme connectivity — it’s already integrated with Visa and Mastercard — so you can issue cards fast without building those connections yourself." },
         { question: "How fast can a fintech launch on NymCard?", answer: "A core card program typically launches in less than three months, subject to program complexity and market requirements." },
         { question: "Can we add lending or cross-border after launch?", answer: "Yes. You can start with cards and add Lending, Money Movement, Settlement, Financial Crime, or Reconciliation as your product grows, one customer record across all products." },
         { question: "Where is compliance handled?", answer: "Inside the platform. KYC, AML, and sanctions screening run inside the authorization path, not a separate compliance vendor." },
@@ -129,9 +129,9 @@ export const fintechsDoc = {
   },
 
   finalCta: {
-    headline: "Talk to our team.",
+    headline: "Talk to us.",
     body: "Launch your fintech product on infrastructure built to scale.",
     primaryCta: { label: "Talk to us", href: "#contact" },
-    secondaryCta: { label: "Read the docs", href: "/docs" },
+    secondaryCta: { label: "Read the docs", href: "https://docs.nymcard.com/" },
   },
 };
