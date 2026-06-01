@@ -3,3 +3,8 @@
 
 # macOS
 .DS_Store
+
+# secrets — service-account keys / credentials (never commit)
+*.iam.gserviceaccount.com.json
+nymcard-crm-*.json
+.secrets/
