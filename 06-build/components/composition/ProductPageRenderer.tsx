@@ -29,6 +29,25 @@ const handoffName = (slug: string, label: string) =>
   `${slug}-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
 import { MigrationConsole, TopologyTraces } from "@/components/visuals";
 import { iconByName } from "@/lib/sanity/icon-map";
+import {
+  Waypoints,
+  Link2,
+  ArrowLeftRight,
+  ShieldCheck,
+  Power,
+  BarChart3,
+} from "lucide-react";
+
+// Per-card icons for the Money Movement capabilities — drives the clean glass
+// cards (icon chip + heading + text, no UI placeholder). Keyed by heading.
+const MONEY_MOVEMENT_ICONS = {
+  "Payment orchestration": Waypoints,
+  Connectivity: Link2,
+  "Settlement and reconciliation": ArrowLeftRight,
+  "Compliance-aware routing": ShieldCheck,
+  "Corridor activation": Power,
+  "FX and treasury": BarChart3,
+};
 import { fixDocHrefs } from "@/lib/sanity/voice-overrides";
 import { heroVisualFor } from "@/lib/sanity/hero-visual-map";
 import { capabilityVisual } from "@/lib/sanity/capability-visual-map";
@@ -165,6 +184,11 @@ export function ProductPageRenderer({ doc: rawDoc }: Props) {
             headline={doc.capabilities.headline}
             body={doc.capabilities.body}
             items={doc.capabilities.items}
+            // Money Movement: clean glass cards with brand-gradient icon chips
+            // (no UI placeholder). Other pages keep the default UI-zone cards.
+            icons={
+              doc.slug === "money-movement" ? MONEY_MOVEMENT_ICONS : undefined
+            }
           />
         )
       )}
