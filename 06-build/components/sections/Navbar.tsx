@@ -16,20 +16,27 @@ import { useTheme } from '@/lib/theme-provider'
 import { ThemeToggle } from './ThemeToggle'
 
 /* ═══════════════════════════════════════════════════════
-   SHARED GRADIENT DEF
+   NAV ICON — brand-gradient filled chip (white glyph)
+   design-system.md §3: iconography uses brand colours, not accents —
+   brand-primary → brand-purple. A filled chip (not an outline stroke) so the
+   icons read as solid gradient marks, matching the contact-page routes.
 ═══════════════════════════════════════════════════════ */
-function IconGradientDef() {
+function NavIcon({
+  icon: Icon,
+  size = 14,
+}: {
+  icon: React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>
+  size?: number
+}) {
+  const box = size + 10
   return (
-    <svg width="0" height="0" style={{ position: 'absolute', pointerEvents: 'none' }}>
-      <defs>
-        {/* CTA-echo palette per design-system.md §3 (brand colours only —
-            "Iconography uses brand colours, not accents"): brand-primary → brand-purple. */}
-        <linearGradient id="nc-icon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#304DBB" />
-          <stop offset="100%" stopColor="#5B4FD9" />
-        </linearGradient>
-      </defs>
-    </svg>
+    <span
+      aria-hidden="true"
+      className="inline-flex shrink-0 items-center justify-center rounded-[7px] bg-gradient-to-br from-brand-primary to-brand-purple text-white shadow-[0_3px_8px_-3px_rgba(48,77,187,0.5)]"
+      style={{ width: box, height: box }}
+    >
+      <Icon size={size} strokeWidth={2} className="text-white" />
+    </span>
   )
 }
 
@@ -73,7 +80,7 @@ function ProductCard({ item }: { item: ProductItem }) {
       className="dd-card flex flex-col gap-[5px] p-[14px_16px] rounded-[8px] border border-[#E8EAED] bg-white no-underline dark:border-surface-dark-border dark:bg-surface-dark-elevated"
     >
       <div className="flex items-center gap-[8px]">
-        <Icon size={16} strokeWidth={1.5} style={{ stroke: 'url(#nc-icon-grad)', flexShrink: 0 } as React.CSSProperties} />
+        <NavIcon icon={Icon} size={14} />
         <span className="text-[13px] font-[600] text-[#0A0A0A] leading-snug tracking-[-0.01em] dark:text-white">
           {item.label}
         </span>
@@ -97,7 +104,7 @@ function SimpleCard({ item }: { item: SimpleItem }) {
       className="dd-card flex flex-col gap-[5px] p-[14px_16px] rounded-[8px] border border-[#E8EAED] bg-white no-underline dark:border-surface-dark-border dark:bg-surface-dark-elevated"
     >
       <div className="flex items-center gap-[8px]">
-        <Icon size={16} strokeWidth={1.5} style={{ stroke: 'url(#nc-icon-grad)', flexShrink: 0 } as React.CSSProperties} />
+        <NavIcon icon={Icon} size={14} />
         <span className="text-[13px] font-[600] text-[#0A0A0A] leading-snug tracking-[-0.01em] dark:text-white">
           {item.label}
         </span>
@@ -127,8 +134,6 @@ function DropdownContent({ item }: { item: NavItemConfig }) {
   const dd = item.dropdown!
   return (
     <>
-      <IconGradientDef />
-
       {dd.type === 'platform' && dd.items && (
         <div className="grid grid-cols-4 gap-2">
           {(dd.items as ProductItem[]).map(p => <ProductCard key={p.id} item={p} />)}
@@ -204,7 +209,6 @@ function itemsForMobile(item: NavItemConfig): DropdownItem[] {
 function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
   return (
     <nav aria-label="Mobile" className="flex flex-col gap-6 px-6 pb-8 pt-1">
-      <IconGradientDef />
       {NAV_ITEMS.map((item) => {
         const items = itemsForMobile(item)
         return (
@@ -223,11 +227,7 @@ function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
                     onClick={onNavigate}
                     className="flex items-start gap-3 rounded-[10px] px-2 py-2.5 no-underline transition-colors hover:bg-[rgba(48,77,187,0.05)] dark:hover:bg-white/[0.06]"
                   >
-                    <Icon
-                      size={18}
-                      strokeWidth={1.5}
-                      style={{ stroke: 'url(#nc-icon-grad)', flexShrink: 0, marginTop: 2 } as React.CSSProperties}
-                    />
+                    <NavIcon icon={Icon} size={16} />
                     <span className="flex flex-col">
                       <span className="text-[15px] font-semibold leading-snug text-[#0A0A0A] dark:text-white">
                         {it.label}
