@@ -27,27 +27,30 @@ const b64url = (input: Buffer | string) =>
 export function sheetsServiceConfigured(): boolean {
   return Boolean(
     process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL &&
-      process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY &&
+      (process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_B64 ||
+        process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY) &&
       process.env.CONTACT_SHEET_ID,
   );
 }
 
-/** Normalise a private key pasted into an env var — tolerant of the common
- *  mistakes (surrounding quotes, literal `\n` instead of newlines, stray
- *  whitespace) so it works however it was entered in the Vercel dashboard. */
-function normalizePrivateKey(raw: string): string {
-  return raw
+/** Resolve the private key from env. Prefers the base64 form
+ *  (GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_B64) — base64 has no newlines, quotes, or
+ *  backslashes, so it survives any dashboard paste intact. Falls back to the raw
+ *  PEM form, normalised for the common paste mistakes (surrounding quotes,
+ *  literal `\n`, stray whitespace). */
+function loadPrivateKey(): string {
+  const b64 = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_B64;
+  if (b64) return Buffer.from(b64.trim(), "base64").toString("utf8");
+  return (process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY || "")
     .trim()
-    .replace(/^["']|["']$/g, "") // accidental surrounding quotes
-    .replace(/\\n/g, "\n") // literal \n → real newlines
+    .replace(/^["']|["']$/g, "")
+    .replace(/\\n/g, "\n")
     .trim();
 }
 
 async function getAccessToken(): Promise<string> {
   const email = (process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || "").trim();
-  const key = normalizePrivateKey(
-    process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY || "",
-  );
+  const key = loadPrivateKey();
 
   const now = Math.floor(Date.now() / 1000);
   const header = b64url(JSON.stringify({ alg: "RS256", typ: "JWT" }));
