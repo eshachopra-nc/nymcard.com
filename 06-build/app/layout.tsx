@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider, themeInitScript } from "@/lib/theme-provider";
+import { CookieConsent } from "@/components/sections/CookieConsent";
 import "./globals.css";
 
 // Geist Sans is the single sans family the site renders in — display AND body.
@@ -46,7 +47,10 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="relative min-h-full flex flex-col font-body bg-surface-white text-text-primary dark:bg-surface-dark-base dark:text-text-on-brand">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {children}
+          <CookieConsent />
+        </ThemeProvider>
       </body>
     </html>
   );
