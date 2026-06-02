@@ -28,15 +28,6 @@ export function IndustryPageRenderer({ doc: rawDoc }: Props) {
     body: fixVoice(o.body),
   })) as [OutcomeChip, OutcomeChip, OutcomeChip];
 
-  const payKit: CrossSellItem | undefined = doc.payKit
-    ? {
-        leadIn: doc.payKit.leadIn,
-        body: doc.payKit.body,
-        link: doc.payKit.link,
-        icon: iconByName(doc.payKit.iconName),
-      }
-    : undefined;
-
   const crossSell: [CrossSellItem, CrossSellItem] = [
     {
       leadIn: doc.crossSell[0].leadIn,
@@ -63,7 +54,6 @@ export function IndustryPageRenderer({ doc: rawDoc }: Props) {
       ...row,
       visual: industryRowVisual(doc.slug, i),
     })),
-    payKit,
     platform: doc.platform,
     developer: { ...doc.developer, body: fixVoice(doc.developer.body) },
     crossSell,

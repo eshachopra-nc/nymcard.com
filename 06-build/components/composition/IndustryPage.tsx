@@ -77,8 +77,6 @@ export type IndustryPageProps = {
   buildEyebrow?: string;
   /** §4 alternating rows — typically 3 or 4 per page. */
   buildRows: readonly IndustryBuildRow[];
-  /** Optional PayKit callout (§5) — a single CrossSellBanner item. */
-  payKit?: CrossSellItem;
   platform: {
     eyebrow?: string;
     headline: string;
@@ -111,7 +109,6 @@ export function IndustryPage(props: IndustryPageProps) {
     challenge,
     buildEyebrow = "What you can build",
     buildRows,
-    payKit,
     platform,
     developer,
     crossSell,
@@ -187,13 +184,6 @@ export function IndustryPage(props: IndustryPageProps) {
           ))}
         </div>
       </section>
-
-      {/* §5 PayKit callout — single banner, only when the industry warrants it. */}
-      {payKit && (
-        <section className="bg-surface-soft py-12 dark:bg-surface-dark-base sm:py-16">
-          <CrossSellBanner items={[payKit]} />
-        </section>
-      )}
 
       {/* §6 Platform — heading + body + 4–6 checklist items. */}
       <section className="bg-surface-soft py-20 dark:bg-surface-dark-base sm:py-24 lg:py-28">

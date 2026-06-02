@@ -36,7 +36,10 @@ const LINK_GROUPS: { title: string; links: FooterLink[] }[] = [
     ],
   },
   {
-    title: "Industries",
+    // Matches the nav's "Solutions" top-level (the industry pages). The old
+    // use-case "Solutions" column was removed — its /solutions/* routes don't
+    // exist yet (they 404), and it duplicated this label.
+    title: "Solutions",
     links: [
       "Retail Banking",
       "Exchange Houses",
@@ -47,16 +50,6 @@ const LINK_GROUPS: { title: string; links: FooterLink[] }[] = [
       "Healthcare",
       "Government",
       "Mobility",
-    ],
-  },
-  {
-    title: "Solutions",
-    links: [
-      "Commercial Banking",
-      "Banking as a Service",
-      "Embedded Finance",
-      "Buy Now Pay Later",
-      "Cross-Border & Remittance",
     ],
   },
   {
