@@ -38,7 +38,10 @@ const KIND_META: Record<NewsroomKind, KindMeta> = {
 };
 
 export const metadata: Metadata = {
-  title: "Newsroom | NymCard",
+  title: "Newsroom",
+  description:
+    "NymCard news, announcements, and press — product launches, partnerships, and milestones across the markets NymCard operates in.",
+  alternates: { canonical: "/company/newsroom" },
 };
 
 async function getItems(): Promise<SanityNewsroomItemCard[]> {

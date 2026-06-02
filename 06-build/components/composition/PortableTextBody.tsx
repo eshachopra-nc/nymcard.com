@@ -39,6 +39,15 @@ const components: PortableTextComponents = {
         {children}
       </p>
     ),
+    // SEO/a11y: the page title is the page's single <h1>. Legacy WordPress
+    // body content sometimes carries h1-styled blocks; render those as <h2>
+    // (styled as the largest body heading) so there is never a second <h1>
+    // competing with the title. Visual hierarchy is preserved.
+    h1: ({ children }) => (
+      <h2 className="mt-12 mb-4 font-display text-2xl font-bold leading-tight tracking-tight text-text-primary sm:text-3xl dark:text-text-dark-primary">
+        {children}
+      </h2>
+    ),
     h2: ({ children }) => (
       <h2 className="mt-12 mb-4 font-display text-2xl font-bold leading-tight tracking-tight text-text-primary sm:text-3xl dark:text-text-dark-primary">
         {children}

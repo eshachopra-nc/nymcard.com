@@ -36,7 +36,10 @@ const COPY = {
 } as const;
 
 export const metadata: Metadata = {
-  title: "Blog | NymCard",
+  title: "Blog",
+  description:
+    "Perspectives from NymCard on payments infrastructure, card issuing, money movement, lending, settlement, and building on nCore.",
+  alternates: { canonical: "/company/blog" },
 };
 
 type CategoryMeta = { label: string; icon: LucideIcon };

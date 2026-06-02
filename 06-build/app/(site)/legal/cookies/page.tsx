@@ -8,9 +8,10 @@ import { Footer } from "@/components/sections/Footer";
 // WordPress).
 
 export const metadata: Metadata = {
-  title: "Cookie Policy — NymCard",
+  title: { absolute: "Cookie Policy — NymCard" },
   description:
     "How NymCard uses cookies and similar technologies: essential, preference, and analytics cookies, third-party cookies, and how to manage your preferences.",
+  alternates: { canonical: "/legal/cookies" },
 };
 
 export default function CookiesPage() {

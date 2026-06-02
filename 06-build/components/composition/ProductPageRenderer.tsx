@@ -49,6 +49,8 @@ const MONEY_MOVEMENT_ICONS = {
   "Corridor activation": Power,
   "FX and treasury": BarChart3,
 };
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/seo";
 import { fixDocHrefs } from "@/lib/sanity/voice-overrides";
 import { heroVisualFor } from "@/lib/sanity/hero-visual-map";
 import { capabilityVisual } from "@/lib/sanity/capability-visual-map";
@@ -117,8 +119,18 @@ export function ProductPageRenderer({ doc: rawDoc }: Props) {
     },
   ];
 
+  // BreadcrumbList (Home → Products → this page). FAQPage is emitted by the
+  // <FAQ> component itself (one source of truth — do not duplicate it here).
+  const breadcrumbs = breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Products" }, // no /products index route — name-only level
+    { name: doc.title, path: `/products/${doc.slug}` },
+  ]);
+
   return (
     <main>
+      <JsonLd data={breadcrumbs} />
+
       {/* §1 Hero — the right-column visual is resolved from a slug → component
           registry (heroVisualFor). Pages with a registered illustration render
           it; every other page falls back to PageHero's UIPlaceholder. */}

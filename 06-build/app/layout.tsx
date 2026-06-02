@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider, themeInitScript } from "@/lib/theme-provider";
 import { CookieConsent } from "@/components/sections/CookieConsent";
+import { SITE_NAME, SITE_URL, OG_IMAGE } from "@/lib/seo";
 import "./globals.css";
 
 // Geist Sans is the single sans family the site renders in — display AND body.
@@ -21,9 +22,51 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+// Root metadata baseline. Inherited by every route; individual pages override
+// `title` and `description` (and per-page OG) via their own metadata exports.
+//
+//  - metadataBase makes every relative OG/canonical URL resolve to the real
+//    origin (configurable per-env via NEXT_PUBLIC_SITE_URL).
+//  - The title template appends the brand to page titles; pages that already
+//    carry "| NymCard" use `title.absolute` so the brand isn't duplicated.
 export const metadata: Metadata = {
-  title: "NymCard",
-  description: "Full-stack payments infrastructure.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default:
+      "NymCard — full-stack payments infrastructure on one platform (nCore)",
+    template: `%s | ${SITE_NAME}`,
+  },
+  description:
+    "NymCard is full-stack payments infrastructure. Banks, fintechs, and businesses build card issuing, money movement, settlement, reconciliation, lending, and financial crime controls on one platform — nCore.",
+  applicationName: SITE_NAME,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    url: SITE_URL,
+    title:
+      "NymCard — full-stack payments infrastructure on one platform (nCore)",
+    description:
+      "Banks, fintechs, and businesses build card issuing, money movement, settlement, reconciliation, lending, and financial crime controls on one platform — nCore.",
+    images: [{ ...OG_IMAGE }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "NymCard — full-stack payments infrastructure on one platform (nCore)",
+    description:
+      "Banks, fintechs, and businesses build card issuing, money movement, settlement, reconciliation, lending, and financial crime controls on one platform — nCore.",
+    images: [OG_IMAGE.url],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
 };
 
 // ── Root layout — bare shell ───────────────────────────────────────────────

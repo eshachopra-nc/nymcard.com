@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/composition/PageHero";
 import { FAQ, type FAQItem } from "@/components/composition/FAQ";
 import { CTASection } from "@/components/composition/CTASection";
+import { TopologyTraces } from "@/components/visuals";
 import { Footer } from "@/components/sections/Footer";
 import { NCoreHeroVisual } from "@/components/sections/ncore/NCoreHeroVisual";
 import { NCoreCapabilities } from "@/components/sections/ncore/NCoreCapabilities";
@@ -11,6 +12,8 @@ import { NCoreDeployment } from "@/components/sections/ncore/NCoreDeployment";
 import { NCoreMigration } from "@/components/sections/ncore/NCoreMigration";
 import { NCoreComparison } from "@/components/sections/ncore/NCoreComparison";
 import { NCoreDeveloper } from "@/components/sections/ncore/NCoreDeveloper";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/seo";
 
 // ── /platform/ncore — the flagship nCore platform page ──────────────────────
 //
@@ -37,7 +40,7 @@ const COPY = {
   hero: {
     headline: "Build every payment product on nCore.",
     description:
-      "One customer record, one ledger, one audit trail — on a processor NymCard owns.",
+      "One customer record, one ledger, one audit trail — on a platform NymCard owns.",
   },
   faq: {
     heading: "Common questions",
@@ -78,14 +81,26 @@ const COPY = {
 
 export const metadata: Metadata = {
   // META block, 02-copy/nCore-copy.revised.md.
-  title: "nCore — Payments and Banking Platform | NymCard",
+  // Already carries the brand — absolute opts out of the root title template.
+  title: { absolute: "nCore — Payments and Banking Platform | NymCard" },
   description:
     "nCore is NymCard's payments and banking platform — card issuing, embedded lending, cross-border payments, and stablecoin settlement on a single architecture.",
+  alternates: { canonical: "/platform/ncore" },
 };
 
 export default function NCorePage() {
   return (
     <main>
+      {/* BreadcrumbList for search and answer engines. FAQPage is emitted by
+          the <FAQ> component below — not duplicated here. */}
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Platform" },
+          { name: "nCore", path: "/platform/ncore" },
+        ])}
+      />
+
       {/* Hero — shared product-page hero (two-column), with the NCoreHeroVisual
           in the visual slot: the abstract "luminous core" render, the page's
           thesis stated visually (build every payment product on nCore). */}
@@ -116,13 +131,14 @@ export default function NCorePage() {
 
       <FAQ headline={COPY.faq.heading} items={[...COPY.faq.items]} mode="single" />
 
-      {/* Final CTA — kinetic-ribbon backdrop. */}
+      {/* Final CTA — matches the product-page final CTA: CTASection with the
+          cyan TopologyTraces backdrop (the reusable pattern used site-wide). */}
       <CTASection
         headline={COPY.finalCta.headline}
         body={COPY.finalCta.description}
         primaryCta={CTA.talkToUs}
         secondaryCta={CTA.readTheDocs}
-        background="soft"
+        backgrounds={<TopologyTraces density="medium" tone="cyan" />}
       />
 
       <Footer />

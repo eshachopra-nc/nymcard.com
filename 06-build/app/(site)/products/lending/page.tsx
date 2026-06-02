@@ -17,8 +17,11 @@ async function getDoc(): Promise<SanityProductPage | null> {
 export async function generateMetadata(): Promise<Metadata> {
   const doc = await getDoc();
   return {
-    title: doc?.metaTitle,
+    // metaTitle already carries the brand suffix; use absolute so the
+    // root title template does not append a second "| NymCard".
+    title: doc?.metaTitle ? { absolute: doc.metaTitle } : undefined,
     description: doc?.metaDescription,
+    alternates: { canonical: "/products/lending" },
   };
 }
 

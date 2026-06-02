@@ -9,9 +9,10 @@ import { Footer } from "@/components/sections/Footer";
 // site CTAs point here.
 
 export const metadata: Metadata = {
-  title: "Contact NymCard — talk to us about your payment program",
+  title: { absolute: "Contact NymCard — talk to us about your payment program" },
   description:
     "Tell NymCard what you’re building — card issuing, lending, money movement, settlement, and more on nCore. The right team replies within one business day.",
+  alternates: { canonical: "/company/contact" },
 };
 
 export default function ContactPage() {

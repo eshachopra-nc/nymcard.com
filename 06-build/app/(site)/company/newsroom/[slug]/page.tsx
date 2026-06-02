@@ -56,6 +56,7 @@ export async function generateMetadata({
   return {
     title: item.metaTitle ?? item.title,
     description: item.metaDescription ?? item.excerpt,
+    alternates: { canonical: `/company/newsroom/${slug}` },
   };
 }
 

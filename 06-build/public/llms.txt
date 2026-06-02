@@ -1,0 +1,45 @@
+# NymCard
+
+> NymCard is full-stack payments infrastructure. Banks, fintechs, and businesses build card issuing, money movement, settlement, reconciliation, lending, and financial crime controls on one platform — nCore.
+
+NymCard was founded in 2018 and is headquartered in London, with offices in Dubai, Riyadh, Cairo, Karachi, and Beirut. NymCard is a principal member of Visa and Mastercard, is PCI DSS Level 1 certified, and is ISO 27001 certified. The platform is called nCore: one customer record, one ledger, one audit trail, owned by NymCard. nCore can be deployed in the cloud, on-soil, or on-premise, and connects to an existing core banking system rather than replacing it.
+
+## Platform
+
+- [nCore](https://nymcard.com/platform/ncore): The full-stack payments and banking platform — card issuing, embedded lending, cross-border payments, settlement, reconciliation, and financial crime controls on a single architecture.
+
+## Products
+
+- [Card Issuing](https://nymcard.com/products/card-issuing): Issue debit, credit, and prepaid cards — physical, virtual, and tokenized — on nCore as a principal member of Visa and Mastercard.
+- [Money Movement](https://nymcard.com/products/money-movement): Domestic and cross-border payments and multi-currency money movement.
+- [Settlement](https://nymcard.com/products/settlement): Settlement including stablecoin settlement.
+- [Reconciliation](https://nymcard.com/products/reconciliation): Automated reconciliation across the payment lifecycle.
+- [Lending](https://nymcard.com/products/lending): Embedded lending — BNPL, revolving, and installment credit products.
+- [Financial Crime](https://nymcard.com/products/financial-crime): Fraud monitoring, transaction risk decisioning, and 3DS controls.
+
+## Industries
+
+- [Retail Banking](https://nymcard.com/industries/retail-banking)
+- [Commercial Banking](https://nymcard.com/industries/commercial-banking)
+- [Neobanks](https://nymcard.com/industries/neobanks)
+- [Fintechs](https://nymcard.com/industries/fintechs)
+- [Exchange Houses](https://nymcard.com/industries/exchange-houses)
+- [Telecommunications](https://nymcard.com/industries/telecommunications)
+- [Retail & Marketplaces](https://nymcard.com/industries/retail-marketplaces)
+- [Travel](https://nymcard.com/industries/travel)
+- [Mobility](https://nymcard.com/industries/mobility)
+- [Healthcare](https://nymcard.com/industries/healthcare)
+- [Government](https://nymcard.com/industries/government)
+
+## Company
+
+- [About](https://nymcard.com/company/about): NymCard's story, founded 2018.
+- [Careers](https://nymcard.com/company/careers): Open roles and how to introduce yourself.
+- [Contact](https://nymcard.com/company/contact): Talk to NymCard about a payment program.
+- [Blog](https://nymcard.com/company/blog)
+- [Newsroom](https://nymcard.com/company/newsroom)
+
+## Legal
+
+- [Privacy Policy](https://nymcard.com/legal/privacy)
+- [Cookie Policy](https://nymcard.com/legal/cookies)

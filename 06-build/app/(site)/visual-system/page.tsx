@@ -73,6 +73,8 @@ import {
   NCoreStack,
   PaymentCard,
 } from "@/components/artifacts";
+import { SignatureStitchToCore } from "@/components/sections/SignatureStitchToCore";
+import { FragmentationWeb } from "@/components/sections/FragmentationWeb";
 import { HandoffVisual } from "@/components/sections/product-uis";
 import {
   CardsUI,
@@ -899,6 +901,7 @@ const NAV: { category: string; items: { label: string; id: string }[] }[] = [
     category: "Artifacts",
     items: [
       { label: "nCore stack", id: "ncore" },
+      { label: "Signature moment", id: "signature" },
       { label: "Card surface systems", id: "surfaces" },
     ],
   },
@@ -2696,6 +2699,41 @@ export default function VisualSystemPage() {
               ]}
               visual={<NCoreStack />}
             />
+          </div>
+        </CompositionDemo>
+
+        {/* ── SIGNATURE MOMENT ──────────────────────────────────────────── */}
+        <Group
+          index="Signature"
+          label="Signature moment — stitched stack → one core"
+          lede="The campaign's owned visual (strategy §5): ONE continuous sequence, two phases, shared vocabulary. phase='fragmented' (the FragmentationWeb) is a sprawl of mismatched vendor systems crudely wired together with crossed, taped, precarious seams — the bank's assembled estate, an instant read of a fragmented mess. phase='collapse' RESOLVES that same tangle INTO the original NCoreStack at full presence: the scattered systems converge inward and fade as the clean nCore stack assembles in their place (chaos → order). On the homepage these are two full-presence halves — §3 owns the full-width FragmentationWeb (the pain), §4 presents the full NCoreStack (the answer). COUNT-AGNOSTIC: the tangle derives from one vendors array; the story is 'a sprawl → one core', never 'N → one'. Reuses the InfraIcon family + the NCoreStack. Framer once-on-enter; reduced-motion renders each phase's clean end-state (the settled tangle, or the stack) — no half-empty mid-state. Cool/navy-led, violet as the committed signature accent (§3), never the field; no alarm red."
+        />
+
+        <CompositionDemo
+          title="FragmentationWeb — the §3 pain (light + dark)"
+          desc="The bank's stitched-together estate, made literal: a sprawl of mismatched vendor systems crudely wired together with crossed, bowed, taped, precarious seams — a subset broken (stopping short of the target node). Reads instantly as 'a fragmented, painful mess', never flat cards and never a tidy diagram. Cool-only — the pain reads through tangle, density, mismatch and a heavy tone, NEVER alarm red. Reuses the InfraIcon family so the same vocabulary carries into the §4 NCoreStack answer. COUNT-AGNOSTIC: every node, seam and tape patch derives from one vendors array. On GlassAtmosphere (deep azure) — never a flat bed (§8.1). Cables fade + settle in on enter (a staggered opacity reveal, no pathLength dash artifacts); nodes lift on hover; reduced-motion shows the settled tangle statically."
+        >
+          <FragmentationWeb className="aspect-[2.1/1]" />
+          <div className="dark">
+            <div className="rounded-2xl bg-surface-dark-base p-5">
+              <FragmentationWeb className="aspect-[2.1/1]" />
+            </div>
+          </div>
+        </CompositionDemo>
+
+        <CompositionDemo
+          title="SignatureStitchToCore — both phases, light + dark"
+          desc="The two phases side by side: the fragmented tangle (left) and the resolved NCoreStack (right). On the live page they are two full-presence halves across stacked sections — the §3 FragmentationWeb (the pain) and the §4 NCoreStack (the answer), the same vocabulary resolving. The collapse here morphs the converging tangle into the NCoreStack; both sit on GlassAtmosphere over the kinetic ribbon (never glass on a flat bed, §8.1). Scroll-driven; reduced-motion shows these resolved states statically, with no dead mid-state."
+        >
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+            <SignatureStitchToCore phase="fragmented" className="aspect-[16/10]" />
+            <SignatureStitchToCore phase="collapse" className="aspect-[16/10]" />
+          </div>
+          <div className="dark">
+            <div className="grid grid-cols-1 gap-5 rounded-2xl bg-surface-dark-base p-5 lg:grid-cols-2">
+              <SignatureStitchToCore phase="fragmented" className="aspect-[16/10]" />
+              <SignatureStitchToCore phase="collapse" className="aspect-[16/10]" />
+            </div>
           </div>
         </CompositionDemo>
 

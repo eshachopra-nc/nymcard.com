@@ -8,9 +8,13 @@ import { Footer } from "@/components/sections/Footer";
 // (CareersExperience), mirrored from 02-copy/Careers.md.
 
 export const metadata: Metadata = {
-  title: "Careers at NymCard — build the infrastructure modern payments run on",
+  title: {
+    absolute:
+      "Careers at NymCard — build the infrastructure modern payments run on",
+  },
   description:
     "NymCard builds the platform behind modern payments, and hires people who are AI-native by default. No roles listed right now — introduce yourself at careers@nymcard.com.",
+  alternates: { canonical: "/company/careers" },
 };
 
 export default function CareersPage() {
