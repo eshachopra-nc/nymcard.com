@@ -44,7 +44,7 @@
 .lcj .mono { font-variant-numeric: tabular-nums; }
 
 /* ---- even 3×2 grid — six equal cards ---- */
-.lcj .bento { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 404px; gap: 20px; }
+.lcj .bento { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 440px; gap: 20px; }
 .lcj .cell { display: flex; min-height: 0; }
 
 /* ---- the card (bordered, theme-aware) ---- */
@@ -93,12 +93,12 @@
    §4a Card-linked credit — the real purple card + figures
    ============================================================ */
 .lcj .clc { display: flex; flex-direction: column; height: 100%; }
-.lcj .cc { width: 100%; max-width: 208px; flex: none; }
-.lcj .clc-figs { margin-top: 18px; }
+.lcj .cc { width: 100%; max-width: 172px; flex: none; }
+.lcj .clc-figs { margin-top: 12px; }
 .lcj .clc-row { display: flex; align-items: baseline; gap: 10px; margin-top: 6px; }
 .lcj .clc-of { font-family: var(--font-mono); font-size: 12px; color: var(--t-muted); }
 .lcj .clc-mrow { display: flex; justify-content: space-between; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--t-secondary); }
-.lcj .clc-rep { margin-top: auto; padding-top: 18px; }
+.lcj .clc-rep { margin-top: auto; padding-top: 12px; }
 .lcj .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
 .lcj .seg button { font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--t-secondary); cursor: pointer; padding: 9px 6px; border-radius: 10px; background: var(--btn-bg); border: 1px solid var(--line-strong); transition: all 180ms var(--lcj-ease-std); }
 .lcj .seg button:hover { border-color: rgba(48, 77, 187, 0.4); color: var(--t-primary); }
@@ -202,7 +202,7 @@
 }
 @media (max-width: 560px) {
   .lcj .bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
-  .lcj .cell { min-height: 404px; }
+  .lcj .cell { min-height: 440px; }
 }
 
 /* ---- reduced motion ---- */
