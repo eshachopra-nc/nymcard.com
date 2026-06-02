@@ -18,6 +18,7 @@ import { Section } from "@/components/sections/Section";
 import {
   CardControlsDashboard,
   FinancialCrimeConsole,
+  CorridorRoutingConsole,
   HandoffVisual,
   NamedSurface,
   type BedTone,
@@ -212,6 +213,8 @@ export function ProductPageRenderer({ doc: rawDoc }: Props) {
                   <CardControlsDashboard />
                 ) : doc.slug === "financial-crime" ? (
                   <FinancialCrimeConsole />
+                ) : doc.slug === "money-movement" ? (
+                  <CorridorRoutingConsole />
                 ) : (
                   <div className="aspect-[16/10] w-full sm:aspect-[2/1]">
                     <NamedSurface

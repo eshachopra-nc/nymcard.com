@@ -2,6 +2,7 @@ export { HandoffVisual, type BedTone } from "./HandoffVisual";
 export { NamedSurface } from "./NamedSurface";
 export { CardControlsDashboard } from "./CardControlsDashboard";
 export { FinancialCrimeConsole } from "./FinancialCrimeConsole";
+export { CorridorRoutingConsole } from "./CorridorRoutingConsole";
 export { CardsUI } from "./CardsUI";
 export { LendingUI } from "./LendingUI";
 export { MoneyMovementUI } from "./MoneyMovementUI";
