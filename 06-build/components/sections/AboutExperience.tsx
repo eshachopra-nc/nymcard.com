@@ -2,12 +2,11 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { dur, ease } from "@/components/visuals/motion";
 import { PageHero } from "@/components/composition/PageHero";
-import { GlassPanel, GlassAtmosphere } from "@/components/visuals";
+import { CTASection } from "@/components/composition";
+import { GlassPanel, GlassAtmosphere, TopologyTraces } from "@/components/visuals";
 import { Section } from "@/components/sections/Section";
-import { Button } from "@/components/ui/button";
 
 // ── About — /company/about ─────────────────────────────────────────────────
 //
@@ -58,8 +57,6 @@ const COPY = {
         body: "fraud, risk, 3D Secure, AML, sanctions, chargebacks, and identity.",
       },
     ],
-    credibility:
-      "NymCard is a principal member of Visa and a principal member of Mastercard, certified to PCI DSS Level 1 and ISO 27001.",
   },
   numbers: {
     headline: "Building across six markets.",
@@ -68,8 +65,6 @@ const COPY = {
       { value: "150+", label: "people" },
       { value: "6", label: "offices" },
     ],
-    offices:
-      "Headquartered in London, with offices in Dubai, Riyadh, Cairo, Karachi, and Beirut.",
   },
   investors: {
     headline: "Backed by investors who believe in the platform.",
@@ -90,7 +85,18 @@ const INVESTORS = [
   { name: "Oman Technology Fund", src: "/investors/oman-technology-fund.png" },
   { name: "BY Ventures", src: "/investors/by-ventures.svg" },
   { name: "Reciprocal Ventures", src: "/investors/reciprocal-ventures.svg" },
+  { name: "Endeavor Catalyst", src: "/investors/endeavor.svg" },
   { name: "Knollwood", src: "/investors/knollwood.png" },
+] as const;
+
+// The six offices, flag + city + country. London is the HQ.
+const OFFICES = [
+  { city: "London", country: "United Kingdom", flag: "/flags/gb.svg", hq: true },
+  { city: "Dubai", country: "United Arab Emirates", flag: "/flags/ae.svg", hq: false },
+  { city: "Riyadh", country: "Saudi Arabia", flag: "/flags/sa.svg", hq: false },
+  { city: "Cairo", country: "Egypt", flag: "/flags/eg.svg", hq: false },
+  { city: "Karachi", country: "Pakistan", flag: "/flags/pk.svg", hq: false },
+  { city: "Beirut", country: "Lebanon", flag: "/flags/lb.svg", hq: false },
 ] as const;
 
 export function AboutExperience() {
@@ -220,14 +226,6 @@ export function AboutExperience() {
             ))}
           </div>
         </motion.div>
-
-        {/* Credibility line — the trust credentials, set as a quiet caption
-            under the layers, separated by a hairline rule. */}
-        <div className="mt-8 flex items-start gap-3 border-t border-surface-border-subtle pt-6 dark:border-surface-dark-border">
-          <p className="font-body text-sm leading-relaxed text-text-muted dark:text-text-dark-muted">
-            {COPY.platform.credibility}
-          </p>
-        </div>
       </Section>
 
       {/* ── By the numbers — footprint ──────────────────────────────────────── */}
@@ -257,9 +255,40 @@ export function AboutExperience() {
             </motion.div>
           ))}
         </div>
-        <p className="mt-6 max-w-2xl font-body text-base text-text-secondary dark:text-text-dark-secondary">
-          {COPY.numbers.offices}
-        </p>
+        {/* Six offices — flag + city + country, London tagged HQ. Replaces the
+            flat footprint sentence with a scannable card row. */}
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
+          {OFFICES.map((o, i) => (
+            <motion.div
+              key={o.city}
+              variants={reveal}
+              initial={reduced ? false : "hidden"}
+              whileInView={reduced ? undefined : "show"}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ delay: reduced ? 0 : i * 0.06 }}
+              className="flex flex-col gap-3 rounded-2xl border border-surface-border-subtle bg-surface-soft p-4 transition-colors duration-200 hover:border-surface-border-stronger dark:border-surface-dark-border dark:bg-surface-dark-elevated dark:hover:border-surface-dark-border-stronger"
+            >
+              <span className="relative h-7 w-10 shrink-0 overflow-hidden rounded-[5px] ring-1 ring-black/[0.06] dark:ring-white/[0.12]">
+                <Image src={o.flag} alt={`${o.country} flag`} fill sizes="40px" className="object-cover" />
+              </span>
+              <div>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-display text-[15px] font-semibold tracking-tight text-text-primary dark:text-text-on-brand">
+                    {o.city}
+                  </span>
+                  {o.hq && (
+                    <span className="rounded-full bg-brand-primary/10 px-1.5 py-0.5 font-mono text-[9px] font-medium uppercase tracking-[0.08em] text-brand-primary dark:bg-accent-cyan/15 dark:text-accent-cyan">
+                      HQ
+                    </span>
+                  )}
+                </div>
+                <div className="mt-0.5 font-body text-[12.5px] leading-snug text-text-muted dark:text-text-dark-muted">
+                  {o.country}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </Section>
 
       {/* ── Backed by — investor logo wall ──────────────────────────────────── */}
@@ -269,55 +298,58 @@ export function AboutExperience() {
             {COPY.investors.headline}
           </h2>
         </motion.div>
-        {/* Uniform monochrome wall — silhouettes are theme-aware (dark in light
-            mode, light in dark mode) so mixed-polarity source logos all read
-            (several source logos are white and would vanish on white tiles).
-            Each logo is centred in an equal-height cell on a hairline grid so
-            the wall reads tidy regardless of source aspect ratio. Subtle at
-            rest, lift on hover. */}
-        <motion.div
-          {...revealProps}
-          className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-surface-border-subtle bg-surface-border-subtle sm:grid-cols-3 dark:border-surface-dark-border dark:bg-surface-dark-border"
-        >
-          {INVESTORS.map((inv) => (
-            <div
-              key={inv.name}
-              className="flex h-24 items-center justify-center bg-surface-soft px-6 dark:bg-surface-dark-base"
-            >
-              <div className="relative h-7 w-full max-w-[150px] sm:h-8">
-                <Image
-                  src={inv.src}
-                  alt={inv.name}
-                  fill
-                  sizes="150px"
-                  className="object-contain opacity-55 transition-opacity duration-200 [filter:brightness(0)] hover:opacity-90 dark:opacity-70 dark:[filter:brightness(0)_invert(1)] dark:hover:opacity-100"
-                />
-              </div>
+        {/* Scrolling carousel — the logo row, duplicated for a seamless loop,
+            rendered monochrome and theme-aware so the mixed-polarity source
+            logos (several are white) all read. Paused under reduced motion as a
+            static centred row. Edge fades dissolve the ends. */}
+        <div className="relative mt-12 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_7%,black_93%,transparent)]">
+          {reduced ? (
+            <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
+              {INVESTORS.map((inv) => (
+                <InvestorLogo key={inv.name} inv={inv} />
+              ))}
             </div>
-          ))}
-        </motion.div>
-      </Section>
-
-      {/* ── Closing CTA — Talk to our team ──────────────────────────────────── */}
-      <Section bg="navy" ariaLabel="Talk to our team">
-        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-text-on-brand sm:text-4xl">
-            {COPY.cta.headline}
-          </h2>
-          <p className="mt-4 max-w-xl font-body text-base leading-relaxed text-text-dark-secondary sm:text-lg">
-            {COPY.cta.body}
-          </p>
-          <Button
-            href="/company/contact"
-            variant="primary"
-            size="lg"
-            className="group mt-8"
-          >
-            {COPY.cta.button}
-            <ArrowRight className="ml-1.5 size-4 transition-transform group-hover:translate-x-0.5" />
-          </Button>
+          ) : (
+            <motion.div
+              className="flex w-max items-center gap-16 pr-16"
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{ duration: 48, ease: "linear", repeat: Infinity }}
+            >
+              {[...INVESTORS, ...INVESTORS].map((inv, i) => (
+                <InvestorLogo key={`${inv.name}-${i}`} inv={inv} />
+              ))}
+            </motion.div>
+          )}
         </div>
       </Section>
+
+      {/* ── Closing CTA — the reusable CTASection (§8.14) with the topology
+          backdrop, the shared close used site-wide (homepage, industry, product
+          pages). Not a bespoke navy band. */}
+      <CTASection
+        headline={COPY.cta.headline}
+        body={COPY.cta.body}
+        primaryCta={{ label: COPY.cta.button, href: "/company/contact" }}
+        secondaryCta={{ label: "Explore nCore", href: "/platform/ncore" }}
+        backgrounds={<TopologyTraces density="medium" tone="cyan" />}
+      />
     </>
+  );
+}
+
+// One investor logo in the marquee — fixed-height slot, monochrome and
+// theme-aware (brightness(0) collapses any source to a dark silhouette in light
+// mode; inverted to light in dark mode) so the mixed set reads as one calm row.
+function InvestorLogo({ inv }: { inv: { name: string; src: string } }) {
+  return (
+    <div className="relative h-8 w-[132px] shrink-0">
+      <Image
+        src={inv.src}
+        alt={inv.name}
+        fill
+        sizes="132px"
+        className="object-contain opacity-60 [filter:brightness(0)] dark:opacity-70 dark:[filter:brightness(0)_invert(1)]"
+      />
+    </div>
   );
 }

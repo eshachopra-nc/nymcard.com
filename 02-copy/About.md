@@ -55,9 +55,6 @@ You take only the layers you need, on one integration:
 - **Lending:** credit decisioning, origination, and servicing. NymCard provides the infrastructure; it does not fund loans.
 - **Financial crime:** fraud, risk, 3D Secure, AML, sanctions, chargebacks, and identity.
 
-**credibility line:**
-NymCard is a principal member of Visa and a principal member of Mastercard, certified to PCI DSS Level 1 and ISO 27001.
-
 ---
 
 ## By the numbers
@@ -70,8 +67,13 @@ Building across six markets.
 - **150+** — people
 - **6** — offices
 
-**offices:**
-Headquartered in London, with offices in Dubai, Riyadh, Cairo, Karachi, and Beirut.
+**offices:** (rendered as 6 flag + city cards; London tagged HQ)
+- London, United Kingdom (HQ)
+- Dubai, United Arab Emirates
+- Riyadh, Saudi Arabia
+- Cairo, Egypt
+- Karachi, Pakistan
+- Beirut, Lebanon
 
 ---
 

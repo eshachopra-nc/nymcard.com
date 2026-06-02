@@ -48,21 +48,17 @@ You hold yourself to a higher standard in everything you ship. Excellence is not
 
 ---
 
-## The invitation
+## The invitation (reusable CTASection close)
 
 **headline:**
 No roles are listed right now.
 
 **body:**
-If that is how you already work, introduce yourself before a role exists.
+NymCard still wants to meet people who work this way. Tell the team who you are, what you have built, and how you use AI.
 
-**what to send:**
-Who you are, what you have built, and how you use AI in your work.
-
-**email CTA:**
+**email CTA (single, in the button only — no repeated address):**
 - **Button text:** Email careers@nymcard.com
 - **mailto target:** careers@nymcard.com
-- **supporting line:** Every message is read.
 
 ---
 

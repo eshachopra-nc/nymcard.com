@@ -1,12 +1,12 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { Sparkles, BarChart3, Target, ArrowRight } from "lucide-react";
+import { Sparkles, BarChart3, Target } from "lucide-react";
 import { dur, ease } from "@/components/visuals/motion";
 import { PageHero } from "@/components/composition/PageHero";
-import { GlassPanel, GlassAtmosphere } from "@/components/visuals";
+import { CTASection } from "@/components/composition";
+import { GlassPanel, GlassAtmosphere, TopologyTraces } from "@/components/visuals";
 import { Section } from "@/components/sections/Section";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 // ── Careers — /company/careers ─────────────────────────────────────────────
@@ -77,11 +77,8 @@ const COPY = {
   },
   invitation: {
     headline: "No roles are listed right now.",
-    body: "If that is how you already work, introduce yourself before a role exists.",
-    sendLabel: "What to send",
-    send: "Who you are, what you have built, and how you use AI in your work.",
+    body: "NymCard still wants to meet people who work this way. Tell the team who you are, what you have built, and how you use AI.",
     email: "careers@nymcard.com",
-    note: "Every message is read.",
   },
 } as const;
 
@@ -212,46 +209,20 @@ export function CareersExperience() {
         </motion.div>
       </Section>
 
-      {/* ── The invitation — closing CTA on navy ────────────────────────────── */}
-      <Section id="invitation" bg="navy" ariaLabel="Introduce yourself">
-        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-text-on-brand sm:text-4xl">
-            {COPY.invitation.headline}
-          </h2>
-          <p className="mt-4 max-w-xl font-body text-base leading-relaxed text-text-dark-secondary sm:text-lg">
-            {COPY.invitation.body}
-          </p>
-          <div className="mt-7 w-full max-w-md rounded-2xl border border-white/10 bg-white/[0.04] p-5 text-left">
-            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/45">
-              {COPY.invitation.sendLabel}
-            </p>
-            <p className="mt-2 font-body text-[15px] leading-relaxed text-text-dark-secondary">
-              {COPY.invitation.send}
-            </p>
-          </div>
-          <div className="mt-7 flex flex-col items-center gap-3">
-            <Button
-              href={`mailto:${COPY.invitation.email}`}
-              variant="primary"
-              size="lg"
-              className="group"
-            >
-              Email {COPY.invitation.email}
-              <ArrowRight className="ml-1.5 size-4 transition-transform group-hover:translate-x-0.5" />
-            </Button>
-            <p className="font-mono text-[13px] text-white/50">
-              <a
-                href={`mailto:${COPY.invitation.email}`}
-                className="select-all text-accent-cyan transition-colors hover:text-accent-cyan/80"
-              >
-                {COPY.invitation.email}
-              </a>
-              <span className="mx-2 text-white/25">·</span>
-              {COPY.invitation.note}
-            </p>
-          </div>
-        </div>
-      </Section>
+      {/* ── The invitation — the reusable CTASection (§8.14) with the topology
+          backdrop, the shared site-wide close. Wrapped in #invitation so the
+          hero's "Introduce yourself" CTA scrolls here. */}
+      <div id="invitation" className="scroll-mt-20">
+        <CTASection
+          headline={COPY.invitation.headline}
+          body={COPY.invitation.body}
+          primaryCta={{
+            label: `Email ${COPY.invitation.email}`,
+            href: `mailto:${COPY.invitation.email}`,
+          }}
+          backgrounds={<TopologyTraces density="medium" tone="cyan" />}
+        />
+      </div>
     </>
   );
 }
