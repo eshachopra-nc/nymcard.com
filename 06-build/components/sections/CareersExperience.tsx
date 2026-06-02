@@ -3,7 +3,7 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Sparkles, BarChart3, Target, ArrowRight } from "lucide-react";
 import { dur, ease } from "@/components/visuals/motion";
-import { RibbonKinetic } from "@/components/hero/RibbonKinetic";
+import { PageHero } from "@/components/composition/PageHero";
 import { GlassPanel, GlassAtmosphere } from "@/components/visuals";
 import { Section } from "@/components/sections/Section";
 import { Button } from "@/components/ui/button";
@@ -12,13 +12,14 @@ import { cn } from "@/lib/utils";
 // ── Careers — /company/careers ─────────────────────────────────────────────
 //
 // Short express-interest page (copy: 02-copy/Careers.md). Four beats:
-//   1. Hero — mission-led headline on the signature kinetic ribbon.
+//   1. Hero — the canonical restrained PageHero (§8.12, product-hero-bg), NOT
+//      the homepage kinetic ribbon (which stays unique to the homepage).
 //   2. What NymCard looks for — three traits (AI-fluent across every team).
 //   3. Values — BOLD, four glass cards on one shared atmosphere field (§8.1).
 //   4. The invitation — no roles listed; introduce yourself by email.
 //
-// Composed from the system: RibbonKinetic, GlassPanel on GlassAtmosphere, the
-// gradient icon chip, Section, Button. Tokens only, cool palette, light + dark,
+// Composed from the system: PageHero, GlassPanel on GlassAtmosphere, the brand
+// gradient chip, Section, Button. Tokens only, cool palette, light + dark,
 // prefers-reduced-motion safe. Copy mirrored verbatim from 02-copy/Careers.md.
 
 const COPY = {
@@ -50,7 +51,7 @@ const COPY = {
   },
   values: {
     eyebrow: "Values",
-    headline: "BOLD",
+    headline: "Our Values",
     items: [
       {
         letter: "B",
@@ -93,18 +94,6 @@ const CHIP =
 export function CareersExperience() {
   const reduced = useReducedMotion();
 
-  const container: Variants = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
-  };
-  const item: Variants = {
-    hidden: { opacity: 0, y: 18 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: dur.cinematic, ease: ease.cinematic },
-    },
-  };
   const reveal: Variants = {
     hidden: { opacity: 0, y: 24 },
     show: { opacity: 1, y: 0, transition: { duration: dur.slow, ease: ease.out } },
@@ -112,36 +101,21 @@ export function CareersExperience() {
 
   return (
     <>
-      {/* ── Hero — mission headline on the kinetic ribbon ───────────────────── */}
-      <section className="relative isolate overflow-hidden bg-surface-soft dark:bg-surface-dark-base">
-        <RibbonKinetic />
-        <motion.div
-          variants={container}
-          initial={reduced ? false : "hidden"}
-          animate={reduced ? false : "show"}
-          className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-20 pt-28 sm:px-6 sm:pb-24 sm:pt-32 lg:px-16 lg:pb-28 lg:pt-36"
-        >
-          <motion.div variants={item} className="max-w-3xl">
-            <h1 className="text-balance font-display text-4xl font-bold leading-[1.05] tracking-tight text-brand-navy sm:text-5xl lg:text-6xl lg:tracking-tighter dark:text-text-on-brand">
-              {COPY.hero.headline}
-            </h1>
-            <p className="mt-6 max-w-2xl font-body text-base font-medium leading-relaxed text-text-primary sm:text-lg [text-shadow:0_0_11px_var(--color-surface-soft),0_0_22px_var(--color-surface-soft)] dark:text-text-dark-secondary dark:[text-shadow:0_0_11px_var(--color-surface-dark-base),0_0_22px_var(--color-surface-dark-base)]">
-              {COPY.hero.subhead}
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button href="#invitation" variant="primary" size="lg">
-                {COPY.hero.primary}
-              </Button>
-              <Button href="/platform/ncore" variant="secondary" size="lg">
-                {COPY.hero.secondary}
-              </Button>
-            </div>
-          </motion.div>
-        </motion.div>
-      </section>
+      {/* ── Hero — canonical restrained PageHero (§8.12) ─────────────────────
+          Text-forward F-pattern on the dialled-down product-hero-bg, the
+          shared page-hero treatment. NOT the homepage kinetic ribbon, which
+          stays unique to the homepage. Primary scrolls to the email
+          invitation; secondary links to nCore. */}
+      <PageHero
+        headline={COPY.hero.headline}
+        body={COPY.hero.subhead}
+        primaryCta={{ label: COPY.hero.primary, href: "#invitation" }}
+        secondaryCta={{ label: COPY.hero.secondary, href: "/platform/ncore" }}
+        textOnly
+      />
 
       {/* ── What NymCard looks for — three traits ───────────────────────────── */}
-      <Section bg="white" ariaLabel="What NymCard looks for">
+      <Section bg="white" ariaLabel="What NymCard looks for" rails>
         <motion.div
           variants={reveal}
           initial={reduced ? false : "hidden"}
@@ -181,41 +155,61 @@ export function CareersExperience() {
         </div>
       </Section>
 
-      {/* ── Values — BOLD — glass cards on one shared atmosphere field ───────── */}
+      {/* ── Our Values — BOLD — glass cards on one shared atmosphere field ─────
+          Four full-width cards stacked on one cyan atmosphere field (§8.1 —
+          glass never sits on a flat bed), each headed by the brand-gradient
+          letter chip so B/O/L/D reads down the left edge. Headline leads. */}
       <Section bg="soft" ariaLabel="NymCard values">
-        <div className="mb-10 max-w-2xl sm:mb-12">
+        <motion.div
+          variants={reveal}
+          initial={reduced ? false : "hidden"}
+          whileInView={reduced ? undefined : "show"}
+          viewport={{ once: true, amount: 0.3 }}
+          className="mb-10 max-w-2xl sm:mb-12"
+        >
           <h2 className="font-display text-4xl font-bold leading-[1.05] tracking-[-0.02em] text-text-primary sm:text-5xl dark:text-text-on-brand">
             {COPY.values.headline}
           </h2>
-        </div>
-        <div className="relative isolate overflow-hidden rounded-3xl border border-surface-border-subtle p-4 sm:p-5 dark:border-surface-dark-border">
-          <GlassAtmosphere tone="cyan" />
-          <div className="relative z-10 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+        </motion.div>
+        <motion.div
+          variants={reveal}
+          initial={reduced ? false : "hidden"}
+          whileInView={reduced ? undefined : "show"}
+          viewport={{ once: true, amount: 0.2 }}
+          className="relative isolate overflow-hidden rounded-3xl border border-surface-border-subtle p-4 sm:p-5 dark:border-surface-dark-border"
+        >
+          <GlassAtmosphere tone="cyan" depth="deep" />
+          {/* Four cards stacked full-width — the B/O/L/D letter chips read
+              straight down the left edge, spelling the acronym; the long
+              descriptions get room on the right. */}
+          <div className="relative z-10 flex flex-col gap-4 sm:gap-5">
             {COPY.values.items.map((v) => (
               <GlassPanel
                 key={v.letter}
                 as="article"
                 padded={false}
-                className="flex flex-col rounded-2xl p-6 sm:p-7"
+                className="rounded-2xl p-6 transition-transform duration-200 hover:-translate-y-0.5 sm:p-7"
               >
-                <div className="flex items-center gap-4">
-                  <span
-                    aria-hidden="true"
-                    className={cn(CHIP, "size-12 font-display text-2xl font-bold")}
-                  >
-                    {v.letter}
-                  </span>
-                  <h3 className="font-display text-xl font-semibold tracking-tight text-text-primary dark:text-text-on-brand">
-                    {v.name}
-                  </h3>
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-8">
+                  <div className="flex items-center gap-4 sm:w-60 sm:shrink-0 lg:w-64">
+                    <span
+                      aria-hidden="true"
+                      className={cn(CHIP, "size-12 font-display text-2xl font-bold")}
+                    >
+                      {v.letter}
+                    </span>
+                    <h3 className="font-display text-xl font-semibold tracking-tight text-text-primary dark:text-text-on-brand">
+                      {v.name}
+                    </h3>
+                  </div>
+                  <p className="font-body text-[15px] leading-relaxed text-text-secondary sm:flex-1 dark:text-text-dark-secondary">
+                    {v.body}
+                  </p>
                 </div>
-                <p className="mt-4 font-body text-[15px] leading-relaxed text-text-secondary dark:text-text-dark-secondary">
-                  {v.body}
-                </p>
               </GlassPanel>
             ))}
           </div>
-        </div>
+        </motion.div>
       </Section>
 
       {/* ── The invitation — closing CTA on navy ────────────────────────────── */}
