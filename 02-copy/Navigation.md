@@ -4,7 +4,7 @@
 
 - Platform
 - Products
-- Industries
+- Solutions  <!-- top-level label; dropdown still lists the 11 industry pages -->
 - Developers
 - Company
 

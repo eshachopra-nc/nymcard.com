@@ -244,7 +244,10 @@ export const NAV_ITEMS: NavItemConfig[] = [
   },
   {
     id: 'industries',
-    label: 'Industries',
+    // Labelled "Solutions" per owner; the dropdown still lists the 11 industry
+    // pages (the working routes). id/type kept as 'industries' so rendering and
+    // links are unchanged — only the visible top-level label differs.
+    label: 'Solutions',
     dropdown: { type: 'industries', items: industryItems },
   },
   {
