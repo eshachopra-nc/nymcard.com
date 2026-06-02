@@ -135,7 +135,7 @@ export function Footer() {
             >
               <LinkedinIcon className="size-4" />
             </a>
-            <a href="#privacy" className="font-body text-xs text-text-dark-muted hover:text-text-on-brand transition-colors">
+            <a href="/legal/privacy" className="font-body text-xs text-text-dark-muted hover:text-text-on-brand transition-colors">
               Privacy
             </a>
             <a href="#cookies" className="font-body text-xs text-text-dark-muted hover:text-text-on-brand transition-colors">
