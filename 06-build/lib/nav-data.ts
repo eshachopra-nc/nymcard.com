@@ -21,7 +21,6 @@ import {
   Users,
   Briefcase,
   MessageSquare,
-  FileText,
   Megaphone,
   CalendarClock,
   Globe2,
@@ -209,7 +208,7 @@ const useCaseItems: ProductItem[] = [
 ]
 
 /* ═══════════════════════════════════════════════════════
-   4. COMPANY — 2 rows of 3 cards: Company | Insights
+   4. COMPANY — Company (About · Careers · Contact) | Insights (Blog · Newsroom)
 ═══════════════════════════════════════════════════════ */
 const companyLeftItems: SimpleItem[] = [
   { kind: 'simple', id: 'about',   label: 'About',   description: 'Our story and mission',  href: '/company/about',   icon: Users         },
@@ -218,7 +217,6 @@ const companyLeftItems: SimpleItem[] = [
 ]
 
 const companyRightItems: SimpleItem[] = [
-  { kind: 'simple', id: 'resources', label: 'Resources', description: 'Reports and research',    href: '/company/resources', icon: FileText  },
   { kind: 'simple', id: 'blog',      label: 'Blog',      description: 'Payments insights',        href: '/company/blog',      icon: BookOpen  },
   { kind: 'simple', id: 'newsroom',  label: 'Newsroom',  description: 'Press and media coverage', href: '/company/newsroom',  icon: Megaphone },
 ]
