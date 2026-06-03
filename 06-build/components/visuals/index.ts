@@ -81,5 +81,5 @@ export {
   type MigrationTrack,
 } from "./MigrationConsole";
 
-export { visual, withAlpha, toneHex, type VisualTone } from "./palette";
+export { visual, withAlpha, toneHex, illus, type VisualTone } from "./palette";
 export { dur, ease, scanSpline } from "./motion";

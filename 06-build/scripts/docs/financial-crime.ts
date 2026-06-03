@@ -10,7 +10,7 @@ export const financialCrimeDoc = {
   metaDescription:
     "Run fraud, AML, sanctions, identity, and 3D Secure on one layer of nCore, NymCard's full-stack payments platform. Explainable decisioning, immutable audit trail, and configurable typologies. Cloud, on-soil, or on-premise.",
   trustLine:
-    "Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001.",
+    "Principal member of Visa and Mastercard · PCI DSS compliant · ISO 27001.",
   hero: {
     headline: "Cover the full risk perimeter on one layer.",
     body: "Fraud, AML, sanctions, identity, and 3D Secure run on one customer record, one ledger, one audit trail — built into nCore.",
@@ -86,7 +86,7 @@ export const financialCrimeDoc = {
         { question: "What about regulatory obligations?", answer: "The platform is designed to support obligations like STR/SAR generation and filing, maker-checker workflows, and periodic KYC reviews. The partner institution holds the regulatory responsibility; NymCard provides the infrastructure beneath it." },
         { question: "Can I bring my own AML typologies and sanctions lists?", answer: "Yes. Typologies, thresholds, customer risk rules, and sanctions lists are configurable through the API. Every change is versioned, logged, and reversible." },
         { question: "Can I deploy Financial Crime on-premise?", answer: "Yes. Cloud, on-soil, and on-premise are supported on the same platform. Cloud is multi-region NymCard-hosted; on-soil is NymCard-hosted inside your country; on-premise runs inside your own data center." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified." },
       ],
       "faq",
     ),

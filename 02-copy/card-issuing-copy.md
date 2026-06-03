@@ -48,7 +48,8 @@ Launch the card program your customers need.
 
 **Sub-copy:**
 
-Issue debit, credit, and prepaid cards on infrastructure built to scale with you.
+<!-- CAMPAIGN SHARPEN 2026-06: sub-line ends on "one layer of nCore, not a standalone tool" per strategy §12.1 -->
+Issue debit, credit, and prepaid cards on nCore — the card layer of one platform that runs your whole payments stack, not a standalone processor you bolt on.
 
 **Primary CTA:** Talk to us
 
@@ -281,7 +282,8 @@ Clean accordion. Schema-marked for AEO using FAQPage [schema.org](http://schema.
 
 **1. What card types can I issue on NymCard?**
 
-Debit, credit, and prepaid cards — physical, virtual, and tokenized — on the same platform.
+<!-- CAMPAIGN SHARPEN 2026-06: one-platform thread (one customer record / ledger / audit trail) added per strategy §12.2 -->
+Debit, credit, and prepaid cards — physical, virtual, and tokenized — on the same platform. Cards is one layer of nCore, sharing one customer record, one ledger, and one audit trail with every other layer, so you run cards next to lending, money movement, and the rest without stitching vendors together.
 
 **2. Does NymCard own its processor, or use a third party?**
 

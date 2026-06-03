@@ -114,7 +114,7 @@ export function ProductCarousel() {
             type="button"
             onClick={() => { markManualInteraction(); prev(); }}
             aria-label="Previous product"
-            className="inline-flex shrink-0 items-center justify-center rounded-full border border-white/50 bg-white/40 text-brand-navy transition hover:bg-white/60 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40"
+            className="inline-flex shrink-0 items-center justify-center rounded-full border border-white/50 bg-white/40 text-brand-navy transition hover:bg-white/60 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40 dark:border-white/20 dark:bg-white/10 dark:text-text-on-brand dark:hover:bg-white/20"
             style={{
               width: BUTTON_SIZE,
               height: BUTTON_SIZE,
@@ -177,7 +177,7 @@ export function ProductCarousel() {
             type="button"
             onClick={() => { markManualInteraction(); next(); }}
             aria-label="Next product"
-            className="inline-flex shrink-0 items-center justify-center rounded-full border border-white/50 bg-white/40 text-brand-navy transition hover:bg-white/60 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40"
+            className="inline-flex shrink-0 items-center justify-center rounded-full border border-white/50 bg-white/40 text-brand-navy transition hover:bg-white/60 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/40 dark:border-white/20 dark:bg-white/10 dark:text-text-on-brand dark:hover:bg-white/20"
             style={{
               width: BUTTON_SIZE,
               height: BUTTON_SIZE,
@@ -209,10 +209,13 @@ export function ProductCarousel() {
               aria-label={`Go to ${p.name}`}
               onClick={() => { markManualInteraction(); goTo(i); }}
               className={cn(
+                // Active dot matches the glass-arrow chevron (navy) on light;
+                // on the dark hero field both navy and text-muted vanish, so
+                // the dots flip to white (active) / translucent white (rest).
                 "h-1.5 rounded-full transition-all duration-300",
                 i === index
-                  ? "w-6 bg-brand-navy"
-                  : "w-1.5 bg-text-muted/30 hover:bg-text-muted/60",
+                  ? "w-6 bg-brand-navy dark:bg-white"
+                  : "w-1.5 bg-text-muted/30 hover:bg-text-muted/60 dark:bg-white/30 dark:hover:bg-white/60",
               )}
             />
           ))}
@@ -224,7 +227,7 @@ export function ProductCarousel() {
           mobile users. */}
       <div className="block sm:hidden mt-8">
         <div
-          className="relative mx-auto w-full max-w-[340px] rounded-[24px] border border-white/50 bg-white/40"
+          className="relative mx-auto w-full max-w-[340px] rounded-[24px] border border-white/50 bg-white/40 dark:border-white/[0.12] dark:bg-surface-dark-glass"
           style={{
             aspectRatio: "5 / 6",
             ...GLASS_STYLE,
@@ -232,13 +235,19 @@ export function ProductCarousel() {
           }}
         >
           <div className="flex h-full flex-col p-7">
-            <h3 className="font-display text-xl font-semibold text-text-primary">
+            <h3 className="font-display text-xl font-semibold text-text-primary dark:text-text-on-brand">
               {PRODUCTS[0].name}
             </h3>
             <div className="flex flex-1 items-center justify-center">
-              <span className="font-body text-[13px] text-text-secondary">
-                [UI from Claude Design — {PRODUCTS[0].slug}.svg]
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element -- handoff SVG */}
+              <img
+                src={`/handoff/${PRODUCTS[0].slug}.svg`}
+                alt=""
+                className="block h-full w-full"
+                style={{ objectFit: "contain" }}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </div>
         </div>
@@ -251,6 +260,12 @@ export function ProductCarousel() {
 // rest to `true` as their UIs land. Cards not in this set fall back to a
 // labelled placeholder so it's obvious which UIs are still outstanding.
 const SVGS_LIVE = new Set<string>(["cards", "embedded-lending", "money-movement", "identity", "fraud-monitoring", "risk-management", "acs-3ds", "stablecoin-settlement", "reconciliation"]);
+
+// Slugs that ship a dedicated dark-mode SVG (/handoff/{slug}-dark.svg). The
+// remaining handoff illustrations are cyan/white/violet line-art on a
+// transparent ground, so they read cleanly on the dark glass card as-is; only
+// these need the swapped asset (their navy strokes would otherwise vanish).
+const HAS_DARK_SVG = new Set<string>(["money-movement"]);
 
 // Identity is rendered as a layered composition rather than a single SVG:
 // the avatar photo sits behind a transparent "viewfinder" SVG that supplies
@@ -307,17 +322,43 @@ function CarouselCard({ name, slug }: { name: string; slug: string }) {
 
   return (
     <div
-      className="relative h-full w-full rounded-[24px] border border-white/50 bg-white/40"
+      // Theme-aware frosted-glass card. Light: a near-white frosted pane. Dark:
+      // the canonical dark glass (surface-dark-glass + hairline white border),
+      // matching every other surface on the page — the cyan/white handoff
+      // illustrations read cleanly on it, so the hero no longer breaks dark-mode
+      // cohesion with a stray light card.
+      className="relative h-full w-full rounded-[24px] border border-white/50 bg-white/40 dark:border-white/[0.12] dark:bg-surface-dark-glass"
       style={GLASS_STYLE}
     >
       <div className="flex h-full flex-col p-8">
-        <h3 className="font-display text-2xl font-semibold text-text-primary leading-snug tracking-tight">
+        <h3 className="font-display text-2xl font-semibold leading-snug tracking-tight text-text-primary dark:text-text-on-brand">
           {name}
         </h3>
         <div className="relative mt-4 flex flex-1 items-center justify-center">
           {hasSvg ? (
             slug === "identity" ? (
               <IdentityVisual />
+            ) : HAS_DARK_SVG.has(slug) ? (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element -- handoff SVG */}
+                <img
+                  src={`/handoff/${slug}.svg`}
+                  alt=""
+                  className="block h-full w-full dark:hidden"
+                  style={{ objectFit: "contain" }}
+                  loading="lazy"
+                  decoding="async"
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element -- handoff SVG (dark) */}
+                <img
+                  src={`/handoff/${slug}-dark.svg`}
+                  alt=""
+                  className="hidden h-full w-full dark:block"
+                  style={{ objectFit: "contain" }}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </>
             ) : (
               // eslint-disable-next-line @next/next/no-img-element -- handoff SVG
               <img
@@ -330,7 +371,7 @@ function CarouselCard({ name, slug }: { name: string; slug: string }) {
               />
             )
           ) : (
-            <span className="font-body text-[13px] text-text-secondary">
+            <span className="font-body text-[13px] text-text-secondary dark:text-text-dark-secondary">
               [UI from Claude Design — {slug}.svg]
             </span>
           )}

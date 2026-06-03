@@ -145,7 +145,7 @@ export function CodeArtifact({
         <div
           role="tablist"
           aria-label="Languages"
-          className="relative z-10 flex items-center gap-0 border-b border-surface-border-subtle px-2 dark:border-surface-dark-border"
+          className="relative z-10 flex items-center gap-0 overflow-x-auto border-b border-surface-border-subtle px-2 dark:border-surface-dark-border"
         >
           {tabs.map((tab, i) => {
             const isActive = i === activeIndex;
@@ -159,7 +159,7 @@ export function CodeArtifact({
                 id={`code-artifact-tab-${i}`}
                 onClick={() => setActiveIndex(i)}
                 className={cn(
-                  "relative px-3.5 py-2.5 font-body text-[13px] leading-none transition-colors",
+                  "relative shrink-0 whitespace-nowrap px-3.5 py-2.5 font-body text-[13px] leading-none transition-colors",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/30 dark:focus-visible:ring-accent-cyan/40",
                   isActive
                     ? "font-semibold text-brand-primary dark:text-accent-cyan"

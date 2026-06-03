@@ -10,7 +10,7 @@ export const settlementDoc = {
   metaDescription:
     "Bank-grade settlement infrastructure on nCore, real-time cross-border, multi-currency, and stablecoin settlement for regulated businesses. Principal member of Visa and Mastercard. Cloud, on-soil, or on-premise.",
   trustLine:
-    "Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001.",
+    "Principal member of Visa and Mastercard · PCI DSS compliant · ISO 27001.",
   hero: {
     headline: "Settle across corridors in real time.",
     body: "Bank-grade settlement infrastructure for cross-border, multi-currency, and stablecoin flows — on one regulated platform.",
@@ -81,7 +81,7 @@ export const settlementDoc = {
         { question: "How does Settlement work with the rest of nCore?", answer: "Settlement runs on the same nCore platform as Cards and Money Movement. Traditional scheme settlement and stablecoin rails operate inside one architecture, no separate blockchain system required." },
         { question: "How is compliance handled?", answer: "AML, sanctions screening, and regulatory reporting run inside the settlement path, not as add-ons. Every flow is written to the same audit trail used across Cards, Money Movement, and Reconciliation." },
         { question: "Which deployment models are available?", answer: "Cloud, on-soil, and on-premise. Cloud is multi-region NymCard-hosted; on-soil is NymCard-hosted inside your country; on-premise runs inside your own data center." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified. NymCard is a principal member of Visa and Mastercard." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified. NymCard is a principal member of Visa and Mastercard." },
       ],
       "faq",
     ),

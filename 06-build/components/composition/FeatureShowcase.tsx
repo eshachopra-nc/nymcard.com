@@ -33,6 +33,13 @@ type FeatureShowcaseProps = {
    * until the real product UI is produced.
    */
   ui?: ReactNode;
+  /**
+   * Optional supporting line rendered beneath the UI zone — a quiet `body`
+   * closing thought (e.g. the Migration §7 "Migration is how you get on…"
+   * supporting line). Additive and backwards-compatible: omitted by default,
+   * so existing callsites render unchanged.
+   */
+  supportingLine?: string;
   /** `surface-white` (default), `surface-soft`, or `dark` for a technical showcase. */
   background?: "white" | "soft" | "dark";
   className?: string;
@@ -49,6 +56,7 @@ export function FeatureShowcase({
   body,
   uiLabel = "product UI",
   ui,
+  supportingLine,
   background = "white",
   className,
 }: FeatureShowcaseProps) {
@@ -89,6 +97,13 @@ export function FeatureShowcase({
             />
           )}
         </div>
+
+        {/* Optional supporting line — a quiet closing thought beneath the UI. */}
+        {supportingLine && (
+          <p className="mt-8 max-w-2xl font-body text-base leading-relaxed text-text-secondary sm:text-lg dark:text-text-dark-secondary">
+            {supportingLine}
+          </p>
+        )}
       </div>
     </section>
   );

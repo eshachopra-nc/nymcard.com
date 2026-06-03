@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Corridor routing console — FeatureShowcase</title>
+  <!--
+    NymCard · Money Movement · Corridor routing console (FeatureShowcase §4)
+    Standalone, interactive reference for Claude Code handoff.
+
+    PORT TARGET
+    ===========
+    components/sections/product-uis/CorridorRoutingConsole.tsx  ("use client")
+    Wire into components/composition/ProductPageRenderer.tsx, in the
+    FeatureShowcase `ui` branch, beside the existing consoles:
+
+        doc.slug === "card-issuing"     ? <CardControlsDashboard />
+      : doc.slug === "financial-crime"  ? <FinancialCrimeConsole />
+      : doc.slug === "money-movement"   ? <CorridorRoutingConsole />   // ADD
+      : <NamedSurface name={handoffName(doc.slug,"feature")} ... />
+
+    This REPLACES the static money-movement-feature.svg slot for this page.
+
+    COMPONENT ANATOMY
+    =================
+    .crc__shell             grid: 220px navy rail + 1fr light main
+      .crc__rail            dark sidebar (#101D38)
+        .crc__brand         nCore wordmark
+        .crc__nav           <nav> of .crc__item buttons (data-pane attr)
+        .crc__rail-foot     live status line
+      .crc__main            light area (#fff)
+        .crc__pane          one per nav item; active pane has .is-active
+          .crc__bar         crumb + pane title + optional LIVE pill
+          .crc__kpis        3 KPI tiles
+          (pane body: table / sliders / stream)
+        .crc__ledger        PERSISTENT navy footer — end-to-end confirmation,
+                            text swaps per active pane (routed/priced/screened/settled)
+
+    PANES (the vertical feature callout list, left rail)
+    ====================================================
+    0 rules       "Corridor routing rules"  — priority table, click priority chip to cycle 1→2→3
+    1 fx          "Live FX rates & spreads" — 3 spread sliders; rate + FX-captured KPI recompute
+    2 compliance  "Compliance checks inline"— live stream; one payment re-routed around a flag
+    3 corridor    "Per-corridor visibility" — throughput / FX captured / status table, one live row
+
+    INTERACTIONS
+    ============
+    • Click a rail item → activate its pane (.is-active) + swap ledger text.
+    • Auto-cycles panes every 4.2s; pauses on hover / after any click.
+    • FX sliders (oninput) recompute customer rate + the FX-captured KPI.
+    • Compliance pane streams a new row every 2.4s (capped at 6).
+    • All motion (auto-cycle, stream) is gated behind prefers-reduced-motion.
+
+    TOKEN MAPPING (design-system.md §3/§5/§6)
+    ========================================
+    Navy rail bg        → surface-dark            #101D38 (uses #0E1A33 in tokens; rail uses 101D38 for the elevated rail — map to surface-dark)
+    Rail active item    → accent-cyan @12%        rgba(34,211,238,0.12) bg / #22D3EE text
+    Cyan hairline       → accent-cyan @50%         #22D3EE
+    KPI tile bg         → surface-soft            #F4F6FF / border surface-border-subtle #E8EBF5
+    Brand fill (slider) → brand-primary           #304DBB
+    Status · settled    → success                 #10B981 (text #0E7C5A)
+    Status · routing/fx → accent-cyan             #22D3EE (text #0E7490)
+    Status · screening  → accent-indigo           #5B6DD8 (text #3730A3)
+    Status · re-routed  → warning                 #F59E0B (text #B45309)
+    Text 1/2/muted      → #0E1A33 / #4A5578 / #7A839E
+    Type                → Geist (body/heading) · Geist Mono (labels/figures)
+    Radii               → shell 20 (radius-xl-ish) · tiles/rows 10-11 (radius-md) · chips 6-8
+    Reduced motion      → useReducedMotion(): skip auto-cycle + stream interval
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --font-body: "Geist", system-ui, -apple-system, sans-serif;
+      --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
+      --brand-primary: #304DBB;
+      --accent-cyan: #22D3EE;
+      --text-1: #0E1A33;
+      --text-2: #4A5578;
+      --muted: #7A839E;
+      --soft: #F4F6FF;
+      --border: #E8EBF5;
+      --border-2: #D1D7E8;
+      --success: #10B981;
+      --ease: cubic-bezier(0.22,1,0.36,1);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; background: #EEF1FB; color: var(--text-1);
+      font-family: var(--font-body); -webkit-font-smoothing: antialiased;
+      display: flex; padding: 18px; }
+
+    .crc__shell {
+      flex: 1; display: grid; grid-template-columns: 220px 1fr;
+      border-radius: 20px; overflow: hidden; min-height: 0;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 56px -24px rgba(14,26,51,0.35);
+      background: #fff;
+    }
+
+    /* ── navy rail ── */
+    .crc__rail { position: relative; background: #101D38; display: flex; flex-direction: column; }
+    .crc__rail::before { content: ""; position: absolute; inset-inline: 0; top: 0; height: 1px;
+      background: rgba(34,211,238,0.5); }
+    .crc__brand { display: flex; align-items: center; gap: 10px; padding: 20px 20px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .crc__brand span { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.82); }
+    .crc__rail-label { padding: 16px 20px 8px; font-family: var(--font-mono); font-size: 9.5px;
+      letter-spacing: 0.14em; color: rgba(255,255,255,0.4); }
+    .crc__nav { display: flex; flex-direction: column; gap: 2px; padding: 4px 10px; }
+    .crc__item { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left;
+      padding: 11px 12px; border: none; background: none; border-radius: 10px; cursor: pointer;
+      color: rgba(255,255,255,0.6); font-family: var(--font-body); font-size: 13.5px; font-weight: 500; }
+    .crc__item svg { width: 17px; height: 17px; flex: none; }
+    .crc__item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); }
+    .crc__item.is-active { background: rgba(34,211,238,0.12); color: var(--accent-cyan); }
+    .crc__rail-foot { margin-top: auto; padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex; align-items: center; gap: 8px; }
+    .crc__rail-foot i { width: 7px; height: 7px; border-radius: 50%; background: #34D399; flex: none;
+      animation: pulse 1.8s ease-in-out infinite; }
+    .crc__rail-foot span { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; color: #34D399; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+    /* ── main ── */
+    .crc__main { display: flex; flex-direction: column; min-width: 0; background: #fff; }
+    .crc__pane { display: none; flex-direction: column; flex: 1; min-height: 0; padding: 22px 26px 16px; }
+    .crc__pane.is-active { display: flex; }
+    .crc__bar { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .crc__crumb { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); }
+    .crc__title { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin: 0; }
+    .crc__live { margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--success); }
+    .crc__live i { width: 6px; height: 6px; border-radius: 50%; background: var(--success);
+      animation: pulse 1.8s ease-in-out infinite; }
+
+    .crc__kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+    .crc__kpi { background: var(--soft); border: 1px solid var(--border); border-radius: 11px; padding: 12px 14px; }
+    .crc__kpi-l { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .crc__kpi-v { font-family: var(--font-mono); font-size: 21px; font-weight: 600; letter-spacing: -0.02em;
+      color: var(--text-1); font-variant-numeric: tabular-nums; }
+
+    /* table */
+    .crc__table { flex: 1; min-height: 0; }
+    .crc__tr { display: grid; align-items: center; gap: 10px; padding: 11px 0;
+      border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-2); }
+    .crc__tr:last-child { border-bottom: none; }
+    .crc__tr--hd { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border-2); }
+    .crc__mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+    .crc__pair { font-family: var(--font-mono); color: var(--text-1); font-size: 13px; }
+    .crc__rules .crc__tr { grid-template-columns: 1.1fr 1.2fr 1.2fr auto; }
+    .crc__corridor .crc__tr { grid-template-columns: 1fr 0.8fr 0.9fr auto; }
+
+    .chip { font-family: var(--font-mono); font-size: 10px; padding: 3px 8px; border-radius: 6px;
+      display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+    .chip--settled { background: rgba(16,185,129,0.1); color: #0E7C5A; }
+    .chip--cyan { background: rgba(34,211,238,0.16); color: #0E7490; }
+    .chip--indigo { background: rgba(91,109,216,0.14); color: #3730A3; }
+    .chip--warn { background: rgba(245,158,11,0.14); color: #B45309; }
+    .chip i { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .crc__tr.is-live { background: rgba(34,211,238,0.06); border-radius: 8px; }
+
+    .prio { font-family: var(--font-mono); font-size: 11px; padding: 4px 11px; border-radius: 7px;
+      border: 1px solid var(--border-2); background: #fff; color: var(--text-2); cursor: pointer;
+      transition: border-color 160ms, color 160ms; }
+    .prio:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
+    .prio b { color: var(--text-1); }
+
+    /* fx sliders */
+    .crc__fx { display: flex; flex-direction: column; gap: 16px; flex: 1; }
+    .crc__fx-row { display: grid; grid-template-columns: 96px 1fr 116px; gap: 16px; align-items: center; }
+    .crc__fx-pair { display: flex; flex-direction: column; gap: 2px; }
+    .crc__fx-pair b { font-family: var(--font-mono); font-size: 13px; color: var(--text-1); }
+    .crc__fx-pair span { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); }
+    .crc__fx-ctrl { display: flex; flex-direction: column; gap: 7px; }
+    .crc__fx-ctrl-hd { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-2); }
+    .crc__fx-ctrl-hd .crc__mono { color: var(--text-1); font-weight: 500; }
+    .crc__range { -webkit-appearance: none; appearance: none; width: 100%; height: 5px; border-radius: 3px;
+      outline: none; cursor: pointer;
+      background: linear-gradient(90deg, var(--brand-primary) var(--pct,40%), #E2E6F0 var(--pct,40%)); }
+    .crc__range::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
+      background: #fff; border: 2px solid var(--brand-primary); box-shadow: 0 1px 4px rgba(14,26,51,0.2); cursor: pointer; }
+    .crc__range::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #fff;
+      border: 2px solid var(--brand-primary); cursor: pointer; }
+    .crc__fx-out { text-align: right; }
+    .crc__fx-out b { font-family: var(--font-mono); font-size: 14px; color: var(--text-1); display: block;
+      font-variant-numeric: tabular-nums; }
+    .crc__fx-out span { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
+
+    /* compliance stream */
+    .crc__stream { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+    .crc__srow { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center;
+      padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .crc__srow:last-child { border-bottom: none; }
+    .crc__srow-in { animation: rowIn 360ms var(--ease); }
+    @keyframes rowIn { from { transform: translateY(-7px); } to { transform: none; } }
+    .crc__srow .corr { font-family: var(--font-mono); color: var(--text-1); }
+    .crc__srow .check { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+    /* persistent ledger footer */
+    .crc__ledger { position: relative; margin: 0; padding: 14px 26px; background: #0E1A33;
+      display: flex; align-items: center; gap: 16px; }
+    .crc__ledger::before { content: ""; position: absolute; inset-inline: 0; top: 0; height: 1px;
+      background: rgba(34,211,238,0.4); }
+    .crc__ledger-l { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+    .crc__ledger-tag { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; color: rgba(255,255,255,0.45); }
+    .crc__ledger-body { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.92);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .crc__ledger-r { margin-left: auto; text-align: right; flex: none; }
+    .crc__ledger-r b { font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: #34D399; display: block;
+      font-variant-numeric: tabular-nums; }
+    .crc__ledger-r span { font-size: 10px; color: rgba(255,255,255,0.5); }
+
+    @media (max-width: 640px) {
+      .crc__shell { grid-template-columns: 1fr; }
+      .crc__rail { flex-direction: row; align-items: center; overflow-x: auto; }
+      .crc__brand, .crc__rail-label, .crc__rail-foot { display: none; }
+      .crc__nav { flex-direction: row; }
+      .crc__item span { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="crc__shell" id="crc">
+    <!-- navy rail -->
+    <aside class="crc__rail">
+      <div class="crc__brand">
+        <svg width="16" height="16" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 0 18 8h-2.5v9H11v-5.5H7V17H2.5V8H0Z" fill="#fff"/></svg>
+        <span>nCore</span>
+      </div>
+      <div class="crc__rail-label">CORRIDOR ROUTING</div>
+      <nav class="crc__nav">
+        <button class="crc__item is-active" data-pane="rules">
+          <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 4h14M2 9h9M2 14h6"/><circle cx="15" cy="12.5" r="1.6"/></svg>
+          <span>Routing rules</span>
+        </button>
+        <button class="crc__item" data-pane="fx">
+          <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15V3M2 15h14M5 10l3-3 3 3 4-5"/></svg>
+          <span>FX &amp; spreads</span>
+        </button>
+        <button class="crc__item" data-pane="compliance">
+          <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 1.5 15.5 3.7V9c0 4.4-2.7 6.7-6.5 8-3.8-1.3-6.5-3.6-6.5-8V3.7Z"/><path d="m6.2 9 1.9 1.9 3.7-4"/></svg>
+          <span>Compliance checks</span>
+        </button>
+        <button class="crc__item" data-pane="corridor">
+          <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="14" height="14" rx="2"/><path d="M2 6.5h14M7 6.5V16"/></svg>
+          <span>Per-corridor view</span>
+        </button>
+      </nav>
+      <div class="crc__rail-foot"><i></i><span>42 corridors live</span></div>
+    </aside>
+
+    <!-- main -->
+    <div class="crc__main">
+      <!-- Pane: Routing rules -->
+      <section class="crc__pane crc__rules is-active" data-pane="rules">
+        <div class="crc__bar"><span class="crc__crumb">Controls</span><h3 class="crc__title">Corridor routing rules</h3></div>
+        <div class="crc__kpis">
+          <div class="crc__kpi"><div class="crc__kpi-l">Corridors live</div><div class="crc__kpi-v">42</div></div>
+          <div class="crc__kpi"><div class="crc__kpi-l">Rules active</div><div class="crc__kpi-v">18</div></div>
+          <div class="crc__kpi"><div class="crc__kpi-l">Fallback routes</div><div class="crc__kpi-v">12</div></div>
+        </div>
+        <div class="crc__table">
+          <div class="crc__tr crc__tr--hd"><span>Corridor</span><span>Primary route</span><span>Fallback</span><span>Priority</span></div>
+          <div class="crc__tr"><span class="crc__pair">USD &#8594; PHP</span><span>Visa Direct</span><span class="crc__mono" style="color:var(--muted)">Mastercard XB</span><button class="prio">P<b>1</b></button></div>
+          <div class="crc__tr is-live"><span class="crc__pair">USD &#8594; NGN</span><span>Mastercard XB</span><span class="crc__mono" style="color:var(--muted)">Western Union</span><button class="prio">P<b>1</b></button></div>
+          <div class="crc__tr"><span class="crc__pair">GBP &#8594; INR</span><span>Visa Direct</span><span class="crc__mono" style="color:var(--muted)">MoneyGram</span><button class="prio">P<b>2</b></button></div>
+          <div class="crc__tr"><span class="crc__pair">EUR &#8594; KES</span><span>Western Union</span><span class="crc__mono" style="color:var(--muted)">&#8212;</span><button class="prio">P<b>1</b></button></div>
+        </div>
+      </section>
+
+      <!-- Pane: FX & spreads -->
+      <section class="crc__pane" data-pane="fx">
+        <div class="crc__bar"><span class="crc__crumb">Controls</span><h3 class="crc__title">Live FX rates &amp; spreads</h3><span class="crc__live"><i></i>LIVE</span></div>
+        <div class="crc__kpis">
+          <div class="crc__kpi"><div class="crc__kpi-l">FX captured · today</div><div class="crc__kpi-v" id="fxRev" style="color:#0E7C5A">$24,180</div></div>
+          <div class="crc__kpi"><div class="crc__kpi-l">Avg spread</div><div class="crc__kpi-v" id="fxAvg">35 bps</div></div>
+          <div class="crc__kpi"><div class="crc__kpi-l">Pairs priced</div><div class="crc__kpi-v">3</div></div>
+        </div>
+        <div class="crc__fx" id="fxControls">
+          <div class="crc__fx-row" data-base="2400000" data-mid="56.20" data-dp="2">
+            <div class="crc__fx-pair"><b>USD/PHP</b><span>mid 56.20</span></div>
+            <div class="crc__fx-ctrl">
+              <div class="crc__fx-ctrl-hd"><span>Spread</span><span class="crc__mono"><span class="bps">35</span> bps</span></div>
+              <input class="crc__range" type="range" min="0" max="80" value="35" style="--pct:44%" />
+            </div>
+            <div class="crc__fx-out"><b class="rate">56.40</b><span>your rate</span></div>
+          </div>
+          <div class="crc__fx-row" data-base="1400000" data-mid="1648.50" data-dp="2">
+            <div class="crc__fx-pair"><b>EUR/NGN</b><span>mid 1,648.50</span></div>
+            <div class="crc__fx-ctrl">
+              <div class="crc__fx-ctrl-hd"><span>Spread</span><span class="crc__mono"><span class="bps">42</span> bps</span></div>
+              <input class="crc__range" type="range" min="0" max="80" value="42" style="--pct:52%" />
+            </div>
+            <div class="crc__fx-out"><b class="rate">1,655.4</b><span>your rate</span></div>
+          </div>
+          <div class="crc__fx-row" data-base="3550000" data-mid="106.40" data-dp="2">
+            <div class="crc__fx-pair"><b>GBP/INR</b><span>mid 106.40</span></div>
+            <div class="crc__fx-ctrl">
+              <div class="crc__fx-ctrl-hd"><span>Spread</span><span class="crc__mono"><span class="bps">28</span> bps</span></div>
+              <input class="crc__range" type="range" min="0" max="80" value="28" style="--pct:35%" />
+            </div>
+            <div class="crc__fx-out"><b class="rate">106.70</b><span>your rate</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pane: Compliance checks -->
+      <section class="crc__pane" data-pane="compliance">
+        <div class="crc__bar"><span class="crc__crumb">Controls</span><h3 class="crc__title">Compliance checks inline</h3><span class="crc__live"><i></i>LIVE</span></div>
+        <div class="crc__kpis">
+          <div class="crc__kpi"><div class="crc__kpi-l">Approved</div><div class="crc__kpi-v" style="color:#0E7C5A">96.4%</div></div>
+          <div class="crc__kpi"><div class="crc__kpi-l">Screened</div><div class="crc__kpi-v">100%</div></div>
+          <div class="crc__kpi"><div class="crc__kpi-l">Re-routed</div><div class="crc__kpi-v" style="color:#B45309">1.8%</div></div>
+        </div>
+        <div class="crc__stream" id="stream"></div>
+      </section>
+
+      <!-- Pane: Per-corridor view -->
+      <section class="crc__pane crc__corridor" data-pane="corridor">
+        <div class="crc__bar"><span class="crc__crumb">Controls</span><h3 class="crc__title">Per-corridor visibility</h3><span class="crc__live"><i></i>LIVE</span></div>
+        <div class="crc__kpis">
+          <div class="crc__kpi"><div class="crc__kpi-l">Corridors live</div><div class="crc__kpi-v">42</div></div>
+          <div class="crc__kpi"><div class="crc__kpi-l">FX captured · today</div><div class="crc__kpi-v" style="color:#0E7C5A">$24,180</div></div>
+          <div class="crc__kpi"><div class="crc__kpi-l">Avg settle</div><div class="crc__kpi-v">T+0</div></div>
+        </div>
+        <div class="crc__table">
+          <div class="crc__tr crc__tr--hd"><span>Corridor</span><span>Throughput</span><span>FX captured</span><span>Status</span></div>
+          <div class="crc__tr"><span class="crc__pair">USD &#8594; PHP</span><span class="crc__mono">$1.24M</span><span class="crc__mono" style="color:#0E7C5A">$8,420</span><span class="chip chip--settled">Settled</span></div>
+          <div class="crc__tr is-live"><span class="crc__pair">USD &#8594; NGN</span><span class="crc__mono">$0.86M</span><span class="crc__mono" style="color:#0E7490">$5,610</span><span class="chip chip--cyan"><i></i>Routing · FX</span></div>
+          <div class="crc__tr"><span class="crc__pair">GBP &#8594; INR</span><span class="crc__mono">$0.52M</span><span class="crc__mono" style="color:#0E7C5A">$3,180</span><span class="chip chip--settled">Settled</span></div>
+          <div class="crc__tr"><span class="crc__pair">EUR &#8594; KES</span><span class="crc__mono">$0.31M</span><span class="crc__mono">$1,940</span><span class="chip chip--indigo">Screening</span></div>
+        </div>
+      </section>
+
+      <!-- persistent ledger -->
+      <div class="crc__ledger">
+        <div class="crc__ledger-l">
+          <span class="crc__ledger-tag">LEDGER</span>
+          <span class="crc__ledger-body" id="ledgerBody">USD &#8594; NGN &#183; route selected: Mastercard XB &#183; primary applied</span>
+        </div>
+        <div class="crc__ledger-r"><b>FX +$142.50</b><span>to your account</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var crc = document.getElementById("crc");
+    var items = Array.prototype.slice.call(crc.querySelectorAll(".crc__item"));
+    var panes = Array.prototype.slice.call(crc.querySelectorAll(".crc__pane"));
+    var ledger = document.getElementById("ledgerBody");
+    var idx = 0, timer = null;
+
+    var LEDGER = {
+      rules:      "USD \u2192 NGN \u00b7 route selected: Mastercard XB \u00b7 primary applied",
+      fx:         "USD \u2192 NGN \u00b7 priced at 42 bps \u00b7 spread captured",
+      compliance: "USD \u2192 NGN \u00b7 sanctions + AML screened inline \u00b7 clear",
+      corridor:   "USD \u2192 NGN \u00b7 routed \u00b7 priced \u00b7 screened \u00b7 settled"
+    };
+
+    function activate(i) {
+      idx = i;
+      var pane = panes[i];
+      items.forEach(function (it, j) { it.classList.toggle("is-active", j === i); });
+      panes.forEach(function (p, j) { p.classList.toggle("is-active", j === i); });
+      if (pane) ledger.textContent = LEDGER[pane.dataset.pane] || ledger.textContent;
+      if (pane && pane.dataset.pane === "compliance") startStream();
+    }
+    function advance() { activate((idx + 1) % items.length); }
+    function start() { if (!reduce && !timer) timer = setInterval(advance, 4200); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    items.forEach(function (it, i) {
+      it.addEventListener("click", function () { stop(); activate(i); });
+    });
+    crc.addEventListener("mouseenter", stop);
+    crc.addEventListener("mouseleave", start);
+
+    /* FX sliders → recompute customer rate + the FX-captured KPI */
+    var fxRev = document.getElementById("fxRev");
+    var fxAvg = document.getElementById("fxAvg");
+    function recomputeFx() {
+      var rows = crc.querySelectorAll("#fxControls .crc__fx-row");
+      var totalBps = 0, base = 0;
+      rows.forEach(function (row) {
+        var input = row.querySelector(".crc__range");
+        var bps = parseInt(input.value, 10);
+        input.style.setProperty("--pct", (bps / 80 * 100).toFixed(0) + "%");
+        row.querySelector(".bps").textContent = bps;
+        var mid = parseFloat(row.dataset.mid || "56.20");
+        var dp = parseInt(row.dataset.dp || "2", 10);
+        var your = mid * (1 + bps / 10000);
+        row.querySelector(".rate").textContent = your.toLocaleString("en-US", { minimumFractionDigits: dp, maximumFractionDigits: dp });
+        totalBps += bps;
+        base += parseFloat(row.dataset.base || "0") * bps / 10000;
+      });
+      fxAvg.textContent = Math.round(totalBps / rows.length) + " bps";
+      fxRev.textContent = "$" + Math.round(base).toLocaleString("en-US");
+    }
+    crc.querySelectorAll("#fxControls .crc__range").forEach(function (r) {
+      r.addEventListener("input", recomputeFx);
+    });
+    recomputeFx();
+
+    /* Routing priority chip → cycle 1→2→3 */
+    crc.querySelectorAll(".prio").forEach(function (p) {
+      p.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var b = p.querySelector("b");
+        b.textContent = (parseInt(b.textContent, 10) % 3) + 1;
+      });
+    });
+
+    /* Compliance stream */
+    var FEED = [
+      { corr: "USD \u2192 PHP", check: "Sanctions \u00b7 OFAC", cls: "chip--settled", lbl: "Passed" },
+      { corr: "USD \u2192 RUB", check: "Sanctions \u00b7 flagged", cls: "chip--warn", lbl: "Re-routed" },
+      { corr: "EUR \u2192 NGN", check: "AML \u00b7 monitoring", cls: "chip--settled", lbl: "Passed" },
+      { corr: "GBP \u2192 INR", check: "KYC \u00b7 verified", cls: "chip--settled", lbl: "Passed" },
+      { corr: "USD \u2192 KES", check: "Transaction \u00b7 limit", cls: "chip--settled", lbl: "Passed" },
+      { corr: "USD \u2192 IRR", check: "Sanctions \u00b7 blocked", cls: "chip--warn", lbl: "Re-routed" },
+      { corr: "AED \u2192 PKR", check: "AML \u00b7 monitoring", cls: "chip--settled", lbl: "Passed" }
+    ];
+    var streamHost = document.getElementById("stream"), feedI = 0, streamTimer = null;
+    function pushRow() {
+      var f = FEED[feedI % FEED.length]; feedI++;
+      var row = document.createElement("div");
+      row.className = "crc__srow crc__srow-in";
+      row.innerHTML = '<span class="corr">' + f.corr + '</span>'
+        + '<span class="check">' + f.check + '</span>'
+        + '<span class="chip ' + f.cls + '">' + (f.cls === "chip--warn" ? '<i></i>' : '') + f.lbl + '</span>';
+      streamHost.prepend(row);
+      while (streamHost.children.length > 6) streamHost.lastChild.remove();
+    }
+    function startStream() {
+      if (streamTimer) return;
+      streamHost.innerHTML = "";
+      feedI = 0; pushRow(); pushRow(); pushRow();
+      if (!reduce) streamTimer = setInterval(pushRow, 2400);
+    }
+
+    activate(0);
+    start();
+  })();
+  </script>
+</body>
+</html>

@@ -65,6 +65,16 @@
   background: var(--ui-bg);
 }
 
+/* ---- UI zone hosting a product-illustration-kit surface ---- */
+/* The kit (IllustrationField + IllustrationCard) provides its own lit field,
+   inset glass card and padding, so the host is a bare positioned, sized box:
+   no inner padding, no cool wash, no top border to fight the field. */
+.lcj .ui--illus {
+  padding: 0;
+  border-top: 0;
+  background: transparent;
+}
+
 /* ---- card head (eyebrow + heading + description ABOVE the UI) ---- */
 .lcj .card-head { padding: 22px 22px 16px; }
 .lcj .card-head .eyebrow { margin: 0 0 9px; font-family: var(--font-mono, monospace); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--eyebrow); }

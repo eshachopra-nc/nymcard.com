@@ -2,6 +2,11 @@
 
 # dependencies
 /node_modules
+
+# isolated Remotion subproject (source is committed; install + render output is not)
+/remotion/node_modules
+/remotion/out
+/remotion/.remotion
 /.pnp
 .pnp.*
 .yarn/*

@@ -92,7 +92,7 @@ export const retailMarketplacesDoc = {
       "Cloud, on-soil, and on-premise deployment on the same platform",
       "KYC and AML inside cardholder and seller onboarding",
       "Principal member of Visa and Mastercard",
-      "PCI DSS Level 1 certified · ISO 27001 certified",
+      "PCI DSS compliant · ISO 27001 certified",
     ],
   },
 
@@ -129,7 +129,7 @@ export const retailMarketplacesDoc = {
         { question: "Do sellers and vendors need a bank account to receive payouts?", answer: "No. Payouts can be made to NymCard-issued accounts or payout cards, no bank account required for the recipient." },
         { question: "Who owns the customer relationship and spend data?", answer: "You do. NymCard is white-label by default, the partner owns the brand, the customer relationship, and the spend data." },
         { question: "Can we start with one program and add others later?", answer: "Yes. You can start with one Cards or Lending program and add others as the platform grows, one customer record across all products." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
       ],
       "faq",
     ),

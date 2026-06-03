@@ -62,13 +62,13 @@ const HREF_FIXES: Record<string, string> = {
   "/docs/configuration": DOCS_URL,
   "/docs/underwriting": DOCS_URL,
   // Wrong / legacy industry slugs in product-page cross-links → the real routes.
-  "/industries/banks": "/industries/retail-banking",
-  "/industries/retail": "/industries/retail-marketplaces",
-  "/industries/telecoms": "/industries/telecommunications",
-  "/industries/automotive": "/industries/mobility",
-  "/industries/consumer-banking": "/industries/retail-banking",
-  "/industries/marketplaces": "/industries/retail-marketplaces",
-  "/industries/remittance": "/industries/exchange-houses",
+  "/solutions/banks": "/solutions/retail-banking",
+  "/solutions/retail": "/solutions/retail-marketplaces",
+  "/solutions/telecoms": "/solutions/telecommunications",
+  "/solutions/automotive": "/solutions/mobility",
+  "/solutions/consumer-banking": "/solutions/retail-banking",
+  "/solutions/marketplaces": "/solutions/retail-marketplaces",
+  "/solutions/remittance": "/solutions/exchange-houses",
 };
 
 /** Return the corrected destination for an href, or the href unchanged. */

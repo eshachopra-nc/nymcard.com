@@ -2,10 +2,9 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { NCoreStack } from "@/components/artifacts";
+import { SignatureStitchToCore } from "@/components/sections/SignatureStitchToCore";
 import {
   AmbientGlow,
-  CrosshairRails,
   KineticRibbon,
   visual,
   withAlpha,
@@ -13,19 +12,29 @@ import {
 import { dur, ease } from "@/components/visuals/motion";
 import { cn } from "@/lib/utils";
 
-// ── nCore — The Foundation ─────────────────────────────────────────────────
+// ── nCore — The Foundation (Homepage §4) ─────────────────────────────────────
 //
-// The platform reveal, art-directed as its own visual world: a deep-navy
-// section (the one dark rhythm break in the page's first half is avoided — this
-// uses a tinted-soft surface with a committed-violet atmosphere instead, so the
-// page stays light-first per §1). Asymmetric F-pattern — copy left, the live
-// NCoreStack right (cyan wave rising through six product layers on the engine).
+// The answer to the §3 legacy-problem beat: the stitched-together estate
+// resolves into ONE platform. Asymmetric F-pattern — copy left, the full
+// NCoreStack right (six product layers floating above the nCore engine, a cyan
+// wave rising through them).
 //
-// No eyebrow chip: "nCore" leads inside the headline as a brand word, not as a
-// scaffolding label (enforces design-system.md §2). Violet is committed in the
-// atmosphere and the numbered-rail markers — a real voice, not a timid accent.
+// REWORK (owner direction, 2026-06): the previous treatment presented the
+// answer as `SignatureStitchToCore` phase="collapse" — a small frosted card
+// with a squashed vertical list of vendors inside it. Rejected ("not squashed
+// inside a card… retain the original tech stack we had"). The §4 visual is now
+// the ORIGINAL `NCoreStack` artifact at FULL presence — the same full-scale
+// treatment used on /visual-system and the nCore page — as the morph's
+// destination. nCore is created from the fragments coming together: the §3
+// tangle (FragmentationWeb) reassembles into these clean stack layers.
 //
-// Copy mirrored verbatim from ../02-copy/Homepage.md §3.
+// No eyebrow chip beyond the "nCore" brand word (real content, not scaffolding).
+// Violet is committed in the atmosphere and the numbered-rail markers — a real
+// voice in a signature moment, not a timid accent (§3). The page stays
+// light-first: a tinted-soft surface with a committed-violet atmosphere, not a
+// full dark section.
+//
+// Copy mirrored verbatim from ../02-copy/Homepage.revised.md §4.
 
 const STEPS = [
   {
@@ -44,8 +53,6 @@ const STEPS = [
     copy: "Cloud, on-soil, or on-premise",
   },
 ];
-
-const CHIPS = ["Visa", "Mastercard", "PCI DSS Level 1", "ISO 27001"];
 
 export function NCoreFoundation() {
   const reduced = useReducedMotion();
@@ -73,9 +80,6 @@ export function NCoreFoundation() {
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20">
         <div className="relative">
-          {/* Push the corner markers outward so they frame the content from a
-              clear distance and never crowd the headline. */}
-          <CrosshairRails className="-inset-3 sm:-inset-5 lg:-inset-8" />
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
             {/* Copy column — F-pattern left. */}
             <motion.div
@@ -85,15 +89,21 @@ export function NCoreFoundation() {
               viewport={{ once: true, amount: 0.4 }}
               transition={reduced ? undefined : { duration: dur.cinematic, ease: ease.cinematic }}
             >
-              <h2 className="max-w-xl font-display text-3xl font-bold leading-[1.08] tracking-tight text-text-primary sm:text-4xl lg:text-[2.85rem] dark:text-text-on-brand">
-                One platform behind every product you run.
+              {/* "nCore" as a brand chip — real content (the product name), not
+                  a scaffolding eyebrow label, so the no-eyebrow rule doesn't
+                  apply. */}
+              <span className="inline-flex items-center rounded-pill border border-surface-border-subtle bg-surface-white/70 px-3.5 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-brand-primary backdrop-blur-sm dark:border-surface-dark-border dark:bg-surface-dark-elevated/50 dark:text-accent-cyan">
+                nCore
+              </span>
+              <h2 className="mt-5 max-w-xl font-display text-3xl font-bold leading-[1.08] tracking-tight text-text-primary sm:text-4xl lg:text-[2.85rem] dark:text-text-on-brand">
+                Replace legacy with one platform you own.
               </h2>
               <p className="mt-6 max-w-lg font-body text-base leading-relaxed text-text-secondary sm:text-[17px] dark:text-text-dark-secondary">
                 Cards, lending, money movement, settlement, financial crime, and
-                reconciliation — running on one platform, sharing one customer
-                record, one ledger, and one audit trail. Most payment
-                infrastructure is stitched together from separate vendors. nCore
-                is built as a single system.
+                reconciliation. All on one platform, sharing one customer record,
+                one ledger, and one audit trail. NymCard owns the processor
+                underneath. Most payment infrastructure is stitched together from
+                separate vendors. nCore is built as a single system.
               </p>
 
               {/* Numbered rail — 01 / 02 / 03, violet markers. */}
@@ -129,7 +139,7 @@ export function NCoreFoundation() {
               </ul>
 
               <a
-                href="#ncore"
+                href="/platform/ncore"
                 className="group mt-9 inline-flex items-center gap-2 font-body text-sm font-semibold text-brand-primary transition-colors hover:text-brand-primary-hover dark:text-accent-cyan dark:hover:text-accent-cyan/80"
               >
                 Explore nCore
@@ -140,7 +150,14 @@ export function NCoreFoundation() {
               </a>
             </motion.div>
 
-            {/* Visual column — the live nCore stack. */}
+            {/* Visual column — the ANSWER at full presence, and the literal
+                destination of the signature morph: on scroll-into-view the §3
+                fragmented systems converge inward and resolve INTO the original
+                NCoreStack (six product layers on the nCore engine, the cyan wave
+                rising through them). `framed={false}` so the stack lands at full
+                presence on this section's committed-violet atmosphere + kinetic
+                ribbon — never squashed inside a card (§8.30). Reduced-motion
+                renders the resolved NCoreStack directly. */}
             <motion.div
               className="relative lg:col-span-6"
               initial={reduced ? false : { opacity: 0, y: 24 }}
@@ -148,21 +165,10 @@ export function NCoreFoundation() {
               viewport={{ once: true, amount: 0.3 }}
               transition={reduced ? undefined : { duration: dur.deliberate, ease: ease.out, delay: 0.15 }}
             >
-              <NCoreStack className="lg:ml-auto" />
+              <div className="relative mx-auto flex min-h-[460px] w-full max-w-[460px] items-center justify-center lg:ml-auto lg:mr-0">
+                <SignatureStitchToCore phase="collapse" framed={false} className="h-full" />
+              </div>
             </motion.div>
-          </div>
-
-          {/* Trust chips — centred at the foot, the network + certification
-              proof. Not an eyebrow; a quiet credential strip. */}
-          <div className="mt-14 flex flex-wrap items-center justify-center gap-2.5 lg:mt-16">
-            {CHIPS.map((chip) => (
-              <span
-                key={chip}
-                className="rounded-pill border border-surface-border-subtle bg-surface-white/70 px-3.5 py-1 font-mono text-[11px] tracking-[0.08em] text-text-secondary backdrop-blur-sm dark:border-surface-dark-border dark:bg-surface-dark-elevated/50 dark:text-text-dark-secondary"
-              >
-                {chip}
-              </span>
-            ))}
           </div>
         </div>
       </div>

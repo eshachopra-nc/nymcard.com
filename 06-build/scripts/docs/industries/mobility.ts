@@ -100,7 +100,7 @@ export const mobilityDoc = {
       "Cloud, on-soil, and on-premise deployment on the same platform",
       "KYC and AML inside driver and partner onboarding",
       "Principal member of Visa and Mastercard",
-      "PCI DSS Level 1 certified · ISO 27001 certified",
+      "PCI DSS compliant · ISO 27001 certified",
     ],
   },
 
@@ -137,7 +137,7 @@ export const mobilityDoc = {
         { question: "Can fleet operators set spend controls per vehicle or driver?", answer: "Yes. Controls are configurable per card, per vehicle, per driver, and per merchant category, applied in real time at authorization." },
         { question: "Can we ship a branded driver or customer app on this?", answer: "Yes. PayKit delivers a white-labeled mobile and web app built directly on your payout and payment infrastructure, no separate front-end build." },
         { question: "Can we run financing for vehicle acquisition on the same platform?", answer: "Yes. Auto financing runs on the Lending layer alongside your payout and fleet card programs, one customer record across products." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
       ],
       "faq",
     ),

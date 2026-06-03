@@ -18,7 +18,7 @@ import { dur, ease } from "@/components/visuals/motion";
 const COPY = {
   headline: "Full-stack payments infrastructure.",
   subhead:
-    "Cards, lending, money movement, financial crime and reconciliation on one AI-native platform.",
+    "Cards, lending, money movement, settlement, financial crime, and reconciliation — on one platform, not stitched together from separate vendors.",
   primaryCta: "Talk to us",
   secondaryCta: "Explore nCore",
 } as const;

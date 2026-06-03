@@ -10,7 +10,7 @@ export const cardIssuingDoc = {
   metaDescription:
     "Launch debit, credit, and prepaid card programs on nCore, NymCard's full-stack payments platform. Principal member of Visa and Mastercard. Cloud, on-soil, or on-premise.",
   trustLine:
-    "Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001.",
+    "Principal member of Visa and Mastercard · PCI DSS compliant · ISO 27001.",
   hero: {
     headline: "Launch the card program your customers need.",
     body: "Issue debit, credit, and prepaid cards on infrastructure built to scale with you.",
@@ -63,12 +63,12 @@ export const cardIssuingDoc = {
     headline: "Card programs for every industry.",
     items: withKeys(
       [
-        { eyebrow: "Banks", copy: "Retail and commercial card portfolios on one platform.", link: { label: "See banks", href: "/industries/retail-banking" } },
-        { eyebrow: "Fintechs", copy: "Launch debit, credit, prepaid, and BNPL programs.", link: { label: "See fintechs", href: "/industries/fintechs" } },
-        { eyebrow: "Telecoms", copy: "Wallet-linked debit, prepaid, and rewards cards.", link: { label: "See telecoms", href: "/industries/telecommunications" } },
-        { eyebrow: "Retail and marketplaces", copy: "Co-branded, gift, and payout cards for customers and sellers.", link: { label: "See retail", href: "/industries/retail-marketplaces" } },
-        { eyebrow: "Government", copy: "Prepaid and disbursement cards with auditable spend.", link: { label: "See government", href: "/industries/government" } },
-        { eyebrow: "Mobility & fleet", copy: "Fuel and expense cards with category-level controls.", link: { label: "See mobility", href: "/industries/mobility" } },
+        { eyebrow: "Banks", copy: "Retail and commercial card portfolios on one platform.", link: { label: "See banks", href: "/solutions/retail-banking" } },
+        { eyebrow: "Fintechs", copy: "Launch debit, credit, prepaid, and BNPL programs.", link: { label: "See fintechs", href: "/solutions/fintechs" } },
+        { eyebrow: "Telecoms", copy: "Wallet-linked debit, prepaid, and rewards cards.", link: { label: "See telecoms", href: "/solutions/telecommunications" } },
+        { eyebrow: "Retail and marketplaces", copy: "Co-branded, gift, and payout cards for customers and sellers.", link: { label: "See retail", href: "/solutions/retail-marketplaces" } },
+        { eyebrow: "Government", copy: "Prepaid and disbursement cards with auditable spend.", link: { label: "See government", href: "/solutions/government" } },
+        { eyebrow: "Mobility & fleet", copy: "Fuel and expense cards with category-level controls.", link: { label: "See mobility", href: "/solutions/mobility" } },
       ],
       "ind",
     ),
@@ -156,7 +156,7 @@ export const cardIssuingDoc = {
         { question: "How long does a card program take to launch?", answer: "Typically less than three months, subject to program complexity and market requirements. Larger or more configured programs can take longer." },
         { question: "Can I migrate from my existing card processor?", answer: "Yes. NymCard offers agentic AI-led migration that handles discovery, mapping, configuration, parallel running, and cutover. Full portfolio, re-carding, and phased migrations are supported." },
         { question: "Do I have to use NymCard for card fulfillment and customer support?", answer: "No. You can use NymCard's services or bring your own vendors for fulfillment, rewards, cashback, and customer support." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified." },
         { question: "Is credit card issuing supported, or only debit and prepaid?", answer: "Credit is fully supported. Configure credit limits, billing cycles, grace periods, and installment plans through the API." },
       ],
       "faq",

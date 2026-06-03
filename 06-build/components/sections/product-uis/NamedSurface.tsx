@@ -27,7 +27,7 @@ const Inner = ({ name, label, missing, onError }: { name: string; label?: string
       <span className="font-mono text-[11px] tracking-tight text-text-secondary dark:text-text-dark-secondary">
         {name}.svg
       </span>
-      <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-text-muted dark:text-text-dark-muted">
+      <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-text-secondary dark:text-text-dark-secondary">
         handoff · drop to fill
       </span>
     </div>

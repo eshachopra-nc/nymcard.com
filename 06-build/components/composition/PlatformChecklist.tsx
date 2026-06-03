@@ -8,7 +8,7 @@ import { Eyebrow } from "./atoms";
 // "is your platform serious?" buyer question. A heading + body on the left
 // (a constrained text column), and the bullet checklist on the right. A
 // trust-chip row sits beneath the checklist when provided — a single
-// inline strip (PCI DSS Level 1 · ISO 27001 · principal member of Visa /
+// inline strip (PCI DSS compliant · ISO 27001 · principal member of Visa /
 // Mastercard).
 //
 // Rules: 4–6 bullet items (the arc bounds this); checklist icons in the

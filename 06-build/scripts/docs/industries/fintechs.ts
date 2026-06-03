@@ -85,7 +85,7 @@ export const fintechsDoc = {
       "Cloud, on-soil, and on-premise deployment on the same platform",
       "KYC, AML, and sanctions screening inside the authorization path",
       "Principal member of Visa and Mastercard",
-      "PCI DSS Level 1 certified · ISO 27001 certified",
+      "PCI DSS compliant · ISO 27001 certified",
     ],
   },
 
@@ -122,7 +122,7 @@ export const fintechsDoc = {
         { question: "How fast can a fintech launch on NymCard?", answer: "A core card program typically launches in less than three months, subject to program complexity and market requirements." },
         { question: "Can we add lending or cross-border after launch?", answer: "Yes. You can start with cards and add Lending, Money Movement, Settlement, Financial Crime, or Reconciliation as your product grows, one customer record across all products." },
         { question: "Where is compliance handled?", answer: "Inside the platform. KYC, AML, and sanctions screening run inside the authorization path, not a separate compliance vendor." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
       ],
       "faq",
     ),

@@ -125,17 +125,20 @@ export function FAQ({
                     aria-controls={panelId}
                     onClick={() => toggle(i)}
                     className={cn(
-                      "flex w-full items-center justify-between gap-6 py-5 text-left",
+                      "group flex w-full items-center justify-between gap-6 py-5 text-left",
                       "outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/15 dark:focus-visible:ring-accent-cyan/20",
                     )}
                   >
-                    <span className="font-body text-base font-medium leading-snug text-text-primary sm:text-lg dark:text-text-on-brand">
+                    {/* Hover signature: the question shifts to brand colour and
+                        the plus chip brightens — a colour change that reads with
+                        motion OFF too, in both themes (qa gate #1). */}
+                    <span className="font-body text-base font-medium leading-snug text-text-primary transition-colors duration-150 group-hover:text-brand-primary sm:text-lg dark:text-text-on-brand dark:group-hover:text-accent-cyan">
                       {item.question}
                     </span>
                     <Plus
                       aria-hidden="true"
                       className={cn(
-                        "size-5 shrink-0 text-brand-primary transition-transform dark:text-accent-cyan",
+                        "size-5 shrink-0 text-brand-primary transition-[transform,color] group-hover:text-brand-primary-hover dark:text-accent-cyan dark:group-hover:text-accent-cyan/80",
                         isOpen && "rotate-45",
                       )}
                       style={{

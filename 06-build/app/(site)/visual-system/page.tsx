@@ -958,7 +958,10 @@ function SideNav() {
 
 export default function VisualSystemPage() {
   return (
-    <div className="xl:pl-60">
+    // overflow-x-clip: the styleguide demos some atmosphere/ribbon primitives
+    // whose decorative layers bleed past the viewport on small screens; clip the
+    // horizontal bleed so this internal page never produces a mobile h-scroll.
+    <div className="overflow-x-clip xl:pl-60">
       <SideNav />
       <main className="pb-32 pt-32">
         <Container>
@@ -2424,7 +2427,7 @@ export default function VisualSystemPage() {
                     "Audit trails and regulatory reporting built into the platform",
                   ]}
                   chips={[
-                    "PCI DSS Level 1",
+                    "PCI DSS compliant",
                     "ISO 27001",
                     "Principal member of Visa",
                     "Principal member of Mastercard",
@@ -2446,7 +2449,7 @@ export default function VisualSystemPage() {
                     "Audit trails and regulatory reporting built into the platform",
                   ]}
                   chips={[
-                    "PCI DSS Level 1",
+                    "PCI DSS compliant",
                     "ISO 27001",
                     "Principal member of Visa",
                     "Principal member of Mastercard",

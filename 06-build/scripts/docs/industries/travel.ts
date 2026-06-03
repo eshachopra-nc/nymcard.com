@@ -99,7 +99,7 @@ export const travelDoc = {
       "Cloud, on-soil, and on-premise deployment on the same platform",
       "KYC and AML inside cardholder onboarding",
       "Principal member of Visa and Mastercard",
-      "PCI DSS Level 1 certified · ISO 27001 certified",
+      "PCI DSS compliant · ISO 27001 certified",
     ],
   },
 
@@ -136,7 +136,7 @@ export const travelDoc = {
         { question: "Do travelers need a bank account to use the wallet?", answer: "No. Wallets are issued directly on NymCard, no bank account required for the end user." },
         { question: "Can we ship a branded traveler app on this?", answer: "Yes. PayKit delivers a white-labeled mobile and web app built directly on your card and wallet infrastructure, no separate front-end build." },
         { question: "Can we run consumer, corporate, and agent programs on the same platform?", answer: "Yes. Consumer travel cards, corporate expense cards, travel wallets, and agent disbursements run on one platform, one customer record across segments." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
       ],
       "faq",
     ),

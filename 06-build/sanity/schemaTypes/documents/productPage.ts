@@ -66,7 +66,7 @@ export const productPage = defineType({
       title: "Trust line",
       type: "string",
       description:
-        "Single line shown beneath the logo strip (e.g. 'Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001'). Leave blank to hide.",
+        "Single line shown beneath the logo strip (e.g. 'Principal member of Visa and Mastercard · PCI DSS compliant · ISO 27001'). Leave blank to hide.",
       group: "header",
     }),
 

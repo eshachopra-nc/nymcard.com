@@ -2,112 +2,101 @@ import {
   ArrowLeftRight,
   Blocks,
   Building2,
+  Car,
+  HeartPulse,
   Landmark,
   RadioTower,
   Smartphone,
   Store,
+  Wallet,
 } from "lucide-react";
 import type { RailCarouselRichItem } from "@/components/composition";
 
 // ── Homepage "Industries" rail data ─────────────────────────────────────────
 //
 // Industry cards for the homepage rail (rendered by components/sections/UseCases).
-// Per the owner's direction: NO product-UI illustration — text-forward. Each
-// card anchors on an infrastructural industry icon (RailCarousel's industries
-// mode), then carries:
+// Per the owner's direction (3 June): icon + name + ONE outcome line, no bullets.
+// Each card carries:
 //   • name        = the industry name
-//   • description = the outcome line (the former card headline)
-//   • bullets     = three supporting lines
+//   • description = the single outcome line
 //   • icon        = an infrastructural lucide mark (cool, navy/cyan-tinted tile)
-//   • href        = that industry's page (/industries/*), which exists
+//   • href        = that industry's /solutions/* page (all ten exist)
 //
+// Order is owner-locked (3 June): Retail Banking first, Mobility last.
+// Copy mirrored verbatim from ../02-copy/Homepage.revised.md §8.
 // (The data file keeps its historical name; the content is industries now.)
 
 const ICON_CLS = "size-5";
 
 export const HOMEPAGE_USE_CASES: RailCarouselRichItem[] = [
   {
+    id: "retail-banking",
+    name: "Retail Banking",
+    description: "Launch cards, lending, and payment experiences for consumer customers.",
+    icon: <Wallet className={ICON_CLS} strokeWidth={1.75} />,
+    href: "/solutions/retail-banking",
+  },
+  {
     id: "commercial-banking",
     name: "Commercial Banking",
-    description: "Run a commercial card program",
-    icon: <Landmark className={ICON_CLS} strokeWidth={1.75} />,
-    bullets: [
-      "Multi-entity cards and accounts with spend controls, issued with Visa",
-      "Limits by merchant category, amount, and time of day",
-      "Real-time reconciliation across cards, accounts, and rails",
-    ],
-    href: "/industries/commercial-banking",
+    description: "Modernize commercial cards, treasury, supplier payments, and business banking.",
+    icon: <Building2 className={ICON_CLS} strokeWidth={1.75} />,
+    href: "/solutions/commercial-banking",
   },
   {
     id: "neobanks",
     name: "Neobanks",
-    description: "Launch a bank",
+    description: "Build digital-first banking experiences on modern payments infrastructure.",
     icon: <Smartphone className={ICON_CLS} strokeWidth={1.75} />,
-    bullets: [
-      "Accounts, cards, payments, and ledger in one programmable platform",
-      "One customer record and audit trail across every product",
-      "Open APIs to build your own product surfaces, under your brand",
-    ],
-    href: "/industries/neobanks",
+    href: "/solutions/neobanks",
   },
   {
     id: "fintechs",
     name: "Fintechs",
-    description: "Embed financial products",
+    description: "Launch and scale financial products on infrastructure built for growth.",
     icon: <Blocks className={ICON_CLS} strokeWidth={1.75} />,
-    bullets: [
-      "Cards, payments, and credit via API and SDKs",
-      "White-labeled — your brand, your UX, your data",
-      "One contract across the financial stack",
-    ],
-    href: "/industries/fintechs",
-  },
-  {
-    id: "retail-marketplaces",
-    name: "Retail & Marketplaces",
-    description: "Offer buy now, pay later",
-    icon: <Store className={ICON_CLS} strokeWidth={1.75} />,
-    bullets: [
-      "Real-time decisioning at the point of sale",
-      "Servicing, collections, and reporting end to end",
-      "Fraud and risk monitoring on every loan",
-    ],
-    href: "/industries/retail-marketplaces",
-  },
-  {
-    id: "government",
-    name: "Government",
-    description: "Disburse at scale",
-    icon: <Building2 className={ICON_CLS} strokeWidth={1.75} />,
-    bullets: [
-      "One API to move funds across cards, accounts, and wallets",
-      "Routing, retries, and reconciliation built in",
-      "Sanctions and AML screening on every payout",
-    ],
-    href: "/industries/government",
+    href: "/solutions/fintechs",
   },
   {
     id: "exchange-houses",
     name: "Exchange Houses",
-    description: "Power remittances",
+    description: "Power remittance, cross-border payments, and settlement on one platform.",
     icon: <ArrowLeftRight className={ICON_CLS} strokeWidth={1.75} />,
-    bullets: [
-      "Visa Direct, Mastercard Cross-Border, Western Union, and MoneyGram",
-      "FX, settlement, and reconciliation on one platform",
-      "AML and sanctions screening built in",
-    ],
-    href: "/industries/exchange-houses",
+    href: "/solutions/exchange-houses",
   },
   {
     id: "telecommunications",
     name: "Telecommunications",
-    description: "Launch a mobile wallet",
+    description: "Embed payments and financial services into digital customer journeys.",
     icon: <RadioTower className={ICON_CLS} strokeWidth={1.75} />,
-    bullets: [
-      "Wallet ledger with cash-in, cash-out, and P2P",
-      "Card issuance, bill pay, and remittance inflows",
-      "Domestic rails and cross-border on one platform",
-    ],
-    href: "/industries/telecommunications",
+    href: "/solutions/telecommunications",
+  },
+  {
+    id: "retail-marketplaces",
+    name: "Retail & Marketplaces",
+    description: "Move money, issue cards, and create new customer experiences at scale.",
+    icon: <Store className={ICON_CLS} strokeWidth={1.75} />,
+    href: "/solutions/retail-marketplaces",
+  },
+  {
+    id: "healthcare",
+    name: "Healthcare",
+    description: "Simplify collections, disbursements, and regulated payment workflows.",
+    icon: <HeartPulse className={ICON_CLS} strokeWidth={1.75} />,
+    href: "/solutions/healthcare",
+  },
+  {
+    id: "government",
+    name: "Government",
+    description: "Deliver secure payment infrastructure for citizens and public services.",
+    icon: <Landmark className={ICON_CLS} strokeWidth={1.75} />,
+    href: "/solutions/government",
+  },
+  {
+    id: "mobility",
+    name: "Mobility",
+    description: "Power payments, wallets, and financial experiences for drivers and riders.",
+    icon: <Car className={ICON_CLS} strokeWidth={1.75} />,
+    href: "/solutions/mobility",
   },
 ];

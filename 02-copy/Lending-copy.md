@@ -46,7 +46,8 @@ Embed credit into every payment flow.
 
 **Sub-copy:**
 
-Launch BNPL, installment, revolving credit, and working capital programs on nCore. You retain the lending relationship; NymCard provides the infrastructure.
+<!-- CAMPAIGN SHARPEN 2026-06: sub-line ends on "one layer of nCore, not a standalone tool" per strategy §12.1 -->
+Launch BNPL, installment, revolving credit, and working capital programs on nCore — the credit layer of one platform, not a separate lending system wired to your cards. You retain the lending relationship; NymCard provides the infrastructure.
 
 **Primary CTA:** Talk to us
 
@@ -298,7 +299,8 @@ Clean accordion. Schema-marked for AEO using FAQPage [schema.org](http://schema.
 
 **1. What is lending infrastructure?**
 
-Lending infrastructure enables banks, fintechs, and digital businesses to launch and operate credit programs — including BNPL, installment plans, revolving credit, and working capital — directly inside their payment flows. NymCard's Lending product runs on nCore.
+<!-- CAMPAIGN SHARPEN 2026-06: one-platform thread added; banks ordered first per strategy §12.2 and §12.3 -->
+Lending infrastructure enables banks, fintechs, and digital businesses to launch and operate credit programs — including BNPL, installment plans, revolving credit, and working capital — directly inside their payment flows. Lending is one layer of nCore, sharing one customer record, one ledger, and one audit trail with cards, money movement, and every other layer — not a standalone credit system you integrate separately.
 
 **2. Does NymCard fund loans?**
 

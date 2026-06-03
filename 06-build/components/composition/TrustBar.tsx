@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 //                   set (12 entries) until the real grayscale logos land.
 //   - `trustLine` — an optional single-line trust statement directly under the
 //                   marquee. Used by the industry-page arc — "Principal member
-//                   of Visa and Mastercard · PCI DSS Level 1 · ISO 27001".
+//                   of Visa and Mastercard · PCI DSS compliant · ISO 27001".
 //   - `background`— surface variant — `white` (default), `soft` for rhythm,
 //                   `dark` for end-of-page composition.
 //
@@ -26,13 +26,59 @@ import { cn } from "@/lib/utils";
 //   - prefers-reduced-motion → first 6 logos centred static.
 //   - Edge fade gradients so the marquee dissolves into the surface.
 
-const DEFAULT_LOGOS = Array.from({ length: 12 }, (_, i) => `Logo ${i + 1}`);
+// `boxed` flags square / emblem logos (icon-shaped rather than a wide wordmark):
+// they render a little taller so their mark matches the visual weight of the
+// wide wordmark logos.
+export type ClientLogo = { src: string; name: string; boxed?: boolean };
 
-type TrustBarBackground = "white" | "soft" | "dark";
+// The live client logo wall (assets in /public/clients/) — banks first, then the
+// other clients (owner direction). Rendered as a uniform monochrome silhouette
+// (see LogoMark) so the mix of B&W SVGs and transparent colour PNGs reads as one
+// calm band. EasyPaisa is awaiting a logo asset, so it's not yet in the list.
+// Banks, in the owner's order. The colour-tile logos (Mawarid, NBB, easypaisa,
+// IBL) are pre-processed into transparent art — backgrounds keyed out / padding
+// trimmed — so they monochrome cleanly like the B&W set; Neo sits next to the
+// banks. Still excluded: INC — its mark is white on a purple tile, so removing
+// the tile leaves an invisible white logo; it needs a dark-on-transparent asset
+// (and it's the "neo" brand, already shown via Neo).
+const BANK_LOGOS: ClientLogo[] = [
+  { src: "/clients/Mawarid.png", name: "Mawarid" },
+  { src: "/clients/EDB.png", name: "EDB Bank" },
+  { src: "/clients/Byblos.svg", name: "Byblos Bank" },
+  { src: "/clients/FaisalIslamicBank.svg", name: "Faisal Islamic Bank" },
+  { src: "/clients/Nasswallet.svg", name: "Nass Wallet" },
+  { src: "/clients/SAB.svg", name: "SAB" },
+  { src: "/clients/SNB.svg", name: "SNB" },
+  { src: "/clients/IBL.png", name: "IBL Bank", boxed: true },
+  { src: "/clients/HugoBank.svg", name: "HugoBank" },
+  { src: "/clients/easypaisa.png", name: "EasyPaisa", boxed: true },
+  { src: "/clients/IandC.svg", name: "I&C" },
+  { src: "/clients/NBB.png", name: "NBB", boxed: true },
+  { src: "/clients/Neo.svg", name: "Neo" },
+];
+
+const OTHER_LOGOS: ClientLogo[] = [
+  { src: "/clients/Alaan.svg", name: "Alaan" },
+  { src: "/clients/Pemo.svg", name: "Pemo" },
+  { src: "/clients/Qashio.svg", name: "Qashio" },
+  { src: "/clients/Xpence.svg", name: "Xpence" },
+  { src: "/clients/Pluto.svg", name: "Pluto" },
+  { src: "/clients/Chargeup.svg", name: "ChargeUp" },
+  { src: "/clients/Sav.svg", name: "Sav" },
+  { src: "/clients/Edfundo.svg", name: "Edfundo" },
+  { src: "/clients/Zywa.svg", name: "Zywa" },
+  { src: "/clients/Paytabs.svg", name: "PayTabs" },
+  { src: "/clients/Negabty.svg", name: "Negabty" },
+  { src: "/clients/Rise.svg", name: "Rise" },
+];
+
+const DEFAULT_LOGOS: ClientLogo[] = [...BANK_LOGOS, ...OTHER_LOGOS];
+
+type TrustBarBackground = "white" | "soft" | "dark" | "transparent";
 
 export type TrustBarProps = {
-  /** The logos to render. Defaults to the homepage 12-entry placeholder set. */
-  logos?: string[];
+  /** The client logos to render. Defaults to the live 12-logo client wall. */
+  logos?: ClientLogo[];
   /**
    * Optional single-line trust statement under the marquee. Accepts a string
    * (the legacy callsite pattern — plain copy with middot separators) or a
@@ -42,22 +88,40 @@ export type TrustBarProps = {
   trustLine?: string | ReactNode;
   /** Surface variant. Default `white`. */
   background?: TrustBarBackground;
+  /**
+   * Optional mask-image utility classes applied to the scrolling marquee only,
+   * and only when motion is allowed. Used by the hero to occlude logos where the
+   * kinetic ribbon is. Skipped under prefers-reduced-motion so the static
+   * fallback logos are never masked away.
+   */
+  marqueeMask?: string;
   className?: string;
 };
 
-// Placeholder logo lockup — a neutral mark + wordmark bar, grayscale, so the
-// marquee reads as a row of (desaturated) client logos rather than bracketed
-// text. Deterministic small variety per item. Swap for real grayscale client
-// SVGs via the `logos` prop when they land. Theme-aware.
-function LogoMark({ label }: { label: string }) {
-  const n = parseInt(label.replace(/\D/g, ""), 10) || label.length;
-  const shape = ["rounded-md", "rounded-full", "rounded-[3px]"][n % 3];
-  const barW = ["w-12", "w-16", "w-20"][n % 3];
+// A single client logo, rendered as a uniform monochrome silhouette so the mix
+// of B&W SVGs and transparent colour PNGs reads as one calm band: dark grey on
+// the light bar (`brightness(0)` collapses any source to black, softened by
+// opacity), light grey on the dark bar (`brightness(0) invert` to white,
+// softened). One fixed height + auto width gives every logo the same visual
+// size. Hover lifts to full.
+function LogoMark({ logo }: { logo: ClientLogo }) {
   return (
-    <span aria-hidden="true" className="inline-flex select-none items-center gap-2 opacity-80">
-      <span className={cn("size-6 shrink-0 bg-text-muted/25 dark:bg-white/15", shape)} />
-      <span className={cn("h-2.5 rounded-full bg-text-muted/25 dark:bg-white/15", barW)} />
-    </span>
+    // eslint-disable-next-line @next/next/no-img-element -- client logo, sized inline
+    <img
+      src={logo.src}
+      alt={logo.name}
+      className={cn(
+        "w-auto shrink-0 select-none object-contain transition-opacity duration-200",
+        // Square / emblem logos render taller so their mark matches the visual
+        // weight of the wide wordmark logos.
+        logo.boxed ? "h-12" : "h-9",
+        "opacity-70 [filter:brightness(0)] hover:opacity-100",
+        "dark:opacity-65 dark:[filter:brightness(0)_invert(1)] dark:hover:opacity-100",
+      )}
+      loading="lazy"
+      decoding="async"
+      draggable={false}
+    />
   );
 }
 
@@ -86,12 +150,22 @@ const SURFACE: Record<
     from: "from-surface-dark-base",
     border: "border-surface-dark-border",
   },
+  // Embedded variant — no surface, no border. Used inside the hero so the
+  // marquee floats directly on the kinetic-ribbon background. Edge fades are
+  // disabled (from-transparent); the caller supplies a mask via className so
+  // the logos read only where the ribbon is not.
+  transparent: {
+    bg: "",
+    from: "from-transparent",
+    border: "border-transparent",
+  },
 };
 
 export function TrustBar({
   logos = DEFAULT_LOGOS,
   trustLine,
   background = "white",
+  marqueeMask,
   className,
 }: TrustBarProps) {
   const reduced = useReducedMotion();
@@ -139,12 +213,20 @@ export function TrustBar({
             )}
           />
 
-          <div className={cn("flex items-center", trustLine ? "h-12 lg:h-14" : "h-full")}>
+          <div
+            className={cn(
+              "flex items-center",
+              trustLine ? "h-12 lg:h-14" : "h-full",
+              // Ribbon-occlusion mask — marquee only, motion only (so the
+              // reduced-motion static logos are never masked out).
+              !reduced && marqueeMask,
+            )}
+          >
             {reduced ? (
               // Reduced motion: first 6 logos, static, centred.
               <div className="flex h-full w-full items-center justify-center gap-x-12">
                 {logos.slice(0, 6).map((logo) => (
-                  <LogoMark key={logo} label={logo} />
+                  <LogoMark key={logo.name} logo={logo} />
                 ))}
               </div>
             ) : (
@@ -161,7 +243,7 @@ export function TrustBar({
                 }}
               >
                 {[...logos, ...logos].map((logo, i) => (
-                  <LogoMark key={`${logo}-${i}`} label={logo} />
+                  <LogoMark key={`${logo.name}-${i}`} logo={logo} />
                 ))}
               </motion.div>
             )}
@@ -187,8 +269,8 @@ export function TrustBar({
 
 // ── PrincipalMemberTrustLine — canonical trust-line with inline logos ─────
 //
-// The canonical phrase with real SVG logo marks inline:
-//   "Principal member of [Visa] and [Mastercard] · [PCI DSS Level 1] · [ISO 27001]"
+// The canonical phrase with real logo marks inline:
+//   "Principal member of [Visa] and [Mastercard] · [PCI DSS] · [ISO/IEC 27001]"
 //
 // Used as the `trustLine` prop on TrustBar (industry-page arc, scale rhythm
 // breaks). Composes the logo SVGs from `/public/logos/` at a small
@@ -203,9 +285,9 @@ export function TrustBar({
 //   • Mastercard uses the brand interlocking-circles mark — a single SVG
 //     that reads correctly on both surfaces (the red/yellow/orange palette
 //     is high-contrast against both white and navy).
-//   • PCI DSS and ISO 27001 are pill-shaped wordmark badges authored as
-//     `currentColor` SVGs so they inherit text tone — single asset, both
-//     surfaces.
+//   • PCI DSS (public/pcidss.png, real brand mark) and ISO/IEC 27001:2022
+//     (public/logos/iso-27001.svg, a generic blue seal) are wrapped in white
+//     chips so they read on both the light and dark surfaces.
 
 export function PrincipalMemberTrustLine() {
   // Logo classes — inline, baseline-aligned (`align-middle`), small enough to
@@ -214,8 +296,16 @@ export function PrincipalMemberTrustLine() {
   // height to read at the same visual weight.
   const visaCls = "h-[14px] w-auto align-middle";
   const mastercardCls = "inline-block h-[18px] w-auto align-middle";
-  // PCI / ISO badges inherit text colour via `currentColor` in the SVGs.
-  const badgeCls = "inline-block h-[16px] w-auto align-middle";
+  // The cert marks sit in white chips so they read on both the light and the
+  // dark navy surface (the boxed treatment matches the original design intent):
+  //   • PCI DSS — the real brand mark (public/pcidss.png), full-colour on white.
+  //   • ISO/IEC 27001:2022 — a generic blue certification seal in ISO blue
+  //     (#0054A8), authored as a vector at public/logos/iso-27001.svg to read as
+  //     a sibling to the existing ISO 9001 seal style. NOTE: the legitimate mark
+  //     is the issuing certification body's logo (BSI/TÜV/etc., in the cert
+  //     pack) — swap this generic seal for that asset when available.
+  const badgeChipCls =
+    "inline-flex items-center rounded-md border border-surface-border-subtle bg-surface-white px-1.5 py-[3px] align-middle";
 
   return (
     <span className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
@@ -232,21 +322,25 @@ export function PrincipalMemberTrustLine() {
         decoding="async"
       />
       <span aria-hidden="true">·</span>
-      <img
-        src="/logos/pci-dss.svg"
-        alt="PCI DSS Level 1"
-        className={badgeCls}
-        loading="lazy"
-        decoding="async"
-      />
+      <span className={badgeChipCls}>
+        <img
+          src="/pcidss.png"
+          alt="PCI DSS compliant"
+          className="h-4 w-auto"
+          loading="lazy"
+          decoding="async"
+        />
+      </span>
       <span aria-hidden="true">·</span>
-      <img
-        src="/logos/iso-27001.svg"
-        alt="ISO 27001 certified"
-        className={badgeCls}
-        loading="lazy"
-        decoding="async"
-      />
+      <span className={badgeChipCls}>
+        <img
+          src="/logos/iso-27001.svg"
+          alt="ISO/IEC 27001:2022 certified"
+          className="h-[18px] w-[18px]"
+          loading="lazy"
+          decoding="async"
+        />
+      </span>
     </span>
   );
 }

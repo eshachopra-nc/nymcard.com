@@ -8,6 +8,8 @@ import { FAQ } from "./FAQ";
 import { FeatureShowcase } from "./FeatureShowcase";
 import { CapabilityCards } from "./CapabilityCards";
 import { LendingCreditJourney } from "./LendingCreditJourney";
+import { SettlementCapabilities } from "./SettlementCapabilities";
+import { ReconciliationCapabilities } from "./ReconciliationCapabilities";
 import { LendingWhyEmbed, LendingDecisioningViz } from "./LendingSections";
 import { DeploymentSection, MigrationFlow } from "./LendingMotionSections";
 import { PageHero } from "./PageHero";
@@ -80,21 +82,21 @@ type Props = { doc: SanityProductPage };
 // so a broad industries rail isn't relevant (owner direction, Jun 2026).
 const NO_INDUSTRIES_GRID = new Set(["financial-crime", "settlement", "reconciliation"]);
 
-// The 11 real /industries/* pages. The Industries grid only renders tiles that
+// The 11 real /solutions/* pages. The Industries grid only renders tiles that
 // point at one of these, so an orphan segment tile (e.g. "NBFIs & PSPs" with no
 // page) is dropped rather than rendered as a 404.
 const REAL_INDUSTRY_HREFS = new Set([
-  "/industries/commercial-banking",
-  "/industries/retail-banking",
-  "/industries/neobanks",
-  "/industries/exchange-houses",
-  "/industries/fintechs",
-  "/industries/telecommunications",
-  "/industries/retail-marketplaces",
-  "/industries/travel",
-  "/industries/healthcare",
-  "/industries/government",
-  "/industries/mobility",
+  "/solutions/commercial-banking",
+  "/solutions/retail-banking",
+  "/solutions/neobanks",
+  "/solutions/exchange-houses",
+  "/solutions/fintechs",
+  "/solutions/telecommunications",
+  "/solutions/retail-marketplaces",
+  "/solutions/travel",
+  "/solutions/healthcare",
+  "/solutions/government",
+  "/solutions/mobility",
 ]);
 
 export function ProductPageRenderer({ doc: rawDoc }: Props) {
@@ -184,6 +186,26 @@ export function ProductPageRenderer({ doc: rawDoc }: Props) {
         // self-contained product-UI tiles (handoff v1.0), not the generic
         // capability card grid.
         <LendingCreditJourney
+          headline={doc.capabilities.headline}
+          body={doc.capabilities.body}
+        />
+      ) : doc.slug === "settlement" && doc.capabilities ? (
+        // §3 Settlement capabilities — six distinct CODED product surfaces on the
+        // canonical product-illustration kit (a bento of five 1/3 cells + one
+        // wide), replacing the generic CapabilityCards → NamedSurface path for
+        // settlement only (light handoff SVGs / faint placeholders that washed
+        // out in dark). Peer of CardProgramsBento / FinancialCrimeControls /
+        // LendingCreditJourney. Copy verbatim from doc.capabilities.
+        <SettlementCapabilities
+          headline={doc.capabilities.headline}
+          body={doc.capabilities.body}
+        />
+      ) : doc.slug === "reconciliation" && doc.capabilities ? (
+        // §3 Reconciliation capabilities — two coded surfaces (unified cross-
+        // product ledger + external two-column match), replacing the generic
+        // CapabilityCards → NamedSurface path whose handoff SVGs 404'd (empty
+        // "drop to fill" placeholders, found in the full-site QA). Copy verbatim.
+        <ReconciliationCapabilities
           headline={doc.capabilities.headline}
           body={doc.capabilities.body}
         />

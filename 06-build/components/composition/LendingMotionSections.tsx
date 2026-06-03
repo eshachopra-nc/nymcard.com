@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { SectionAtmosphere } from "@/components/visuals/SectionAtmosphere";
+import { UIPlaceholder } from "./UIPlaceholder";
 
 // ── Lending §7 + §8 (Lending.html handoff v1.0) ─────────────────────────────
 //
@@ -149,30 +152,92 @@ const STAGES = [
   },
 ];
 
+// A migration phase as rendered in the flow row. Callers may pass a custom set
+// (e.g. the Migration page's five copy-driven phases). When omitted the default
+// `STAGES` set is used, so the existing lending / nCore callsites render
+// unchanged. Each phase reuses the built-in geometric agent avatars by index;
+// `label` and `sub` carry the copy.
+export type MigrationPhase = { label: string; sub?: string };
+
 export function MigrationFlow({
   headline,
   body,
+  eyebrow,
+  cta,
+  atmosphere,
+  phases,
+  portfolioMeter = false,
+  portfolioMeterLabel = "Portfolio meter — share on nCore",
+  portfolioMeterVisual,
+  programLive = false,
+  programLiveLabel = "Program live",
 }: {
   headline: string;
   body?: string;
+  /** Optional eyebrow above the headline (homepage §7 uses "Migration"). */
+  eyebrow?: string;
+  /** Optional trailing CTA beneath the flow (tertiary text link + arrow). */
+  cta?: { label: string; href: string };
+  /**
+   * Opt-in cool atmosphere field behind the section (design-system.md §8.1 —
+   * the page is glassy/atmospheric, never flat). Off by default so the
+   * product-page callsites are unchanged; the homepage opts in.
+   */
+  atmosphere?: "top" | "bottom" | "split";
+  /**
+   * Optional custom phases. Backwards-compatible: when omitted, the built-in
+   * `STAGES` set renders exactly as before (lending / nCore unchanged). The
+   * geometric agent avatar for each phase is reused from `STAGES` by index.
+   */
+  phases?: MigrationPhase[];
+  /**
+   * Optional portfolio-meter strip beneath the flow — the share climbing onto
+   * nCore batch by batch. The meter VISUAL itself is a labelled UIPlaceholder
+   * for the ui-ux-designer; this flag only opts the strip in. Additive.
+   */
+  portfolioMeter?: boolean;
+  /** Mono label on the portfolio-meter placeholder (fallback only). */
+  portfolioMeterLabel?: string;
+  /**
+   * A custom portfolio-meter surface for the strip. When provided it replaces
+   * the labelled UIPlaceholder fallback. Additive / backwards-compatible.
+   */
+  portfolioMeterVisual?: ReactNode;
+  /**
+   * Optional persistent "Program live" indicator rendered with the meter strip.
+   * Additive — off by default so existing callsites are unchanged.
+   */
+  programLive?: boolean;
+  /** Copy for the program-live indicator. */
+  programLiveLabel?: string;
 }) {
   const reduced = useReducedMotion() ?? false;
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
-  const [done, setDone] = useState<number>(reduced ? STAGES.length : 0);
+  // Custom phases reuse the built-in agent avatars by index; never overflow the
+  // icon set.
+  const items = (phases ?? STAGES).slice(0, STAGES.length);
+  const [done, setDone] = useState<number>(reduced ? items.length : 0);
 
   useEffect(() => {
     if (!inView || reduced) return;
-    const timers = STAGES.map((_, i) =>
+    const timers = items.map((_, i) =>
       setTimeout(() => setDone((d) => Math.max(d, i + 1)), 350 + i * 480),
     );
     return () => timers.forEach(clearTimeout);
-  }, [inView, reduced]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView, reduced, items.length]);
 
   return (
     <section className="relative overflow-hidden bg-surface-soft py-20 sm:py-24 lg:py-28 dark:bg-surface-dark-base">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20">
+      {atmosphere && <SectionAtmosphere anchor={atmosphere} />}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20">
         <div className="mb-12 max-w-2xl sm:mb-14">
+          {eyebrow && (
+            <p className="mb-3 font-display text-sm font-semibold tracking-tight text-brand-primary dark:text-accent-cyan">
+              {eyebrow}
+            </p>
+          )}
           <h2 className="font-display text-3xl font-bold leading-[1.12] tracking-tight text-text-primary sm:text-4xl dark:text-text-on-brand">
             {headline}
           </h2>
@@ -212,8 +277,9 @@ export function MigrationFlow({
           </div>
 
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-4">
-            {STAGES.map((stage, i) => {
+            {items.map((stage, i) => {
               const isDone = i < done;
+              const icon = STAGES[i].icon;
               return (
                 <div key={stage.label} className="relative text-center">
                   <div
@@ -225,7 +291,7 @@ export function MigrationFlow({
                     )}
                   >
                     <svg viewBox="0 0 40 40" fill="none" className="size-10">
-                      {stage.icon}
+                      {icon}
                     </svg>
                     <span
                       className={cn(
@@ -241,12 +307,44 @@ export function MigrationFlow({
                   <h4 className="font-display text-[15px] font-semibold tracking-tight text-text-primary dark:text-text-on-brand">
                     {stage.label}
                   </h4>
-                  <p className="mt-1.5 font-mono text-[12px] text-text-muted dark:text-text-dark-muted">{stage.sub}</p>
+                  {stage.sub && (
+                    <p className="mt-1.5 font-mono text-[12px] text-text-muted dark:text-text-dark-muted">{stage.sub}</p>
+                  )}
                 </div>
               );
             })}
           </div>
         </div>
+
+        {/* Portfolio-meter strip — additive. The share on nCore climbing batch
+            by batch beneath the flow. The meter visual itself is a labelled
+            UIPlaceholder for the ui-ux-designer; the "Program live" indicator
+            sits alongside as a persistent state, copy-driven. */}
+        {portfolioMeter && (
+          <div className="mt-12 sm:mt-14">
+            <div className="grid items-stretch gap-4 sm:grid-cols-[1fr_auto]">
+              {portfolioMeterVisual ?? (
+                <UIPlaceholder label={portfolioMeterLabel} scale="wide" className="min-h-[8rem]" />
+              )}
+              {programLive && (
+                <div className="flex items-center justify-center rounded-lg border border-surface-border-subtle bg-surface-white px-6 py-4 dark:border-surface-dark-border dark:bg-surface-dark-elevated sm:flex-col sm:items-start sm:justify-center sm:gap-1.5">
+                  <span className="flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-text-primary dark:text-text-on-brand">
+                    <span aria-hidden="true" className="size-2 rounded-full bg-success" />
+                    {programLiveLabel}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {cta && (
+          <div className="mt-10 sm:mt-12">
+            <Button href={cta.href} variant="tertiary">
+              {cta.label}
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );

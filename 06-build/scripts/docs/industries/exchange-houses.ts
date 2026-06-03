@@ -86,7 +86,7 @@ export const exchangeHousesDoc = {
       "Real-time and stablecoin settlement on the same platform",
       "Principal member of Visa",
       "Principal member of Mastercard",
-      "PCI DSS Level 1 certified · ISO 27001 certified",
+      "PCI DSS compliant · ISO 27001 certified",
     ],
   },
 
@@ -123,7 +123,7 @@ export const exchangeHousesDoc = {
         { question: "Can we offer stablecoin settlement without becoming a crypto exchange?", answer: "Yes. Stablecoin settlement on NymCard is a settlement capability, not trading. You settle corridor flows in USDC or USDT without operating an exchange." },
         { question: "Which corridors and networks are pre-integrated?", answer: "Visa Direct, Mastercard Cross-Border, Western Union, and MoneyGram are built in. Local and regional scheme connectivity is added by deployment." },
         { question: "Can we run remittance and SME business payments on the same platform?", answer: "Yes. Cards, wallets, cross-border payments, and settlement run on one platform, one customer record across consumer remittance and SME flows." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
       ],
       "faq",
     ),

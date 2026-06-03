@@ -5,7 +5,7 @@ import { motion, useInView, useReducedMotion, type Variants } from "framer-motio
 import { Sparkles } from "lucide-react";
 import { visual, withAlpha } from "@/components/visuals";
 import { dur, ease } from "@/components/visuals/motion";
-import { GlassBed, GlassSurface } from "./glass";
+import { IllustrationField, IllustrationCard } from "@/components/visuals/product-illustration";
 
 // ── AIDecisioningUI (nCore Capabilities — AI vertical) ──────────────────────
 //
@@ -20,15 +20,13 @@ import { GlassBed, GlassSurface } from "./glass";
 // Maps to copy: "Agentic, domain-trained models woven into decisioning,
 // routing, underwriting, and monitoring across every layer."
 //
-// Composed on the canonical glass kit (§8.1): GlassSurface on a rich indigo
-// GlassBed field — distinct from the six per-layer tones (mist/slate/cyan/etc.)
-// and from the Insights teal field beside it.
+// Composed on the canonical product-illustration kit (§8.1 v-illus):
+// IllustrationCard floating in the lit IllustrationField — the same treatment as
+// the six homepage surfaces and the Insights surface beside it.
 //
 // Motion (static at rest): on scroll-in the spine draws top→bottom and the
 // agent node travels it, lighting each step in sequence; the verdict commits
-// last. On hover the whole path lifts and the verdict ring brightens. The band
-// columns are NOT group-classed, so hover is handled locally via whileHover.
-// Reduced-motion safe.
+// last. The cell carries the hover lift. Reduced-motion safe.
 
 const STEPS = [
   { fn: "Decisioning", layer: "Cards", detail: "Authorize · score in-path" },
@@ -56,17 +54,12 @@ export function AIDecisioningUI() {
   };
 
   return (
-    <GlassBed tone="indigo">
-      <div ref={ref} className="relative flex h-full w-full items-center justify-center p-3.5 sm:p-4">
-        <motion.div
-          className="w-full"
-          whileHover={reduced ? undefined : { y: -3 }}
-          transition={reduced ? undefined : { duration: dur.base, ease: ease.out }}
-        >
-          <GlassSurface className="w-full">
-            <div className="flex flex-col gap-3 p-4 sm:p-5">
+    <>
+      <IllustrationField />
+      <IllustrationCard pad={false}>
+        <div ref={ref} className="flex h-full flex-col justify-center gap-2.5 p-4 sm:p-5">
               {/* Agent header — a domain-trained model, the inbound signal. */}
-              <div className="flex items-center justify-between gap-3 border-b border-surface-border-subtle pb-2.5 dark:border-white/10">
+              <div className="flex items-center justify-between gap-3 border-b border-surface-border-subtle pb-2 dark:border-white/10">
                 <div className="flex min-w-0 items-center gap-2.5">
                   <span className="grid size-7 shrink-0 place-items-center rounded-md bg-gradient-to-br from-accent-indigo to-brand-purple text-white shadow-[0_4px_12px_-4px_rgba(91,79,217,0.6)]">
                     <Sparkles aria-hidden className="size-3.5" strokeWidth={2.5} />
@@ -75,7 +68,7 @@ export function AIDecisioningUI() {
                     <div className="truncate font-body text-[13px] font-medium text-text-primary dark:text-text-on-brand">
                       nCore agent
                     </div>
-                    <div className="font-mono text-[9px] uppercase tracking-[0.12em] text-text-muted dark:text-text-dark-muted">
+                    <div className="font-mono text-[9px] uppercase tracking-[0.12em] text-text-secondary dark:text-text-dark-secondary">
                       Domain-trained · in the flow
                     </div>
                   </div>
@@ -111,7 +104,7 @@ export function AIDecisioningUI() {
                 </svg>
 
                 <motion.ul
-                  className="flex flex-col gap-2.5"
+                  className="flex flex-col gap-2"
                   variants={reduced ? undefined : list}
                   initial={reduced ? false : "hidden"}
                   animate={inView ? (reduced ? undefined : "show") : undefined}
@@ -134,7 +127,7 @@ export function AIDecisioningUI() {
                           <div className="font-body text-[12.5px] font-medium leading-tight text-text-primary dark:text-text-on-brand">
                             {s.fn}
                           </div>
-                          <div className="truncate font-mono text-[9.5px] text-text-muted dark:text-text-dark-muted">
+                          <div className="truncate font-mono text-[9.5px] text-text-secondary dark:text-text-dark-secondary">
                             {s.detail}
                           </div>
                         </div>
@@ -162,14 +155,12 @@ export function AIDecisioningUI() {
                     Action taken
                   </span>
                 </span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
+                <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-text-secondary dark:text-text-dark-secondary">
                   Confidence 0.97 · 60 ms
                 </span>
               </motion.div>
-            </div>
-          </GlassSurface>
-        </motion.div>
-      </div>
-    </GlassBed>
+        </div>
+      </IllustrationCard>
+    </>
   );
 }

@@ -6,7 +6,7 @@ import { CreditCard, Landmark, ArrowLeftRight, Wallet, ShieldAlert, Scale } from
 import type { LucideIcon } from "lucide-react";
 import { visual, withAlpha } from "@/components/visuals";
 import { dur, ease } from "@/components/visuals/motion";
-import { GlassBed, GlassSurface } from "./glass";
+import { IllustrationField, IllustrationCard } from "@/components/visuals/product-illustration";
 
 // ── InsightsUI (nCore Capabilities — Insights vertical) ─────────────────────
 //
@@ -30,16 +30,16 @@ import { GlassBed, GlassSurface } from "./glass";
 //     lists PRODUCTS, the chrome is glass (not navy), and the body is analytics
 //     (a trend + KPIs), not card-control panes.
 //
-// Composed on the canonical glass kit (§8.1): GlassSurface on a rich azure
-// GlassBed field — distinct from the AI indigo field beside it.
+// Composed on the canonical product-illustration kit (§8.1 v-illus):
+// IllustrationCard floating in the lit IllustrationField — the same treatment as
+// the AI surface beside it and the six homepage surfaces.
 //
 // Neutral on-system program values only — no fabricated third-party brands or
 // merchant data. Cool palette only.
 //
 // Motion (static at rest): on scroll-in the sidebar rows stagger in, the
 // headline figure counts up, the trend line draws, the supporting tiles fade up.
-// On hover the panel lifts (local whileHover — band columns aren't grouped).
-// Reduced-motion → full end-state, no animation.
+// The cell carries the hover lift. Reduced-motion → full end-state, no animation.
 
 type ProductNav = { key: string; label: string; icon: LucideIcon };
 
@@ -130,15 +130,10 @@ export function InsightsUI() {
   };
 
   return (
-    <GlassBed tone="porcelain">
-      <div ref={ref} className="relative flex h-full w-full items-center justify-center p-3.5 sm:p-4">
-        <motion.div
-          className="w-full"
-          whileHover={reduced ? undefined : { y: -3 }}
-          transition={reduced ? undefined : { duration: dur.base, ease: ease.out }}
-        >
-          <GlassSurface className="w-full">
-            <div className="grid grid-cols-[96px_1fr] sm:grid-cols-[112px_1fr]">
+    <>
+      <IllustrationField />
+      <IllustrationCard pad={false}>
+        <div ref={ref} className="grid h-full grid-cols-[96px_1fr] items-center sm:grid-cols-[112px_1fr]">
               {/* ── Product nav sidebar — every product; Cards active. ────── */}
               <motion.nav
                 aria-label="Insights — product"
@@ -147,7 +142,7 @@ export function InsightsUI() {
                 initial={reduced ? false : "hidden"}
                 animate={inView ? (reduced ? undefined : "show") : undefined}
               >
-                <span className="mb-1.5 px-1.5 font-mono text-[8.5px] uppercase tracking-[0.14em] text-text-muted dark:text-text-dark-muted">
+                <span className="mb-1.5 px-1.5 font-mono text-[8.5px] uppercase tracking-[0.14em] text-text-secondary dark:text-text-dark-secondary">
                   Products
                 </span>
                 {PRODUCTS.map((p) => {
@@ -172,7 +167,7 @@ export function InsightsUI() {
                             "size-3.5 shrink-0 " +
                             (on
                               ? "text-accent-cyan"
-                              : "text-text-muted dark:text-text-dark-muted")
+                              : "text-text-secondary dark:text-text-dark-secondary")
                           }
                         />
                         <span
@@ -286,7 +281,7 @@ export function InsightsUI() {
                         reduced ? undefined : { duration: dur.base, ease: ease.out, delay: 0.8 + i * 0.1 }
                       }
                     >
-                      <div className="font-mono text-[8.5px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
+                      <div className="font-mono text-[8.5px] uppercase tracking-[0.1em] text-text-secondary dark:text-text-dark-secondary">
                         {t.label}
                       </div>
                       <div className="mt-1 font-display text-[16px] font-semibold tabular-nums tracking-tight text-text-primary dark:text-text-on-brand">
@@ -296,10 +291,8 @@ export function InsightsUI() {
                   ))}
                 </div>
               </div>
-            </div>
-          </GlassSurface>
-        </motion.div>
-      </div>
-    </GlassBed>
+        </div>
+      </IllustrationCard>
+    </>
   );
 }

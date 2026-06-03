@@ -4,6 +4,7 @@ import { useRef, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SectionAtmosphere } from "@/components/visuals/SectionAtmosphere";
 import { Eyebrow } from "./atoms";
 import { UIPlaceholder } from "./UIPlaceholder";
 
@@ -112,6 +113,8 @@ export type RailCarouselProps =
       eyebrow?: string;
       headline: string;
       background?: "light" | "dark";
+      /** Opt-in cool atmosphere field behind the section (design-system.md §8.1). */
+      atmosphere?: "top" | "bottom" | "split";
       /** Accessible label for the rail (e.g. "Use cases", "Industries"). */
       ariaLabel?: string;
       className?: string;
@@ -142,6 +145,7 @@ export function RailCarousel(props: RailCarouselProps) {
   const reduced = useReducedMotion();
   const railRef = useRef<HTMLDivElement | null>(null);
   const dark = background === "dark";
+  const atmosphere = "atmosphere" in props ? props.atmosphere : undefined;
 
   const scrollBy = (dir: 1 | -1) => {
     const rail = railRef.current;
@@ -168,9 +172,11 @@ export function RailCarousel(props: RailCarouselProps) {
         className,
       )}
     >
+      {atmosphere && <SectionAtmosphere anchor={atmosphere} />}
+
       {/* Section header — eyebrow + headline + arrows — lives inside the
           constrained content rail. The carousel rail beneath bleeds full-width. */}
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20">
         <div className="flex items-end justify-between gap-6">
           <div className="max-w-[720px]">
             {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
@@ -221,7 +227,7 @@ export function RailCarousel(props: RailCarouselProps) {
       <div
         ref={railRef}
         className={cn(
-          "mt-10 sm:mt-12 lg:mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4",
+          "relative z-10 mt-10 sm:mt-12 lg:mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4",
           "pl-4 sm:pl-6 lg:pl-[max(80px,calc((100vw-1280px)/2+80px))] pr-4",
           "scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-[max(80px,calc((100vw-1280px)/2+80px))]",
           "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
@@ -287,7 +293,9 @@ function RichCard({
         // Industries mode — a small icon + an industry-name chip, then the
         // headline + description. No oversized container for a small icon.
         <div className="flex items-center gap-3">
-          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.08] text-brand-primary ring-1 ring-brand-primary/10 transition-transform duration-300 group-hover:-translate-y-0.5 dark:bg-accent-cyan/[0.12] dark:text-accent-cyan dark:ring-white/10">
+          {/* Vibrant brand-gradient icon box (white glyph), square-rounded —
+              matches the Why NymCard advantage icons (design-system.md §3). */}
+          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-primary to-brand-purple text-white shadow-[0_6px_16px_-6px_rgba(48,77,187,0.5)] transition-transform duration-300 group-hover:-translate-y-0.5">
             {item.icon}
           </span>
           {item.tag && (

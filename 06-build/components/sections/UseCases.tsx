@@ -18,7 +18,8 @@ export function UseCases() {
     <RailCarousel
       variant="rich"
       background="light"
-      headline="Built for the scale of modern finance"
+      atmosphere="split"
+      headline="Built for every institution that moves money."
       items={HOMEPAGE_USE_CASES}
       ariaLabel="Industries"
     />

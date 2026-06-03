@@ -1,6 +1,14 @@
+import { TrustBar } from "@/components/composition/TrustBar";
 import { HeroIntro } from "./HeroIntro";
 import { ProductCarousel } from "./ProductCarousel";
 import { RibbonKinetic } from "./RibbonKinetic";
+
+// The client-logo marquee scrolls continuously across the full width and only
+// feathers at the two far edges, so logos flow smoothly rather than vanishing
+// mid-row. NOTE: must be a literal string — Tailwind only generates arbitrary
+// classes it sees verbatim in source, so don't build this via interpolation.
+const MARQUEE_EDGE_FADE =
+  "[mask-image:linear-gradient(to_right,transparent_0%,black_5%,black_95%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_5%,black_95%,transparent_100%)]";
 
 export function Hero() {
   return (
@@ -19,7 +27,7 @@ export function Hero() {
           relative z-10 flex-1
           mx-auto w-full max-w-7xl
           px-4 sm:px-6 lg:px-16
-          pt-24 pb-24 sm:pt-28 sm:pb-28 lg:pt-32 lg:pb-10
+          pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-4
           lg:flex lg:items-center
         "
       >
@@ -38,6 +46,12 @@ export function Hero() {
             <ProductCarousel />
           </div>
         </div>
+      </div>
+
+      {/* Trust bar — folded into the hero so it floats on the same kinetic-ribbon
+          background. Continuous marquee; sits low in the hero, near the base. */}
+      <div id="trust" className="relative z-10 w-full scroll-mt-24 pb-3 sm:pb-4">
+        <TrustBar background="transparent" marqueeMask={MARQUEE_EDGE_FADE} />
       </div>
     </section>
   );

@@ -33,11 +33,21 @@ const nextConfig: NextConfig = {
   },
 
   async redirects() {
-    return legacyRedirects.map((r) => ({
-      source: r.source,
-      destination: r.destination,
-      permanent: true,
-    }));
+    return [
+      // The 11 industry pages moved from /industries/* to /solutions/* (the nav
+      // top-level is "Solutions"). Permanent-redirect the old slugs so inbound
+      // links, bookmarks, and indexed search results don't 404.
+      {
+        source: "/industries/:slug",
+        destination: "/solutions/:slug",
+        permanent: true,
+      },
+      ...legacyRedirects.map((r) => ({
+        source: r.source,
+        destination: r.destination,
+        permanent: true,
+      })),
+    ];
   },
 };
 

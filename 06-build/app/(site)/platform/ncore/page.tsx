@@ -1,32 +1,47 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/composition/PageHero";
 import { FAQ, type FAQItem } from "@/components/composition/FAQ";
 import { CTASection } from "@/components/composition/CTASection";
 import { TopologyTraces } from "@/components/visuals";
 import { Footer } from "@/components/sections/Footer";
-import { NCoreHeroVisual } from "@/components/sections/ncore/NCoreHeroVisual";
-import { NCoreCapabilities } from "@/components/sections/ncore/NCoreCapabilities";
+import { NCoreHero } from "@/components/sections/ncore/NCoreHero";
 import { NCoreStats } from "@/components/sections/ncore/NCoreStats";
-import { NCoreConnectivity } from "@/components/sections/ncore/NCoreConnectivity";
+import { NCoreWhy } from "@/components/sections/ncore/NCoreWhy";
+import {
+  NCoreOneCustomer,
+  NCoreDataLayer,
+  NCoreIntelligenceLayer,
+} from "@/components/sections/ncore/NCoreLayers";
+import { NCoreStack } from "@/components/sections/ncore/NCoreStack";
+import { NCoreModernisation } from "@/components/sections/ncore/NCoreModernisation";
 import { NCoreDeployment } from "@/components/sections/ncore/NCoreDeployment";
-import { NCoreMigration } from "@/components/sections/ncore/NCoreMigration";
-import { NCoreComparison } from "@/components/sections/ncore/NCoreComparison";
 import { NCoreDeveloper } from "@/components/sections/ncore/NCoreDeveloper";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo";
 
 // ── /platform/ncore — the flagship nCore platform page ──────────────────────
 //
-// Coded composition (NOT Sanity). Copy is mirrored verbatim from
-// 02-copy/nCore-copy.revised.md — each section component carries its own typed
-// COPY const; the strings inline here (Hero / Developer / FAQ / Final CTA)
-// mirror the same source.
+// Coded composition (NOT Sanity). Copy is mirrored VERBATIM from
+// 02-copy/nCore-copy.md — each section component carries its own typed COPY
+// const; the strings inline here (FAQ / Final CTA) mirror the same source.
 //
-// Section order: Hero → Stats → Capabilities (ProductsBento + AI/Insights) →
-// Connectivity → Deployment → Migration → Comparison → Developer → FAQ →
-// Final CTA.
+// Section order (copy-file order, 12 sections):
+//   1  Hero               → NCoreHero (copy-left + nCore architecture diagram)
+//   2  Platform Proof      → NCoreStats (stats + principal-member line)
+//   3  Why We Built nCore  → NCoreWhy (FragmentedCanvas + 5-pain list, no CTA)
+//   4  One Customer        → NCoreOneCustomer (UIPlaceholder)
+//   5  The Data Layer      → NCoreDataLayer (UIPlaceholder)
+//   6  Intelligence Layer  → NCoreIntelligenceLayer (UIPlaceholder + chips)
+//   7  Six Capabilities    → NCoreStack (ProductsBento, §7 copy verbatim)
+//   8  Migration & Modern. → NCoreModernisation (MigrationFlow → /platform/migration)
+//   9  Deployment          → NCoreDeployment (Cloud/On-soil/On-premise + line)
+//   10 Developers          → NCoreDeveloper (CodeArtifact)
+//   11 FAQ                 → FAQ (carried over verbatim)
+//   12 Final CTA           → CTASection
 //
 // Inherits the (site) layout chrome (Navbar, page rails, alert banner).
+//
+// Retired from this page (files kept in repo): NCoreConnectivity,
+// NCoreComparison, NCoreMigration.
 
 // CTA hrefs — site convention.
 const CTA = {
@@ -34,14 +49,9 @@ const CTA = {
   readTheDocs: { label: "Read the docs", href: "https://docs.nymcard.com/" },
 } as const;
 
-// Copy mirrored verbatim — HERO, FAQ, FINAL CTA. (The DEVELOPER copy now lives
-// in the NCoreDeveloper section component, mirroring the same source.)
+// FAQ + Final CTA — FAQ carried over verbatim from the prior page.tsx; Final
+// CTA mirrored verbatim from 02-copy/nCore-copy.md §12.
 const COPY = {
-  hero: {
-    headline: "Build every payment product on nCore.",
-    description:
-      "One customer record, one ledger, one audit trail — on a platform NymCard owns.",
-  },
   faq: {
     heading: "Common questions",
     items: [
@@ -68,20 +78,20 @@ const COPY = {
       {
         question: "Is nCore regulated and certified?",
         answer:
-          "nCore is PCI DSS Level 1 certified and ISO 27001 certified. NymCard is a licensed and regulated payments provider and a principal member of Visa and Mastercard.",
+          "nCore is PCI DSS compliant and ISO 27001 certified. NymCard is a licensed and regulated payments provider and a principal member of Visa and Mastercard.",
       },
     ] satisfies FAQItem[],
   },
   finalCta: {
-    headline: "Talk to our team.",
+    headline: "See what your stack looks like on nCore.",
     description:
-      "See how banks, fintechs, and digital businesses build their payment programs on nCore.",
+      "Talk to the team about modernizing your infrastructure and building on a platform designed for modern payments.",
   },
 } as const;
 
 export const metadata: Metadata = {
-  // META block, 02-copy/nCore-copy.revised.md.
-  // Already carries the brand — absolute opts out of the root title template.
+  // META block, carried over verbatim. Already carries the brand — absolute
+  // opts out of the root title template.
   title: { absolute: "nCore — Payments and Banking Platform | NymCard" },
   description:
     "nCore is NymCard's payments and banking platform — card issuing, embedded lending, cross-border payments, and stablecoin settlement on a single architecture.",
@@ -101,38 +111,39 @@ export default function NCorePage() {
         ])}
       />
 
-      {/* Hero — shared product-page hero (two-column), with the NCoreHeroVisual
-          in the visual slot: the abstract "luminous core" render, the page's
-          thesis stated visually (build every payment product on nCore). */}
-      <PageHero
-        headline={COPY.hero.headline}
-        body={COPY.hero.description}
-        primaryCta={CTA.talkToUs}
-        secondaryCta={CTA.readTheDocs}
-        visual={<NCoreHeroVisual />}
-      />
+      {/* 1 — Hero: copy-left + nCore architecture diagram, the restrained
+          shared product-page hero. */}
+      <NCoreHero />
 
-      {/* Stats — moved directly below the hero (owner direction, 2026-06-01). */}
+      {/* 2 — Platform Proof: stats + principal-member line. */}
       <NCoreStats />
 
-      {/* Capabilities — section heading/intro → products (ProductsBento) →
-          AI/Insights cross-cutting band. */}
-      <NCoreCapabilities />
+      {/* 3 — Why We Built nCore: FragmentedCanvas + the five-pain list. */}
+      <NCoreWhy />
 
-      <NCoreConnectivity />
+      {/* 4 / 5 / 6 — the foundation story: One Customer · Data Layer ·
+          Intelligence Layer (each carries a labelled UIPlaceholder). */}
+      <NCoreOneCustomer />
+      <NCoreDataLayer />
+      <NCoreIntelligenceLayer />
+
+      {/* 7 — Six Capabilities. One Platform.: the ProductsBento with the §7
+          product set. */}
+      <NCoreStack />
+
+      {/* 8 — Migration & Modernisation. */}
+      <NCoreModernisation />
+
+      {/* 9 — Deployment (Cloud / On-soil / On-premise + supporting line). */}
       <NCoreDeployment />
-      <NCoreMigration />
-      <NCoreComparison />
 
-      {/* Developer — the product-page §5 Configuration pattern: dark section,
-          left headline + body + docs link, right CodeArtifact with tabbed
-          (illustrative) API samples. ABOVE the FAQ. */}
+      {/* 10 — Developers: dark Configuration pattern with the CodeArtifact. */}
       <NCoreDeveloper />
 
+      {/* 11 — FAQ. */}
       <FAQ headline={COPY.faq.heading} items={[...COPY.faq.items]} mode="single" />
 
-      {/* Final CTA — matches the product-page final CTA: CTASection with the
-          cyan TopologyTraces backdrop (the reusable pattern used site-wide). */}
+      {/* 12 — Final CTA: CTASection with the cyan TopologyTraces backdrop. */}
       <CTASection
         headline={COPY.finalCta.headline}
         body={COPY.finalCta.description}

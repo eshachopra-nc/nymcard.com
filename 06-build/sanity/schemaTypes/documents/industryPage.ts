@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 // ── industryPage ───────────────────────────────────────────────────────────
 //
-// One document per /industries/[slug] route. Composes the industry-page arc:
+// One document per /solutions/[slug] route. Composes the industry-page arc:
 // hero · trust line · outcome chips · challenge/solution · build rows ·
 // (optional) PayKit callout · platform · developer · cross-sell · FAQ · CTA.
 
@@ -138,7 +138,7 @@ export const industryPage = defineType({
   preview: {
     select: { title: "title", subtitle: "slug.current" },
     prepare({ title, subtitle }) {
-      return { title, subtitle: subtitle ? `/industries/${subtitle}` : "" };
+      return { title, subtitle: subtitle ? `/solutions/${subtitle}` : "" };
     },
   },
 });

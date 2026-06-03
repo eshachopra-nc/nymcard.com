@@ -44,7 +44,7 @@ const section = (title) => lines.push("", `  /* ${title} */`);
 // text-*, text-dark-*, semantic-*. Generates utilities like bg-brand-primary,
 // text-text-secondary, border-surface-border-subtle.
 section("Colors");
-const colorGroups = ["brand", "accent", "surface", "surface-dark", "text", "text-dark", "semantic"];
+const colorGroups = ["brand", "accent", "surface", "surface-dark", "text", "text-dark", "semantic", "illustration"];
 for (const group of colorGroups) {
   const node = tokens.color[group];
   if (!node) continue;

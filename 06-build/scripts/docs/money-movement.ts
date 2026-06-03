@@ -10,7 +10,7 @@ export const moneyMovementDoc = {
   metaDescription:
     "Orchestrate cross-border payments, route corridors, and manage FX on nCore, NymCard's full-stack payments platform. Connected to Visa Direct, Mastercard Cross-Border, Western Union, and MoneyGram. Cloud, on-soil, or on-premise.",
   trustLine:
-    "Principal member of Visa and Mastercard · Connected to Visa Direct, Mastercard Cross-Border, Western Union, and MoneyGram · PCI DSS Level 1 · ISO 27001.",
+    "Principal member of Visa and Mastercard · Connected to Visa Direct, Mastercard Cross-Border, Western Union, and MoneyGram · PCI DSS compliant · ISO 27001.",
   hero: {
     headline: "Move money where your customers need it.",
     body: "Orchestrate cross-border payments, route corridors, and manage FX on infrastructure you control and monetize.",
@@ -66,12 +66,12 @@ export const moneyMovementDoc = {
     headline: "Money movement for every industry.",
     items: withKeys(
       [
-        { eyebrow: "Banks", copy: "International payments and treasury flows on one platform.", link: { label: "See banks", href: "/industries/retail-banking" } },
-        { eyebrow: "Exchange houses", copy: "Corridor routing and FX with revenue on your side.", link: { label: "See exchange houses", href: "/industries/exchange-houses" } },
-        { eyebrow: "Fintechs", copy: "Cross-border payouts, FX, and settlement through one API.", link: { label: "See fintechs", href: "/industries/fintechs" } },
-        { eyebrow: "Marketplaces", copy: "Pay sellers across currencies and countries.", link: { label: "See marketplaces", href: "/industries/retail-marketplaces" } },
-        { eyebrow: "Telecoms", copy: "Remittance corridors connected to wallets and accounts.", link: { label: "See telecoms", href: "/industries/telecommunications" } },
-        { eyebrow: "Government", copy: "Disbursement and cross-border programs with auditable flows.", link: { label: "See government", href: "/industries/government" } },
+        { eyebrow: "Banks", copy: "International payments and treasury flows on one platform.", link: { label: "See banks", href: "/solutions/retail-banking" } },
+        { eyebrow: "Exchange houses", copy: "Corridor routing and FX with revenue on your side.", link: { label: "See exchange houses", href: "/solutions/exchange-houses" } },
+        { eyebrow: "Fintechs", copy: "Cross-border payouts, FX, and settlement through one API.", link: { label: "See fintechs", href: "/solutions/fintechs" } },
+        { eyebrow: "Marketplaces", copy: "Pay sellers across currencies and countries.", link: { label: "See marketplaces", href: "/solutions/retail-marketplaces" } },
+        { eyebrow: "Telecoms", copy: "Remittance corridors connected to wallets and accounts.", link: { label: "See telecoms", href: "/solutions/telecommunications" } },
+        { eyebrow: "Government", copy: "Disbursement and cross-border programs with auditable flows.", link: { label: "See government", href: "/solutions/government" } },
       ],
       "ind",
     ),
@@ -100,7 +100,7 @@ export const moneyMovementDoc = {
         { question: "Can I activate new corridors without disrupting my existing ones?", answer: "Yes. Corridors can be activated in parallel with existing routes, traffic can shift gradually, and consolidation happens on your timing. Existing revenue is not interrupted during the migration." },
         { question: "How does compliance fit into routing?", answer: "AML, sanctions, and transaction monitoring run inside the routing decision. Compliance-aware routing can re-route a payment around a flagged corridor and resolve through an alternate path." },
         { question: "Can I deploy Money Movement on-premise?", answer: "Yes. NymCard supports cloud, on-soil, and on-premise deployment. Cloud is multi-region NymCard-hosted; on-soil is NymCard-hosted inside your country; on-premise runs inside your own data center." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified." },
         { question: "Does Money Movement connect to Cards and Settlement on NymCard?", answer: "Yes. Money Movement runs on nCore alongside Cards, Lending, Settlement, Financial Crime, and Reconciliation, one platform, one customer record, one ledger across products." },
       ],
       "faq",

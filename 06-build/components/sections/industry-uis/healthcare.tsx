@@ -1,369 +1,265 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { visual, withAlpha } from "@/components/visuals";
 import {
-  Check,
-  ArrowRight,
-  CalendarClock,
-  ShieldCheck,
-  Landmark,
-  FileCheck,
-} from "lucide-react";
-import { ProductUIFrame } from "@/components/sections/product-uis/ProductUIFrame";
-import { GlassBed, GlassSurface } from "@/components/sections/product-uis/glass";
-import { dur, ease } from "@/components/visuals/motion";
-import { Reveal, RevealList, useReveal } from "./_shell";
+  IllustrationField,
+  IllustrationCard,
+  Eyebrow,
+  SubLabel,
+  Stat,
+  LiveTag,
+  GlowCheck,
+  Slab,
+  ControlChip,
+} from "@/components/visuals/product-illustration";
+import { useSequentialReveal } from "@/components/visuals/product-illustration/useSequentialReveal";
+
+// A GlowCheck that pops in (scale + fade) when `revealed`, mirroring the kit's
+// ControlChip gesture: the row stays present at rest, only the check animates
+// in one-by-one. CSS-only, so reduced-motion safe.
+function PopCheck({ revealed, size = 18 }: { revealed: boolean; size?: number }) {
+  return (
+    <span
+      className={cn(
+        "inline-flex transition-[transform,opacity] duration-300 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]",
+        revealed ? "scale-100 opacity-100" : "scale-50 opacity-0",
+      )}
+    >
+      <GlowCheck size={size} />
+    </span>
+  );
+}
 
 // ── Healthcare — "What you can build" surfaces ──────────────────────────────
 //
 // Four distinct bespoke product surfaces for /industries/healthcare §4, one per
 // build row, each mapping tightly to its copy and sharing nothing with the
-// fintechs surfaces or the product-page UIs. Four different archetypes, two
-// families (glass + console), tones rotated:
+// other verticals. All four are composed on the canonical product-illustration
+// kit (design-system.md §8.1) — IllustrationField + IllustrationCard + atoms —
+// so the literal surfaces share the hero's lit, dimensional world. Each keeps
+// its distinct story; only the frame + atom vocabulary changed in the migration.
 //
-//   0. Patient financing      — glass (cyan): a care-journey installment plan
-//                               configurator with a configurable deferred plan.
-//   1. Staff payroll          — console (slate): a real-time disbursement run
-//                               firing payout cards to staff / contractors.
-//   2. Procurement            — console (indigo): a vendor payment passing a
-//                               policy gate + approval before it clears.
-//   3. Insurance / government — glass (porcelain): a structured claim payout
-//                               with a stamped audit trail.
+//   0. Patient financing      — a care-journey installment plan: a glowing
+//                               Deferred chip + dated schedule that builds in.
+//   1. Staff payroll          — a real-time disbursement run firing payout
+//                               cards to staff cohorts; focal = run total.
+//   2. Procurement            — a vendor payment passing a policy gate, then a
+//                               glowing Approved verdict.
+//   3. Insurance / government — a structured claim payout with a sealing audit
+//                               trail; focal = the payout Stat.
 //
-// Tokens only; THEME-AWARE; static at rest → reveal once on scroll-in; reduced-
-// motion safe. Neutral data — no real third-party brands.
+// Tokens only; THEME-AWARE via the kit; ONE focal element per surface; mono
+// labels use the secondary tokens. Neutral data — no real third-party brands.
 
 // ── Row 1 · Patient financing — installment plan configurator ───────────────
+//
+// Focal: the glowing "Deferred $0" chip (the 30-day defer is the story). The
+// three monthly installments build in one by one on scroll-in / hover.
 
-const PLAN = [
-  { label: "Deferred", sub: "starts day 30", amt: "$0" },
-  { label: "Month 1", sub: "due day 60", amt: "$320" },
-  { label: "Month 2", sub: "due day 90", amt: "$320" },
-  { label: "Month 3", sub: "due day 120", amt: "$320" },
-] as const;
+const PLAN: [string, string][] = [
+  ["$320", "DAY 60"],
+  ["$320", "DAY 90"],
+  ["$320", "DAY 120"],
+];
+
+const DEFER_CHIP =
+  `linear-gradient(150deg, ${withAlpha(visual.cyan, 0.95)}, ${withAlpha(visual.primary, 0.92)})`;
 
 export function Row1() {
-  const reduced = useReveal();
+  const { ref, n, bind } = useSequentialReveal(PLAN.length, { amount: 0.2 });
+
   return (
-    <GlassBed tone="cyan">
-      <div className="flex h-full w-full items-center justify-center p-4">
-        <GlassSurface className="w-full max-w-[20rem]">
-          <div className="flex flex-col gap-3 p-4 sm:p-5">
-            {/* Care-journey header — procedure + total, neutral provider. */}
-            <div className="flex items-center justify-between gap-3 border-b border-surface-border-subtle pb-2.5 dark:border-white/10">
-              <div className="min-w-0">
-                <div className="truncate font-body text-[13px] font-medium text-text-primary dark:text-text-on-brand">
-                  Treatment plan
-                </div>
-                <div className="font-mono text-[9px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
-                  Acme Clinic · at point of care
-                </div>
-              </div>
-              <div className="shrink-0 text-right">
-                <div className="font-mono text-[14px] font-semibold tabular-nums text-text-primary dark:text-text-on-brand">
-                  $1,280
-                </div>
-                <div className="font-mono text-[9px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
-                  total · AED 4,701
-                </div>
-              </div>
-            </div>
+    <>
+      <IllustrationField />
+      <IllustrationCard>
+        <div className="flex items-center justify-between">
+          <Eyebrow>Treatment plan · point of care</Eyebrow>
+          <LiveTag>Embedded</LiveTag>
+        </div>
 
-            {/* Plan term selector — configurable repayment. */}
-            <div className="flex items-center gap-1.5">
-              <span className="rounded-md bg-accent-cyan px-2 py-0.5 font-mono text-[8.5px] uppercase tracking-[0.12em] text-white">
-                4 × monthly
-              </span>
-              <span className="rounded-md px-2 py-0.5 font-mono text-[8.5px] uppercase tracking-[0.12em] text-text-muted ring-1 ring-inset ring-surface-border-subtle dark:text-text-dark-muted dark:ring-white/10">
-                6 × monthly
-              </span>
-              <span className="ml-auto inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-[0.1em] text-semantic-success">
-                <CalendarClock aria-hidden className="size-3" strokeWidth={2.5} />
-                30-day defer
-              </span>
-            </div>
-
-            {/* Repayment schedule — staggered in on view. */}
-            <div className="grid grid-cols-4 gap-1.5">
-              {PLAN.map((p, i) => (
-                <motion.div
-                  key={p.label}
-                  className={
-                    i === 0
-                      ? "rounded-md bg-accent-cyan/[0.1] px-1 py-1.5 text-center ring-1 ring-inset ring-accent-cyan/30 dark:bg-accent-cyan/[0.12]"
-                      : "rounded-md bg-white/60 px-1 py-1.5 text-center ring-1 ring-inset ring-surface-border-subtle dark:bg-white/5 dark:ring-white/10"
-                  }
-                  initial={reduced ? false : { opacity: 0, y: 6 }}
-                  whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={
-                    reduced
-                      ? undefined
-                      : { duration: dur.base, ease: ease.out, delay: 0.2 + i * 0.1 }
-                  }
-                >
-                  <div className="font-mono text-[10px] font-semibold tabular-nums text-text-primary dark:text-text-on-brand">
-                    {p.amt}
-                  </div>
-                  <div className="font-mono text-[7px] uppercase tracking-[0.06em] text-text-muted dark:text-text-dark-muted">
-                    {p.sub}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Embedded confirmation. */}
-            <Reveal
-              delay={0.55}
-              className="mt-auto flex items-center justify-between rounded-lg bg-gradient-to-r from-accent-cyan/[0.12] to-accent-indigo/[0.08] px-3 py-2"
-            >
-              <span className="inline-flex items-center gap-2">
-                <span className="grid size-4 place-items-center rounded-full bg-semantic-success">
-                  <Check aria-hidden className="size-2.5 text-white" strokeWidth={3} />
-                </span>
-                <span className="font-display text-[12px] font-semibold text-text-primary dark:text-text-on-brand">
-                  Plan embedded
-                </span>
-              </span>
-              <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
-                0% interest · in-app
-              </span>
-            </Reveal>
+        <div ref={ref} {...bind} className="mt-3.5 flex gap-2">
+          {/* Deferred — the glowing focal chip (30-day defer). */}
+          <div
+            className="flex-1 rounded-[11px] py-2.5 text-center"
+            style={{ background: DEFER_CHIP, boxShadow: `0 0 22px ${withAlpha(visual.cyan, 0.5)}, inset 0 0 0 1px ${withAlpha(visual.white, 0.5)}` }}
+          >
+            <div className="text-[13px] font-bold text-white">$0</div>
+            <div className="mt-0.5 font-mono text-[8px] tracking-[0.1em] text-white/90">DEFERRED</div>
           </div>
-        </GlassSurface>
-      </div>
-    </GlassBed>
+          {PLAN.map(([amt, day], i) => (
+            <Slab
+              key={day}
+              className="flex-1 py-2.5 text-center transition-[transform,opacity] duration-300 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]"
+              style={{ opacity: n > i ? 1 : 0, transform: n > i ? "translateY(0)" : "translateY(6px)" }}
+            >
+              <div className="text-[13px] font-semibold text-text-primary dark:text-text-dark-primary">{amt}</div>
+              <div className="mt-0.5 font-mono text-[8px] tracking-[0.1em] text-text-secondary dark:text-text-dark-secondary">
+                {day}
+              </div>
+            </Slab>
+          ))}
+        </div>
+
+        <div className="mt-3.5 flex items-center justify-between border-t pt-3" style={{ borderColor: withAlpha(visual.primary, 0.1) }}>
+          <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-text-secondary dark:text-text-dark-secondary">
+            4 × monthly · 0% interest
+          </span>
+          <span className="text-[14px] font-semibold text-text-primary dark:text-text-dark-primary">Total $1,280</span>
+        </div>
+      </IllustrationCard>
+    </>
   );
 }
 
 // ── Row 2 · Staff and payroll disbursement — real-time payout run ───────────
+//
+// Focal: the run total Stat. Each staff cohort settles in one by one (glow
+// check pops on), then the total resolves.
 
-const PAYOUTS = [
-  { name: "Day staff", count: "48 cards", role: "Salaried", amt: "$96,400" },
-  { name: "Locum contractors", count: "22 cards", role: "Contractor", amt: "$58,200" },
-  { name: "Agency nurses", count: "31 cards", role: "Agency", amt: "$41,900" },
-] as const;
+const PAYOUTS: { name: string; role: string; amt: string }[] = [
+  { name: "Day staff", role: "Salaried · 48 cards", amt: "$96,400" },
+  { name: "Locum contractors", role: "Contractor · 22 cards", amt: "$58,200" },
+  { name: "Agency nurses", role: "Agency · 31 cards", amt: "$41,900" },
+];
 
 export function Row2() {
+  const { ref, n, bind } = useSequentialReveal(PAYOUTS.length, { step: 200, start: 240, amount: 0.2 });
+
   return (
-    <ProductUIFrame label="Disbursement run">
-      <div className="flex h-full flex-col gap-3">
+    <>
+      <IllustrationField />
+      <IllustrationCard>
         <div className="flex items-center justify-between">
-          <span className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-text-muted dark:text-text-dark-muted">
-            Payout batch · today
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-md bg-semantic-success/10 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.1em] text-semantic-success ring-1 ring-inset ring-semantic-success/25">
-            <span className="size-1.5 rounded-full bg-semantic-success" />
-            Real-time
-          </span>
+          <Eyebrow>Disbursement run · today</Eyebrow>
+          <LiveTag>Real-time</LiveTag>
         </div>
 
-        {/* Cohorts — each disbursing to its own card pool. */}
-        <RevealList className="flex flex-col gap-2" step={0.16} x={-6}>
-          {PAYOUTS.map((p) => (
-            <div
-              key={p.name}
-              className="flex items-center gap-2.5 rounded-lg border border-surface-border-subtle bg-surface-white px-3 py-2 dark:border-surface-dark-border dark:bg-white/[0.03]"
-            >
-              <span className="grid size-4 shrink-0 place-items-center rounded-full bg-semantic-success/20 ring-1 ring-semantic-success/50">
-                <Check aria-hidden className="size-2.5 text-semantic-success" strokeWidth={3} />
-              </span>
+        {/* Cohorts — each settling to its own card pool (check pops in one by one). */}
+        <div ref={ref} {...bind} className="mt-3 flex flex-col gap-2">
+          {PAYOUTS.map((p, i) => (
+            <Slab key={p.name} className="flex items-center gap-2.5 px-3 py-2">
+              <PopCheck revealed={n > i} />
               <div className="min-w-0">
-                <div className="truncate font-body text-[12px] font-medium text-text-primary dark:text-text-on-brand">
+                <div className="truncate text-[12px] font-medium text-text-primary dark:text-text-dark-primary">
                   {p.name}
                 </div>
-                <div className="font-mono text-[8.5px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
-                  {p.role} · {p.count}
-                </div>
+                <SubLabel className="normal-case tracking-[0.1em]">{p.role}</SubLabel>
               </div>
-              <span className="ml-auto font-mono text-[12px] font-semibold tabular-nums text-text-primary dark:text-text-on-brand">
+              <span className="ml-auto font-mono text-[12px] font-semibold tabular-nums text-text-primary dark:text-text-dark-primary">
                 {p.amt}
               </span>
-            </div>
+            </Slab>
           ))}
-        </RevealList>
+        </div>
 
-        {/* Run total — settles + reconciles per disbursement. */}
-        <Reveal
-          delay={0.5}
-          className="mt-auto flex items-center justify-between rounded-lg bg-gradient-to-r from-accent-cyan/[0.1] to-accent-indigo/[0.08] px-3 py-2"
-        >
-          <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-text-muted dark:text-text-dark-muted">
-            101 cards · reconciled
-          </span>
-          <span className="font-mono text-[12px] font-semibold tabular-nums text-text-primary dark:text-text-on-brand">
-            $196,500
-          </span>
-        </Reveal>
-      </div>
-    </ProductUIFrame>
+        {/* Run total — the focal element. */}
+        <div className="mt-3.5 flex items-end justify-between border-t pt-3" style={{ borderColor: withAlpha(visual.primary, 0.1) }}>
+          <div>
+            <Stat size={26}>$196,500</Stat>
+            <div className="mt-1.5"><SubLabel>101 cards · reconciled</SubLabel></div>
+          </div>
+        </div>
+      </IllustrationCard>
+    </>
   );
 }
 
 // ── Row 3 · Procurement and vendor payments — policy gate + approval ────────
+//
+// Focal: the glowing Approved verdict. Three policy checks pass through the
+// gate one by one (glow check pops on), then the verdict lands.
 
-const POLICY = [
-  { label: "Within category budget", status: "Pass" },
-  { label: "Approved vendor list", status: "Pass" },
-  { label: "Single-txn limit $25k", status: "Pass" },
-] as const;
+const POLICY = ["Within category budget", "Approved vendor list", "Single-txn limit $25k"];
 
 export function Row3() {
-  const reduced = useReveal();
+  const { ref, n, bind } = useSequentialReveal(POLICY.length, { step: 180, start: 240, amount: 0.2 });
+
   return (
-    <ProductUIFrame label="Vendor payment">
-      <div className="flex h-full flex-col gap-3">
-        {/* Vendor + spend card requesting the payment. */}
-        <div className="flex items-center justify-between gap-3 border-b border-surface-border-subtle pb-2.5 dark:border-surface-dark-border">
-          <div className="flex min-w-0 items-center gap-2.5">
-            <span className="grid size-7 shrink-0 place-items-center rounded-md bg-accent-indigo font-display text-[12px] font-bold text-white">
-              M
-            </span>
-            <div className="min-w-0">
-              <div className="truncate font-body text-[13px] font-medium text-text-primary dark:text-text-on-brand">
-                Medline Supplies
-              </div>
-              <div className="font-mono text-[9px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
-                Procurement card · ···· 0417
-              </div>
-            </div>
-          </div>
-          <div className="shrink-0 text-right">
-            <div className="font-mono text-[14px] font-semibold tabular-nums text-text-primary dark:text-text-on-brand">
-              $18,240
-            </div>
-            <div className="font-mono text-[9px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
-              PO-2294 · supplies
-            </div>
-          </div>
+    <>
+      <IllustrationField />
+      <IllustrationCard>
+        <div className="flex items-center justify-between">
+          <Eyebrow>Vendor payment · PO-2294</Eyebrow>
+          <span
+            className="whitespace-nowrap rounded-lg px-2 py-1 font-mono text-[9.5px] font-semibold uppercase tracking-[0.12em] text-brand-primary dark:text-accent-cyan"
+            style={{ background: withAlpha(visual.primary, 0.1) }}
+          >
+            $18,240
+          </span>
         </div>
 
         {/* Policy enforcement gate — checks tick through. */}
-        <RevealList className="flex flex-col gap-2" step={0.16} x={-6}>
-          {POLICY.map((c) => (
-            <div key={c.label} className="flex items-center gap-2.5">
-              <span className="grid size-4 shrink-0 place-items-center rounded-full bg-accent-indigo/15 ring-1 ring-accent-indigo/45">
-                <ShieldCheck aria-hidden className="size-2.5 text-accent-indigo" strokeWidth={2.5} />
-              </span>
-              <span className="font-body text-[12px] font-medium text-text-primary dark:text-text-on-brand">
-                {c.label}
-              </span>
-              <span className="ml-auto rounded-md bg-accent-indigo/[0.1] px-2 py-0.5 font-mono text-[8.5px] uppercase tracking-[0.1em] text-accent-indigo ring-1 ring-inset ring-accent-indigo/30">
-                {c.status}
-              </span>
-            </div>
+        <div ref={ref} {...bind} className="mt-3 flex flex-col gap-2">
+          {POLICY.map((c, i) => (
+            <ControlChip key={c} label={c} revealed={n > i} />
           ))}
-        </RevealList>
+        </div>
 
-        {/* Approval — lands after the gate. */}
-        <motion.div
-          className="mt-auto flex items-center justify-between gap-3 rounded-lg border border-accent-indigo/35 bg-gradient-to-r from-accent-indigo/[0.1] to-accent-cyan/[0.08] px-3 py-2"
-          initial={reduced ? false : { opacity: 0, y: 6 }}
-          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={reduced ? undefined : { duration: dur.base, ease: ease.out, delay: 0.7 }}
-        >
-          <span className="inline-flex items-center gap-2">
-            <span className="grid size-4 place-items-center rounded-full bg-accent-indigo">
-              <Check aria-hidden className="size-2.5 text-white" strokeWidth={3} />
-            </span>
-            <span className="font-display text-[13px] font-semibold text-text-primary dark:text-text-on-brand">
-              Approved
-            </span>
-          </span>
-          <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
-            Dept. head · auto-reconciled
-          </span>
-        </motion.div>
-      </div>
-    </ProductUIFrame>
+        {/* Verdict — the focal element. */}
+        <div className="mt-3.5 flex items-center gap-2.5 border-t pt-3" style={{ borderColor: withAlpha(visual.primary, 0.1) }}>
+          <GlowCheck size={26} />
+          <div>
+            <Stat size={22}>Approved</Stat>
+            <div className="mt-1"><SubLabel>Dept. head · auto-reconciled</SubLabel></div>
+          </div>
+        </div>
+      </IllustrationCard>
+    </>
   );
 }
 
 // ── Row 4 · Insurance and government disbursements — audited claim payout ────
+//
+// Focal: the payout Stat. The audit trail seals in step by step on a glowing
+// spine (each node's check pops on), proving the structured, auditable flow.
 
-const TRAIL = [
-  { label: "Claim adjudicated", meta: "CLM-80417 · approved" },
-  { label: "Beneficiary verified", meta: "KYC · sanctions clear" },
-  { label: "Funds disbursed", meta: "to payout card · USD" },
-  { label: "Audit record sealed", meta: "immutable · exportable" },
-] as const;
+const TRAIL: [string, string][] = [
+  ["Claim adjudicated", "CLM-80417 · approved"],
+  ["Beneficiary verified", "KYC · sanctions clear"],
+  ["Funds disbursed", "to payout card · USD"],
+  ["Audit record sealed", "immutable · exportable"],
+];
 
 export function Row4() {
+  const { ref, n, bind } = useSequentialReveal(TRAIL.length, { step: 200, start: 240, amount: 0.2 });
+
   return (
-    <GlassBed tone="porcelain">
-      <div className="flex h-full w-full items-center justify-center p-4">
-        <GlassSurface className="w-full max-w-[20rem]">
-          <div className="flex flex-col gap-3 p-4 sm:p-5">
-            {/* Claim settlement header. */}
-            <div className="flex items-center justify-between gap-3 border-b border-surface-border-subtle pb-2.5 dark:border-white/10">
-              <div className="flex min-w-0 items-center gap-2.5">
-                <span className="grid size-7 shrink-0 place-items-center rounded-md bg-brand-navy text-white dark:bg-white/10">
-                  <Landmark aria-hidden className="size-3.5" strokeWidth={2} />
-                </span>
-                <div className="min-w-0">
-                  <div className="truncate font-body text-[13px] font-medium text-text-primary dark:text-text-on-brand">
-                    Claim settlement
-                  </div>
-                  <div className="font-mono text-[9px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
-                    Govt. health program · structured
-                  </div>
-                </div>
+    <>
+      <IllustrationField />
+      <IllustrationCard>
+        <div className="flex items-center justify-between">
+          <Eyebrow>Claim settlement · structured</Eyebrow>
+          <div className="text-right">
+            <Stat size={22}>$7,450</Stat>
+            <div className="mt-1"><SubLabel>Payout · USD</SubLabel></div>
+          </div>
+        </div>
+
+        {/* Audit trail — each step seals in on a glowing spine (check pops in). */}
+        <div ref={ref} {...bind} className="mt-3 flex flex-col">
+          {TRAIL.map(([label, meta], i) => (
+            <div key={label} className="flex gap-2.5">
+              {/* Spine + node. */}
+              <div className="flex flex-col items-center">
+                <PopCheck revealed={n > i} />
+                {i < TRAIL.length - 1 && (
+                  <span
+                    className="my-0.5 w-px flex-1"
+                    style={{ background: withAlpha(visual.cyan, 0.3) }}
+                  />
+                )}
               </div>
-              <div className="shrink-0 text-right">
-                <div className="font-mono text-[14px] font-semibold tabular-nums text-text-primary dark:text-text-on-brand">
-                  $7,450
+              <div className="pb-2.5">
+                <div className="text-[12px] font-medium text-text-primary dark:text-text-dark-primary">
+                  {label}
                 </div>
-                <div className="font-mono text-[9px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
-                  payout · USD
-                </div>
+                <SubLabel className="normal-case tracking-[0.1em]">{meta}</SubLabel>
               </div>
             </div>
-
-            {/* Audit trail — each step seals in on view. */}
-            <RevealList className="flex flex-col" step={0.18} x={-6}>
-              {TRAIL.map((t, i) => (
-                <div key={t.label} className="flex gap-2.5">
-                  {/* Spine + node. */}
-                  <div className="flex flex-col items-center">
-                    <span className="grid size-4 shrink-0 place-items-center rounded-full bg-accent-cyan/20 ring-1 ring-accent-cyan/50">
-                      <Check aria-hidden className="size-2.5 text-accent-cyan" strokeWidth={3} />
-                    </span>
-                    {i < TRAIL.length - 1 && (
-                      <span className="my-0.5 w-px flex-1 bg-accent-cyan/25" />
-                    )}
-                  </div>
-                  <div className="pb-2.5">
-                    <div className="font-body text-[12px] font-medium text-text-primary dark:text-text-on-brand">
-                      {t.label}
-                    </div>
-                    <div className="font-mono text-[8.5px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
-                      {t.meta}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </RevealList>
-
-            {/* Audit stamp. */}
-            <Reveal
-              delay={0.6}
-              className="mt-auto flex items-center justify-between rounded-lg bg-gradient-to-r from-accent-cyan/[0.1] to-accent-indigo/[0.08] px-3 py-2"
-            >
-              <span className="inline-flex items-center gap-2">
-                <FileCheck aria-hidden className="size-3.5 text-accent-cyan" strokeWidth={2.25} />
-                <span className="font-display text-[12px] font-semibold text-text-primary dark:text-text-on-brand">
-                  Audit trail complete
-                </span>
-              </span>
-              <span className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-[0.1em] text-text-muted dark:text-text-dark-muted">
-                <ArrowRight aria-hidden className="size-3 text-accent-cyan" strokeWidth={2.5} />
-                Report ready
-              </span>
-            </Reveal>
-          </div>
-        </GlassSurface>
-      </div>
-    </GlassBed>
+          ))}
+        </div>
+      </IllustrationCard>
+    </>
   );
 }

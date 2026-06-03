@@ -10,7 +10,7 @@ export const lendingDoc = {
   metaDescription:
     "Launch BNPL, installment, revolving credit, and working capital programs on nCore. Configure underwriting, disbursement, and collections through one platform. NymCard provides the credit infrastructure; you retain the lending relationship.",
   trustLine:
-    "Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001.",
+    "Principal member of Visa and Mastercard · PCI DSS compliant · ISO 27001.",
   hero: {
     headline: "Embed credit into every payment flow.",
     body: "Launch BNPL, installment, revolving credit, and working capital programs on nCore. You retain the lending relationship; NymCard provides the infrastructure.",
@@ -76,13 +76,13 @@ export const lendingDoc = {
     headline: "Credit programs for every industry.",
     items: withKeys(
       [
-        { eyebrow: "Consumer banking", copy: "Revolving credit, installment plans, and credit cards on one platform.", link: { label: "See consumer banking", href: "/industries/retail-banking" } },
-        { eyebrow: "Commercial banking", copy: "Working capital, invoice financing, and SME credit lines that scale.", link: { label: "See commercial banking", href: "/industries/commercial-banking" } },
-        { eyebrow: "Fintechs", copy: "Launch BNPL, installment, and digital-first credit products.", link: { label: "See fintechs", href: "/industries/fintechs" } },
-        { eyebrow: "Retail and marketplaces", copy: "BNPL and installment options at checkout to lift basket size.", link: { label: "See retail", href: "/industries/retail-marketplaces" } },
-        { eyebrow: "Telecoms", copy: "Device financing and consumer installment plans inside your customer relationship.", link: { label: "See telecoms", href: "/industries/telecommunications" } },
-        { eyebrow: "Healthcare", copy: "Patient financing embedded at the point of care.", link: { label: "See healthcare", href: "/industries/healthcare" } },
-        { eyebrow: "Automotive", copy: "Dealer-linked auto financing and lease structures.", link: { label: "See automotive", href: "/industries/mobility" } },
+        { eyebrow: "Consumer banking", copy: "Revolving credit, installment plans, and credit cards on one platform.", link: { label: "See consumer banking", href: "/solutions/retail-banking" } },
+        { eyebrow: "Commercial banking", copy: "Working capital, invoice financing, and SME credit lines that scale.", link: { label: "See commercial banking", href: "/solutions/commercial-banking" } },
+        { eyebrow: "Fintechs", copy: "Launch BNPL, installment, and digital-first credit products.", link: { label: "See fintechs", href: "/solutions/fintechs" } },
+        { eyebrow: "Retail and marketplaces", copy: "BNPL and installment options at checkout to lift basket size.", link: { label: "See retail", href: "/solutions/retail-marketplaces" } },
+        { eyebrow: "Telecoms", copy: "Device financing and consumer installment plans inside your customer relationship.", link: { label: "See telecoms", href: "/solutions/telecommunications" } },
+        { eyebrow: "Healthcare", copy: "Patient financing embedded at the point of care.", link: { label: "See healthcare", href: "/solutions/healthcare" } },
+        { eyebrow: "Automotive", copy: "Dealer-linked auto financing and lease structures.", link: { label: "See automotive", href: "/solutions/mobility" } },
       ],
       "ind",
     ),

@@ -14,12 +14,11 @@ import {
   TextImageRow,
 } from ".";
 import { Footer } from "@/components/sections/Footer";
-import { TrustBar, PrincipalMemberTrustLine } from "@/components/composition/TrustBar";
 import { TopologyTraces } from "@/components/visuals";
 
 // ── IndustryPage ───────────────────────────────────────────────────────────
 //
-// The page-level template every /industries/* route renders. Composes the
+// The page-level template every /solutions/* route renders. Composes the
 // shared section primitives (PageHero, OutcomeChips, TextImageRow, PlatformChecklist,
 // DeveloperBlock, CrossSellBanner, FAQ, CTASection) in the locked industry
 // page-arc order. Per-industry pages become data files that pass their copy
@@ -29,8 +28,7 @@ import { TopologyTraces } from "@/components/visuals";
 // `surface-dark-base` per the project's dark token system):
 //
 //   1.  PageHero               — light surface (PageHero is light-only)
-//   2.  TrustBar               — white
-//   3.  OutcomeChips           — white      (just under hero, attached feel)
+//   2.  OutcomeChips           — white      (just under hero, attached feel)
 //   4.  Challenge / Solution   — soft       (rhythm break)
 //   5.  What you can build     — white      (4 alternating TextImage rows)
 //   6.  PayKit callout (opt)   — soft       (single CrossSellBanner)
@@ -133,11 +131,9 @@ export function IndustryPage(props: IndustryPageProps) {
         textOnly={!hero.visual}
       />
 
-      {/* Trust band — real network/certification line (no placeholder
-          marquee until real partner logos land). */}
-      <TrustBar logos={[]} trustLine={<PrincipalMemberTrustLine />} />
-
-      {/* §2 Outcome chips — sits close under the hero/trust strip. */}
+      {/* §2 Outcome chips — sits close under the hero. (The trust band that
+          previously sat here was removed from every Solutions page per owner,
+          2026-06-03.) */}
       <div className="bg-surface-white py-16 dark:bg-surface-dark-base sm:py-20 lg:py-24">
         <OutcomeChips items={[...outcomes] as [OutcomeChip, OutcomeChip, OutcomeChip]} />
       </div>

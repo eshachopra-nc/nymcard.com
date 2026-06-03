@@ -47,7 +47,8 @@ Reconcile across every product and system, automatically.
 
 **Sub-copy:**
 
-Reconciliation runs on nCore — matching activity across your NymCard products and the external systems they connect to.
+<!-- CAMPAIGN SHARPEN 2026-06: sub-line ends on "one layer of nCore, not a standalone tool" per strategy §12.1 -->
+Reconciliation runs on nCore — the layer that matches activity across your NymCard products and the external systems they connect to, not a separate reconciliation tool sitting outside your stack.
 
 **Primary CTA:** Talk to us
 
@@ -183,7 +184,8 @@ Activity across your NymCard products — Cards, Lending, Money Movement, Settle
 
 **3. Does Reconciliation run on nCore?**
 
-Yes. Reconciliation runs on nCore alongside the other product layers, with one customer record and one audit trail across the platform.
+<!-- CAMPAIGN SHARPEN 2026-06: one-platform thread (one customer record / ledger / audit trail) made explicit per strategy §12.2 -->
+Yes. Reconciliation runs on nCore alongside the other product layers, sharing one customer record, one ledger, and one audit trail across the platform — so it reconciles against the same records the other layers write to, not a copy exported to a separate tool.
 
 **4. What deployment models are available?**
 

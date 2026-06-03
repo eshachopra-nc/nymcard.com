@@ -48,7 +48,8 @@ Settle across corridors in real time.
 
 **Sub-copy:**
 
-Bank-grade settlement infrastructure for cross-border, multi-currency, and stablecoin flows — on one regulated platform.
+<!-- CAMPAIGN SHARPEN 2026-06: sub-line ends on "one layer of nCore, not a standalone tool" per strategy §12.1 -->
+Bank-grade settlement for cross-border, multi-currency, and stablecoin flows — the settlement layer of nCore, on the same regulated platform as your cards and money movement, not a separate treasury system to reconcile against.
 
 **Primary CTA:** Talk to us
 
@@ -250,7 +251,8 @@ Clean accordion. Schema-marked for AEO using FAQPage [schema.org](http://schema.
 
 **1. What is Settlement?**
 
-Settlement is the nCore layer for cross-border, multi-currency, and stablecoin settlement. It runs on the same platform as Cards and Money Movement, with one ledger and one audit trail across every flow.
+<!-- CAMPAIGN SHARPEN 2026-06: one-platform thread (one customer record / ledger / audit trail) made explicit per strategy §12.2 -->
+Settlement is the nCore layer for cross-border, multi-currency, and stablecoin settlement. It runs on the same platform as Cards and Money Movement, sharing one customer record, one ledger, and one audit trail with every other layer — not a standalone settlement engine you bolt on.
 
 **2. Does NymCard support stablecoin settlement?**
 
@@ -266,7 +268,8 @@ Real time or near real time, depending on corridor availability and regulatory r
 
 **5. How does Settlement work with the rest of nCore?**
 
-Settlement runs on the same nCore platform as Cards and Money Movement. Traditional scheme settlement and stablecoin rails operate inside one architecture — no separate blockchain system required.
+<!-- CAMPAIGN SHARPEN 2026-06: light legacy/migration thread nodding to Migration & Modernisation per strategy §12.4 -->
+Settlement runs on the same nCore platform as Cards and Money Movement. Traditional scheme settlement and stablecoin rails operate inside one architecture — no separate blockchain system required. If you're moving off legacy settlement infrastructure, Migration & Modernisation handles the path onto the layer.
 
 **6. How is compliance handled?**
 

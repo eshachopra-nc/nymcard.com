@@ -6,7 +6,7 @@ import { industryItems } from "@/lib/nav-data";
 //
 // The industries carousel on the homepage. Each card is compact: a small
 // industry icon + an industry-name chip, then an outcome-driven headline and a
-// one-line description, linking to that industry page (/industries/*).
+// one-line description, linking to that industry page (/solutions/*).
 //
 // Sourced from the single industries registry in `lib/nav-data.ts` (icon +
 // name + href) so the homepage rail, the nav dropdown, and the footer never

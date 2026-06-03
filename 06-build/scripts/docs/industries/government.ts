@@ -100,7 +100,7 @@ export const governmentDoc = {
       "KYC, AML, and sanctions screening across all programs",
       "Multi-entity and multi-program configuration",
       "Principal member of Visa and Mastercard",
-      "PCI DSS Level 1 certified · ISO 27001 certified",
+      "PCI DSS compliant · ISO 27001 certified",
     ],
   },
 
@@ -137,7 +137,7 @@ export const governmentDoc = {
         { question: "Can disbursement cards be restricted to specific spend categories?", answer: "Yes. Cards are configurable per program, with category restrictions, spend limits, and merchant controls applied in real time at authorization." },
         { question: "Is every transaction auditable?", answer: "Yes. Audit trails, role-based access, and regulatory reporting are built into the platform across every program." },
         { question: "Can citizens without a bank account receive disbursements?", answer: "Yes. Disbursements can be made to NymCard-issued prepaid cards, no bank account required for the recipient." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
       ],
       "faq",
     ),

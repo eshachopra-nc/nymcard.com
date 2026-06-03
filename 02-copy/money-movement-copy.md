@@ -48,7 +48,8 @@ Move money where your customers need it.
 
 **Sub-copy:**
 
-Orchestrate cross-border payments, route corridors, and manage FX on infrastructure you control — and monetize.
+<!-- CAMPAIGN SHARPEN 2026-06: sub-line ends on "one layer of nCore, not a standalone tool" per strategy §12.1 -->
+Orchestrate cross-border payments, route corridors, and manage FX on nCore — the money movement layer of one platform you control and monetize, not a separate cross-border vendor stitched onto your stack.
 
 **Primary CTA:** Talk to us
 
@@ -314,7 +315,8 @@ Visa Direct, Mastercard Cross-Border, Western Union, and MoneyGram are built in.
 
 **4. Can I activate new corridors without disrupting my existing ones?**
 
-Yes. Corridors can be activated in parallel with existing routes, traffic can shift gradually, and consolidation happens on your timing. Existing revenue is not interrupted during the migration.
+<!-- CAMPAIGN SHARPEN 2026-06: light legacy/migration thread nodding to Migration & Modernisation per strategy §12.4 -->
+Yes. Corridors can be activated in parallel with existing routes, traffic can shift gradually, and consolidation happens on your timing. You can move corridors off a legacy cross-border provider this way — Migration & Modernisation supports the phased shift, and existing revenue is not interrupted during it.
 
 **5. How does compliance fit into routing?**
 
@@ -330,7 +332,8 @@ nCore is PCI DSS Level 1 certified and ISO 27001 certified.
 
 **8. Does Money Movement connect to Cards and Settlement on NymCard?**
 
-Yes. Money Movement runs on nCore alongside Cards, Lending, Settlement, Financial Crime, and Reconciliation — one platform, one customer record, one ledger across products.
+<!-- CAMPAIGN SHARPEN 2026-06: one-platform thread (one customer record / ledger / audit trail) made explicit per strategy §12.2 -->
+Yes. Money Movement runs on nCore alongside Cards, Lending, Settlement, Financial Crime, and Reconciliation — one platform, with one customer record, one ledger, and one audit trail across every layer, so corridors aren't a separate system to reconcile against your cards and settlement.
 
 ---
 

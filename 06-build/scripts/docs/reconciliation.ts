@@ -8,9 +8,9 @@ export const reconciliationDoc = {
   metaTitle:
     "Reconciliation, Automated Matching Across Products and Systems | NymCard",
   metaDescription:
-    "Reconcile activity across every NymCard product and the external systems they connect to. Runs on nCore. PCI DSS Level 1 and ISO 27001 certified. Cloud, on-soil, or on-premise.",
+    "Reconcile activity across every NymCard product and the external systems they connect to. Runs on nCore. PCI DSS compliant and ISO 27001 certified. Cloud, on-soil, or on-premise.",
   trustLine:
-    "Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001.",
+    "Principal member of Visa and Mastercard · PCI DSS compliant · ISO 27001.",
   hero: {
     headline: "Reconcile across every product and system, automatically.",
     body: "Reconciliation runs on nCore, matching activity across your NymCard products and the external systems they connect to.",
@@ -54,7 +54,7 @@ export const reconciliationDoc = {
         { question: "What does it reconcile?", answer: "Activity across your NymCard products, Cards, Lending, Money Movement, Settlement, and Financial Crime, and the external rails, banks, and partner systems they touch." },
         { question: "Does Reconciliation run on nCore?", answer: "Yes. Reconciliation runs on nCore alongside the other product layers, with one customer record and one audit trail across the platform." },
         { question: "What deployment models are available?", answer: "Cloud, on-soil, and on-premise. Cloud is multi-region NymCard-hosted; on-soil is NymCard-hosted inside your country; on-premise runs inside your own data center." },
-        { question: "Is the platform certified?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified." },
+        { question: "Is the platform certified?", answer: "nCore is PCI DSS compliant and ISO 27001 certified." },
         { question: "When will more capability detail be available?", answer: "Reconciliation is a recently promoted layer on nCore, expanding through 2026. Talk to us for current scope." },
       ],
       "faq",

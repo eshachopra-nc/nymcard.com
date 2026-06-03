@@ -56,6 +56,18 @@ export const tokens = {
       "warning": "#F59E0B",
       "danger": "#EF4444",
       "info": "#0EA5E9"
+    },
+    "illustration": {
+      "field-1": "#EFF2FB",
+      "field-2": "#E8F1FC",
+      "field-3": "#F1F2F9",
+      "card-1": "#EAEBF7",
+      "card-2": "#D3E7F8",
+      "card-3": "#E7E8F4",
+      "bloom": "#6CD6F5",
+      "ray-cyan": "#96E8FA",
+      "ray-periwinkle": "#78A0F0",
+      "stat-deep": "#1B2F86"
     }
   },
   "gradient": {

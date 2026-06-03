@@ -5,111 +5,111 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { dur, ease } from "@/components/visuals";
 
-// ── CapabilityVerticalBand (net-new — nCore Capabilities) ───────────────────
+// ── CapabilityCard (nCore Capabilities — AI / Insights) ─────────────────────
 //
-// The cross-cutting "across every layer" band that sits BELOW the six
-// capability tiles on the nCore page. AI and Insights are NOT peer product
-// tiles — they run across all six layers — so this band renders them as two
-// columns sharing one spanning hairline + connective treatment that signals
-// "across every layer", rather than as two more cards in the grid.
+// AI and Insights are the two cross-cutting capabilities that run ACROSS the
+// six products above. Per owner feedback (2026-06-01, items #4/#5/#6) they are
+// now rendered as TWO SEPARATE, FULL-WIDTH cards — each carrying the EXACT same
+// chrome as a `ProductsBento` tile — stacked directly beneath the products with
+// a tight gap, so the whole thing reads as ONE continuous capabilities section
+// rather than a detached band. (The previous shared bordered band with a
+// spanning hairline + node markers is retired.)
 //
-// Each vertical carries a label + one line and a product-visual slot (a
-// `UIPlaceholder` from the callsite — the design agents fill these). The
-// spanning hairline with two node markers under the columns is the connective
-// cue. Cool palette only, light-first, navy/cyan led; scroll-in reveal,
-// reduced-motion safe.
+// Card chrome (matches ProductsBento exactly):
+//   · rounded-2xl, border (light border-surface-border-subtle / dark
+//     border-surface-dark-border), card bg (light bg-surface-white; dark
+//     bg-surface-dark-elevated at FULL opacity), `nc-card-hover` lift.
+//   · Copy zone: eyebrow (capability name, mono brand/cyan) → SHORT headline
+//     (text-xl semibold, primary) → one-sentence grey description, with an arrow
+//     affordance — the EXACT ProductsBento copy structure/scale (owner fix #2).
+//   · Dark-mode legibility intents mirror the product cards: eyebrow
+//     dark:text-accent-cyan, headline dark:text-text-on-brand, description
+//     dark:text-text-dark-secondary, arrow cyan ≥20% / solid on hover.
 //
-// Follow-up: register into /visual-system (ui-ux-designer).
+// Full-width layout: a horizontal split — copy on the left (~2/5), the product
+// UI on the right (~3/5) on >= lg; stacks copy-over-UI below lg. The visual zone
+// is a fixed-aspect, positioned, clipped box so a `GlassBed` surface
+// (absolute inset-0) fills it cleanly. Full width gives the surfaces the room
+// they need (fixing the AI-UI overflow, #6).
+//
+// Motion: card rises + fades on scroll-into-view (once), `nc-card-hover` lift
+// on hover; the inner surfaces own their own scroll-in + hover gestures.
+// Reduced-motion safe.
 
-export type VerticalBandItem = {
-  /** The cross-cutting vertical's name — e.g. "AI". */
+export type CapabilityCardData = {
+  /** The capability name — e.g. "AI". Rendered as the card eyebrow. */
   label: string;
-  /** One line describing how it runs across every layer. */
+  /** Short value headline — the card's lead line under the eyebrow. */
+  headline: string;
+  /** One-sentence grey description (verbatim copy), under the headline. */
   line: string;
-  /** The product-visual slot — a `UIPlaceholder` from the callsite. */
+  /** The product-visual surface for this card (fills the visual zone). */
   visual: ReactNode;
 };
 
-type CapabilityVerticalBandProps = {
-  /** A short framing line above the two verticals — optional. */
-  caption?: string;
-  items: [VerticalBandItem, VerticalBandItem];
+type CapabilityCardProps = CapabilityCardData & {
+  /** Reveal stagger index for the scroll-in. */
+  index?: number;
   className?: string;
 };
 
-export function CapabilityVerticalBand({
-  caption,
-  items,
+export function CapabilityCard({
+  label,
+  headline,
+  line,
+  visual,
+  index = 0,
   className,
-}: CapabilityVerticalBandProps) {
+}: CapabilityCardProps) {
   const reduced = useReducedMotion();
 
   return (
     <motion.div
       initial={reduced ? false : { opacity: 0, y: 16 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={reduced ? undefined : { duration: dur.slow, ease: ease.out }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={
+        reduced
+          ? undefined
+          : { duration: dur.deliberate, ease: ease.out, delay: index * 0.06 }
+      }
       className={cn(
-        "relative isolate overflow-hidden rounded-2xl border",
+        // No `nc-card-hover` lift and no arrow affordance: AI and Insights are
+        // cross-cutting capabilities, NOT linkable product pages — the card must
+        // not signal a click-through to a page that doesn't exist (owner, 2026-06).
+        "group relative grid overflow-hidden rounded-2xl border",
         "border-surface-border-subtle bg-surface-white",
         "dark:border-surface-dark-border dark:bg-surface-dark-elevated",
+        // Stack copy-over-UI below lg; horizontal split (copy 2/5 · UI 3/5) at lg.
+        "grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]",
         className,
       )}
     >
-      {/* Lit cyan top-edge — the same front-face cue used across the kit. */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-accent-cyan/45 to-transparent"
-      />
-
-      <div className="relative z-10 px-6 py-7 sm:px-8 sm:py-9">
-        {caption && (
-          <p className="mb-7 max-w-2xl font-body text-sm leading-relaxed text-text-secondary dark:text-text-dark-secondary sm:text-base">
-            {caption}
+      {/* Copy zone — eyebrow (capability name) → short headline → one-sentence
+          grey description. No arrow chip: these are informational, not links. */}
+      <div className="flex flex-col justify-center gap-0 p-6 sm:p-8 lg:p-10">
+        <div className="min-w-0">
+          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-brand-primary dark:text-accent-cyan">
+            {label}
           </p>
-        )}
-
-        {/* The connective treatment — a hairline spanning both columns with a
-            node marker under each, signalling "across every layer". On mobile
-            the columns stack so the spanning line collapses to a vertical
-            connector. */}
-        <div className="relative grid gap-8 sm:grid-cols-2 sm:gap-10">
-          {/* Spanning hairline — horizontal across the two columns on >= sm. */}
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute left-0 right-0 top-[-1.25rem] hidden h-px bg-gradient-to-r from-accent-cyan/30 via-brand-primary/25 to-accent-cyan/30 sm:block"
-          />
-
-          {items.map((item) => (
-            <div key={item.label} className="flex flex-col">
-              {/* Node marker — anchors the column to the spanning line. */}
-              <div className="flex items-center gap-2.5">
-                <span
-                  aria-hidden="true"
-                  className="size-2 rounded-full bg-accent-cyan ring-4 ring-accent-cyan/15 dark:ring-accent-cyan/20"
-                />
-                <h3 className="font-display text-lg font-semibold tracking-tight text-text-primary dark:text-text-on-brand">
-                  {item.label}
-                </h3>
-                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-text-muted dark:text-text-dark-secondary">
-                  across every layer
-                </span>
-              </div>
-              <p className="mt-3 max-w-md font-body text-sm leading-relaxed text-text-secondary dark:text-text-dark-secondary sm:text-[15px]">
-                {item.line}
-              </p>
-              {/* The product-visual slot. A fixed-height, rounded, clipped,
-                  POSITIONED box so a GlassBed surface (absolute inset-0) fills
-                  it cleanly — matching the radius family of the kit and the
-                  CardGrid product cells. The pair share one height so they read
-                  balanced. */}
-              <div className="relative mt-5 h-72 overflow-hidden rounded-xl border border-surface-border-subtle dark:border-surface-dark-border sm:h-[19rem]">
-                {item.visual}
-              </div>
-            </div>
-          ))}
+          <h3 className="mt-2 max-w-md font-display text-xl font-semibold leading-snug tracking-tight text-text-primary dark:text-text-on-brand">
+            {headline}
+          </h3>
         </div>
+        <p className="mt-3 max-w-md font-body text-[15px] leading-relaxed text-text-secondary dark:text-text-dark-secondary">
+          {line}
+        </p>
+      </div>
+
+      {/* Visual zone — the product-UI surface. A positioned, clipped box whose
+          min-height is set to fully CONTAIN the surface's natural content (the
+          AI spine is the tallest at ~290px; the bed adds its own padding) so the
+          surface is never clipped top or bottom at any breakpoint (owner fix
+          #3). A GlassBed surface (absolute inset-0) fills it cleanly. A hairline
+          separates it from the copy: a left border at lg (horizontal split), a
+          top border when stacked. */}
+      <div className="relative min-h-[20rem] border-t border-surface-border-subtle/70 dark:border-surface-dark-border lg:min-h-[20rem] lg:border-l lg:border-t-0">
+        {visual}
       </div>
     </motion.div>
   );

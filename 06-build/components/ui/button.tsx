@@ -33,12 +33,14 @@ const SIZE: Record<ButtonSize, string> = {
 };
 
 const SOLID_VARIANT: Record<"primary" | "secondary", string> = {
-  // Perceptible hover: a real elevation lift (shadow + 1px rise) that reads in
-  // both themes and still applies under prefers-reduced-motion (the global
-  // backstop only shortens the transition, the end-state paints). `opacity-90`
-  // alone was imperceptible — the "flat hover" the owner flagged.
+  // Perceptible hover: a real elevation lift (shadow + 1px rise) PLUS a colour
+  // shift on the fill, so the affordance reads in both themes AND with motion
+  // OFF (the lift collapses under prefers-reduced-motion, but the colour +
+  // shadow still paint — design-system §button "8% brightness increase").
+  // `opacity-90`/transform-only alone was imperceptible — the "flat hover" the
+  // owner flagged.
   primary:
-    "bg-brand-navy text-text-on-brand hover:-translate-y-px hover:shadow-[var(--shadow-lift)] dark:bg-accent-cyan dark:text-brand-navy dark:hover:shadow-[var(--shadow-dark-lift)]",
+    "bg-brand-navy text-text-on-brand hover:-translate-y-px hover:bg-brand-navy-soft hover:shadow-[var(--shadow-lift)] dark:bg-accent-cyan dark:text-brand-navy dark:hover:bg-accent-teal dark:hover:shadow-[var(--shadow-dark-lift)]",
   secondary:
     "border border-surface-border-stronger bg-transparent text-text-primary hover:-translate-y-px hover:border-brand-primary/50 hover:bg-surface-soft hover:shadow-[var(--shadow-lift)] dark:border-surface-dark-border dark:text-text-on-brand dark:hover:border-surface-dark-border-stronger dark:hover:bg-surface-dark-elevated dark:hover:shadow-[var(--shadow-dark-lift)]",
 };

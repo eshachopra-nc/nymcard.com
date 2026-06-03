@@ -1,18 +1,20 @@
 import { CodeArtifact, type CodeArtifactTab } from "@/components/composition/CodeArtifact";
+import { SectionAtmosphere } from "@/components/visuals/SectionAtmosphere";
 
-// ── nCore §8 Developer / Configuration ──────────────────────────────────────
+// ── nCore §10 Developers ─────────────────────────────────────────────────────
 //
-// Copy mirrored verbatim from 02-copy/nCore-copy.revised.md → DEVELOPER.
+// Copy mirrored VERBATIM from 02-copy/nCore-copy.md §10.
 //
-// Matches the product-page §5 Configuration pattern (ProductPageRenderer): a
-// dark section with a left column (headline + body + "Read the docs" link) and
-// a right column carrying the CodeArtifact (tabbed code samples). This replaces
-// the slim DeveloperBlock so nCore's developer section reads like the product
-// pages.
+// A LIGHT section (owner, 3 June — it followed the dark Deployment section, and
+// two consecutive dark sections on the light page read wrong; the dark
+// DeploymentSection is owner-locked, so the developer beat flips to light). The
+// CodeArtifact's own dark code panel keeps the engineer-grade contrast. Left
+// column = headline + body + "Read the docs" link; right column = the tabbed
+// CodeArtifact. On a contained SectionAtmosphere wash so it isn't flat.
 
 const COPY = {
-  heading: "Built for your engineers to integrate fast.",
-  body: "Full API access, SDKs, a sandbox, and webhooks — so your engineers ship without waiting on NymCard.",
+  heading: "Built for engineers.",
+  body: "Comprehensive APIs, implementation guides, webhooks, and developer tooling that get you to integration faster.",
   docsLink: { label: "Read the docs", href: "https://docs.nymcard.com/" },
 } as const;
 
@@ -56,27 +58,31 @@ const TABS: CodeArtifactTab[] = [
 
 export function NCoreDeveloper() {
   return (
-    <section className="dark relative isolate overflow-hidden bg-surface-dark-base">
-      <div className="mx-auto w-full max-w-[1200px] px-4 py-[96px] sm:px-6 lg:px-20">
+    <section className="relative isolate overflow-hidden bg-surface-soft dark:bg-surface-dark-base">
+      <SectionAtmosphere anchor="top" />
+      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-4 py-[96px] sm:px-6 lg:px-20">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col lg:col-span-5">
             {/* No eyebrow — headline leads (CLAUDE.md v1.5 no-eyebrow rule). */}
-            <h2 className="font-display text-3xl font-bold leading-[1.12] tracking-tight text-text-on-brand sm:text-4xl">
+            <h2 className="font-display text-3xl font-bold leading-[1.12] tracking-tight text-text-primary dark:text-text-on-brand sm:text-4xl">
               {COPY.heading}
             </h2>
-            <p className="mt-5 max-w-md font-body text-base leading-relaxed text-text-dark-secondary sm:text-lg">
+            <p className="mt-5 max-w-md font-body text-base leading-relaxed text-text-secondary dark:text-text-dark-secondary sm:text-lg">
               {COPY.body}
             </p>
             <a
               href={COPY.docsLink.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 font-body text-sm font-semibold text-accent-cyan transition-colors hover:text-accent-cyan/80"
+              className="mt-6 inline-flex items-center gap-2 font-body text-sm font-semibold text-brand-primary transition-colors hover:text-brand-primary-hover dark:text-accent-cyan dark:hover:text-accent-cyan/80"
             >
               {COPY.docsLink.label} →
             </a>
           </div>
-          <div className="lg:col-span-7">
+          {/* min-w-0 lets the grid item shrink below the code's intrinsic
+              width so the CodeArtifact's own overflow-x-auto engages instead of
+              the panel bleeding past the viewport on mobile. */}
+          <div className="min-w-0 lg:col-span-7">
             <CodeArtifact tabs={TABS} />
           </div>
         </div>

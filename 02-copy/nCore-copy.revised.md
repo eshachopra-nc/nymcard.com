@@ -17,6 +17,20 @@
 
 ---
 
+# PROBLEM OPENER — NEW (pending owner approval, added 1 June 2026 for the nCore campaign)
+
+*Added so the page opens on tension, not features — a tight restatement of the homepage problem beat that sets up the hero below. Per campaign brief §7. Designer to host the signature "stitched stack → one core" animation here as the page centerpiece. Nothing else in this file changes.*
+
+**Headline**
+
+Your payments stack wasn't built. It was assembled.
+
+**Body**
+
+A card processor, a separate fraud vendor, a ledger that doesn't talk to settlement, cross-border through someone else. Six vendors, six data silos, six audit trails that don't reconcile. nCore is the one platform underneath all of it.
+
+---
+
 # HERO
 
 **Headline**
@@ -25,7 +39,7 @@ Build every payment product on nCore.
 
 **Description**
 
-One customer record, one ledger, one audit trail — on a processor NymCard owns.
+One customer record, one ledger, one audit trail — on a platform NymCard owns.
 
 **CTAs**
 
@@ -58,10 +72,10 @@ Every product in the modern payments stack, with AI and Insights running across 
 - **Financial Crime** — Fraud, risk, 3D Secure, AML, sanctions, and identity — applied in the authorization path, not bolted on after.
 - **Reconciliation** — Automated reconciliation across ledger, schemes, and settlement, with reporting your finance and ops teams can act on.
 
-**Across every layer** (shown as a cross-cutting band beneath the products, not as peer tiles):
+**Across every layer** (two full-width cards beneath the products, matching the product-card treatment — eyebrow + short headline + one-sentence grey description):
 
-- **AI** — Agentic, domain-trained models woven into decisioning, routing, underwriting, and monitoring across every layer.
-- **Insights** — Dashboards and analytics across every product, so you see the whole program in one place.
+- **AI** — Headline: "Intelligence in every decision" · Description (grey): Agentic, domain-trained models woven into decisioning, routing, underwriting, and monitoring across every layer.
+- **Insights** — Headline: "Your whole program in one view" · Description (grey): Dashboards and analytics across every product, so you see the whole program in one place.
 
 ---
 
@@ -69,9 +83,7 @@ Every product in the modern payments stack, with AI and Insights running across 
 
 (Positioned directly BELOW the hero, per owner feedback 2026-06-01.)
 
-**Frame**
-
-What runs on one platform looks like this.
+**Frame:** none — removed per owner (2026-06-01); the stats stand on their own, animated on scroll.
 
 **Values (confirmed):**
 
@@ -84,13 +96,21 @@ What runs on one platform looks like this.
 
 # CONNECTIVITY
 
+**Layout (owner 2026-06-01):** two-column section that earns its space — value prop on the left, the orbit (nCore centered, 5 logos, no spokes) on the right.
+
 **Section heading**
 
 Connected to the schemes and networks before you arrive.
 
+**Body**
+
+nCore comes pre-integrated with the card schemes and payout networks your programs run on — so you launch on certified rails from day one, instead of spending months on scheme certification and network connectivity.
+
 **Logos (market-agnostic set):**
 
-Visa · Mastercard · Visa Direct · Mastercard Cross-Border · Western Union · MoneyGram
+Visa · Mastercard · Visa Direct · Western Union · MoneyGram
+
+(5 logos orbiting nCore, no connector spokes. Mastercard Cross-Border dropped per owner 2026-06-01.)
 
 ---
 
@@ -98,7 +118,7 @@ Visa · Mastercard · Visa Direct · Mastercard Cross-Border · Western Union ·
 
 **Section heading**
 
-Deploy nCore where your infrastructure needs it.
+Deploy on your terms.
 
 **Description**
 

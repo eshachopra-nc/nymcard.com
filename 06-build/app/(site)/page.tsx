@@ -3,10 +3,11 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
 import { SectionNav } from "@/components/dev/SectionNav";
 import { Hero } from "@/components/hero/Hero";
-import { TransformationSection } from "@/components/sections/transformation/TransformationSection";
+import { ProblemSection } from "@/components/sections/transformation/ProblemSection";
+import { NCoreSection } from "@/components/sections/transformation/NCoreSection";
 import { HomeProducts } from "@/components/sections/HomeProducts";
-import { NCoreMigration } from "@/components/sections/ncore/NCoreMigration";
-import { NetworkProof } from "@/components/sections/NetworkProof";
+import { WhyNymCard } from "@/components/sections/WhyNymCard";
+import { MigrationFlow } from "@/components/composition/LendingMotionSections";
 import { HomeDeployment } from "@/components/sections/HomeDeployment";
 import { UseCases } from "@/components/sections/UseCases";
 import { FinalCTA } from "@/components/sections/FinalCTA";
@@ -34,29 +35,15 @@ import { Footer } from "@/components/sections/Footer";
 // The standalone NCoreStack is retired from the homepage and lives on
 // /platform/ncore.
 
-// Migration copy — Homepage.revised.md §6, mirrored verbatim. Passed to the
-// prop-driven NCoreMigration (whose no-prop defaults keep /platform/ncore
-// rendering exactly as before).
+// Migration copy — Homepage.revised.md §5, mirrored verbatim. The homepage now
+// uses the agentic 5-stage `MigrationFlow` interaction (the same one on the card
+// page), not the MigrationConsole. The console moves to the migration / nCore
+// pages (owner, 3 June).
 const MIGRATION = {
   eyebrow: "Migration",
-  heading: "Migrate off legacy without taking your program down.",
-  description:
-    "NymCard moves your portfolio onto nCore in phases, with agentic AI-led tooling that maps your legacy stack and accelerates the cutover. Your program stays live throughout.",
-  points: [
-    {
-      label: "Phased, not big-bang",
-      line: "full portfolio, re-carding, and parallel runs, so nothing moves before it's ready.",
-    },
-    {
-      label: "AI-led migration tooling",
-      line: "agentic tooling maps your existing stack and data, shortening months of manual mapping.",
-    },
-    {
-      label: "Customers never feel the cutover",
-      line: "programs keep running while the switch happens underneath.",
-    },
-  ],
-  cta: { label: "Talk to us", href: "/company/contact" },
+  headline: "Modernise without starting over.",
+  body: "Moving off legacy infrastructure shouldn't mean rebuilding your business. See how financial institutions migrate to nCore while keeping programs live throughout the transition.",
+  cta: { label: "Explore Migration & Modernisation", href: "/platform/migration" },
 } as const;
 
 // ── Homepage metadata ───────────────────────────────────────────────────────
@@ -90,34 +77,43 @@ export default function HomePage() {
         <Hero />
       </div>
 
-      {/* 3 — The signature transformation: legacy becomes nCore. One pinned,
-          scroll-scrubbed section moving fragmented → AI scan → transform →
-          nCore nucleus. Merges the former §3 (problem) and §4 (nCore). */}
+      {/* 3 — The signature transformation, in TWO sequential beats: the problem
+          (fragmentation, felt on its own screen) then nCore (the answer, whose
+          scroll-in resolves the fragments into one core). Replaces the former
+          tabbed/scrubbed single section. Copy: Homepage.revised.md §3.1 + §3.2. */}
+      <div id="problem" className="scroll-mt-24">
+        <ProblemSection />
+      </div>
       <div id="ncore" className="scroll-mt-24">
-        <TransformationSection />
+        <NCoreSection />
       </div>
 
-      {/* 4 — Products as proof + AI/Insights "across every layer" band. */}
+      {/* 5 — Products as proof + AI/Insights "across every layer" band. */}
       <div id="products" className="scroll-mt-24">
         <HomeProducts />
       </div>
 
-      {/* 6 — Migration & Modernisation (NEW). */}
+      {/* 6 — Why NymCard (the differentiation beat). Copy owner-authored,
+          Homepage.revised.md §6. */}
+      <div id="why-nymcard" className="scroll-mt-24">
+        <WhyNymCard />
+      </div>
+
+      {/* 7 — Migration & Modernisation. Uses the agentic 5-stage MigrationFlow
+          interaction (shared with the card page), not the MigrationConsole. */}
       <div id="migration" className="scroll-mt-24">
-        <NCoreMigration
-          eyebrow={MIGRATION.eyebrow}
-          heading={MIGRATION.heading}
-          description={MIGRATION.description}
-          points={MIGRATION.points}
+        <MigrationFlow
+          headline={MIGRATION.headline}
+          body={MIGRATION.body}
           cta={MIGRATION.cta}
+          atmosphere="top"
         />
       </div>
 
-      {/* 7 + 8 — the bank de-risk cluster: network proof + deployment, adjacent
-          and consistently calm/soft. */}
-      <div id="network" className="scroll-mt-24">
-        <NetworkProof />
-      </div>
+      {/* Network & Proof section retired (owner, 3 June). The principal-member
+          proof (Visa + Mastercard) now lives under the nCore diagram (§3.2). */}
+
+      {/* 8 — Deployment (bank de-risk: a calm/soft surface). */}
       <div id="deployment" className="scroll-mt-24">
         <HomeDeployment />
       </div>
@@ -132,7 +128,7 @@ export default function HomePage() {
         <FinalCTA />
       </div>
 
-      {/* 11 — Footer. */}
+      {/* Footer. */}
       <div id="footer" className="scroll-mt-24">
         <Footer />
       </div>

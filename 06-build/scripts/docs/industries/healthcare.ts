@@ -99,7 +99,7 @@ export const healthcareDoc = {
       "Audit trails and regulatory reporting built into the platform",
       "Cloud, on-soil, and on-premise deployment on the same platform",
       "Principal member of Visa and Mastercard",
-      "PCI DSS Level 1 certified · ISO 27001 certified",
+      "PCI DSS compliant · ISO 27001 certified",
     ],
   },
 
@@ -136,7 +136,7 @@ export const healthcareDoc = {
         { question: "Is the platform deployable inside our environment?", answer: "Yes. NymCard supports cloud, on-soil, and on-premise deployment on the same platform. On-premise runs inside your data center, fully self-hosted." },
         { question: "How is compliance handled?", answer: "Inside the platform. KYC, KYB, AML, and sanctions screening run across all programs, with audit trails and regulatory reporting built in." },
         { question: "Can we ship a branded patient app on this?", answer: "Yes. PayKit delivers a white-labeled mobile and web app built directly on your card, financing, and payout infrastructure, no separate front-end build." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
       ],
       "faq",
     ),

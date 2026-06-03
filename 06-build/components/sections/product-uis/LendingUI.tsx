@@ -1,155 +1,77 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { Check } from "lucide-react";
-import { dur, ease } from "@/components/visuals/motion";
-import { GlassBed, GlassSurface } from "./glass";
+import { visual, withAlpha } from "@/components/visuals";
+import {
+  IllustrationField,
+  IllustrationCard,
+  Eyebrow,
+  LiveTag,
+  Slab,
+} from "@/components/visuals/product-illustration";
+import { useSequentialReveal } from "@/components/visuals/product-illustration/useSequentialReveal";
 
 // ── LendingUI ──────────────────────────────────────────────────────────────
 //
-// Homepage Products bento → Lending (narrow cell). Glassmorphic and DATA-LED: a
-// frosted "Pay in 4" instalment schedule floating on a `cyan` cool bed. Reuses
-// the system glass material (./glass → §8.1). Maps to copy: "BNPL, revolving
-// credit, and installment programs built into your product."
+// Homepage Products bento → Lending. A clean 4-chip installment schedule (first
+// chip Paid + glowing, the rest dated) + `Total $480.00`; `PAY IN 4 · 0% APR` +
+// Approved. Maps to copy: "BNPL, revolving credit, and installment programs."
+// Reference: bento-reworked.jsx #2.
 //
-// Density is deliberately different from the object-led Cards cell: this is a
-// compact glass console, not a card object. No program-type chips (the section
-// description already names them — owner feedback, 2026-05-29).
-//
-// Motion (STATIC at rest):
-//   · Scroll-in (whileInView, once) — the glass panel rises, then the four
-//     schedule rows stagger in top→bottom; the first row settles as PAID.
-//   · Hover (group-hover) — the schedule advances ONE step: the progress bar
-//     fills from one quarter to one half, and the next ("Due") row flips to a
-//     check + reads "Paid". A live decisioning gesture.
-//   Reduced-motion safe: rows render in resting state, progress bar holds at
-//   its rest fill, no stagger.
+// Motion: on scroll-into-view (and replayed on hover) the three upcoming
+// installments slide/fade in one by one after the Paid chip — the schedule
+// "building". Reduced-motion shows the full schedule. The cell carries the lift.
 
-type InstalmentState = "paid" | "next" | "upcoming";
+const PAID_CHIP =
+  `linear-gradient(150deg, ${withAlpha(visual.cyan, 0.95)}, ${withAlpha(visual.primary, 0.92)})`;
 
-const ROWS: { amount: string; date: string; state: InstalmentState }[] = [
-  { amount: "$120.00", date: "Today", state: "paid" },
-  { amount: "$120.00", date: "Mar 30", state: "next" },
-  { amount: "$120.00", date: "Apr 30", state: "upcoming" },
-  { amount: "$120.00", date: "May 30", state: "upcoming" },
+const UPCOMING: [string, string][] = [
+  ["$120", "Mar 30"],
+  ["$120", "Apr 30"],
+  ["$120", "May 30"],
 ];
 
 export function LendingUI() {
-  const reduced = useReducedMotion();
-
-  const container: Variants = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.09, delayChildren: 0.12 } },
-  };
-  const rowItem: Variants = {
-    hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0, transition: { duration: dur.base, ease: ease.out } },
-  };
+  const { ref, n, bind } = useSequentialReveal(UPCOMING.length);
 
   return (
-    <GlassBed tone="cyan">
-      <div className="relative flex h-full w-full flex-col justify-center px-6 py-7 sm:px-7">
-        <GlassSurface className="p-4">
-          <div className="flex items-baseline justify-between">
-            <span className="font-display text-[13px] font-semibold text-text-primary dark:text-text-on-brand">
-              Pay in 4
-            </span>
-            <span className="font-mono text-[15px] font-semibold tracking-tight text-text-primary dark:text-text-on-brand">
-              $480.00
-            </span>
-          </div>
+    <>
+      <IllustrationField />
+      <IllustrationCard>
+        <div className="flex items-center justify-between">
+          <Eyebrow>Pay in 4 · 0% APR</Eyebrow>
+          <LiveTag>Approved</LiveTag>
+        </div>
 
-          {/* progress bar — fills one step further on hover. */}
-          <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-text-muted/15 dark:bg-white/10">
-            <span
-              className="block h-full rounded-full bg-gradient-to-r from-accent-cyan to-brand-primary transition-[width] duration-500 ease-out [width:25%] group-hover:[width:50%] dark:to-accent-cyan"
-            />
-          </div>
-
-          <motion.ul
-            className="mt-3 divide-y divide-surface-border-subtle dark:divide-white/10"
-            variants={reduced ? undefined : container}
-            initial={reduced ? false : "hidden"}
-            whileInView={reduced ? undefined : "show"}
-            viewport={{ once: true, amount: 0.45 }}
+        <div ref={ref} {...bind} className="mt-3.5 flex gap-2">
+          {/* Paid — the glowing focal chip. */}
+          <div
+            className="flex-1 rounded-[11px] py-2.5 text-center"
+            style={{ background: PAID_CHIP, boxShadow: `0 0 22px ${withAlpha(visual.cyan, 0.5)}, inset 0 0 0 1px ${withAlpha(visual.white, 0.5)}` }}
           >
-            {ROWS.map((row, i) => (
-              <motion.li key={i} variants={rowItem}>
-                <InstalmentRow {...row} />
-              </motion.li>
-            ))}
-          </motion.ul>
-
-          <div className="mt-3 flex items-center justify-between border-t border-surface-border-subtle pt-2.5 dark:border-white/10">
-            <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.13em] text-text-secondary dark:text-text-dark-secondary">
-              <span className="size-1.5 rounded-full bg-accent-cyan" />
-              Approved
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.13em] text-text-muted dark:text-text-dark-muted">
-              0% APR
-            </span>
+            <div className="text-[13px] font-bold text-white">$120</div>
+            <div className="mt-0.5 font-mono text-[8px] tracking-[0.1em] text-white/90">PAID</div>
           </div>
-        </GlassSurface>
-      </div>
-    </GlassBed>
-  );
-}
+          {UPCOMING.map(([amt, date], i) => (
+            <Slab
+              key={date}
+              className="flex-1 py-2.5 text-center transition-[transform,opacity] duration-300 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]"
+              style={{ opacity: n > i ? 1 : 0, transform: n > i ? "translateY(0)" : "translateY(6px)" }}
+            >
+              <div className="text-[13px] font-semibold text-text-primary dark:text-text-dark-primary">{amt}</div>
+              <div className="mt-0.5 font-mono text-[8px] tracking-[0.1em] text-text-secondary dark:text-text-dark-secondary">
+                {date.toUpperCase()}
+              </div>
+            </Slab>
+          ))}
+        </div>
 
-function InstalmentRow({ amount, date, state }: { amount: string; date: string; state: InstalmentState }) {
-  const isPaidAtRest = state === "paid";
-  const ticksOnHover = state === "next";
-  return (
-    <div className="flex items-center justify-between gap-3 py-1.5 transition-colors duration-300 group-hover:bg-accent-cyan/[0.04] dark:group-hover:bg-accent-cyan/[0.07]">
-      <span className="flex items-center gap-2.5">
-        <span
-          className={[
-            "grid size-4 place-items-center rounded-full ring-1 transition-all duration-300",
-            isPaidAtRest
-              ? "bg-accent-cyan/20 ring-accent-cyan/55"
-              : ticksOnHover
-                ? "bg-white/40 ring-surface-border-subtle group-hover:bg-accent-cyan/20 group-hover:ring-accent-cyan/55 dark:bg-white/[0.04] dark:ring-white/10"
-                : "bg-white/40 ring-surface-border-subtle dark:bg-white/[0.04] dark:ring-white/10",
-          ].join(" ")}
-        >
-          <Check
-            aria-hidden="true"
-            className={[
-              "size-2.5 text-accent-cyan transition-opacity duration-300",
-              isPaidAtRest ? "opacity-100" : ticksOnHover ? "opacity-0 group-hover:opacity-100" : "opacity-0",
-            ].join(" ")}
-            strokeWidth={3}
-          />
-        </span>
-        <span className="font-mono text-[12px] tabular-nums text-text-primary dark:text-text-on-brand">{amount}</span>
-      </span>
-
-      <span className="flex items-center gap-3">
-        <span className="font-mono text-[10px] uppercase tracking-[0.13em] text-text-muted dark:text-text-dark-muted">{date}</span>
-        <span
-          className={[
-            "min-w-[3.5rem] text-right font-mono text-[10px] uppercase tracking-[0.12em] transition-colors duration-300",
-            isPaidAtRest
-              ? "text-accent-cyan"
-              : ticksOnHover
-                ? "text-text-muted group-hover:text-accent-cyan dark:text-text-dark-muted"
-                : "text-text-muted dark:text-text-dark-muted",
-          ].join(" ")}
-        >
-          {/* The "next" row's label flips Due→Paid under hover via a two-layer
-              crossfade so the word changes with the check. */}
-          {isPaidAtRest ? (
-            "Paid"
-          ) : ticksOnHover ? (
-            <span className="relative inline-grid">
-              <span className="col-start-1 row-start-1 opacity-0">Upcoming</span>
-              <span className="col-start-1 row-start-1 text-right transition-opacity duration-300 group-hover:opacity-0">Due</span>
-              <span className="col-start-1 row-start-1 text-right opacity-0 transition-opacity duration-300 group-hover:opacity-100">Paid</span>
-            </span>
-          ) : (
-            "Upcoming"
-          )}
-        </span>
-      </span>
-    </div>
+        <div className="mt-3.5 flex items-center justify-between border-t pt-3" style={{ borderColor: withAlpha(visual.primary, 0.1) }}>
+          <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-text-secondary dark:text-text-dark-secondary">
+            4 payments
+          </span>
+          <span className="text-[14px] font-semibold text-text-primary dark:text-text-dark-primary">Total $480.00</span>
+        </div>
+      </IllustrationCard>
+    </>
   );
 }

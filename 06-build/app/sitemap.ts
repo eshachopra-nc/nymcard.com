@@ -37,17 +37,17 @@ const STATIC_ROUTES: Array<{
   { path: "/products/financial-crime", changeFrequency: "monthly", priority: 0.8 },
 
   // Industries
-  { path: "/industries/retail-banking", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/industries/commercial-banking", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/industries/neobanks", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/industries/fintechs", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/industries/exchange-houses", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/industries/telecommunications", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/industries/retail-marketplaces", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/industries/travel", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/industries/mobility", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/industries/healthcare", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/industries/government", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/solutions/retail-banking", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/solutions/commercial-banking", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/solutions/neobanks", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/solutions/fintechs", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/solutions/exchange-houses", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/solutions/telecommunications", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/solutions/retail-marketplaces", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/solutions/travel", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/solutions/mobility", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/solutions/healthcare", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/solutions/government", changeFrequency: "monthly", priority: 0.7 },
 
   // Company
   { path: "/company/about", changeFrequency: "monthly", priority: 0.6 },

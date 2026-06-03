@@ -17,7 +17,7 @@ export const siteConfig = defineType({
       title: "Default trust line",
       type: "string",
       description:
-        "Fallback trust line when a page doesn't override it (e.g. 'Principal member of Visa and Mastercard · PCI DSS Level 1 · ISO 27001.').",
+        "Fallback trust line when a page doesn't override it (e.g. 'Principal member of Visa and Mastercard · PCI DSS compliant · ISO 27001.').",
     }),
     defineField({
       name: "footerTagline",

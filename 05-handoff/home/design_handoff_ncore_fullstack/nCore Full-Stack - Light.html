@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>nCore Full-Stack — NymCard (Light)</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+/* ════════════════════════════════════════════════════════════
+   THEME TOKENS — dark is default; [data-theme="light"] overrides.
+   ════════════════════════════════════════════════════════════ */
+:root {
+  --bg: #070A1C;
+  --shell-bg: #080E22;
+  --shell-radial: rgba(48,77,187,0.10);
+  --shell-border: rgba(48,77,187,0.45);
+  --shell-shadow: 0 0 0 1px rgba(48,77,187,0.10), 0 0 80px rgba(48,77,187,0.14), inset 0 1px 0 rgba(120,150,255,0.08);
+  --tag: rgba(150,175,255,0.55);
+  --tag-strong: rgba(190,205,255,0.85);
+
+  --eyebrow: #6B8AFF;
+  --headline: #ffffff;
+  --intro: rgba(255,255,255,0.45);
+
+  --rail-bg: linear-gradient(180deg, rgba(13,21,44,0.9), rgba(9,14,32,0.9));
+  --ai-border: rgba(34,211,238,0.42);
+  --ai-text: rgba(90,220,240,0.92);
+  --ai-glow-a: rgba(34,211,238,0.12);
+  --ai-glow-b: rgba(34,211,238,0.22);
+  --data-border: rgba(150,115,255,0.42);
+  --data-text: rgba(190,165,255,0.92);
+  --data-glow-a: rgba(150,115,255,0.12);
+  --data-glow-b: rgba(150,115,255,0.22);
+
+  --conn-cyan: rgba(34,211,238,0.38);
+  --conn-cyan-dot: rgba(34,211,238,0.75);
+  --conn-purple: rgba(150,115,255,0.38);
+  --conn-purple-dot: rgba(150,115,255,0.75);
+
+  --pulse-track: rgba(34,211,238,0.16);
+  --pulse-core: rgba(34,211,238,0.9);
+  --pulse-hot: #bfe9ff;
+  --cy-soft-bg: rgba(34,211,238,0.10);
+  --cy-soft-border: rgba(34,211,238,0.30);
+
+  --row-bg: rgba(18,27,54,0.55);
+  --row-bg-h: rgba(24,35,68,0.72);
+  --row-border: rgba(120,145,220,0.14);
+  --row-border-h: rgba(120,150,255,0.40);
+  --row-shadow-h: 0 0 0 1px rgba(120,150,255,0.10), 0 8px 30px rgba(8,14,34,0.6);
+  --row-focus: 0 0 0 3px rgba(48,77,187,0.30);
+  --ico-bg: rgba(48,77,187,0.16);
+  --ico-border: rgba(110,150,255,0.22);
+  --ico-color: rgba(150,180,255,0.92);
+  --name: rgba(255,255,255,0.92);
+
+  --chip-bg: rgba(48,77,187,0.18);
+  --chip-border: rgba(110,150,255,0.30);
+  --chip-color: rgba(200,214,255,0.90);
+
+  --go-affordance-bg: rgba(120,150,255,0.06);
+  --go-affordance: rgba(150,175,255,0.55);
+  --go-affordance-h: rgba(180,200,255,0.95);
+
+  --explore: rgba(107,138,255,0.7);
+  --explore-h: rgba(127,158,255,1);
+
+  --backdrop: rgba(4,7,18,0.66);
+  --pop-bg: linear-gradient(180deg, #0F1A36 0%, #0B142C 100%);
+  --pop-border: rgba(120,150,255,0.24);
+  --pop-shadow: 0 50px 140px rgba(0,0,0,0.65), 0 0 0 1px rgba(48,77,187,0.12), inset 0 1px 0 rgba(150,175,255,0.10);
+  --pop-name: #ffffff;
+  --pop-tag: #ffffff;
+  --pop-sub: rgba(255,255,255,0.50);
+  --pop-visual-bg: #0A1228;
+  --pop-visual-border: rgba(120,145,220,0.14);
+  --pop-close-bg: rgba(255,255,255,0.04);
+  --pop-close-border: rgba(255,255,255,0.10);
+  --pop-close-color: rgba(255,255,255,0.55);
+  --caps-label: rgba(150,175,255,0.50);
+  --foot-border: rgba(255,255,255,0.07);
+  --chip-color-h: rgba(220,230,255,0.98);
+  --chip-bg-h: rgba(60,92,210,0.26);
+  --chip-border-h: rgba(130,165,255,0.45);
+
+  --hi-bg: rgba(255,255,255,0.025);
+  --hi-border: rgba(255,255,255,0.07);
+  --hi-tx: rgba(255,255,255,0.74);
+
+  --panel-bg: rgba(255,255,255,0.025);
+  --panel-border: rgba(255,255,255,0.07);
+  --hvcap: rgba(150,175,255,0.55);
+  --kv-border: rgba(255,255,255,0.05);
+  --kv-k: rgba(255,255,255,0.42);
+  --kv-v: rgba(255,255,255,0.82);
+  --track: rgba(255,255,255,0.06);
+
+  --ring-center: #0A1228;
+  --ring-num: #ffffff;
+  --ring-lbl: rgba(255,255,255,0.42);
+  --ring-track: rgba(255,255,255,0.08);
+
+  --go-text: rgba(52,211,153,0.95);
+  --go-bg: rgba(16,185,129,0.08);
+  --go-border: rgba(16,185,129,0.22);
+  --cy: rgba(90,210,235,0.92);
+
+  --btn-ghost-bg: rgba(255,255,255,0.04);
+  --btn-ghost-border: rgba(255,255,255,0.13);
+  --btn-ghost-color: rgba(255,255,255,0.82);
+}
+
+:root[data-theme="light"] {
+  --bg: #F4F6FF;
+  --shell-bg: #FFFFFF;
+  --shell-radial: rgba(48,77,187,0.05);
+  --shell-border: rgba(48,77,187,0.20);
+  --shell-shadow: 0 20px 50px -12px rgba(14,26,51,0.12), 0 0 0 1px rgba(48,77,187,0.04), inset 0 1px 0 rgba(255,255,255,0.7);
+  --tag: rgba(48,77,187,0.55);
+  --tag-strong: rgba(48,77,187,0.95);
+
+  --eyebrow: #304DBB;
+  --headline: #0E1A33;
+  --intro: #4A5578;
+
+  --rail-bg: linear-gradient(180deg, #F7F9FF, #EEF2FF);
+  --ai-border: rgba(14,165,233,0.40);
+  --ai-text: #0E7C99;
+  --ai-glow-a: rgba(14,165,233,0.08);
+  --ai-glow-b: rgba(14,165,233,0.16);
+  --data-border: rgba(109,40,217,0.32);
+  --data-text: #6D28D9;
+  --data-glow-a: rgba(109,40,217,0.07);
+  --data-glow-b: rgba(109,40,217,0.14);
+
+  --conn-cyan: rgba(14,165,233,0.45);
+  --conn-cyan-dot: rgba(14,165,233,0.85);
+  --conn-purple: rgba(109,40,217,0.40);
+  --conn-purple-dot: rgba(109,40,217,0.80);
+
+  --pulse-track: rgba(14,165,233,0.22);
+  --pulse-core: rgba(14,165,233,0.85);
+  --pulse-hot: #5fd0ec;
+  --cy-soft-bg: rgba(14,165,233,0.08);
+  --cy-soft-border: rgba(14,165,233,0.30);
+
+  --row-bg: #FFFFFF;
+  --row-bg-h: #FBFCFF;
+  --row-border: #E8EBF5;
+  --row-border-h: rgba(48,77,187,0.40);
+  --row-shadow-h: 0 2px 6px -1px rgba(14,26,51,0.06), 0 18px 36px -10px rgba(14,26,51,0.14);
+  --row-focus: 0 0 0 3px rgba(48,77,187,0.20);
+  --ico-bg: rgba(48,77,187,0.08);
+  --ico-border: rgba(48,77,187,0.18);
+  --ico-color: #304DBB;
+  --name: #0E1A33;
+
+  --chip-bg: rgba(48,77,187,0.07);
+  --chip-border: rgba(48,77,187,0.20);
+  --chip-color: #2840A0;
+
+  --go-affordance-bg: rgba(48,77,187,0.06);
+  --go-affordance: rgba(48,77,187,0.50);
+  --go-affordance-h: #304DBB;
+
+  --explore: #304DBB;
+  --explore-h: #1F3389;
+
+  --backdrop: rgba(14,26,51,0.40);
+  --pop-bg: #FFFFFF;
+  --pop-border: #E8EBF5;
+  --pop-shadow: 0 50px 140px rgba(14,26,51,0.30), 0 0 0 1px rgba(48,77,187,0.06);
+  --pop-name: #0E1A33;
+  --pop-tag: #0E1A33;
+  --pop-sub: #4A5578;
+  --pop-visual-bg: #F4F6FF;
+  --pop-visual-border: #E8EBF5;
+  --pop-close-bg: #F4F6FF;
+  --pop-close-border: #E8EBF5;
+  --pop-close-color: #7A839E;
+  --caps-label: rgba(48,77,187,0.55);
+  --foot-border: #E8EBF5;
+  --chip-color-h: #1F3389;
+  --chip-bg-h: rgba(48,77,187,0.12);
+  --chip-border-h: rgba(48,77,187,0.35);
+
+  --hi-bg: #F7F9FF;
+  --hi-border: #E8EBF5;
+  --hi-tx: #4A5578;
+
+  --panel-bg: #F7F9FF;
+  --panel-border: #E8EBF5;
+  --hvcap: rgba(48,77,187,0.55);
+  --kv-border: #E8EBF5;
+  --kv-k: #7A839E;
+  --kv-v: #0E1A33;
+  --track: rgba(14,26,51,0.08);
+
+  --ring-center: #FFFFFF;
+  --ring-num: #0E1A33;
+  --ring-lbl: #7A839E;
+  --ring-track: rgba(14,26,51,0.10);
+
+  --go-text: #059669;
+  --go-bg: rgba(16,185,129,0.08);
+  --go-border: rgba(16,185,129,0.26);
+  --cy: #0E7C99;
+
+  --btn-ghost-bg: #F4F6FF;
+  --btn-ghost-border: #D1D7E8;
+  --btn-ghost-color: #0E1A33;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); }
+
+.section {
+  width: 1440px;
+  margin: 0 auto;
+  padding: 96px 80px;
+  font-family: var(--font-body);
+}
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+/* ── COPY (left column) ─────────────────────────────────────── */
+.copy {
+  text-align: left;
+  max-width: 520px;
+}
+.eyebrow {
+  display: inline-block;
+  font-size: 11px; font-weight: 600; color: var(--eyebrow);
+  letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 20px;
+}
+.headline {
+  font-size: 44px; line-height: 52px; font-weight: 700;
+  letter-spacing: -0.022em; color: var(--headline);
+  margin-bottom: 18px; text-wrap: balance;
+}
+.intro {
+  font-size: 17px; line-height: 27px;
+  color: var(--intro);
+}
+
+/* ── VISUAL ZONE (right column) ───────────────────────────── */
+.visual { min-width: 0; }
+
+/* ── nCORE SHELL ──────────────────────────────────────────── */
+.ncore-shell {
+  position: relative;
+  border-radius: 28px;
+  background:
+    radial-gradient(120% 90% at 50% 0%, var(--shell-radial) 0%, transparent 60%),
+    var(--shell-bg);
+  border: 1px solid var(--shell-border);
+  box-shadow: var(--shell-shadow);
+  padding: 20px 20px 22px;
+}
+.ncore-tag {
+  font-family: var(--font-mono);
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.32em; text-transform: lowercase;
+  color: var(--tag);
+  padding: 6px 4px 18px;
+}
+.ncore-tag b { color: var(--tag-strong); font-weight: 600; }
+
+.ncore-body {
+  display: grid;
+  grid-template-columns: 58px 1fr 58px;
+  gap: 28px;
+  align-items: stretch;
+}
+
+/* ── SIDE RAILS ───────────────────────────────────────────── */
+.rail {
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  background: var(--rail-bg);
+}
+.rail-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.rail.ai {
+  border: 1px solid var(--ai-border);
+  box-shadow: 0 0 26px var(--ai-glow-a), inset 0 0 24px var(--ai-glow-a);
+  animation: glow-ai 4s ease-in-out infinite;
+}
+.rail.ai .rail-text { color: var(--ai-text); }
+.rail.data {
+  border: 1px solid var(--data-border);
+  box-shadow: 0 0 26px var(--data-glow-a), inset 0 0 24px var(--data-glow-a);
+  animation: glow-data 4s ease-in-out 0.6s infinite;
+}
+.rail.data .rail-text { color: var(--data-text); }
+@keyframes glow-ai {
+  0%,100% { box-shadow: 0 0 26px var(--ai-glow-a), inset 0 0 24px var(--ai-glow-a); }
+  50%     { box-shadow: 0 0 34px var(--ai-glow-b), inset 0 0 28px var(--ai-glow-a); }
+}
+@keyframes glow-data {
+  0%,100% { box-shadow: 0 0 26px var(--data-glow-a), inset 0 0 24px var(--data-glow-a); }
+  50%     { box-shadow: 0 0 34px var(--data-glow-b), inset 0 0 28px var(--data-glow-a); }
+}
+
+/* ── PRODUCT ROWS ─────────────────────────────────────────── */
+.rows { position: relative; display: flex; flex-direction: column; gap: 14px; }
+
+/* Cyan data pulse travelling up & down the product stack */
+.data-pulse {
+  position: absolute; left: 50%; top: 0; bottom: 0;
+  transform: translateX(-50%);
+  width: 56px; z-index: 4; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 11%, #000 89%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0%, #000 11%, #000 89%, transparent 100%);
+}
+.data-pulse::after {
+  content: ''; position: absolute; left: 50%; transform: translateX(-50%);
+  width: 5px; height: 100px; border-radius: 5px;
+  background: linear-gradient(to bottom, transparent, var(--pulse-core) 44%, var(--pulse-hot) 50%, var(--pulse-core) 56%, transparent);
+  box-shadow: 0 0 18px 4px var(--pulse-core), 0 0 40px 9px var(--cy-soft-bg);
+  animation: pulse-updown 4.8s ease-in-out infinite;
+}
+@keyframes pulse-updown {
+  0%   { top: 0%; }
+  50%  { top: calc(100% - 100px); }
+  100% { top: 0%; }
+}
+
+.prow {
+  position: relative;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+  min-height: 66px;
+  padding: 0 20px;
+  background: var(--row-bg);
+  border: 1px solid var(--row-border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.prow:hover {
+  background: var(--row-bg-h);
+  border-color: var(--row-border-h);
+  box-shadow: var(--row-shadow-h);
+}
+.prow:focus-visible {
+  outline: none;
+  border-color: var(--row-border-h);
+  box-shadow: var(--row-focus);
+}
+
+/* Connectors */
+.conn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  display: flex; align-items: center; width: 28px;
+  pointer-events: none;
+}
+.conn-l { right: 100%; }
+.conn-r { left: 100%; }
+.cdot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.cline { flex: 1; height: 0; }
+.conn-l .cdot { background: var(--conn-cyan-dot); box-shadow: 0 0 6px var(--conn-cyan-dot); }
+.conn-l .cline { border-top: 1.5px dashed var(--conn-cyan); }
+.conn-r .cdot { background: var(--conn-purple-dot); box-shadow: 0 0 6px var(--conn-purple-dot); }
+.conn-r .cline { border-top: 1.5px dashed var(--conn-purple); }
+
+/* Row head: icon + name */
+.prow-head { display: flex; align-items: center; gap: 15px; }
+.prow-ico {
+  width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ico-bg);
+  border: 1px solid var(--ico-border);
+  color: var(--ico-color);
+}
+.prow-ico svg { width: 18px; height: 18px; stroke-width: 1.75; }
+.prow-name {
+  font-size: 17px; font-weight: 600;
+  color: var(--name);
+  letter-spacing: -0.012em;
+}
+
+/* Open affordance (chevron) */
+.prow-go {
+  width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--go-affordance); background: var(--go-affordance-bg);
+  transition: color 0.18s, transform 0.18s, background 0.18s;
+}
+.prow:hover .prow-go { color: var(--go-affordance-h); transform: translateX(2px); }
+.prow-go svg { width: 16px; height: 16px; stroke-width: 2; }
+
+/* ── UNIFY BAND: the problem nCore solves ─────────────────── */
+.unify-band {
+  margin-top: 22px; padding: 18px 8px 6px;
+  border-top: 1px solid var(--shell-border);
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+}
+.unify-ico {
+  width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--cy-soft-bg); border: 1px solid var(--cy-soft-border);
+  color: var(--cy);
+}
+.unify-ico svg { width: 20px; height: 20px; stroke-width: 1.7; }
+.unify-main {
+  font-size: 18px; font-weight: 700; color: var(--headline);
+  letter-spacing: -0.018em; line-height: 1.2;
+}
+.unify-sub { font-size: 13px; color: var(--intro); margin-top: 3px; }
+
+/* ── EXPLORE CTA ──────────────────────────────────────────── */
+.cta-row { display: flex; align-items: center; gap: 18px; margin-top: 30px; }
+.explore {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 14px; font-weight: 500;
+  color: var(--explore);
+  text-decoration: none; transition: color 0.15s;
+}
+.explore:hover { color: var(--explore-h); }
+.explore .arr { display: inline-block; transition: transform 0.15s cubic-bezier(0.16,1,0.3,1); }
+.explore:hover .arr { transform: translateX(4px); }
+
+/* ════════════════════════════════════════════════════════════
+   POP-OUT OVERLAY — mini product page
+   ════════════════════════════════════════════════════════════ */
+.overlay {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px;
+  visibility: hidden;
+}
+.overlay.open { visibility: visible; }
+.ov-backdrop {
+  position: absolute; inset: 0;
+  background: var(--backdrop);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  opacity: 0; transition: opacity 0.3s var(--ease-out, ease);
+}
+.overlay.open .ov-backdrop { opacity: 1; }
+
+.popcard {
+  position: relative;
+  width: 820px; max-width: 94vw; max-height: 90vh; overflow: auto;
+  background: var(--pop-bg);
+  border: 1px solid var(--pop-border);
+  border-radius: 22px;
+  padding: 32px 34px 30px;
+  box-shadow: var(--pop-shadow);
+  transform: scale(0.92) translateY(10px);
+  opacity: 0;
+  transition: transform 0.38s cubic-bezier(0.16,1,0.3,1), opacity 0.28s ease;
+}
+.overlay.open .popcard { transform: scale(1) translateY(0); opacity: 1; }
+
+.pop-head { display: flex; align-items: center; gap: 14px; }
+.pop-ico {
+  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ico-bg);
+  border: 1px solid var(--ico-border);
+  color: var(--ico-color);
+}
+.pop-ico svg { width: 22px; height: 22px; stroke-width: 1.7; }
+.pop-name { flex: 1; font-size: 20px; font-weight: 700; color: var(--pop-name); letter-spacing: -0.02em; }
+.pop-close {
+  width: 34px; height: 34px; border-radius: 9px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--pop-close-bg);
+  border: 1px solid var(--pop-close-border);
+  color: var(--pop-close-color);
+  cursor: pointer; transition: filter 0.15s;
+}
+.pop-close:hover { filter: brightness(1.15); }
+.pop-close svg { width: 17px; height: 17px; stroke-width: 2; }
+
+.pop-lede { margin: 20px 0 22px; }
+.pop-tag { font-size: 20px; font-weight: 600; color: var(--pop-tag); letter-spacing: -0.018em; line-height: 1.3; text-wrap: balance; }
+.pop-sub { font-size: 14px; line-height: 22px; color: var(--pop-sub); margin-top: 8px; max-width: 660px; }
+
+.pop-visual {
+  border-radius: 16px;
+  border: 1px solid var(--pop-visual-border);
+  background:
+    radial-gradient(120% 120% at 0% 0%, var(--shell-radial), transparent 55%),
+    var(--pop-visual-bg);
+  padding: 22px;
+  min-height: 232px;
+}
+
+/* Highlights */
+.pop-high { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 22px 0; }
+.hi-item {
+  background: var(--hi-bg);
+  border: 1px solid var(--hi-border);
+  border-radius: 11px; padding: 15px 16px;
+}
+.hi-ic {
+  width: 26px; height: 26px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ico-bg); border: 1px solid var(--ico-border);
+  color: var(--ico-color); margin-bottom: 11px;
+}
+.hi-ic svg { width: 14px; height: 14px; stroke-width: 1.8; }
+.hi-tx { font-size: 12.5px; line-height: 18px; color: var(--hi-tx); }
+
+.pop-caps-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--caps-label); font-family: var(--font-mono); margin-bottom: 11px;
+}
+.pop-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pchip {
+  font-size: 12.5px; font-weight: 500;
+  padding: 6px 14px; border-radius: 999px;
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-border);
+  color: var(--chip-color);
+  white-space: nowrap;
+}
+
+.pop-foot {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 26px; padding-top: 22px;
+  border-top: 1px solid var(--foot-border);
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 13.5px; font-weight: 600;
+  padding: 11px 20px; border-radius: 13px;
+  text-decoration: none; transition: filter 0.15s, background 0.15s, border-color 0.15s;
+}
+.btn .arr { display: inline-block; transition: transform 0.15s cubic-bezier(0.16,1,0.3,1); }
+.btn-pri {
+  background: linear-gradient(135deg, #3656C8, #4A40C4);
+  color: #fff; border: 1px solid rgba(130,160,255,0.32);
+  box-shadow: 0 6px 20px rgba(48,77,187,0.35);
+}
+.btn-pri:hover { filter: brightness(1.09); }
+.btn-pri:hover .arr { transform: translateX(3px); }
+.btn-ghost {
+  background: var(--btn-ghost-bg);
+  border: 1px solid var(--btn-ghost-border);
+  color: var(--btn-ghost-color);
+}
+.btn-ghost:hover { filter: brightness(0.97); }
+
+/* ── SHARED HERO UTILITIES (product surfaces) ─────────────── */
+.hv { display: flex; gap: 22px; align-items: stretch; }
+.hv-panel {
+  flex: 1;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.hv-cap {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--hvcap);
+  font-family: var(--font-mono); margin-bottom: 14px;
+}
+.kv { display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 1px solid var(--kv-border); font-size: 13px; }
+.kv:last-child { border-bottom: none; }
+.kv .k { color: var(--kv-k); }
+.kv .v { color: var(--kv-v); font-weight: 500; font-family: var(--font-mono); }
+.kv .v.go { color: var(--go-text); }
+.kv .v.cy { color: var(--cy); }
+
+/* Cards — card visual */
+.hv-card {
+  width: 300px; height: 188px; border-radius: 14px; flex-shrink: 0;
+  background: linear-gradient(135deg, #2C49B8 0%, #5B4FD9 58%, #22C7E0 120%);
+  padding: 20px; color: #fff; position: relative; overflow: hidden;
+  box-shadow: 0 18px 46px rgba(48,77,187,0.42), inset 0 1px 0 rgba(255,255,255,0.18);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.hv-card::after {
+  content: ''; position: absolute; top: -40%; right: -20%;
+  width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.16), transparent 65%);
+}
+.cc-top { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+.cc-brand { font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+.cc-type {
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 3px 9px; border-radius: 999px; background: rgba(255,255,255,0.18);
+}
+.cc-chip { width: 38px; height: 28px; border-radius: 6px; position: relative; z-index: 1;
+  background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.55)); }
+.cc-num { font-family: var(--font-mono); font-size: 16px; letter-spacing: 0.10em; position: relative; z-index: 1; }
+.cc-bot { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1; }
+.cc-bot .nm { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; }
+.cc-bot .vs { font-size: 16px; font-weight: 700; font-style: italic; }
+
+/* Lending — score ring */
+.ring {
+  width: 132px; height: 132px; border-radius: 50%; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background:
+    radial-gradient(closest-side, var(--ring-center) 78%, transparent 79% 100%),
+    conic-gradient(#5B4FD9 0% 80%, var(--ring-track) 80% 100%);
+  margin: auto;
+}
+.ring .num { font-size: 32px; font-weight: 700; color: var(--ring-num); letter-spacing: -0.02em; }
+.ring .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ring-lbl); margin-top: 2px; }
+.badge-go {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; color: var(--go-text);
+  background: var(--go-bg); border: 1px solid var(--go-border);
+  padding: 5px 12px; border-radius: 999px; margin-bottom: 14px;
+}
+
+/* Money Movement — flow */
+.flow { display: flex; align-items: center; gap: 14px; justify-content: center; margin-bottom: 18px; }
+.flow-node {
+  text-align: center; padding: 14px 20px; border-radius: 12px;
+  background: var(--panel-bg); border: 1px solid var(--panel-border);
+}
+.flow-node .cur { font-size: 20px; font-weight: 700; color: var(--kv-v); font-family: var(--font-mono); }
+.flow-node .amt { font-size: 11px; color: var(--kv-k); margin-top: 2px; }
+.flow-mid { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--cy); }
+.flow-mid .rate { font-size: 12px; font-weight: 600; font-family: var(--font-mono); }
+.flow-mid .ln { width: 56px; height: 0; border-top: 1.5px dashed var(--cy); }
+
+/* Settlement — bars */
+.bars { display: flex; flex-direction: column; gap: 12px; }
+.bar-row { display: grid; grid-template-columns: 44px 1fr 92px; align-items: center; gap: 12px; }
+.bar-row .cur { font-size: 12px; font-weight: 600; color: var(--kv-v); font-family: var(--font-mono); }
+.bar-track { height: 8px; border-radius: 4px; background: var(--track); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, rgba(48,77,187,0.8), rgba(91,79,217,0.85)); }
+.bar-row .amt { font-size: 12px; color: var(--kv-v); text-align: right; font-family: var(--font-mono); }
+
+/* Recon — ring + counts */
+.ring-go {
+  width: 132px; height: 132px; border-radius: 50%; flex-shrink: 0; margin: auto;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background:
+    radial-gradient(closest-side, var(--ring-center) 78%, transparent 79% 100%),
+    conic-gradient(#34D399 0% 100%);
+}
+.ring-go .num { font-size: 30px; font-weight: 700; color: var(--ring-num); letter-spacing: -0.02em; }
+.ring-go .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ring-lbl); margin-top: 2px; }
+
+/* Financial Crime — checklist */
+.checks { display: flex; flex-direction: column; gap: 9px; }
+.check {
+  display: flex; align-items: center; gap: 11px;
+  font-size: 13px; color: var(--kv-v);
+  padding: 9px 12px; border-radius: 9px;
+  background: var(--go-bg); border: 1px solid var(--go-border);
+}
+.check .ck {
+  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--go-bg); color: var(--go-text);
+}
+.check .ck svg { width: 11px; height: 11px; stroke-width: 3; }
+.risk-head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.risk-shield {
+  width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--go-bg); border: 1px solid var(--go-border);
+  color: var(--go-text);
+}
+.risk-shield svg { width: 26px; height: 26px; stroke-width: 1.6; }
+.risk-meta .lv { font-size: 18px; font-weight: 700; color: var(--kv-v); }
+.risk-meta .sub { font-size: 12px; color: var(--kv-k); margin-top: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rail.ai, .rail.data, .data-pulse::after { animation: none; }
+}
+</style>
+</head>
+<body>
+<div class="section">
+ <div class="layout">
+
+  <!-- ── Copy (left) ── -->
+  <div class="copy">
+    <div class="eyebrow">nCore</div>
+    <h2 class="headline">One source of truth for every payment decision.</h2>
+    <p class="intro">Every product in the payments stack, with AI and Data running across all of them. Take one, or compose the whole platform.</p>
+    <div class="cta-row">
+      <a class="btn btn-pri" href="#">Talk to sales</a>
+      <a class="explore" href="#">Explore nCore <span class="arr">→</span></a>
+    </div>
+  </div>
+
+  <!-- ── Visual (right) ── -->
+  <div class="visual">
+    <div class="ncore-shell">
+      <div class="ncore-tag"><b>n</b>Core</div>
+
+      <div class="ncore-body">
+
+        <!-- AI rail -->
+        <div class="rail ai"><span class="rail-text">AI Intelligence Layer</span></div>
+
+        <!-- Product rows -->
+        <div class="rows">
+          <span class="data-pulse"></span>
+
+          <div class="prow" tabindex="0" role="button" data-product="cards">
+            <span class="conn conn-l"><i class="cdot"></i><i class="cline"></i><i class="cdot"></i></span>
+            <span class="conn conn-r"><i class="cdot"></i><i class="cline"></i><i class="cdot"></i></span>
+            <div class="prow-head">
+              <span class="prow-ico"><i data-lucide="credit-card"></i></span>
+              <span class="prow-name">Cards</span>
+            </div>
+            <span class="prow-go"><i data-lucide="chevron-right"></i></span>
+          </div>
+
+          <div class="prow" tabindex="0" role="button" data-product="lending">
+            <span class="conn conn-l"><i class="cdot"></i><i class="cline"></i><i class="cdot"></i></span>
+            <span class="conn conn-r"><i class="cdot"></i><i class="cline"></i><i class="cdot"></i></span>
+            <div class="prow-head">
+              <span class="prow-ico"><i data-lucide="circle-dollar-sign"></i></span>
+              <span class="prow-name">Lending</span>
+            </div>
+            <span class="prow-go"><i data-lucide="chevron-right"></i></span>
+          </div>
+
+          <div class="prow" tabindex="0" role="button" data-product="money">
+            <span class="conn conn-l"><i class="cdot"></i><i class="cline"></i><i class="cdot"></i></span>
+            <span class="conn conn-r"><i class="cdot"></i><i class="cline"></i><i class="cdot"></i></span>
+            <div class="prow-head">
+              <span class="prow-ico"><i data-lucide="arrow-left-right"></i></span>
+              <span class="prow-name">Money Movement</span>
+            </div>
+            <span class="prow-go"><i data-lucide="chevron-right"></i></span>
+          </div>
+
+          <div class="prow" tabindex="0" role="button" data-product="settlement">
+            <span class="conn conn-l"><i class="cdot"></i><i class="cline"></i><i class="cdot"></i></span>
+            <span class="conn conn-r"><i class="cdot"></i><i class="cline"></i><i class="cdot"></i></span>
+            <div class="prow-head">
+              <span class="prow-ico"><i data-lucide="clock"></i></span>
+              <span class="prow-name">Stablecoin Settlement</span>
+            </div>
+            <span class="prow-go"><i data-lucide="chevron-right"></i></span>
+          </div>
+
+          <div class="prow" tabindex="0" role="button" data-product="crime">
+            <span class="conn conn-l"><i class="cdot"></i><i class="cline"></i><i class="cdot"></i></span>
+            <span class="conn conn-r"><i class="cdot"></i><i class="cline"></i><i class="cdot"></i></span>
+            <div class="prow-head">
+              <span class="prow-ico"><i data-lucide="shield"></i></span>
+              <span class="prow-name">Financial Crime</span>
+            </div>
+            <span class="prow-go"><i data-lucide="chevron-right"></i></span>
+          </div>
+
+          <div class="prow" tabindex="0" role="button" data-product="recon">
+            <span class="conn conn-l"><i class="cdot"></i><i class="cline"></i><i class="cdot"></i></span>
+            <span class="conn conn-r"><i class="cdot"></i><i class="cline"></i><i class="cdot"></i></span>
+            <div class="prow-head">
+              <span class="prow-ico"><i data-lucide="file-text"></i></span>
+              <span class="prow-name">Reconciliation</span>
+            </div>
+            <span class="prow-go"><i data-lucide="chevron-right"></i></span>
+          </div>
+
+        </div><!-- /rows -->
+
+        <!-- Data rail -->
+        <div class="rail data"><span class="rail-text">Unified Data Layer</span></div>
+
+      </div><!-- /ncore-body -->
+
+      <!-- The problem nCore solves -->
+      <div class="unify-band">
+        <span class="unify-ico"><i data-lucide="fingerprint"></i></span>
+        <div class="unify-tx">
+          <div class="unify-main">One customer. One record.</div>
+          <div class="unify-sub">Shared across every product, decision, and ledger entry — no duplicates, no reconciliation gaps.</div>
+        </div>
+      </div>
+
+    </div><!-- /ncore-shell -->
+  </div><!-- /visual -->
+
+ </div><!-- /layout -->
+</div><!-- /section -->
+
+<!-- ════ POP-OUT OVERLAY ════ -->
+<div class="overlay" id="overlay">
+  <div class="ov-backdrop" data-close></div>
+  <div class="popcard" role="dialog" aria-modal="true" aria-labelledby="popName">
+    <div class="pop-head">
+      <span class="pop-ico" id="popIco"></span>
+      <div class="pop-name" id="popName"></div>
+      <button class="pop-close" data-close aria-label="Close"><i data-lucide="x"></i></button>
+    </div>
+    <div class="pop-lede">
+      <div class="pop-tag" id="popTag"></div>
+      <div class="pop-sub" id="popSub"></div>
+    </div>
+    <div class="pop-visual" id="popVisual"></div>
+    <div class="pop-high" id="popHigh"></div>
+    <div class="pop-caps-label">Capabilities</div>
+    <div class="pop-chips" id="popChips"></div>
+    <div class="pop-foot">
+      <a class="btn btn-pri" id="popLearn" href="#">Learn more <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="#">Talk to us</a>
+    </div>
+  </div>
+</div>
+
+<!-- ════ HIDDEN PRODUCT SURFACES ════ -->
+<template id="mock-cards">
+  <div class="hv">
+    <div class="hv-card">
+      <div class="cc-top"><span class="cc-brand">NymCard</span><span class="cc-type">Virtual</span></div>
+      <div class="cc-chip"></div>
+      <div class="cc-num">4821 •••• •••• 7390</div>
+      <div class="cc-bot"><span class="nm">A. AL-RASHID</span><span class="vs">VISA</span></div>
+    </div>
+    <div class="hv-panel">
+      <div class="hv-cap">Recent issuance</div>
+      <div class="kv"><span class="k">Virtual · debit</span><span class="v go">Active</span></div>
+      <div class="kv"><span class="k">Physical · credit</span><span class="v go">Active</span></div>
+      <div class="kv"><span class="k">Tokenized · wallet</span><span class="v cy">Provisioning</span></div>
+      <div class="kv"><span class="k">Prepaid · multi-use</span><span class="v go">Active</span></div>
+    </div>
+  </div>
+</template>
+
+<template id="mock-lending">
+  <div class="hv">
+    <div class="hv-panel" style="flex:0 0 200px; display:flex; align-items:center; justify-content:center;">
+      <div class="ring"><span class="num">720</span><span class="lbl">Credit score</span></div>
+    </div>
+    <div class="hv-panel">
+      <span class="badge-go"><span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block"></span>Approved · AED 30,000</span>
+      <div class="kv"><span class="k">Product</span><span class="v">Revolving credit</span></div>
+      <div class="kv"><span class="k">APR</span><span class="v">18.0%</span></div>
+      <div class="kv"><span class="k">Term</span><span class="v">12 months</span></div>
+      <div class="kv"><span class="k">Instalment</span><span class="v">AED 2,750 / mo</span></div>
+    </div>
+  </div>
+</template>
+
+<template id="mock-money">
+  <div>
+    <div class="flow">
+      <div class="flow-node"><div class="cur">USD</div><div class="amt">5,000.00 sent</div></div>
+      <div class="flow-mid"><span class="rate">× 3.6720</span><span class="ln"></span><span style="font-size:10px;letter-spacing:.06em">Visa Direct</span></div>
+      <div class="flow-node"><div class="cur">AED</div><div class="amt">18,360.00 received</div></div>
+    </div>
+    <div class="hv">
+      <div class="hv-panel">
+        <div class="hv-cap">Transfer</div>
+        <div class="kv"><span class="k">Corridor</span><span class="v">Cross-border</span></div>
+        <div class="kv"><span class="k">FX spread</span><span class="v">0.12%</span></div>
+        <div class="kv"><span class="k">Status</span><span class="v go">Settled · real-time</span></div>
+      </div>
+      <div class="hv-panel">
+        <div class="hv-cap">Rails available</div>
+        <div class="kv"><span class="k">Domestic</span><span class="v cy">vIBAN</span></div>
+        <div class="kv"><span class="k">P2P / P2M</span><span class="v go">Enabled</span></div>
+        <div class="kv"><span class="k">Treasury sweep</span><span class="v go">On</span></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="mock-settlement">
+  <div class="hv">
+    <div class="hv-panel">
+      <div class="hv-cap">Settlement positions · today</div>
+      <div class="bars">
+        <div class="bar-row"><span class="cur">USD</span><div class="bar-track"><div class="bar-fill" style="width:92%"></div></div><span class="amt">1.84M</span></div>
+        <div class="bar-row"><span class="cur">AED</span><div class="bar-track"><div class="bar-fill" style="width:74%"></div></div><span class="amt">1.48M</span></div>
+        <div class="bar-row"><span class="cur">EUR</span><div class="bar-track"><div class="bar-fill" style="width:46%"></div></div><span class="amt">0.92M</span></div>
+        <div class="bar-row"><span class="cur">USDC</span><div class="bar-track"><div class="bar-fill" style="width:58%"></div></div><span class="amt">1.16M</span></div>
+      </div>
+    </div>
+    <div class="hv-panel" style="flex:0 0 210px;">
+      <div class="hv-cap">Net position</div>
+      <div class="kv"><span class="k">Net</span><span class="v">AED 12.4M</span></div>
+      <div class="kv"><span class="k">Breaks</span><span class="v go">0</span></div>
+      <div class="kv"><span class="k">Finality</span><span class="v cy">Real-time</span></div>
+      <div class="kv"><span class="k">Stablecoin</span><span class="v go">On</span></div>
+    </div>
+  </div>
+</template>
+
+<template id="mock-crime">
+  <div class="hv">
+    <div class="hv-panel">
+      <div class="risk-head">
+        <span class="risk-shield"><i data-lucide="shield-check"></i></span>
+        <div class="risk-meta"><div class="lv">Low risk · Approve</div><div class="sub">Decisioned in the authorization path · 38ms</div></div>
+      </div>
+      <div class="checks">
+        <div class="check"><span class="ck"><i data-lucide="check"></i></span>Identity verified · KYC + biometric</div>
+        <div class="check"><span class="ck"><i data-lucide="check"></i></span>Sanctions &amp; PEP screening clear</div>
+        <div class="check"><span class="ck"><i data-lucide="check"></i></span>Fraud model · 0.02 risk score</div>
+        <div class="check"><span class="ck"><i data-lucide="check"></i></span>3D Secure passed · no chargeback flags</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="mock-recon">
+  <div class="hv">
+    <div class="hv-panel" style="flex:0 0 200px; display:flex; align-items:center; justify-content:center;">
+      <div class="ring-go"><span class="num">100%</span><span class="lbl">Matched</span></div>
+    </div>
+    <div class="hv-panel">
+      <div class="hv-cap">Reconciliation run · 14:00</div>
+      <div class="kv"><span class="k">Transactions</span><span class="v">12,840</span></div>
+      <div class="kv"><span class="k">Auto-matched</span><span class="v go">12,840</span></div>
+      <div class="kv"><span class="k">Exceptions</span><span class="v go">0</span></div>
+      <div class="kv"><span class="k">Sources</span><span class="v">Ledger · schemes · settlement</span></div>
+      <div class="kv"><span class="k">Ledger posting</span><span class="v go">Complete</span></div>
+    </div>
+  </div>
+</template>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script>
+  lucide.createIcons();
+
+  const PRODUCTS = {
+    cards: {
+      name:'Cards', icon:'credit-card', slug:'/products/card-issuing', mock:'mock-cards',
+      tag:'Launch the card program your customers need.',
+      sub:'The card layer of one platform that runs your whole payments stack — not a standalone processor you bolt on.',
+      chips:['Prepaid','Debit','Credit','Wallets','Tokenization','Virtual Card'],
+      highlights:[
+        { i:'credit-card', t:'Debit, credit, and prepaid — physical, virtual, or tokenized.' },
+        { i:'sliders-horizontal', t:'Freeze cards, set limits, and block categories in real time.' },
+        { i:'shield-check', t:'KYC and AML run inside the authorization path.' },
+      ],
+    },
+    lending: {
+      name:'Lending', icon:'circle-dollar-sign', slug:'/products/lending', mock:'mock-lending',
+      tag:'Embed credit into every payment flow.',
+      sub:'BNPL, installment, revolving credit, and working capital — the credit layer of one platform, not a separate lending system.',
+      chips:['Origination','Credit Decisioning','Loan Servicing','Default Management'],
+      highlights:[
+        { i:'layers', t:'BNPL, installment, revolving credit, and working capital.' },
+        { i:'scale', t:'Connect bureaus, open banking, or your own scoring model.' },
+        { i:'handshake', t:'You keep the lending relationship; nCore is the infrastructure.' },
+      ],
+    },
+    money: {
+      name:'Money Movement', icon:'arrow-left-right', slug:'/products/money-movement', mock:'mock-money',
+      tag:'Move money where your customers need it.',
+      sub:'Orchestrate cross-border payments, route corridors, and manage FX — with the spread on your side.',
+      chips:['Domestic','Cross-Border','FX','Treasury','P2P','P2M','vIBAN'],
+      highlights:[
+        { i:'route', t:'Route across Visa Direct, Mastercard, Western Union, and MoneyGram.' },
+        { i:'percent', t:'Set your own FX pricing — the spread accrues to you.' },
+        { i:'shield-check', t:'AML and sanctions run inside the routing decision.' },
+      ],
+    },
+    settlement: {
+      name:'Stablecoin Settlement', icon:'clock', slug:'/products/settlement', mock:'mock-settlement',
+      tag:'Settle across corridors in real time.',
+      sub:'Bank-grade settlement for cross-border, multi-currency, and stablecoin flows — on the same regulated platform as your cards.',
+      chips:['Stablecoin','On-Ramp','Prefunding','Off-Ramp','Orchestration'],
+      highlights:[
+        { i:'coins', t:'Cross-border, multi-currency, and stablecoin settlement.' },
+        { i:'infinity', t:'24/7/365 — liquidity isn\u2019t trapped between banking hours.' },
+        { i:'layers', t:'One ledger with cards and money movement.' },
+      ],
+    },
+    crime: {
+      name:'Financial Crime', icon:'shield', slug:'/products/financial-crime', mock:'mock-crime',
+      tag:'Cover the full risk perimeter on one layer.',
+      sub:'Fraud, AML, sanctions, identity, and 3D Secure on one customer record, one ledger, one audit trail.',
+      chips:['Identity','Fraud','AML','Sanctions','Risk','3DS','Chargeback'],
+      highlights:[
+        { i:'scan-face', t:'Identity, fraud, risk, AML & sanctions, and 3D Secure.' },
+        { i:'gavel', t:'Decisioning in the auth path — approve, challenge, or block.' },
+        { i:'file-check', t:'Every decision logged with the signals that produced it.' },
+      ],
+    },
+    recon: {
+      name:'Reconciliation', icon:'file-text', slug:'/products/reconciliation', mock:'mock-recon',
+      tag:'Reconcile across every product and system, automatically.',
+      sub:'Match activity across your NymCard products and the external systems they connect to, with exceptions flagged in real time.',
+      chips:['Auto-Mapping','Multi-source','Exception Handling','Ledger Posting'],
+      highlights:[
+        { i:'git-compare', t:'Match across the whole platform and external systems.' },
+        { i:'bell-ring', t:'Exceptions flagged in real time.' },
+        { i:'bar-chart-3', t:'Reporting your finance and ops teams can act on.' },
+      ],
+    },
+  };
+
+  const overlay   = document.getElementById('overlay');
+  const popIco    = document.getElementById('popIco');
+  const popName   = document.getElementById('popName');
+  const popTag    = document.getElementById('popTag');
+  const popSub    = document.getElementById('popSub');
+  const popHigh   = document.getElementById('popHigh');
+  const popChips  = document.getElementById('popChips');
+  const popVisual = document.getElementById('popVisual');
+  const popLearn  = document.getElementById('popLearn');
+
+  function openPop(key) {
+    const d = PRODUCTS[key];
+    popIco.innerHTML  = `<i data-lucide="${d.icon}"></i>`;
+    popName.textContent = d.name;
+    popTag.textContent  = d.tag;
+    popSub.textContent  = d.sub;
+    popHigh.innerHTML = d.highlights.map(h =>
+      `<div class="hi-item"><div class="hi-ic"><i data-lucide="${h.i}"></i></div><div class="hi-tx">${h.t}</div></div>`
+    ).join('');
+    popChips.innerHTML = d.chips.map(c => `<span class="pchip">${c}</span>`).join('');
+    popVisual.innerHTML = document.getElementById(d.mock).innerHTML;
+    popLearn.setAttribute('href', d.slug);
+    lucide.createIcons();
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePop() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.prow').forEach(row => {
+    row.addEventListener('click', () => openPop(row.dataset.product));
+    row.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPop(row.dataset.product); }
+    });
+  });
+  overlay.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closePop));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePop(); });
+</script>
+
+</body>
+</html>

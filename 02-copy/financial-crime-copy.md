@@ -49,7 +49,8 @@ Cover the full risk perimeter on one layer.
 
 **Sub-copy:**
 
-Fraud, AML, sanctions, identity, and 3D Secure run on one customer record, one ledger, one audit trail — built into nCore.
+<!-- CAMPAIGN SHARPEN 2026-06: sub-line ends on "one layer of nCore, not separate vendors" per strategy §12.1 -->
+Fraud, AML, sanctions, identity, and 3D Secure run on one customer record, one ledger, one audit trail — one layer of nCore, not a separate fraud vendor and a separate KYC tool wired to your stack.
 
 **Primary CTA:** Talk to us
 
@@ -270,7 +271,8 @@ Financial Crime is one layer of nCore. Fraud, AML transaction monitoring, sancti
 
 **2. How does Financial Crime relate to nCore?**
 
-It runs on nCore alongside Cards, Lending, Money Movement, Settlement, and Reconciliation. Because NymCard owns nCore and is a principal member of Visa and Mastercard, fraud and 3D Secure decisions run inline with card authorization rather than over a third-party hop.
+<!-- CAMPAIGN SHARPEN 2026-06: one-platform thread (one customer record / ledger / audit trail) made explicit per strategy §12.2 -->
+It runs on nCore alongside Cards, Lending, Money Movement, Settlement, and Reconciliation — one platform, sharing one customer record, one ledger, and one audit trail across every layer. Because NymCard owns nCore and is a principal member of Visa and Mastercard, fraud and 3D Secure decisions run inline with card authorization rather than over a third-party hop. <!-- CAMPAIGN SHARPEN 2026-06: light legacy/migration nod to Migration & Modernisation per strategy §12.4 -->If you run separate fraud and identity vendors today, Migration & Modernisation handles the path onto the layer.
 
 **3. Is Identity a separate product?**
 

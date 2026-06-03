@@ -3,207 +3,120 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { visual, withAlpha } from "@/components/visuals";
 import { dur, ease } from "@/components/visuals/motion";
+import { cn } from "@/lib/utils";
+import {
+  IllustrationField,
+  IllustrationCard,
+  Eyebrow,
+  SubLabel,
+  LiveTag,
+} from "@/components/visuals/product-illustration";
 
 // ── RepaymentStructuresUI ───────────────────────────────────────────────────
 //
-// Lending /products/lending §4 "Configure every stage of credit" — the wide
-// (2×1, span 6) Repayment structures cell. Maps to the seed copy:
-//   "Run conventional interest, flat fee, or reducing balance structures, with
-//    the schedule and pricing logic that fits each program."
-//   UI snippet: "A repayment schedule chart showing three structure shapes
-//    overlaid for comparison."
+// Lending /products/lending §4 — the Repayment structures cell. Maps to copy:
+//   "Conventional interest, flat fee, or reducing balance — priced per program."
 //
-// Composition (three side-by-side structure sparklines — the only chart in §4,
-// distinct from every other cell). The brief calls for "three structure shapes
-// for comparison"; rendered as three small fixed-aspect mini-charts in a row
-// rather than one overlaid chart, because the span-6 single-row cell is short
-// and an overlaid chart with preserveAspectRatio:none distorts into flat lines.
-// Three panels stay legible at the cell's height and read clearly as a
-// comparison. Each panel:
-//   · a coloured structure SHAPE over a faint instalment baseline:
-//       Reducing balance     → steep decline (cyan)
-//       Conventional interest → gentle decline (indigo)
-//       Flat fee             → flat (purple)
-//   · the structure name beneath.
+// Reworked (2026-06): the earlier three abstract overlaid sparklines didn't
+// read — replaced with a STRUCTURE SELECTOR (the three named structures, one
+// active) above a single, legible amortization bar chart of the active
+// structure. Reducing balance is shown: a level monthly payment whose INTEREST
+// portion (top, light indigo) shrinks period over period while the PRINCIPAL
+// portion (bottom, solid cyan→blue) grows — the textbook reducing-balance
+// picture, the ONE focal element. Distinct from every other §4 cell.
 //
-// The cell's own heading already says "Repayment structures", so the surface
-// does NOT repeat it (avoids the duplicate title the first pass showed).
-//
-// Motion:
-//   · Entrance — the three curves draw in (pathLength), staggered, on
-//     scroll-into-view (once); the panels fade in.
-//   · Hover — the parent bento cell is `group`-classed; on hover the "Reducing
-//     balance" panel (the most efficient structure) lifts its ring + the curve
-//     thickens — the active comparison.
-//   Reduced-motion safe (curves render complete at rest; no draw, no hover
-//   beyond colour).
-//
-// No fabricated rates/amounts — shapes are illustrative pricing-logic curves
-// over an unlabelled period axis.
+// Motion: the bars grow up on scroll-into-view, staggered; reduced-motion shows
+// the resting state. No fabricated rates — illustrative principal/interest split.
 
-const LIGHT_BED =
-  `radial-gradient(90% 130% at 2% 0%, ${withAlpha(visual.cyan, 0.09)}, transparent 56%),` +
-  `radial-gradient(100% 140% at 101% 108%, ${withAlpha(visual.indigo, 0.07)}, transparent 60%)`;
-const DARK_BED =
-  `radial-gradient(90% 130% at 2% 0%, ${withAlpha(visual.cyan, 0.18)}, transparent 56%),` +
-  `radial-gradient(100% 140% at 101% 108%, ${withAlpha(visual.indigo, 0.14)}, transparent 60%)`;
+const TABS = ["Reducing balance", "Conventional", "Flat fee"] as const;
 
-type Structure = {
-  key: string;
-  color: string;
-  points: number[]; // 0..100 on a shared y-scale, 6 periods
-  emphasis: boolean;
-};
-
-const STRUCTURES: Structure[] = [
-  { key: "Reducing balance", color: visual.cyan, points: [88, 74, 62, 51, 43, 36], emphasis: true },
-  { key: "Conventional interest", color: visual.indigo, points: [80, 73, 67, 62, 58, 55], emphasis: false },
-  { key: "Flat fee", color: visual.purple, points: [64, 64, 64, 64, 64, 64], emphasis: false },
+// Six level payments; [principal%, interest%] of each (sum 100). Interest falls
+// as the balance reduces; principal rises to keep the payment level.
+const PERIODS: [number, number][] = [
+  [42, 58],
+  [50, 50],
+  [59, 41],
+  [68, 32],
+  [78, 22],
+  [88, 12],
 ];
 
-const VB_W = 100;
-const VB_H = 56;
-const PAD = 6;
-
-function pathFor(points: number[]): string {
-  const n = points.length;
-  return points
-    .map((p, i) => {
-      const x = PAD + (i / (n - 1)) * (VB_W - PAD * 2);
-      const y = PAD + ((100 - p) / 100) * (VB_H - PAD * 2);
-      return `${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
-    })
-    .join(" ");
+function Legend({ swatch, label }: { swatch: string; label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <span aria-hidden="true" className="size-2 rounded-[3px]" style={{ background: swatch }} />
+      <span className="text-[10px] text-text-secondary dark:text-text-dark-secondary">{label}</span>
+    </span>
+  );
 }
 
-function areaFor(points: number[]): string {
-  const n = points.length;
-  const top = points
-    .map((p, i) => {
-      const x = PAD + (i / (n - 1)) * (VB_W - PAD * 2);
-      const y = PAD + ((100 - p) / 100) * (VB_H - PAD * 2);
-      return `${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
-    })
-    .join(" ");
-  const x0 = PAD;
-  const x1 = VB_W - PAD;
-  const yb = VB_H - PAD;
-  return `${top} L${x1} ${yb} L${x0} ${yb} Z`;
-}
+const PRINCIPAL = `linear-gradient(180deg, ${visual.cyan}, ${visual.primary})`;
+const INTEREST = withAlpha(visual.indigo, 0.32);
 
 export function RepaymentStructuresUI() {
   const reduced = useReducedMotion();
 
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-xl bg-surface-white dark:bg-transparent">
-      <span aria-hidden="true" className="absolute inset-0 dark:hidden" style={{ background: LIGHT_BED }} />
-      <span aria-hidden="true" className="absolute inset-0 hidden dark:block" style={{ background: DARK_BED }} />
+    <>
+      <IllustrationField />
+      <IllustrationCard pad={false}>
+        <div className="flex h-full flex-col justify-center gap-3 px-5 py-4 sm:px-[22px]">
+          <div className="flex items-center justify-between">
+            <Eyebrow>Repayment structure</Eyebrow>
+            <LiveTag>Per program</LiveTag>
+          </div>
 
-      <div className="relative flex h-full w-full flex-col justify-center gap-3 p-5 sm:p-6">
-        <div className="flex items-center justify-between">
-          <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted dark:text-text-dark-muted">
-            Compare structures
-          </span>
-          <span className="font-mono text-[10px] uppercase tracking-[0.13em] text-text-muted dark:text-text-dark-muted">
-            6-period schedule
-          </span>
-        </div>
-
-        {/* Three structure sparklines side by side. */}
-        <div className="grid grid-cols-3 gap-2.5 sm:gap-3.5">
-          {STRUCTURES.map((s, i) => {
-            const id = `repay-${i}`;
-            return (
-              <motion.div
-                key={s.key}
-                className={[
-                  "flex flex-col gap-2 rounded-md p-3 ring-1 ring-inset transition-all duration-300",
-                  s.emphasis
-                    ? "bg-surface-white/70 ring-accent-cyan/40 group-hover:ring-accent-cyan/70 dark:bg-white/[0.04] dark:ring-accent-cyan/40"
-                    : "bg-surface-white/60 ring-surface-border-subtle dark:bg-white/[0.025] dark:ring-white/10",
-                ].join(" ")}
-                initial={reduced ? false : { opacity: 0, y: 8 }}
-                whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={reduced ? undefined : { duration: dur.slow, ease: ease.out, delay: 0.1 + i * 0.1 }}
+          {/* Structure selector — three named structures, first active. */}
+          <div className="flex gap-1.5">
+            {TABS.map((t, i) => (
+              <span
+                key={t}
+                className={cn(
+                  "flex-1 truncate rounded-md px-2 py-1.5 text-center font-mono text-[9px] uppercase tracking-[0.08em] ring-1 ring-inset",
+                  i === 0
+                    ? "bg-brand-primary/[0.1] text-brand-primary ring-brand-primary/25 dark:bg-accent-cyan/[0.16] dark:text-accent-cyan dark:ring-accent-cyan/30"
+                    : "bg-white/40 text-text-secondary ring-white/50 dark:bg-white/[0.05] dark:text-text-dark-secondary dark:ring-white/10",
+                )}
               >
-                <svg viewBox={`0 0 ${VB_W} ${VB_H}`} className="h-12 w-full sm:h-16" aria-hidden="true">
-                  <defs>
-                    <linearGradient id={`${id}-fill`} x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor={withAlpha(s.color, 0.22)} />
-                      <stop offset="100%" stopColor={withAlpha(s.color, 0)} />
-                    </linearGradient>
-                  </defs>
+                {t}
+              </span>
+            ))}
+          </div>
 
-                  {/* baseline */}
-                  <line
-                    x1={PAD}
-                    x2={VB_W - PAD}
-                    y1={VB_H - PAD}
-                    y2={VB_H - PAD}
-                    stroke={withAlpha(visual.navy, 0.08)}
-                    strokeWidth="1"
-                    className="dark:hidden"
-                  />
-                  <line
-                    x1={PAD}
-                    x2={VB_W - PAD}
-                    y1={VB_H - PAD}
-                    y2={VB_H - PAD}
-                    stroke={withAlpha(visual.white, 0.1)}
-                    strokeWidth="1"
-                    className="hidden dark:block"
-                  />
+          {/* Amortization bars — level payment; interest (top) shrinks, principal
+              (bottom) grows = reducing balance. */}
+          <div className="flex h-[92px] items-end justify-between gap-2">
+            {PERIODS.map(([prin, intr], i) => (
+              <div key={i} className="flex h-full flex-1 flex-col justify-end overflow-hidden rounded-[3px]">
+                <motion.div
+                  className="w-full"
+                  style={{ background: INTEREST }}
+                  initial={reduced ? false : { height: 0 }}
+                  whileInView={{ height: `${intr}%` }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={reduced ? undefined : { duration: dur.slow, ease: ease.out, delay: 0.15 + i * 0.07 }}
+                />
+                <motion.div
+                  className="w-full"
+                  style={{ background: PRINCIPAL }}
+                  initial={reduced ? false : { height: 0 }}
+                  whileInView={{ height: `${prin}%` }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={reduced ? undefined : { duration: dur.slow, ease: ease.out, delay: 0.15 + i * 0.07 }}
+                />
+              </div>
+            ))}
+          </div>
 
-                  {/* area fill — reveals with the curve */}
-                  <motion.path
-                    d={areaFor(s.points)}
-                    fill={`url(#${id}-fill)`}
-                    initial={reduced ? false : { opacity: 0 }}
-                    whileInView={reduced ? undefined : { opacity: 1 }}
-                    viewport={{ once: true, amount: 0.5 }}
-                    transition={reduced ? undefined : { duration: dur.slow, ease: ease.out, delay: 0.5 + i * 0.1 }}
-                  />
-
-                  {/* the structure curve */}
-                  <motion.path
-                    d={pathFor(s.points)}
-                    fill="none"
-                    stroke={s.color}
-                    strokeWidth={s.emphasis ? 2.4 : 2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className={s.emphasis ? "transition-[stroke-width] duration-300 group-hover:[stroke-width:3.2]" : undefined}
-                    initial={reduced ? false : { pathLength: 0 }}
-                    whileInView={reduced ? undefined : { pathLength: 1 }}
-                    viewport={{ once: true, amount: 0.5 }}
-                    transition={reduced ? undefined : { duration: dur.cinematic, ease: ease.out, delay: 0.2 + i * 0.12 }}
-                  />
-                </svg>
-
-                <span className="flex items-center gap-1.5">
-                  <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full" style={{ background: s.color }} />
-                  <span
-                    className={[
-                      "truncate font-body text-[10px] leading-tight",
-                      s.emphasis
-                        ? "font-medium text-text-primary dark:text-text-on-brand"
-                        : "text-text-secondary dark:text-text-dark-secondary",
-                    ].join(" ")}
-                  >
-                    {s.key}
-                  </span>
-                </span>
-              </motion.div>
-            );
-          })}
+          <div className="flex items-center justify-between">
+            <span className="flex items-center gap-3">
+              <Legend swatch={PRINCIPAL} label="Principal" />
+              <Legend swatch={INTEREST} label="Interest" />
+            </span>
+            <SubLabel>6 periods</SubLabel>
+          </div>
         </div>
-
-        <div className="flex items-center justify-between px-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-text-muted dark:text-text-dark-muted">
-          <span>Payment / period</span>
-          <span>Schedule &amp; pricing logic</span>
-        </div>
-      </div>
-    </div>
+      </IllustrationCard>
+    </>
   );
 }

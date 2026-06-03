@@ -71,18 +71,36 @@ export function GlassBed({
 }) {
   return (
     <div className={cn("absolute inset-0 overflow-hidden", className)} style={style}>
-      <GlassAtmosphere tone={TONE_TO_ATMOSPHERE[tone]} animated />
+      {/* depth="deep": product-UI beds use the DEEP dark field (deep, low-
+          saturation cool) so the frosted surface + its content read clearly
+          against the bed in dark mode. The owner's "too bright" report was the
+          default (hero/orbit) bright field washing the UIs out. Light mode is
+          unchanged. */}
+      <GlassAtmosphere tone={TONE_TO_ATMOSPHERE[tone]} depth="deep" animated />
       {/* A restrained diagonal cool sweep — a hint of the hero's kinetic ribbon
           — so the (now transparent) glass surfaces above have a richer field to
-          refract and read dimensional, not flat. Cool/contained, never garish. */}
+          refract and read dimensional, not flat. Cool/contained, never garish.
+          LIGHT keeps the original strength; DARK pulls it right back so it does
+          not reintroduce a bright band behind the UI content (the deep bed must
+          stay deep for the content to read). */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 dark:hidden"
         style={{
           background: `linear-gradient(118deg, transparent 26%, ${withAlpha(
             visual.cyan,
             0.12,
           )} 50%, ${withAlpha(visual.indigo, 0.1)} 66%, transparent 90%)`,
+        }}
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 hidden dark:block"
+        style={{
+          background: `linear-gradient(118deg, transparent 30%, ${withAlpha(
+            visual.cyan,
+            0.05,
+          )} 52%, ${withAlpha(visual.indigo, 0.045)} 68%, transparent 92%)`,
         }}
       />
       <div className="absolute inset-0 z-10">{children}</div>

@@ -34,6 +34,25 @@ export const visual = {
   white: tokens.color.surface.white, // #FFFFFF — soft glow
 } as const;
 
+/**
+ * Product-illustration field/card tints (design-system.md §8.1 product-UI kit).
+ * The light lavender/sky surround, card lavender base, the cyan bloom, and the
+ * two diagonal ray tints that give every product UI the hero's lit, dimensional
+ * world. Cool only; resolved from the `illustration` token group.
+ */
+export const illus = {
+  field1: tokens.color.illustration["field-1"], // #E7EAF7
+  field2: tokens.color.illustration["field-2"], // #D7E9F8
+  field3: tokens.color.illustration["field-3"], // #E9E8F4
+  card1: tokens.color.illustration["card-1"], // #EAEBF7
+  card2: tokens.color.illustration["card-2"], // #D3E7F8
+  card3: tokens.color.illustration["card-3"], // #E7E8F4
+  bloom: tokens.color.illustration.bloom, // #6CD6F5 — the glowing cyan bloom
+  rayCyan: tokens.color.illustration["ray-cyan"], // #96E8FA
+  rayPeri: tokens.color.illustration["ray-periwinkle"], // #78A0F0
+  statDeep: tokens.color.illustration["stat-deep"], // #1B2F86 — light stat gradient anchor
+} as const;
+
 /** Tones a consumer can pick for glow / trace primitives. Cyan is the default. */
 export type VisualTone = "cyan" | "indigo" | "violet" | "purple" | "primary";
 

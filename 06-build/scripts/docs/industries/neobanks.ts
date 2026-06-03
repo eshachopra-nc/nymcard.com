@@ -92,7 +92,7 @@ export const neobanksDoc = {
       "Cloud, on-soil, and on-premise deployment on the same platform",
       "KYC, AML, and sanctions screening inside the authorization path",
       "Principal member of Visa and Mastercard",
-      "PCI DSS Level 1 certified · ISO 27001 certified",
+      "PCI DSS compliant · ISO 27001 certified",
     ],
   },
 
@@ -129,7 +129,7 @@ export const neobanksDoc = {
         { question: "Do we need our own scheme membership?", answer: "No. nCore is already integrated with Visa and Mastercard, so its built-in scheme connectivity lets you launch fast — or you can bring your own scheme setup if you prefer." },
         { question: "Can we start with cards and add lending later?", answer: "Yes. You can start with the Cards layer and add Lending, Money Movement, Settlement, Financial Crime, or Reconciliation as your product grows, one customer record across all products." },
         { question: "Where is compliance handled?", answer: "Inside the platform. KYC, AML, and sanctions screening run inside the authorization path, not a separate compliance vendor." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
       ],
       "faq",
     ),

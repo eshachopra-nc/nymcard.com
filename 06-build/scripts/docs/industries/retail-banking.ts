@@ -93,7 +93,7 @@ export const retailBankingDoc = {
       "Cloud, on-soil, and on-premise deployment on the same platform",
       "Principal member of Visa",
       "Principal member of Mastercard",
-      "PCI DSS Level 1 certified · ISO 27001 certified",
+      "PCI DSS compliant · ISO 27001 certified",
     ],
   },
 
@@ -130,7 +130,7 @@ export const retailBankingDoc = {
         { question: "Can we launch BNPL on the same platform as our debit and credit cards?", answer: "Yes. BNPL, installments, and revolving credit run on the Lending layer alongside your card programs, one customer record across both." },
         { question: "Who owns the brand and customer relationship?", answer: "You do. NymCard is white-label by default, the bank owns the brand, the customer, and the data." },
         { question: "Can NymCard be deployed inside our data center?", answer: "Yes. NymCard supports cloud, on-soil, and on-premise deployment on the same platform." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
       ],
       "faq",
     ),

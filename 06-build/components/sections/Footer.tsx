@@ -64,6 +64,29 @@ const LINK_GROUPS: { title: string; links: FooterLink[] }[] = [
   },
 ];
 
+// Compliance certifications — a labelled "Certifications" block (matching the
+// link-group headings). The owner-supplied brand marks alone, no scheme text
+// (owner, 3 June): PCI mark (public/logos/pci.png) + the ISO 27001 seal
+// (iso-27001.png) rendered all-white to sit cleanly on the navy footer. The
+// accessible names live on each img's alt.
+function FooterCertifications({ className }: { className?: string }) {
+  return (
+    <div className={className}>
+      <h3 className="font-display font-semibold text-text-on-brand text-sm">
+        Certifications
+      </h3>
+      <div className="mt-5 flex flex-wrap items-center gap-x-7 gap-y-4">
+        {/* eslint-disable-next-line @next/next/no-img-element -- certification mark */}
+        <img src="/logos/pci.png" alt="PCI DSS compliant" className="h-8 w-auto" loading="lazy" decoding="async" />
+        {/* Owner-supplied ISO seal, baked to white-on-transparent so it reads on
+            the navy footer. */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- certification mark */}
+        <img src="/logos/iso-27001-white.png" alt="ISO/IEC 27001 certified" className="h-10 w-auto" loading="lazy" decoding="async" />
+      </div>
+    </div>
+  );
+}
+
 // Minimal LinkedIn glyph — currentColor so it inherits the bottom-bar text tone.
 function LinkedinIcon({ className }: { className?: string }) {
   return (
@@ -77,18 +100,20 @@ export function Footer() {
   return (
     <footer className="bg-brand-navy pt-20 pb-10">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20">
-        {/* Logo — sits above the link grid, the link grid runs full width below. */}
-        <Image
-          src="/nymcard-logo-white.svg"
-          alt="NymCard"
-          width={148}
-          height={22}
-          className="h-[22px] w-auto"
-        />
-
-        {/* Desktop / tablet: link grid (5-col lg, 2-col md). Full content width
-            so each group has room to breathe. Hidden on mobile. */}
-        <div className="mt-14 hidden md:grid md:grid-cols-3 md:gap-x-10 lg:grid-cols-5 lg:gap-x-14 gap-y-12">
+        {/* Desktop / tablet: 5-column split — the NymCard logo occupies the
+            first column, the four link groups fill the remaining four (md
+            collapses to 3 columns). Hidden on mobile. */}
+        <div className="hidden md:grid md:grid-cols-3 md:gap-x-10 lg:grid-cols-5 lg:gap-x-14 gap-y-12">
+          {/* Column 1 — brand mark */}
+          <div>
+            <Image
+              src="/nymcard-logo-white.svg"
+              alt="NymCard"
+              width={148}
+              height={22}
+              className="h-[22px] w-auto"
+            />
+          </div>
           {LINK_GROUPS.map((group) => (
             <div key={group.title}>
               <h3 className="font-display font-semibold text-text-on-brand text-sm">
@@ -111,15 +136,27 @@ export function Footer() {
                   );
                 })}
               </ul>
+              {/* Certifications sit under the Platform column (owner direction). */}
+              {group.title === "Platform" && <FooterCertifications className="mt-10" />}
             </div>
           ))}
         </div>
 
-        {/* Mobile: accordion */}
-        <div className="mt-10 md:hidden border-t border-surface-dark-border">
-          {LINK_GROUPS.map((group) => (
-            <FooterAccordion key={group.title} title={group.title} links={group.links} />
-          ))}
+        {/* Mobile: logo above the accordion */}
+        <div className="md:hidden">
+          <Image
+            src="/nymcard-logo-white.svg"
+            alt="NymCard"
+            width={148}
+            height={22}
+            className="h-[22px] w-auto"
+          />
+          <div className="mt-10 border-t border-surface-dark-border">
+            {LINK_GROUPS.map((group) => (
+              <FooterAccordion key={group.title} title={group.title} links={group.links} />
+            ))}
+          </div>
+          <FooterCertifications className="mt-8" />
         </div>
 
         {/* Bottom region: copyright · LinkedIn · legal. */}

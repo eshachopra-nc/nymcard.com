@@ -1,5 +1,5 @@
 import { ProductsBento } from "@/components/sections/ProductsBento";
-import { CapabilityVerticalBand } from "./CapabilityVerticalBand";
+import { CapabilityCard } from "./CapabilityVerticalBand";
 import { AIDecisioningUI } from "@/components/sections/product-uis/AIDecisioningUI";
 import { InsightsUI } from "@/components/sections/product-uis/InsightsUI";
 
@@ -14,11 +14,14 @@ import { InsightsUI } from "@/components/sections/product-uis/InsightsUI";
 // coherent heading/intro (the count-free copy from the copy file) above it —
 // no doubled headings.
 //
-// Below the products, the CapabilityVerticalBand renders AI and Insights as
-// cross-cutting verticals (NOT peer tiles) — the only nCore-specific part of
-// this section. It keeps AIDecisioningUI + the reworked InsightsUI.
+// Below the products, AI and Insights render as TWO SEPARATE, FULL-WIDTH cards
+// (CapabilityCard) — each carrying the same chrome as a ProductsBento tile —
+// stacked with a tight inter-card gap so the whole area reads as ONE continuous
+// section (owner feedback 2026-06-01: #4 reduce the gap, #5 two separate cards,
+// #6 full-width to fix the AI-UI overflow). The retired band/hairline/node
+// treatment is gone. They keep AIDecisioningUI + the reworked InsightsUI.
 //
-// Reads: section heading/intro → products (ProductsBento) → AI/Insights band.
+// Reads: section heading/intro → products (ProductsBento) → AI + Insights cards.
 //
 // This section is composed by hand (not the shared `Section` wrapper) so the
 // self-contained, full-width `ProductsBento` <section> aligns to the page rails
@@ -33,10 +36,12 @@ const COPY = {
   verticals: {
     ai: {
       label: "AI",
+      headline: "Intelligence in every decision",
       line: "Agentic, domain-trained models woven into decisioning, routing, underwriting, and monitoring across every layer.",
     },
     insights: {
       label: "Insights",
+      headline: "Your whole program in one view",
       line: "Dashboards and analytics across every product, so you see the whole program in one place.",
     },
   },
@@ -66,22 +71,28 @@ export function NCoreCapabilities() {
           carries its own max-w-7xl rail container. */}
       <ProductsBento showHeader={false} />
 
-      {/* AI / Insights — cross-cutting band beneath the products. */}
-      <div className="mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 sm:pb-24 lg:px-20 lg:pb-28">
-        <CapabilityVerticalBand
-          items={[
-            {
-              label: COPY.verticals.ai.label,
-              line: COPY.verticals.ai.line,
-              visual: <AIDecisioningUI />,
-            },
-            {
-              label: COPY.verticals.insights.label,
-              line: COPY.verticals.insights.line,
-              visual: <InsightsUI />,
-            },
-          ]}
-        />
+      {/* AI / Insights — two FULL-WIDTH cards beneath the products. The
+          negative top margin pulls them up so the gap to the bento above equals
+          the bento's own inter-card gap (gap-5 / lg:gap-6) — one continuous
+          section, not a detached band (#4). Stacked with the same gap between
+          the two cards. */}
+      <div className="mx-auto -mt-7 w-full max-w-7xl px-4 pb-16 sm:-mt-9 sm:px-6 sm:pb-24 lg:-mt-10 lg:px-20 lg:pb-28">
+        <div className="flex flex-col gap-5 lg:gap-6">
+          <CapabilityCard
+            index={0}
+            label={COPY.verticals.ai.label}
+            headline={COPY.verticals.ai.headline}
+            line={COPY.verticals.ai.line}
+            visual={<AIDecisioningUI />}
+          />
+          <CapabilityCard
+            index={1}
+            label={COPY.verticals.insights.label}
+            headline={COPY.verticals.insights.headline}
+            line={COPY.verticals.insights.line}
+            visual={<InsightsUI />}
+          />
+        </div>
       </div>
     </section>
   );

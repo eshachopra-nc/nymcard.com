@@ -64,13 +64,13 @@ export function IndustryPageRenderer({ doc: rawDoc }: Props) {
     finalCta: { ...doc.finalCta, headline: fixVoice(doc.finalCta.headline) },
   };
 
-  // BreadcrumbList (Home → Industries → this page). FAQPage is emitted by the
-  // <FAQ> component inside IndustryPage — do not duplicate it here. "Industries"
+  // BreadcrumbList (Home → Solutions → this page). FAQPage is emitted by the
+  // <FAQ> component inside IndustryPage — do not duplicate it here. "Solutions"
   // has no index route, so it's a name-only breadcrumb level.
   const breadcrumbs = breadcrumbSchema([
     { name: "Home", path: "/" },
-    { name: "Industries" },
-    { name: doc.title, path: `/industries/${doc.slug}` },
+    { name: "Solutions" },
+    { name: doc.title, path: `/solutions/${doc.slug}` },
   ]);
 
   return (

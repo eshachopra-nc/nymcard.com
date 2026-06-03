@@ -93,9 +93,9 @@ const platformItems: ProductItem[] = [
   {
     kind: 'product',
     id: 'agentic-ai',
-    label: 'Agentic AI Migration',
+    label: 'Migration',
     description: 'Modernise legacy infrastructure',
-    href: '/platform/ai-migration',
+    href: '/platform/migration',
     icon: Zap,
   },
   {
@@ -179,17 +179,17 @@ const productItems: ProductItem[] = [
    3. INDUSTRIES — 11 items, 4×3 grid (same card as Products)
 ═══════════════════════════════════════════════════════ */
 export const industryItems: ProductItem[] = [
-  { kind: 'product', id: 'commercial-banking',  label: 'Commercial Banking',   description: 'SME and corporate payments',          href: '/industries/commercial-banking',  icon: Building2    },
-  { kind: 'product', id: 'retail-banking',       label: 'Retail Banking',       description: 'Digital banking capabilities',        href: '/industries/retail-banking',      icon: Home         },
-  { kind: 'product', id: 'neobanks',             label: 'Neobanks',             description: 'Full digital bank, API-first',         href: '/industries/neobanks',            icon: Wallet       },
-  { kind: 'product', id: 'exchange-houses',      label: 'Exchange Houses',      description: 'Cross-border payment infrastructure', href: '/industries/exchange-houses',     icon: Shield       },
-  { kind: 'product', id: 'fintechs',             label: 'Fintechs',             description: 'Launch regulated payment products',   href: '/industries/fintechs',            icon: Zap          },
-  { kind: 'product', id: 'telecommunications',  label: 'Telecommunications',   description: 'Embedded financial experiences',      href: '/industries/telecommunications',  icon: Phone        },
-  { kind: 'product', id: 'retail-marketplaces', label: 'Retail & Marketplaces', description: 'Cards, credit, and payouts',         href: '/industries/retail-marketplaces', icon: ShoppingCart },
-  { kind: 'product', id: 'travel',              label: 'Travel',               description: 'Multi-currency payment flows',        href: '/industries/travel',              icon: Plane        },
-  { kind: 'product', id: 'healthcare',          label: 'Healthcare',           description: 'Patient and provider payments',       href: '/industries/healthcare',          icon: Heart        },
-  { kind: 'product', id: 'government',          label: 'Government',           description: 'Disbursement and payment systems',    href: '/industries/government',          icon: Landmark     },
-  { kind: 'product', id: 'mobility',            label: 'Mobility',             description: 'Payments for transport ecosystems',   href: '/industries/mobility',            icon: Car          },
+  { kind: 'product', id: 'commercial-banking',  label: 'Commercial Banking',   description: 'SME and corporate payments',          href: '/solutions/commercial-banking',  icon: Building2    },
+  { kind: 'product', id: 'retail-banking',       label: 'Retail Banking',       description: 'Digital banking capabilities',        href: '/solutions/retail-banking',      icon: Home         },
+  { kind: 'product', id: 'neobanks',             label: 'Neobanks',             description: 'Full digital bank, API-first',         href: '/solutions/neobanks',            icon: Wallet       },
+  { kind: 'product', id: 'exchange-houses',      label: 'Exchange Houses',      description: 'Cross-border payment infrastructure', href: '/solutions/exchange-houses',     icon: Shield       },
+  { kind: 'product', id: 'fintechs',             label: 'Fintechs',             description: 'Launch regulated payment products',   href: '/solutions/fintechs',            icon: Zap          },
+  { kind: 'product', id: 'telecommunications',  label: 'Telecommunications',   description: 'Embedded financial experiences',      href: '/solutions/telecommunications',  icon: Phone        },
+  { kind: 'product', id: 'retail-marketplaces', label: 'Retail & Marketplaces', description: 'Cards, credit, and payouts',         href: '/solutions/retail-marketplaces', icon: ShoppingCart },
+  { kind: 'product', id: 'travel',              label: 'Travel',               description: 'Multi-currency payment flows',        href: '/solutions/travel',              icon: Plane        },
+  { kind: 'product', id: 'healthcare',          label: 'Healthcare',           description: 'Patient and provider payments',       href: '/solutions/healthcare',          icon: Heart        },
+  { kind: 'product', id: 'government',          label: 'Government',           description: 'Disbursement and payment systems',    href: '/solutions/government',          icon: Landmark     },
+  { kind: 'product', id: 'mobility',            label: 'Mobility',             description: 'Payments for transport ecosystems',   href: '/solutions/mobility',            icon: Car          },
 ]
 
 /* ═══════════════════════════════════════════════════════

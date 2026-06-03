@@ -98,7 +98,7 @@ export const telecommunicationsDoc = {
       "Cloud, on-soil, and on-premise deployment on the same platform",
       "KYC and AML inside the authorization path",
       "Principal member of Visa and Mastercard",
-      "PCI DSS Level 1 certified · ISO 27001 certified",
+      "PCI DSS compliant · ISO 27001 certified",
     ],
   },
 
@@ -135,7 +135,7 @@ export const telecommunicationsDoc = {
         { question: "Can subscribers without a bank account use the wallet?", answer: "Yes. Wallets are issued directly on NymCard, no bank account required for the end user." },
         { question: "Can we ship a branded mobile app on top of this?", answer: "Yes. PayKit delivers a white-labeled mobile and web app built directly on your card and wallet infrastructure, no separate front-end build." },
         { question: "Can we start with prepaid cards and add lending later?", answer: "Yes. You can start with the Cards layer and add Lending, Money Movement, Settlement, or Financial Crime as your program grows." },
-        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
+        { question: "What certifications does NymCard hold?", answer: "nCore is PCI DSS compliant and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard." },
       ],
       "faq",
     ),
