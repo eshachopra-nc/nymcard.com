@@ -1,13 +1,13 @@
 import { Section } from "@/components/sections/Section";
-import { Button } from "@/components/ui/button";
+import { BridgeBand } from "@/components/sections/archetypes";
 
-// ── Healthcare §7 — Explore nCore (platform bridge band) ────────────────────
+// ── Healthcare §7 — Explore nCore (bridge band) ─────────────────────────────
 //
-// A calm, factual bridge to /platform/ncore: headline + description + a single
-// "Explore nCore" link. No platform diagram, no duplicated architecture
-// visual, no eyebrow — the headline leads. The label is plain "Explore nCore"
-// with NO arrow character (the copy's "→" is dropped). Static → server
-// component.
+// The hand-off to /platform/ncore. REWORKED off a bare headline + link onto the
+// BridgeBand archetype — the always-dark contrast closer: a contained panel on
+// the cool atmosphere field with the radiating cyan nucleus (the "core" made
+// literal) and the "Explore nCore" link. No platform diagram, no duplicated
+// architecture visual. No eyebrow — the headline leads.
 //
 // Copy mirrored from 02-copy/Industry Healthcare-Copy.md §"Explore nCore".
 
@@ -21,19 +21,12 @@ const COPY = {
 export function ExplorePlatform() {
   return (
     <Section bg="white" ariaLabel="Explore nCore">
-      <div className="max-w-3xl">
-        <h2 className="font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl dark:text-text-on-brand">
-          {COPY.headline}
-        </h2>
-        <p className="mt-5 max-w-2xl font-body text-base leading-relaxed text-text-secondary sm:text-lg dark:text-text-dark-secondary">
-          {COPY.description}
-        </p>
-        <div className="mt-7">
-          <Button variant="tertiary" href={COPY.cta.href}>
-            {COPY.cta.label}
-          </Button>
-        </div>
-      </div>
+      <BridgeBand
+        headline={COPY.headline}
+        body={COPY.description}
+        cta={COPY.cta}
+        tone="indigo"
+      />
     </Section>
   );
 }

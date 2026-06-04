@@ -8,6 +8,7 @@ import { WhyChanging } from "@/components/sections/government/WhyChanging";
 import { PublicProgrammes } from "@/components/sections/government/PublicProgrammes";
 import { PublicInfrastructure } from "@/components/sections/government/PublicInfrastructure";
 import { PublicAccountability } from "@/components/sections/government/PublicAccountability";
+import { PublicFundsFigures } from "@/components/sections/government/PublicFundsFigures";
 import { LaunchYourWay } from "@/components/sections/government/LaunchYourWay";
 import { ExplorePlatform } from "@/components/sections/government/ExplorePlatform";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -105,6 +106,7 @@ const SECTIONS: NavSection[] = [
   { id: "public-programmes", label: "One platform", status: "done" },
   { id: "public-infrastructure", label: "Public infrastructure", status: "done" },
   { id: "public-accountability", label: "Public accountability", status: "done" },
+  { id: "public-funds-figures", label: "Public funds at scale", status: "done" },
   { id: "launch-your-way", label: "Launch your way", status: "done" },
   { id: "explore-platform", label: "Explore nCore", status: "done" },
   { id: "faq", label: "FAQ", status: "done" },
@@ -178,8 +180,14 @@ export default function GovernmentPage() {
         <PublicAccountability />
       </div>
 
-      {/* §6 Launch your way — three delivery cards, each a luminous card with a
-          labelled product-UI slot, plus a supporting line. */}
+      {/* §5.5 Public funds at scale — ONE BigFigureRow contrast beat (oversized
+          display figures, illustrative of the platform model, flagged as such). */}
+      <div id="public-funds-figures" className="scroll-mt-24">
+        <PublicFundsFigures />
+      </div>
+
+      {/* §6 Launch your way — the three operating models as a FeatureMatrix
+          (hairline reference rows), plus a supporting line. */}
       <div id="launch-your-way" className="scroll-mt-24">
         <LaunchYourWay />
       </div>

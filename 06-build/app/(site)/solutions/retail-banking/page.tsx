@@ -146,26 +146,26 @@ export default function RetailBankingPage() {
         <WhyChanging />
       </div>
 
-      {/* §3 The Digital Banking Experience — the five-pillar bento centerpiece,
-          each pillar a luminous card with a labelled product-UI slot. */}
+      {/* §3 The Digital Banking Experience — the page's ONE marquee, five
+          pillars as AlternatingRows (copy ↔ visual, labelled UIPlaceholder). */}
       <div id="digital-banking" className="scroll-mt-24">
         <DigitalBankingExperience />
       </div>
 
-      {/* §4 Launch your way — three delivery cards, each a luminous card with a
-          labelled product-UI slot, plus a supporting line. */}
+      {/* §4 Launch your way — the three delivery models on a ProcessRail
+          (numbered steps on one spine), not cards. */}
       <div id="launch-your-way" className="scroll-mt-24">
         <LaunchYourWay />
       </div>
 
-      {/* §5 Why retail banks choose NymCard — five-reason on-system feature
-          grid. */}
+      {/* §5 Why retail banks choose NymCard — five reasons as a FeatureMatrix
+          (hairline reference rows), not cards. */}
       <div id="why-choose" className="scroll-mt-24">
         <WhyChooseNymCard />
       </div>
 
-      {/* §6 Explore the platform — calm nCore bridge band, single tertiary
-          link. */}
+      {/* §6 Explore the platform — the always-dark BridgeBand with the cyan
+          nucleus (Built-on-nCore signature). */}
       <div id="explore-platform" className="scroll-mt-24">
         <ExplorePlatform />
       </div>

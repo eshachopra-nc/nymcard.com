@@ -1,78 +1,119 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/composition/PageHero";
 import { CTASection } from "@/components/composition/CTASection";
+import { FAQ, type FAQItem } from "@/components/composition/FAQ";
+import { TopologyTraces } from "@/components/visuals";
 import { Footer } from "@/components/sections/Footer";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo";
 import { CommercialPaymentsOpportunity } from "@/components/sections/solutions/CommercialPaymentsOpportunity";
 import { CommercialPaymentsFinancialOS } from "@/components/sections/solutions/CommercialPaymentsFinancialOS";
+import { CommercialPaymentsSegments } from "@/components/sections/solutions/CommercialPaymentsSegments";
 import { CommercialPaymentsLaunch } from "@/components/sections/solutions/CommercialPaymentsLaunch";
-import { CommercialPaymentsInstitutions } from "@/components/sections/solutions/CommercialPaymentsInstitutions";
 import { CommercialPaymentsWhyItWorks } from "@/components/sections/solutions/CommercialPaymentsWhyItWorks";
-import { CommercialPaymentsProof } from "@/components/sections/solutions/CommercialPaymentsProof";
+import { CommercialPaymentsExplore } from "@/components/sections/solutions/CommercialPaymentsExplore";
 
 // ── /solutions/commercial-payments — the Commercial Payments use-case page ────
 //
 // Coded composition (NOT Sanity), like /solutions/banking-as-a-service,
 // /solutions/embedded-finance, and /solutions/digital-wallets. The other
-// /solutions/* routes are the Sanity-rendered industry pages, each its own
-// static folder segment — there is NO dynamic [industry] segment, so this static
-// folder adds a sibling route without touching industry routing. This is the
-// BaaS / Embedded Finance / Digital Wallets sibling and mirrors their pattern.
+// /solutions/* routes are the Sanity-rendered industry pages, each its own static
+// folder segment — there is NO dynamic [industry] segment, so this static folder
+// adds a sibling route without touching industry routing.
 //
-// OPPORTUNITY-LED, with a "Financial OS" framing. Copy is mirrored VERBATIM from
-// 02-copy/usecase-commercial-payments.md — each section component carries its own
-// typed COPY const; the Final CTA strings inline here mirror the same source
-// (§CTA).
+// REBUILT (4 June) against the rewritten copy in
+// 02-copy/usecase-commercial-payments.md — now INSTITUTION-VOICED throughout
+// (the page sells "a Financial OS for businesses" to a bank/fintech serving
+// businesses; it never addresses the business owner). Composed on the section-
+// archetype variety kit, matching the exchange-houses reference for restraint
+// and section-to-section variety (one card section maximum).
 //
-// Section order (copy-file order, 8 sections — NO Deployment section):
-//   1  Hero          → PageHero (shared product-page hero, textOnly)          light
-//   2  The Opportunity→ CommercialPaymentsOpportunity (editorial intro)        soft
-//   3  The Financial OS→ CommercialPaymentsFinancialOS (EDITORIAL feature-show) white
-//   4  Launch Your Way→ CommercialPaymentsLaunch (divided delivery strip)      soft
-//   5  Institutions   → CommercialPaymentsInstitutions (dark linked grid)      NAVY
-//   6  Why It Works   → CommercialPaymentsWhyItWorks (ConnectedStepper/glass)   soft
-//   7  Platform Proof → CommercialPaymentsProof (StatStrip, NO trust line)      white
-//   8  Final CTA      → CTASection (composed inline, like the siblings)         soft
+// Section order (copy-file order):
+//   1  Hero                 → PageHero (shared product-page hero, textOnly)   light
+//   2  Why it's changing     → CommercialPaymentsOpportunity (OutcomeChips)    soft
+//   3  The Financial OS       → CommercialPaymentsFinancialOS (editorial show) white  ← MARQUEE
+//   4  Serve every segment    → CommercialPaymentsSegments (HorizontalRow)     soft
+//   5  Launch your way        → CommercialPaymentsLaunch (segmented columns)   soft
+//   6  Why institutions choose→ CommercialPaymentsWhyItWorks (EditorialSplit)  soft
+//   7  Explore nCore          → CommercialPaymentsExplore (BridgeBand)        white/DARK band ← one dark beat
+//   8  FAQ                    → FAQ (shared component, emits FAQPage schema)  white
+//   9  Final CTA              → CTASection (over TopologyTraces)              soft
 //
-// REWORKED (4 June) for a premium, varied cadence — the previous all-light run of
-// near-identical card grids read flat. The §3 Financial OS is now the page's
-// EDITORIAL CENTERPIECE: five capabilities as full-width rows alternating text /
-// roomy UI placeholder side to side (reserved room for per-feature product-UIs,
-// to follow). The rest is re-cadenced so no two sections share a treatment:
-//   §2 editorial intro · §3 alternating feature-show · §4 divided delivery strip ·
-//   §5 ONE considered dark beat (navy, glass linked cards on AmbientGlow) ·
-//   §6 ConnectedStepper "one platform" flow in glass · §7 centred StatStrip.
-// Light/dark rhythm — exactly one dark beat (§5), never two darks adjacent:
-//   soft → soft → white → soft → NAVY → soft → white → soft
-// The soft/soft and white/soft adjacencies are distinct compositions (intro vs
-// feature-show; rails proof into the ribbon CTA), so boundaries read by
-// structure, and the SectionAtmosphere / AmbientGlow fields give each its own
-// dimensional bed. The §3 feature-show, §5 linked grid, and §6 glass flow are
-// three DIFFERENT treatments. All sections work light AND dark. Inherits the
-// (site) layout chrome (Navbar, page rails, alert banner); Footer is last.
+// The §3 editorial feature-show (alternating copy ↔ UIPlaceholder rows) is the
+// ONE card/visual section; every other section uses a distinct NON-card
+// archetype (OutcomeChips · HorizontalRow rail · segmented columns · numbered
+// EditorialSplit · always-dark BridgeBand). The page's one dark beat is the §7
+// BridgeBand. Inherits the (site) layout chrome (Navbar, page rails, alert
+// banner); Footer is last.
 //
-// SEO title/H1 stays "Commercial Payments".
+// Retired from this page (files kept in repo): CommercialPaymentsInstitutions,
+// CommercialPaymentsProof — the rewritten copy dropped the dark institutions
+// grid and the platform-proof stat strip.
 
 const COPY = {
   hero: {
-    headline: "One place to spend, pay, get paid, and grow.",
-    body: "Launch a complete Financial OS for businesses with cards, expense management, accounts payable, accounts receivable, payroll, lending, and real-time insights. Available as a white-label web portal, mobile app, or embedded directly into your existing experience.",
+    headline: "Give businesses everything they need to manage money.",
+    body: "Launch commercial cards, accounts payable, accounts receivable, payroll, financing, and payment experiences for SMEs and corporates on one platform.",
     primaryCta: { label: "Talk to us", href: "/company/contact" },
     secondaryCta: { label: "Explore nCore", href: "/platform/ncore" },
   },
+  faq: {
+    heading: "Common questions",
+    // Mirrored VERBATIM from 02-copy/usecase-commercial-payments.md §FAQ
+    // (copywriter-authored + humanized, institution voice).
+    items: [
+      {
+        question: "What is a commercial payments platform?",
+        answer:
+          "A commercial payments platform is the system you use to give business customers everything they need to manage money in one place. With NymCard, that means commercial cards, accounts payable, accounts receivable, payroll, financing, and real-time insights running on a single platform. Businesses get one experience for spending, payments, collections, and cash flow, and you get one source of truth for every customer.",
+      },
+      {
+        question: "Can you launch commercial cards and financing on the same platform?",
+        answer:
+          "Yes. Commercial cards and working capital both run on nCore, the same architecture behind your payments, settlement, and reconciliation. Because card activity and financing share one customer and data layer, you can underwrite against real spending behaviour and offer credit lines, invoice financing, and business lending alongside the cards your customers already use.",
+      },
+      {
+        question: "How are accounts payable and receivable managed?",
+        answer:
+          "Accounts payable and receivable run as workflows inside the platform. On the payable side, businesses manage supplier payments, approvals, and outgoing cash flows. On the receivable side, they handle invoicing, collections, payment acceptance, and cash flow visibility. Both feed the same real-time view, so businesses see their full position and you see the activity across every account.",
+      },
+      {
+        question: "Can businesses access services through a white-label portal?",
+        answer:
+          "Yes. NymCard provides a white-label business portal and mobile experience that you brand as your own. Businesses use it to manage payments, spending, collections, and financing, while you keep the customer relationship and the data. If you would rather embed these capabilities into an experience you already run, the same platform is available through APIs and SDKs.",
+      },
+      {
+        question: "Can you start with cards and expand later?",
+        answer:
+          "Yes. You can launch one capability, such as commercial cards, and add accounts payable, receivable, payroll, financing, and insights over time. Because every capability runs on nCore, expanding does not mean adding new infrastructure layers or integrating new vendors. You build on what is already live.",
+      },
+      {
+        question: "What deployment models are available?",
+        answer:
+          "NymCard supports cloud, on-soil, and on-premise deployment on the same platform. You choose the model that fits your regulatory requirements and infrastructure, and the capabilities and experiences stay the same across all three.",
+      },
+      {
+        question: "How is compliance handled?",
+        answer:
+          "NymCard is PCI DSS compliant and ISO 27001 certified, and a licensed and regulated payments provider and a principal member of Visa and Mastercard. Financial crime controls and reconciliation run on the same platform as your cards and payments, so monitoring and oversight cover every flow rather than sitting in a separate system.",
+      },
+    ] satisfies FAQItem[],
+  },
   finalCta: {
-    headline: "Give businesses a better way to manage money.",
+    headline: "Become the platform businesses rely on.",
     description:
-      "See how banks, fintechs, exchange houses, marketplaces, and telecommunications providers launch commercial payment experiences on a complete Financial OS.",
+      "See how institutions launch commercial payment and business finance experiences on one platform.",
     primaryCta: { label: "Talk to us", href: "/company/contact" },
   },
 } as const;
 
 export const metadata: Metadata = {
-  title: { absolute: "Commercial Payments | NymCard" },
+  title: {
+    absolute:
+      "Commercial Payments Platform | Financial OS for Businesses | NymCard",
+  },
   description:
-    "One place to spend, pay, get paid, and grow. Launch a complete Financial OS for businesses — cards, expense management, payables, receivables, payroll, lending, and real-time insights — under your own brand, on nCore.",
+    "Launch commercial cards, accounts payable, accounts receivable, payroll, financing, and business payment experiences on one platform.",
   alternates: { canonical: "/solutions/commercial-payments" },
 };
 
@@ -90,8 +131,7 @@ export default function CommercialPaymentsPage() {
         ])}
       />
 
-      {/* 1 — Hero: the shared product-page hero, text-forward (textOnly),
-          identical to what ProductPageRenderer / the BaaS sibling use. */}
+      {/* 1 — Hero: the shared product-page hero, text-forward (textOnly). */}
       <PageHero
         textOnly
         headline={COPY.hero.headline}
@@ -100,30 +140,38 @@ export default function CommercialPaymentsPage() {
         secondaryCta={COPY.hero.secondaryCta}
       />
 
-      {/* 2 — The Opportunity: the editorial intro that opens the argument. */}
+      {/* 2 — Why commercial payments is changing: the OutcomeChips opener,
+          institution-side outcomes (deposits / fee income / lending). */}
       <CommercialPaymentsOpportunity />
 
-      {/* 3 — The Financial OS: the EDITORIAL feature-show centerpiece — five
-          capabilities as alternating full-width rows with roomy UI placeholders. */}
+      {/* 3 — The Financial OS for businesses: the MARQUEE editorial feature-show
+          — six business workflows as alternating copy ↔ UIPlaceholder rows. */}
       <CommercialPaymentsFinancialOS />
 
-      {/* 4 — Launch Your Way: the 3 delivery options as a divided strip. */}
+      {/* 4 — Serve every business segment: SME · Mid-Market · Enterprise as a
+          horizontal typographic rail (HorizontalRow). */}
+      <CommercialPaymentsSegments />
+
+      {/* 5 — Launch your way: the three delivery options as a segmented-columns
+          strip with the verbatim supporting line. */}
       <CommercialPaymentsLaunch />
 
-      {/* 5 — Institutions: the page's one dark beat — linked glass cards on navy. */}
-      <CommercialPaymentsInstitutions />
-
-      {/* 6 — Why It Works: the 5 reasons as a ConnectedStepper flow in glass. */}
+      {/* 6 — Why institutions choose NymCard: the five reasons as a numbered
+          EditorialSplit (sticky headline ↔ hairline list). */}
       <CommercialPaymentsWhyItWorks />
 
-      {/* 7 — Platform Proof: the 4 metrics (StatStrip), trust line removed. */}
-      <CommercialPaymentsProof />
+      {/* 7 — Explore nCore: the always-dark BridgeBand closer (one dark beat). */}
+      <CommercialPaymentsExplore />
 
-      {/* 8 — Final CTA: kept light, consistent with the page's light-first arc. */}
+      {/* 8 — FAQ: the shared FAQ component (also emits FAQPage schema). */}
+      <FAQ headline={COPY.faq.heading} items={[...COPY.faq.items]} mode="single" />
+
+      {/* 9 — Final CTA: ribbon CTA over the cyan TopologyTraces backdrop. */}
       <CTASection
         headline={COPY.finalCta.headline}
         body={COPY.finalCta.description}
         primaryCta={COPY.finalCta.primaryCta}
+        backgrounds={<TopologyTraces density="medium" tone="cyan" />}
       />
 
       <Footer />

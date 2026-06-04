@@ -11,11 +11,12 @@ import { UIPlaceholder } from "@/components/composition/UIPlaceholder";
 //
 // The copy's Visual Direction asks for ONE customer-journey visual (Discover →
 // Purchase → Reward → Pay → Finance → Return), not a product-card grid. So this
-// section is a single luminous centerpiece: a labelled journey UIPlaceholder
-// (the designer fills the bespoke diagram next), with the five lifecycle
-// capabilities as supporting text alongside. Every surface floats on the
-// canonical luminous kit (IllustrationField + IllustrationCard) — never a flat
-// panel (design-system.md §8.1). No eyebrow — the headline leads.
+// section is the page's ONE marquee surface: a single luminous journey
+// UIPlaceholder floating on the canonical product-illustration kit
+// (IllustrationField + IllustrationCard, §8.1), with the five lifecycle stages
+// rendered as PLAIN EDITORIAL TEXT beside it — NOT boxed in a second luminous
+// card (owner bug fix, 4 Jun: the supporting stages must read as editorial copy
+// next to the visual, not a card). No eyebrow — the headline leads.
 //
 // Copy mirrored from 02-copy/Industry Retail & Marketplaces-Copy.md §"From
 // Commerce To Financial Services". Headlines sentence-case; "behaviour" →
@@ -79,9 +80,10 @@ export function CommerceJourney() {
         </p>
       </div>
 
-      {/* The centerpiece: the journey visual (a labelled placeholder) beside the
-          five lifecycle stages as supporting text. */}
-      <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
+      {/* The marquee: the journey visual (the page's ONE luminous surface)
+          beside the five lifecycle stages as PLAIN editorial text — the stages
+          are NOT boxed in a card (owner bug fix). */}
+      <div className="grid gap-x-12 gap-y-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-x-16">
         {/* Journey visual — one luminous card, the designer's bespoke
             Discover → Purchase → Reward → Pay → Finance → Return diagram. */}
         <article className="group relative isolate flex min-h-[26rem] flex-col overflow-hidden rounded-[20px]">
@@ -98,33 +100,37 @@ export function CommerceJourney() {
           </IllustrationCard>
         </article>
 
-        {/* Lifecycle stages — supporting text. Each stage activates a different
-            financial-service capability. */}
-        <article className="relative isolate flex flex-col overflow-hidden rounded-[20px]">
-          <IllustrationField />
-          <IllustrationCard pad={false}>
-            <ul className="flex h-full flex-col justify-center gap-6 p-6 sm:p-8">
-              {STAGES.map((stage) => (
-                <li key={stage.name} className="flex items-start gap-3.5">
-                  <span
-                    aria-hidden="true"
-                    className="inline-flex size-9 shrink-0 items-center justify-center rounded-xl bg-accent-cyan/[0.12] text-accent-cyan ring-1 ring-inset ring-accent-cyan/20 [&_svg]:size-[18px]"
-                  >
-                    {stage.icon}
-                  </span>
-                  <div>
-                    <h3 className="font-display text-base font-bold leading-tight tracking-tight text-text-primary dark:text-text-on-brand">
-                      {stage.name}
-                    </h3>
-                    <p className="mt-1 max-w-[44ch] font-body text-sm leading-[1.55] text-text-secondary dark:text-text-dark-secondary">
-                      {stage.description}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </IllustrationCard>
-        </article>
+        {/* Lifecycle stages — PLAIN editorial text, NOT a card. Each stage is an
+            icon + name + one-liner on the open section surface; the rows are
+            divided by hairlines, never boxed. */}
+        <ul className="flex flex-col">
+          {STAGES.map((stage, i) => (
+            <li
+              key={stage.name}
+              className={
+                "flex items-start gap-3.5 py-5 first:pt-0 last:pb-0" +
+                (i > 0
+                  ? " border-t border-surface-border-subtle dark:border-surface-dark-border"
+                  : "")
+              }
+            >
+              <span
+                aria-hidden="true"
+                className="inline-flex size-9 shrink-0 items-center justify-center rounded-xl bg-accent-cyan/[0.12] text-accent-cyan ring-1 ring-inset ring-accent-cyan/20 [&_svg]:size-[18px]"
+              >
+                {stage.icon}
+              </span>
+              <div>
+                <h3 className="font-display text-base font-bold leading-tight tracking-tight text-text-primary dark:text-text-on-brand">
+                  {stage.name}
+                </h3>
+                <p className="mt-1 max-w-[44ch] font-body text-sm leading-[1.55] text-text-secondary dark:text-text-dark-secondary">
+                  {stage.description}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </Section>
   );

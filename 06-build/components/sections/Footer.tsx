@@ -19,20 +19,13 @@ const LINK_GROUPS: { title: string; links: FooterLink[] }[] = [
     title: "Platform",
     links: [
       { label: "nCore", href: "/platform/ncore" },
-      { label: "Migration & Modernisation", href: "/platform/migration" },
-      { label: "Documentation", href: DOCS_URL },
-      { label: "API Catalog", href: API_CATALOG_URL },
-    ],
-  },
-  {
-    title: "Products",
-    links: [
       { label: "Cards", href: "/products/card-issuing" },
       { label: "Lending", href: "/products/lending" },
       { label: "Money Movement", href: "/products/money-movement" },
       { label: "Settlement", href: "/products/settlement" },
       { label: "Financial Crime", href: "/products/financial-crime" },
       { label: "Reconciliation", href: "/products/reconciliation" },
+      { label: "Migration", href: "/platform/migration" },
     ],
   },
   {
@@ -62,6 +55,13 @@ const LINK_GROUPS: { title: string; links: FooterLink[] }[] = [
     ],
   },
   {
+    title: "Developers",
+    links: [
+      { label: "Documentation", href: DOCS_URL },
+      { label: "API Catalog", href: API_CATALOG_URL },
+    ],
+  },
+  {
     title: "Company",
     links: [
       { label: "About", href: "/company/about" },
@@ -73,24 +73,30 @@ const LINK_GROUPS: { title: string; links: FooterLink[] }[] = [
   },
 ];
 
-// Compliance certifications — a labelled "Certifications" block (matching the
-// link-group headings). The owner-supplied brand marks alone, no scheme text
-// (owner, 3 June): PCI mark (public/logos/pci.png) + the ISO 27001 seal
-// (iso-27001.png) rendered all-white to sit cleanly on the navy footer. The
-// accessible names live on each img's alt.
+// Compliance certifications — a single inline row (label + marks on one line).
+// White-on-transparent marks derived from the owner-supplied official artwork
+// (PCI DSS / PCI SSF / AICPA SOC 2) plus the ISO 27001 seal, so they sit
+// directly on the navy footer. Placement TBC with owner.
+// Per-mark height — the wide PCI wordmarks are scaled down so they read
+// uniform next to the compact SOC / ISO seals.
+const CERTS = [
+  { src: "/pcidss-white.png", alt: "PCI DSS compliant", h: "h-6" },
+  { src: "/pcissf-white.png", alt: "PCI Software Security Framework", h: "h-6" },
+  { src: "/soc2-white.png", alt: "AICPA SOC 2 — SOC for Service Organizations", h: "h-9" },
+  { src: "/logos/iso-27001-seal-white.svg", alt: "ISO/IEC 27001 certified", h: "h-9" },
+];
+
 function FooterCertifications({ className }: { className?: string }) {
   return (
-    <div className={className}>
-      <h3 className="font-display font-semibold text-text-on-brand text-sm">
+    <div className={cn("flex flex-wrap items-center gap-x-6 gap-y-3", className)}>
+      <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-text-dark-muted">
         Certifications
-      </h3>
-      <div className="mt-5 flex flex-wrap items-center gap-x-7 gap-y-4">
-        {/* eslint-disable-next-line @next/next/no-img-element -- certification mark */}
-        <img src="/logos/pci.png" alt="PCI DSS compliant" className="h-8 w-auto" loading="lazy" decoding="async" />
-        {/* Owner-supplied ISO seal, baked to white-on-transparent so it reads on
-            the navy footer. */}
-        {/* eslint-disable-next-line @next/next/no-img-element -- certification mark */}
-        <img src="/logos/iso-27001-white.png" alt="ISO/IEC 27001 certified" className="h-10 w-auto" loading="lazy" decoding="async" />
+      </span>
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+        {CERTS.map((c) => (
+          // eslint-disable-next-line @next/next/no-img-element -- certification mark
+          <img key={c.src} src={c.src} alt={c.alt} className={cn(c.h, "w-auto")} loading="lazy" decoding="async" />
+        ))}
       </div>
     </div>
   );
@@ -105,14 +111,43 @@ function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
+function FooterLinkGroup({ group }: { group: { title: string; links: FooterLink[] } }) {
+  return (
+    <div>
+      <h3 className="font-display font-semibold text-text-on-brand text-sm">
+        {group.title}
+      </h3>
+      <ul className="mt-4 space-y-2.5">
+        {group.links.map((link) => {
+          const href = linkHref(link);
+          const ext = isExternalHref(href);
+          return (
+            <li key={linkLabel(link)}>
+              <a
+                href={href}
+                {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="font-body text-sm text-text-dark-secondary hover:text-text-on-brand transition-colors"
+              >
+                {linkLabel(link)}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 export function Footer() {
   return (
     <footer className="bg-brand-navy pt-20 pb-10">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20">
-        {/* Desktop / tablet: 5-column split — the NymCard logo occupies the
-            first column, the four link groups fill the remaining four (md
-            collapses to 3 columns). Hidden on mobile. */}
-        <div className="hidden md:grid md:grid-cols-3 md:gap-x-10 lg:grid-cols-6 lg:gap-x-12 gap-y-12">
+        {/* Desktop / tablet: brand mark, then Platform, Use Cases, Industries,
+            and a combined Developers + Company column. On lg the five blocks are
+            distributed with space-between so the gaps read evenly and the row
+            spans the full width (the brand column's short address no longer
+            leaves an oversized first gap). md collapses to 3 columns. */}
+        <div className="hidden md:grid md:grid-cols-3 md:gap-x-10 md:gap-y-12 lg:flex lg:items-start lg:justify-between lg:gap-x-8">
           {/* Column 1 — brand mark + HQ address */}
           <div>
             <Image
@@ -123,7 +158,7 @@ export function Footer() {
               className="h-[22px] w-auto"
             />
             <div className="mt-5 max-w-[15rem] font-body text-sm leading-relaxed text-text-dark-secondary">
-              <p className="font-semibold text-text-on-brand">HQ Office</p>
+              <p className="font-semibold text-text-on-brand">Office</p>
               <address className="mt-1 not-italic">
                 North West House<br />
                 119 Marylebone Road<br />
@@ -133,32 +168,17 @@ export function Footer() {
               </address>
             </div>
           </div>
-          {LINK_GROUPS.map((group) => (
-            <div key={group.title}>
-              <h3 className="font-display font-semibold text-text-on-brand text-sm">
-                {group.title}
-              </h3>
-              <ul className="mt-4 space-y-2.5">
-                {group.links.map((link) => {
-                  const href = linkHref(link);
-                  const ext = isExternalHref(href);
-                  return (
-                    <li key={linkLabel(link)}>
-                      <a
-                        href={href}
-                        {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                        className="font-body text-sm text-text-dark-secondary hover:text-text-on-brand transition-colors"
-                      >
-                        {linkLabel(link)}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-              {/* Certifications sit under the Platform column (owner direction). */}
-              {group.title === "Platform" && <FooterCertifications className="mt-10" />}
-            </div>
+          {/* Platform · Use Cases · Industries each get their own column. */}
+          {LINK_GROUPS.slice(0, 3).map((group) => (
+            <FooterLinkGroup key={group.title} group={group} />
           ))}
+          {/* Developers + Company share the last column (stacked) so the row
+              reads as 5 columns rather than a squashed 6. */}
+          <div className="flex flex-col gap-10">
+            {LINK_GROUPS.slice(3).map((group) => (
+              <FooterLinkGroup key={group.title} group={group} />
+            ))}
+          </div>
         </div>
 
         {/* Mobile: logo above the accordion */}
@@ -171,7 +191,7 @@ export function Footer() {
             className="h-[22px] w-auto"
           />
           <div className="mt-5 max-w-[18rem] font-body text-sm leading-relaxed text-text-dark-secondary">
-            <p className="font-semibold text-text-on-brand">HQ Office</p>
+            <p className="font-semibold text-text-on-brand">Office</p>
             <address className="mt-1 not-italic">
               North West House<br />
               119 Marylebone Road<br />
@@ -185,11 +205,14 @@ export function Footer() {
               <FooterAccordion key={group.title} title={group.title} links={group.links} />
             ))}
           </div>
-          <FooterCertifications className="mt-8" />
         </div>
 
+        {/* Certifications — full-width single row above the legal bar so all
+            marks sit on one line with room. */}
+        <FooterCertifications className="mt-16 pt-8 border-t border-surface-dark-border" />
+
         {/* Bottom region: copyright · LinkedIn · legal. */}
-        <div className="mt-16 pt-8 border-t border-surface-dark-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="mt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <p className="font-body text-xs text-text-dark-muted">
             © 2026 NymCard Payment Services
           </p>

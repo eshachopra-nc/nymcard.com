@@ -6,6 +6,7 @@ import {
   CreditCard,
   ArrowLeftRight,
   ReceiptText,
+  Users,
   TrendingUp,
   BarChart3,
   type LucideIcon,
@@ -15,65 +16,75 @@ import { SectionAtmosphere } from "@/components/visuals/SectionAtmosphere";
 import { UIPlaceholder } from "@/components/composition/UIPlaceholder";
 import { visual, withAlpha, dur, ease } from "@/components/visuals";
 
-// ── Commercial Payments §3 — The Financial OS (THE CENTERPIECE) ──────────────
+// ── Commercial Payments §3 — The Financial OS for businesses (CENTERPIECE) ────
 //
 // Copy mirrored VERBATIM from 02-copy/usecase-commercial-payments.md §The
-// Financial OS.
+// Financial OS For Businesses. Written from the institution's perspective —
+// each capability is something the institution gives the businesses it serves.
 //
 // This is the PAGE'S SPINE — an EDITORIAL FEATURE-SHOW, not a card grid. The
-// headline + description run at the top, then the five capabilities — Spend ·
-// Pay · Get Paid · Grow · Understand — each get their OWN full-width row that
-// ALTERNATES side to side (text left / UI right, then text right / UI left, …).
-// Each row pairs the capability name + verbatim description + a gradient icon
-// chip with a GENEROUSLY-SIZED labelled UIPlaceholder (scale="wide") on the
-// opposite side — the reserved room for that feature's product-UI, to be filled
-// in a later pass. Generous vertical rhythm between rows; each row reveals on
-// scroll-into-view (whileInView, once) and its placeholder lifts on hover.
+// headline + description run at the top, then the six business workflows —
+// Commercial Cards · Accounts Payable · Accounts Receivable · Payroll &
+// Workforce Payments · Working Capital & Financing · Real-Time Insights — each
+// get their OWN full-width row that ALTERNATES side to side (text left / UI
+// right, then text right / UI left, …). Each row pairs the capability name +
+// verbatim description + a gradient icon chip with a GENEROUSLY-SIZED labelled
+// UIPlaceholder (scale="wide") on the opposite side — the reserved room for that
+// feature's product-UI, to be filled in a later pass. Generous vertical rhythm
+// between rows; each row reveals on scroll-into-view (whileInView, once) and its
+// placeholder lifts on hover.
 //
-// This is the page's editorial centerpiece — it is deliberately the one section
-// that gets full-width rows and large UI room, so it reads differently from the
-// §5 linked-institution grid and the §6 ConnectedStepper flow. No eyebrow — the
+// This is the page's editorial centerpiece — deliberately the ONE section that
+// gets full-width rows and large UI room, so it reads differently from the §4
+// segment rail, §5 launch columns, and §6 reasons split. No eyebrow — the
 // headline leads. Light (white), on a contained SectionAtmosphere wash.
 
 const COPY = {
-  headline: "Everything businesses need. One experience.",
+  headline: "One platform. Every business workflow.",
   description:
-    "Commercial Payments combines business finance tools, payment infrastructure, and customer-facing experiences into a single platform that can be fully branded as your own.",
+    "Give businesses a single place to manage spending, payments, collections, payroll, financing, and cash flow visibility.",
   capabilities: [
     {
-      name: "Spend",
-      body: "Issue prepaid and credit cards, manage expenses, automate approvals, and enforce spending policies across teams, departments, and programmes.",
+      name: "Commercial Cards",
+      body: "Issue virtual, physical, debit, prepaid, and credit card programmes for business spending.",
       icon: CreditCard,
       placeholder:
-        "Spend — issuing, expenses, approvals, and spend policy controls",
+        "Commercial Cards — virtual, physical, debit, prepaid, and credit programmes",
     },
     {
-      name: "Pay",
-      body: "Manage supplier payments, payroll, workforce disbursements, and business transfers from a single platform.",
+      name: "Accounts Payable",
+      body: "Help businesses manage supplier payments, approvals, and outgoing cash flows.",
       icon: ArrowLeftRight,
       placeholder:
-        "Pay — supplier payments, payroll, and workforce disbursements",
+        "Accounts Payable — supplier payments, approvals, and outgoing flows",
     },
     {
-      name: "Get Paid",
-      body: "Create invoices, track receivables, monitor collections, and manage incoming payments with complete visibility into cash flow.",
+      name: "Accounts Receivable",
+      body: "Enable invoicing, collections, payment acceptance, and cash flow visibility.",
       icon: ReceiptText,
       placeholder:
-        "Get Paid — invoices, receivables, collections, and cash flow",
+        "Accounts Receivable — invoicing, collections, and acceptance",
     },
     {
-      name: "Grow",
-      body: "Offer working capital, invoice financing, and business credit solutions that help businesses access capital when they need it.",
+      name: "Payroll & Workforce Payments",
+      body: "Support payroll, contractor payments, and workforce disbursements.",
+      icon: Users,
+      placeholder:
+        "Payroll & Workforce Payments — payroll, contractors, and disbursements",
+    },
+    {
+      name: "Working Capital & Financing",
+      body: "Offer credit lines, invoice financing, and business lending solutions.",
       icon: TrendingUp,
       placeholder:
-        "Grow — working capital, invoice financing, and business credit",
+        "Working Capital & Financing — credit lines, invoice financing, and lending",
     },
     {
-      name: "Understand",
-      body: "Access real-time insights into spending, payments, receivables, liabilities, cash flow, and business performance.",
+      name: "Real-Time Insights",
+      body: "Provide visibility into spending, cash flow, liabilities, and financial performance.",
       icon: BarChart3,
       placeholder:
-        "Understand — real-time insights across spending, cash flow, and performance",
+        "Real-Time Insights — spending, cash flow, liabilities, and performance",
     },
   ] satisfies {
     name: string;
@@ -101,7 +112,6 @@ export function CommercialPaymentsFinancialOS() {
         {COPY.capabilities.map((capability, i) => (
           <FeatureRow
             key={capability.name}
-            index={i}
             flipped={i % 2 === 1}
             {...capability}
           />
@@ -116,14 +126,12 @@ function FeatureRow({
   body,
   icon: Icon,
   placeholder,
-  index,
   flipped,
 }: {
   name: string;
   body: string;
   icon: LucideIcon;
   placeholder: string;
-  index: number;
   flipped: boolean;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -155,7 +163,8 @@ function FeatureRow({
           flipped ? "lg:order-2 lg:col-start-8" : "lg:order-1"
         }`}
       >
-        {/* Index + gradient icon chip — the site's product-icon language. */}
+        {/* Gradient icon chip — the site's product-icon language. (Row index
+            numerals removed per owner — the chip alone leads the row.) */}
         <div className="flex items-center gap-4">
           <span
             aria-hidden="true"
@@ -168,9 +177,6 @@ function FeatureRow({
             }}
           >
             <Icon className="size-5" strokeWidth={1.75} />
-          </span>
-          <span className="font-mono text-xs uppercase tracking-[0.18em] text-text-muted dark:text-text-dark-secondary">
-            {String(index + 1).padStart(2, "0")} / 05
           </span>
         </div>
 

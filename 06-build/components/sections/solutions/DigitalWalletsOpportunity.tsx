@@ -28,8 +28,12 @@ import { dur, ease } from "@/components/visuals/motion";
 // gradient icon chip. The placeholder is dropped — no illustration needed; the
 // glass-on-atmosphere quartet is the premium moment. The cards reveal in
 // sequence on scroll-into-view and lift on hover. No eyebrow — the headline
-// leads. Light. This centred glass-quartet treatment is deliberately distinct
-// from §3 (left-aligned bordered card grid) and §5 (the connected stepper flow).
+// leads. Light.
+//
+// THIS IS THE PAGE'S SINGLE LUMINOUS-GLASS CARD SECTION (the marquee). Every
+// other section uses a NON-card archetype: §3 FeatureMatrix, §4 HorizontalRow,
+// §5 EditorialSplit, §6 StatBand, §7 the owner-locked dark deployment. The
+// centred glass quartet is therefore the one card moment, not a repeated motif.
 
 const COPY = {
   headline: "The wallet is becoming the primary financial relationship.",

@@ -108,8 +108,24 @@ import {
   StatBand,
   BridgeBand,
   BorderedListField,
+  StatementBand,
+  BigFigureRow,
+  OversizedEditorialSplit,
+  HorizontalRow,
+  StickyScroll,
 } from "@/components/sections/archetypes";
-import { CreditCard, ArrowLeftRight, Landmark, ListChecks } from "lucide-react";
+import {
+  CreditCard,
+  ArrowLeftRight,
+  Landmark,
+  ListChecks,
+  Store,
+  ShoppingBag,
+  Car,
+  Gift,
+  RadioTower,
+  LayoutGrid,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Checkbox,
@@ -915,6 +931,22 @@ const NAV: { category: string; items: { label: string; id: string }[] }[] = [
     ],
   },
   {
+    category: "Section archetypes — §8.32",
+    items: [
+      { label: "EditorialSplit", id: "archetype-editorial-split" },
+      { label: "OversizedEditorialSplit", id: "archetype-oversized-split" },
+      { label: "ProcessRail", id: "archetype-process-rail" },
+      { label: "FeatureMatrix", id: "archetype-feature-matrix" },
+      { label: "StatBand", id: "archetype-stat-band" },
+      { label: "BigFigureRow", id: "archetype-big-figure" },
+      { label: "BorderedListField", id: "archetype-bordered-list" },
+      { label: "HorizontalRow", id: "archetype-horizontal-row" },
+      { label: "StatementBand", id: "archetype-statement-band" },
+      { label: "BridgeBand", id: "archetype-bridge-band" },
+      { label: "StickyScroll", id: "archetype-sticky-scroll" },
+    ],
+  },
+  {
     category: "Artifacts",
     items: [
       { label: "nCore stack", id: "ncore" },
@@ -989,6 +1021,79 @@ const ARCHETYPE_NODES = [
   { label: "Settlement", icon: <Landmark /> },
   { label: "Financial Crime", icon: <ShieldCheck /> },
   { label: "Reconciliation", icon: <ListChecks /> },
+];
+
+// ── CONTRAST archetype demo data (§8.32, added 2026-06-04) ──────────────────
+// Illustrative on-system props for the four high-contrast archetypes. Drawn from
+// the Embedded Finance template composition so the styleguide shows the real use.
+const ARCHETYPE_STATEMENT_ITEMS = [
+  { label: "Embedded Cards", body: "Issue virtual, physical, or tokenised cards inside your product.", icon: <CreditCard strokeWidth={1.75} /> },
+  { label: "Embedded Lending", body: "Offer instalment plans, revolving credit, and financing at the point of need.", icon: <Landmark strokeWidth={1.75} /> },
+  { label: "Embedded Payments", body: "Move money between customers, businesses, accounts, wallets, and cards.", icon: <ArrowLeftRight strokeWidth={1.75} /> },
+  { label: "Embedded Rewards", body: "Loyalty, cashback, and engagement programmes connected to spend.", icon: <Gift strokeWidth={1.75} /> },
+];
+
+const ARCHETYPE_OVERSIZED_ITEMS = [
+  { title: "Every capability comes from a different provider", body: "Cards, payments, lending, and risk often operate on separate systems and contracts." },
+  { title: "Customer data lives everywhere", body: "Every provider sees part of the journey, but none see the whole customer." },
+  { title: "Innovation slows as complexity grows", body: "Every new financial experience means another integration project." },
+];
+
+const ARCHETYPE_BIG_FIGURES = [
+  { value: "99.99%", label: "Platform uptime" },
+  { value: "<2s", label: "Transaction processing time" },
+  { value: "1,000+", label: "APIs available" },
+  { value: "135+", label: "Currencies supported" },
+];
+
+const ARCHETYPE_HORIZONTAL = [
+  { name: "Marketplaces", body: "Embed payments, payouts, and seller financial services.", icon: <Store strokeWidth={1.75} />, href: "/solutions/retail-marketplaces" },
+  { name: "Retail", body: "Introduce loyalty, financing, rewards, and payment experiences.", icon: <ShoppingBag strokeWidth={1.75} />, href: "/solutions/retail-marketplaces" },
+  { name: "Mobility", body: "Support drivers and riders with payments, cards, and financial tools.", icon: <Car strokeWidth={1.75} /> },
+  { name: "Telecommunications", body: "Extend digital experiences with embedded financial services.", icon: <RadioTower strokeWidth={1.75} />, href: "/solutions/telecommunications" },
+  { name: "Digital Platforms", body: "Create new revenue streams through financial products and services.", icon: <LayoutGrid strokeWidth={1.75} /> },
+];
+
+// StatementBand editorial-band family (§8.32, extended 2026-06-04). The three
+// supporting shapes the Embedded Finance template composes from, no icons on the
+// plain bands so the typography leads.
+const ARCHETYPE_BAND_TWOCOL = [
+  { label: "One customer record", body: "Every interaction contributes to the same source of truth." },
+  { label: "One operational model", body: "Products operate on shared infrastructure instead of separate systems." },
+  { label: "One platform to expand from", body: "Launch new experiences without introducing new vendors." },
+];
+
+const ARCHETYPE_BAND_NUMBERED = [
+  { label: "Design", body: "Define the financial experiences that fit your customer journey." },
+  { label: "Configure", body: "Combine the nCore capabilities required to support them." },
+  { label: "Launch", body: "Go live under your own brand with infrastructure already connected underneath." },
+  { label: "Scale", body: "Add products, markets, and customer experiences on the same platform." },
+];
+
+const ARCHETYPE_BAND_PROBLEM = [
+  { label: "Every capability from a different provider", body: "Cards, payments, lending, and risk on separate systems and contracts." },
+  { label: "Customer data lives everywhere", body: "Every provider sees part of the journey, but none see the whole customer." },
+  { label: "Innovation slows as complexity grows", body: "Every new financial experience means another integration project." },
+];
+
+// Illustrative steps for the StickyScroll demo — the visual is a labelled
+// UIPlaceholder per step (the pinned surface cross-fades between them).
+const STICKY_DEMO_STEPS = [
+  {
+    title: "One customer record.",
+    body: "Every product reads from the same source of truth — no duplicate profiles, no conflicting balances.",
+    visual: <UIPlaceholder label="one customer record" scale="wide" className="min-h-[24rem]" />,
+  },
+  {
+    title: "One data layer.",
+    body: "Every transaction and operational event feeds a shared foundation the whole platform operates on.",
+    visual: <UIPlaceholder label="the data layer" scale="wide" className="min-h-[24rem]" />,
+  },
+  {
+    title: "Intelligence built in.",
+    body: "Models read the same customer, transaction, and operational context — not fragmented, second-hand data.",
+    visual: <UIPlaceholder label="the intelligence layer" scale="wide" className="min-h-[24rem]" />,
+  },
 ];
 
 function SideNav() {
@@ -2874,6 +2979,31 @@ export default function VisualSystemPage() {
           </SectionFrame>
         </CompositionDemo>
 
+        <div id="archetype-oversized-split" className="scroll-mt-12" />
+        <CompositionDemo
+          title="OversizedEditorialSplit — display headline ↔ tight list (light + dark)"
+          desc="The SCALE-CONTRAST sibling of EditorialSplit: the headline is pushed to DISPLAY scale (text-5xl/6xl) and given the wider column, the supporting items run as a tight hairline list in the narrower column. The 'oversized type' beat a content page needs so it isn't all body-scale sections. No cards, no glass — one big editorial statement against a quiet stacked list. This is the Embedded Finance §2 'The Problem' composition."
+        >
+          <SectionFrame>
+            <div className="bg-surface-white p-8 sm:p-12">
+              <OversizedEditorialSplit
+                headline="Most embedded finance projects start with products."
+                lede="A card program. A lending partner. A payment provider. Each solves a single problem, but none were designed to work together."
+                items={ARCHETYPE_OVERSIZED_ITEMS}
+              />
+            </div>
+          </SectionFrame>
+          <SectionFrame dark>
+            <div className="bg-surface-dark-base p-8 sm:p-12">
+              <OversizedEditorialSplit
+                headline="Most embedded finance projects start with products."
+                lede="A card program. A lending partner. A payment provider. Each solves a single problem, but none were designed to work together."
+                items={ARCHETYPE_OVERSIZED_ITEMS}
+              />
+            </div>
+          </SectionFrame>
+        </CompositionDemo>
+
         <div id="archetype-process-rail" className="scroll-mt-12" />
         <CompositionDemo
           title="ProcessRail — numbered steps on one spine (light + dark)"
@@ -2933,6 +3063,29 @@ export default function VisualSystemPage() {
           </SectionFrame>
         </CompositionDemo>
 
+        <div id="archetype-big-figure" className="scroll-mt-12" />
+        <CompositionDemo
+          title="BigFigureRow — oversized proof figures (light + dark band)"
+          desc="The proof metrics at OVERSIZED scale — display-size figures (text-6xl+), hairline-separated, deliberately airy; the numbers themselves are the design. The scale-up of StatBand (§8.32). tone='light' is a rhythm break on the section surface; tone='dark' is a SELF-CONTAINED full-bleed deep-cool band (its own field, padding, crosshair signature + optional heading) — a considered dark proof beat. This is the Embedded Finance §7 'Platform Proof' composition (dark). Real, defensible values only — never fabricated."
+        >
+          <SectionFrame>
+            <div className="bg-surface-white p-8 sm:p-12">
+              <BigFigureRow figures={ARCHETYPE_BIG_FIGURES} />
+            </div>
+          </SectionFrame>
+          <div className="overflow-hidden rounded-3xl ring-1 ring-white/[0.07]">
+            <BigFigureRow
+              tone="dark"
+              figures={ARCHETYPE_BIG_FIGURES}
+              heading={
+                <h3 className="max-w-[20ch] font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-on-brand sm:text-4xl">
+                  Infrastructure designed for scale.
+                </h3>
+              }
+            />
+          </div>
+        </CompositionDemo>
+
         <div id="archetype-bordered-list" className="scroll-mt-12" />
         <CompositionDemo
           title="BorderedListField — list on a blueprint field (light + dark)"
@@ -2946,6 +3099,128 @@ export default function VisualSystemPage() {
           <SectionFrame dark>
             <div className="bg-surface-dark-base p-8 sm:p-12">
               <BorderedListField items={ARCHETYPE_INCLUDED} />
+            </div>
+          </SectionFrame>
+        </CompositionDemo>
+
+        <div id="archetype-horizontal-row" className="scroll-mt-12" />
+        <CompositionDemo
+          title="HorizontalRow — sideways scroll rail (light + dark)"
+          desc="The explicit ALTERNATIVE to a card grid for a set of peers (industries, use-cases, segments): a hairline-divided horizontal RAIL of tall typographic panels — an index numeral + icon + name + one-liner — that reads SIDEWAYS against the page's stacked sections. On mobile it's a swipeable snap-scroller; on desktop a wide row. Mixed linked/static: items with an href render as Links (hover-lift + an arrow that nudges); items without render as static panels (no dead href). This is the Embedded Finance §6 'Use Cases' composition. Panels reveal left-to-right on scroll."
+        >
+          <SectionFrame>
+            <div className="bg-surface-white p-8 sm:p-12">
+              <HorizontalRow items={ARCHETYPE_HORIZONTAL} />
+            </div>
+          </SectionFrame>
+          <SectionFrame dark>
+            <div className="bg-surface-dark-base p-8 sm:p-12">
+              <HorizontalRow items={ARCHETYPE_HORIZONTAL} />
+            </div>
+          </SectionFrame>
+        </CompositionDemo>
+
+        <div id="archetype-statement-band" className="scroll-mt-12" />
+        <CompositionDemo
+          title="StatementBand — the editorial-band family (dark anchor + light variant; 3 supporting shapes)"
+          desc="A confident EDITORIAL BAND: ONE oversized statement (display scale) + a CLEAN supporting treatment — never a card grid, never a widget. The whole /solutions/embedded-finance page composes from this single archetype so its sections read as one coherent family while staying varied. TWO surfaces: surface='dark' is the FULL-BLEED contrast anchor (always dark in both themes, on a drifting cool GlassAtmosphere field — the §4 composition); surface='light' is a light editorial band on the section surface (theme-aware, no atmosphere wash — light-first restraint). THREE supporting shapes via `support`: items-row (a hairline row of label + one-liner, with optional links + arrow on hover), numbered (a clean numbered editorial row, no spine), and two-col (statement + body left, a hairline list right). Variety comes from alternating surface + supporting shape, NOT more cards. The field drifts ambiently (reduced-motion safe); items reveal once on scroll. Shown below: the dark anchor (§4, items-row), the dark items-row opener (§2), the light two-col (§3), the light numbered (§5), and the light linked items-row (§6)."
+        >
+          {/* §4 — the dark contrast anchor (the band the family is built on). */}
+          <div className="overflow-hidden rounded-3xl ring-1 ring-white/[0.07]">
+            <StatementBand
+              surface="dark"
+              statement="Financial experiences built into customer journeys."
+              items={ARCHETYPE_STATEMENT_ITEMS}
+              support="items-row"
+            />
+          </div>
+
+          {/* §2 — a dark band that ALSO carries a body + a plain (no-icon) row. */}
+          <div className="overflow-hidden rounded-3xl ring-1 ring-white/[0.07]">
+            <StatementBand
+              surface="dark"
+              statement="Most embedded finance projects start with products."
+              body="A card program. A lending partner. A payment provider. A rewards platform. Each solves a single problem, but none were designed to work together."
+              items={ARCHETYPE_BAND_PROBLEM}
+              support="items-row"
+            />
+          </div>
+
+          {/* §3 — the LIGHT two-column band (statement + body ↔ hairline list). */}
+          <SectionFrame>
+            <div className="bg-surface-white p-8 sm:p-12">
+              <StatementBand
+                surface="light"
+                statement="One platform behind every financial experience."
+                body="nCore brings cards, lending, money movement, settlement, and financial crime onto a single architecture with one customer record, one data layer, and one audit trail."
+                items={ARCHETYPE_BAND_TWOCOL}
+                support="two-col"
+              />
+            </div>
+          </SectionFrame>
+          <SectionFrame dark>
+            <div className="bg-surface-dark-base p-8 sm:p-12">
+              <StatementBand
+                surface="light"
+                statement="One platform behind every financial experience."
+                body="nCore brings cards, lending, money movement, settlement, and financial crime onto a single architecture with one customer record, one data layer, and one audit trail."
+                items={ARCHETYPE_BAND_TWOCOL}
+                support="two-col"
+              />
+            </div>
+          </SectionFrame>
+
+          {/* §5 — the LIGHT numbered editorial row (no spine). */}
+          <SectionFrame>
+            <div className="bg-surface-soft p-8 sm:p-12">
+              <StatementBand
+                surface="light"
+                statement="Launch once. Expand continuously."
+                items={ARCHETYPE_BAND_NUMBERED}
+                support="numbered"
+              />
+            </div>
+          </SectionFrame>
+          <SectionFrame dark>
+            <div className="bg-surface-dark-base p-8 sm:p-12">
+              <StatementBand
+                surface="light"
+                statement="Launch once. Expand continuously."
+                items={ARCHETYPE_BAND_NUMBERED}
+                support="numbered"
+              />
+            </div>
+          </SectionFrame>
+
+          {/* §6 — the LIGHT linked items-row (mixed linked/static industry cells). */}
+          <SectionFrame>
+            <div className="bg-surface-white p-8 sm:p-12">
+              <StatementBand
+                surface="light"
+                statement="Where embedded finance creates new experiences."
+                items={ARCHETYPE_HORIZONTAL.map((i) => ({
+                  label: i.name,
+                  body: i.body,
+                  icon: i.icon,
+                  href: i.href,
+                }))}
+                support="items-row"
+              />
+            </div>
+          </SectionFrame>
+          <SectionFrame dark>
+            <div className="bg-surface-dark-base p-8 sm:p-12">
+              <StatementBand
+                surface="light"
+                statement="Where embedded finance creates new experiences."
+                items={ARCHETYPE_HORIZONTAL.map((i) => ({
+                  label: i.name,
+                  body: i.body,
+                  icon: i.icon,
+                  href: i.href,
+                }))}
+                support="items-row"
+              />
             </div>
           </SectionFrame>
         </CompositionDemo>
@@ -2973,6 +3248,32 @@ export default function VisualSystemPage() {
               />
             </div>
           </SectionFrame>
+        </CompositionDemo>
+
+        <div id="archetype-sticky-scroll" className="scroll-mt-12" />
+        <CompositionDemo
+          title="StickyScroll — pinned visual ↔ scrolling steps (light + dark)"
+          desc="The premium 'how it works' beat: a visual column that STAYS PINNED on one side while the copy column scrolls through N steps; the pinned visual CROSS-FADES to the active step as each step enters view (Stripe / Linear scrollytelling, on-system). The pin is pure CSS position:sticky — NO scroll hijacking, the page scrolls natively; an IntersectionObserver picks the active step (the panel crossing the viewport centre). prefers-reduced-motion OR narrow viewports render a PLAIN STACKED LIST (each step + its own visual inline, in order) — the pin/cross-fade is an enhancement only. The pinned surface is any ReactNode (here a labelled UIPlaceholder). Scroll the section to watch the visual swap per step. NOTE: the frames are NOT overflow-clipped so the sticky pin can travel."
+        >
+          {/* Light — not overflow-clipped (clipping an ancestor breaks sticky). */}
+          <div className="rounded-3xl bg-surface-white p-6 ring-1 ring-brand-navy/[0.06] sm:p-10">
+            <StickyScroll
+              headline="The foundation everything is built on."
+              lede="One pinned surface; the copy scrolls through three layers and the visual cross-fades to match."
+              numbered
+              steps={STICKY_DEMO_STEPS}
+            />
+          </div>
+          {/* Dark. */}
+          <div className="dark rounded-3xl bg-surface-dark-base p-6 ring-1 ring-white/[0.07] sm:p-10">
+            <StickyScroll
+              headline="The foundation everything is built on."
+              lede="One pinned surface; the copy scrolls through three layers and the visual cross-fades to match."
+              numbered
+              visualSide="left"
+              steps={STICKY_DEMO_STEPS}
+            />
+          </div>
         </CompositionDemo>
 
         {/* ── CARD SURFACE VARIANTS ─────────────────────────────────────── */}

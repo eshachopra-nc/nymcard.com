@@ -1,20 +1,12 @@
-import type { ReactNode } from "react";
-import { Smartphone, LayoutGrid, Code2 } from "lucide-react";
 import { Section } from "@/components/sections/Section";
-import {
-  IllustrationField,
-  IllustrationCard,
-} from "@/components/visuals/product-illustration";
-import { UIPlaceholder } from "@/components/composition/UIPlaceholder";
-import { cn } from "@/lib/utils";
 
 // ── Healthcare §5 — Launch your way ─────────────────────────────────────────
 //
-// Three delivery cards (White-Label Patient Experience, Healthcare Payment
-// Programs, APIs & SDKs), each a luminous product-illustration card with a
-// labelled UIPlaceholder slot the Phase-2 designer fills next, plus the
-// supporting line beneath the row. No eyebrow — the headline leads
-// (CLAUDE.md v1.5).
+// The three delivery models. REWORKED off the three-card glass grid onto the
+// editorial SEGMENTED-COLUMNS treatment that mirrors Exchange Houses' Launch
+// Your Way: three columns divided by vertical hairlines (not boxed cards, not a
+// numbered sequence), each opened by a short brand-gradient accent bar, then
+// title + body. Headline + the supporting line lead. No eyebrow (CLAUDE.md v1.5).
 //
 // Copy mirrored verbatim from 02-copy/Industry Healthcare-Copy.md §"Launch Your
 // Way" (US-English: organisation→organization).
@@ -27,104 +19,54 @@ const COPY = {
     "Infrastructure, applications, and customer experiences operating on one platform.",
 } as const;
 
-type Channel = {
-  name: string;
-  description: string;
-  icon: ReactNode;
-  placeholderLabel: string;
-};
-
-const CHANNELS: Channel[] = [
+const CHANNELS = [
   {
-    name: "White-Label Patient Experience",
-    description:
-      "Deliver financing and payment experiences through branded patient journeys.",
-    icon: <Smartphone />,
-    placeholderLabel: "White-label patient experience — branded patient UI",
+    title: "White-Label Patient Experience",
+    body: "Deliver financing and payment experiences through branded patient journeys.",
   },
   {
-    name: "Healthcare Payment Programs",
-    description:
-      "Launch procurement, payroll, reimbursement, and disbursement programs.",
-    icon: <LayoutGrid />,
-    placeholderLabel: "Healthcare payment programs — operations UI",
+    title: "Healthcare Payment Programs",
+    body: "Launch procurement, payroll, reimbursement, and disbursement programs.",
   },
   {
-    name: "APIs & SDKs",
-    description:
-      "Embed capabilities into healthcare applications, portals, and operational systems.",
-    icon: <Code2 />,
-    placeholderLabel: "APIs & SDKs — embedded integration",
+    title: "APIs & SDKs",
+    body: "Embed capabilities into healthcare applications, portals, and operational systems.",
   },
-];
-
-function ChannelCard({ name, description, icon, placeholderLabel }: Channel) {
-  return (
-    <article
-      className={cn(
-        "group relative isolate flex min-h-[22rem] flex-col overflow-hidden rounded-[20px]",
-        "transition-transform duration-300 ease-out hover:-translate-y-1",
-      )}
-    >
-      <IllustrationField />
-      <IllustrationCard pad={false}>
-        <div className="flex h-full flex-col p-5 sm:p-6">
-          <div className="flex items-start gap-3.5">
-            <span
-              aria-hidden="true"
-              className={cn(
-                "inline-flex size-10 shrink-0 items-center justify-center rounded-xl",
-                "bg-accent-cyan/[0.12] text-accent-cyan ring-1 ring-inset ring-accent-cyan/20",
-                "transition-transform duration-300 group-hover:-translate-y-0.5",
-                "[&_svg]:size-[20px]",
-              )}
-            >
-              {icon}
-            </span>
-            <div>
-              <h3 className="font-display text-lg font-bold leading-tight tracking-tight text-text-primary dark:text-text-on-brand">
-                {name}
-              </h3>
-              <p className="mt-1.5 max-w-[40ch] font-body text-sm leading-[1.55] text-text-secondary dark:text-text-dark-secondary">
-                {description}
-              </p>
-            </div>
-          </div>
-
-          {/* Labelled placeholder — filled by the Phase-2 product-ui designer. */}
-          <div className="mt-5 flex flex-1">
-            <UIPlaceholder
-              label={placeholderLabel}
-              scale="compact"
-              className="h-full"
-            />
-          </div>
-        </div>
-      </IllustrationCard>
-    </article>
-  );
-}
+] as const;
 
 export function LaunchYourWay() {
   return (
     <Section bg="white" ariaLabel="Launch your way">
-      <div className="mb-12 max-w-3xl">
+      <div className="mb-12 max-w-2xl">
         <h2 className="font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl dark:text-text-on-brand">
           {COPY.headline}
         </h2>
-        <p className="mt-5 max-w-2xl font-body text-base leading-relaxed text-text-secondary sm:text-lg dark:text-text-dark-secondary">
+        <p className="mt-5 font-body text-base leading-relaxed text-text-secondary sm:text-lg dark:text-text-dark-secondary">
           {COPY.description}
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {/* Three columns divided by vertical hairlines — a segmented block, not
+          three boxed cards and not a numbered rail. */}
+      <div className="grid gap-10 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-surface-border-subtle dark:sm:divide-surface-dark-border">
         {CHANNELS.map((c) => (
-          <ChannelCard key={c.name} {...c} />
+          <div key={c.title} className="sm:px-8 sm:first:pl-0 sm:last:pr-0">
+            <span
+              aria-hidden="true"
+              className="block h-[3px] w-9 rounded-full bg-gradient-to-r from-brand-primary to-accent-cyan"
+            />
+            <h3 className="mt-5 font-display text-lg font-bold leading-snug tracking-tight text-text-primary dark:text-text-on-brand">
+              {c.title}
+            </h3>
+            <p className="mt-2 max-w-[34ch] font-body text-sm leading-relaxed text-text-secondary dark:text-text-dark-secondary">
+              {c.body}
+            </p>
+          </div>
         ))}
       </div>
 
-      {/* Supporting line — beneath the row. */}
-      <p className="mt-10 max-w-2xl font-body text-base leading-relaxed text-text-secondary sm:text-lg dark:text-text-dark-secondary">
+      {/* Supporting line beneath the segmented columns. */}
+      <p className="mt-12 max-w-2xl font-body text-base leading-relaxed text-text-secondary sm:text-lg dark:text-text-dark-secondary">
         {COPY.supporting}
       </p>
     </Section>

@@ -1,22 +1,25 @@
-import { Section } from "@/components/sections/Section";
-import { StatStrip } from "@/components/sections/ncore/StatStrip";
+import { BigFigureRow } from "@/components/sections/archetypes";
 
 // ── Embedded Finance §7 — Platform Proof ─────────────────────────────────────
 //
 // Copy mirrored VERBATIM from 02-copy/usecase-embedded-finance.md §Platform
 // Proof.
 //
-// The four metrics — 99.99% uptime · <2s processing · 1,000+ APIs · 135+
-// currencies — as the dimensional glass stat cells (the shared nCore StatStrip,
-// count-up on scroll). CrosshairRails as the signature mark on this light
-// section. The principal-member trust line was removed here per owner (4 June)
-// — it lives in the footer / nCore page (matching BaaSProof).
+// REBUILT (2026-06-04). Was centred glass StatStrip cells; now a BigFigureRow at
+// DARK tone — the four metrics at DISPLAY scale on a deep cool field, hairline-
+// separated and airy, the numbers themselves the design. This is the page's
+// SECOND dark beat; it sits two sections after §4's dark StatementBand (§5 and
+// §6 are light between them), so no two dark beats are adjacent. Full-bleed dark
+// (no light Section wrapper) so it reads as the platform's proof-of-scale
+// moment. The principal-member trust line stays removed here per owner (4 June)
+// — it lives in the footer / nCore page.
 //
-// Stat order follows the copy file: 99.99%, <2s, 1,000+, 135+.
+// Figures follow the copy-file order: 99.99%, <2s, 1,000+, 135+. Real,
+// defensible values only.
 
 const COPY = {
   headline: "Infrastructure designed for scale.",
-  stats: [
+  figures: [
     { value: "99.99%", label: "Platform uptime" },
     { value: "<2s", label: "Transaction processing time" },
     { value: "1,000+", label: "APIs available" },
@@ -26,14 +29,15 @@ const COPY = {
 
 export function EmbeddedFinanceProof() {
   return (
-    <Section bg="soft" rails>
-      <div className="mx-auto mb-12 max-w-2xl text-center sm:mb-14">
-        <h2 className="font-display text-3xl font-bold leading-[1.12] tracking-tight text-text-primary dark:text-text-on-brand sm:text-4xl">
+    <BigFigureRow
+      tone="dark"
+      figures={[...COPY.figures]}
+      heading={
+        // One line on desktop — no width clamp (owner, 4 June).
+        <h2 className="font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-on-brand sm:text-4xl">
           {COPY.headline}
         </h2>
-      </div>
-
-      <StatStrip stats={[...COPY.stats]} />
-    </Section>
+      }
+    />
   );
 }

@@ -7,6 +7,7 @@ import { Footer } from "@/components/sections/Footer";
 import { WhyFintechs } from "@/components/sections/fintechs/WhyFintechs";
 import { GrowthJourney } from "@/components/sections/fintechs/GrowthJourney";
 import { DeliveryModels } from "@/components/sections/fintechs/DeliveryModels";
+import { BuildOnceExpand } from "@/components/sections/fintechs/BuildOnceExpand";
 import { WhyItScales } from "@/components/sections/fintechs/WhyItScales";
 import { ExploreNCore } from "@/components/sections/fintechs/ExploreNCore";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -97,6 +98,7 @@ const SECTIONS: NavSection[] = [
   { id: "growth-journey", label: "Growth journey", status: "done" },
   { id: "delivery-models", label: "Delivery models", status: "done" },
   { id: "why-it-scales", label: "Why it scales", status: "done" },
+  { id: "build-once", label: "Build once", status: "done" },
   { id: "explore-ncore", label: "Explore nCore", status: "done" },
   { id: "faq", label: "FAQ", status: "done" },
   { id: "final-cta", label: "CTA", status: "done" },
@@ -154,19 +156,26 @@ export default function FintechsPage() {
         <GrowthJourney />
       </div>
 
-      {/* §4 Build the experience your customers see — three delivery-model
-          cards, each a luminous card with a labelled product-UI slot. */}
+      {/* §4 Build the experience your customers see — the three delivery models
+          as a sideways HorizontalRow rail (non-card). */}
       <div id="delivery-models" className="scroll-mt-24">
         <DeliveryModels />
       </div>
 
-      {/* §5 Why it scales — five benefit cards around a central nCore core
-          surface. */}
+      {/* §5 Why it scales — OversizedEditorialSplit: display headline ↔ a tight
+          hairline list of the five benefits. No cards, no UI surface. */}
       <div id="why-it-scales" className="scroll-mt-24">
         <WhyItScales />
       </div>
 
-      {/* §6 Explore nCore — calm bridge band to /platform/ncore. */}
+      {/* §5.5 Build once. Expand over time. — the full-bleed dark StatementBand,
+          the page's contrast anchor between the light scroll and the closer. */}
+      <div id="build-once" className="scroll-mt-24">
+        <BuildOnceExpand />
+      </div>
+
+      {/* §6 Explore nCore — the designed dark BridgeBand (nucleus) to
+          /platform/ncore. */}
       <div id="explore-ncore" className="scroll-mt-24">
         <ExploreNCore />
       </div>

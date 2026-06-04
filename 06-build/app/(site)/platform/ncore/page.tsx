@@ -6,11 +6,7 @@ import { Footer } from "@/components/sections/Footer";
 import { NCoreHero } from "@/components/sections/ncore/NCoreHero";
 import { NCoreStats } from "@/components/sections/ncore/NCoreStats";
 import { NCoreWhy } from "@/components/sections/ncore/NCoreWhy";
-import {
-  NCoreOneCustomer,
-  NCoreDataLayer,
-  NCoreIntelligenceLayer,
-} from "@/components/sections/ncore/NCoreLayers";
+import { NCoreFoundation } from "@/components/sections/ncore/NCoreFoundation";
 import { NCoreStack } from "@/components/sections/ncore/NCoreStack";
 import { NCoreModernisation } from "@/components/sections/ncore/NCoreModernisation";
 import { NCoreDeployment } from "@/components/sections/ncore/NCoreDeployment";
@@ -25,9 +21,7 @@ const SECTIONS: NavSection[] = [
   { id: "hero", label: "Hero", status: "done" },
   { id: "proof", label: "Platform proof", status: "done" },
   { id: "why", label: "Why nCore", status: "done" },
-  { id: "one-customer", label: "One customer", status: "improve" },
-  { id: "data-layer", label: "Data layer", status: "improve" },
-  { id: "intelligence", label: "Intelligence layer", status: "improve" },
+  { id: "foundation", label: "Foundation (sticky-scroll)", status: "done" },
   { id: "capabilities", label: "Six capabilities", status: "done" },
   { id: "migration", label: "Migration", status: "done" },
   { id: "deployment", label: "Deployment", status: "done" },
@@ -47,9 +41,9 @@ const SECTIONS: NavSection[] = [
 //   1  Hero               → NCoreHero (copy-left + nCore architecture diagram)
 //   2  Platform Proof      → NCoreStats (stats + principal-member line)
 //   3  Why We Built nCore  → NCoreWhy (FragmentedCanvas + 5-pain list, no CTA)
-//   4  One Customer        → NCoreOneCustomer (UIPlaceholder)
-//   5  The Data Layer      → NCoreDataLayer (UIPlaceholder)
-//   6  Intelligence Layer  → NCoreIntelligenceLayer (UIPlaceholder + chips)
+//   4–6 The foundation      → NCoreFoundation (StickyScroll §8.32 — One Customer ·
+//                            Data Layer · Intelligence Layer as ONE pinned-visual
+//                            sticky-scroll beat; copy verbatim, labelled UIPlaceholders)
 //   7  Six Capabilities    → NCoreStack (ProductsBento, §7 copy verbatim)
 //   8  Migration & Modern. → NCoreModernisation (MigrationFlow → /platform/migration)
 //   9  Deployment          → NCoreDeployment (Cloud/On-soil/On-premise + line)
@@ -149,16 +143,12 @@ export default function NCorePage() {
         <NCoreWhy />
       </div>
 
-      {/* 4 / 5 / 6 — the foundation story: One Customer · Data Layer ·
-          Intelligence Layer (each carries a labelled UIPlaceholder). */}
-      <div id="one-customer" className="scroll-mt-24">
-        <NCoreOneCustomer />
-      </div>
-      <div id="data-layer" className="scroll-mt-24">
-        <NCoreDataLayer />
-      </div>
-      <div id="intelligence" className="scroll-mt-24">
-        <NCoreIntelligenceLayer />
+      {/* 4 / 5 / 6 — the foundation story as the page's SIGNATURE moment: One
+          Customer · Data Layer · Intelligence Layer told as ONE sticky-scroll
+          section (StickyScroll, §8.32) — a single pinned nCore surface that the
+          three verbatim copy panels scroll through, cross-fading per layer. */}
+      <div id="foundation" className="scroll-mt-24">
+        <NCoreFoundation />
       </div>
 
       {/* 7 — Six Capabilities. One Platform.: the ProductsBento with the §7

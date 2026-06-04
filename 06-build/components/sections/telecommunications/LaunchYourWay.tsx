@@ -1,26 +1,14 @@
-import type { ReactNode } from "react";
-import { Smartphone, MonitorSmartphone, Code2 } from "lucide-react";
 import { Section } from "@/components/sections/Section";
-import {
-  IllustrationField,
-  IllustrationCard,
-} from "@/components/visuals/product-illustration";
-import { UIPlaceholder } from "@/components/composition/UIPlaceholder";
-import { cn } from "@/lib/utils";
 
 // ── Telecommunications §5 — Launch your way ──────────────────────────────────
 //
-// Three delivery surfaces (White-Label Mobile App, White-Label Customer Portal,
-// APIs & SDKs) as a three-column row. Each is its OWN luminous card — icon, name,
-// description, and a labelled UIPlaceholder for the realistic UI example the
-// copy's visual direction calls for (filled by a later product-ui-designer pass;
-// scaffold only). Every card floats on the canonical product-illustration kit so
-// it reads dimensional in BOTH light and dark (design-system.md §8.1), never a
-// flat panel. A single supporting line closes the row.
-//
-// No section eyebrow — the headline leads (CLAUDE.md v1.5). Scroll reveal from
-// Section/SectionReveal; per-card group-hover lift is pure CSS (reduced-motion
-// safe).
+// The three delivery models (White-Label Mobile App, White-Label Customer
+// Portal, APIs & SDKs). REWORKED off the luminous card row (owner: stop
+// repeating glass cards) onto the EH segmented-columns treatment: three columns
+// divided by vertical hairlines (not boxed cards, not product-UI slots), each
+// opened by a short brand-gradient accent bar, then title + body. Reads as three
+// parallel ways to ship. Headline + the supporting description lead. No eyebrow
+// (CLAUDE.md v1.5).
 //
 // Copy mirrored verbatim from 02-copy/Industry Telecommunications-Copy.md §5.
 
@@ -32,76 +20,20 @@ const COPY = {
     "Infrastructure, applications, and customer experiences operating on one platform.",
 } as const;
 
-type DeliveryOption = {
-  name: string;
-  description: string;
-  icon: ReactNode;
-  slotLabel: string;
-};
-
-const OPTIONS: DeliveryOption[] = [
+const OPTIONS = [
   {
     name: "White-Label Mobile App",
-    description:
-      "Launch branded wallet, payment, and lending experiences without building from scratch.",
-    icon: <Smartphone />,
-    slotLabel: "White-label mobile app — product UI",
+    body: "Launch branded wallet, payment, and lending experiences without building from scratch.",
   },
   {
     name: "White-Label Customer Portal",
-    description: "Deliver financial services through existing subscriber channels.",
-    icon: <MonitorSmartphone />,
-    slotLabel: "White-label customer portal — product UI",
+    body: "Deliver financial services through existing subscriber channels.",
   },
   {
     name: "APIs & SDKs",
-    description: "Embed capabilities directly into your digital ecosystem.",
-    icon: <Code2 />,
-    slotLabel: "APIs & SDKs — product UI",
+    body: "Embed capabilities directly into your digital ecosystem.",
   },
-];
-
-function DeliveryCard({ name, description, icon, slotLabel }: DeliveryOption) {
-  return (
-    <article
-      className={cn(
-        "group relative isolate flex min-h-[24rem] flex-col overflow-hidden rounded-[20px]",
-        "transition-transform duration-300 ease-out hover:-translate-y-1",
-      )}
-    >
-      <IllustrationField />
-      <IllustrationCard pad={false}>
-        <div className="flex h-full flex-col p-5 sm:p-6">
-          <div className="flex items-start gap-3.5">
-            <span
-              aria-hidden="true"
-              className={cn(
-                "inline-flex size-10 shrink-0 items-center justify-center rounded-xl",
-                "bg-accent-cyan/[0.12] text-accent-cyan ring-1 ring-inset ring-accent-cyan/20",
-                "transition-transform duration-300 group-hover:-translate-y-0.5",
-                "[&_svg]:size-[20px]",
-              )}
-            >
-              {icon}
-            </span>
-            <div>
-              <h3 className="font-display text-lg font-bold leading-tight tracking-tight text-text-primary dark:text-text-on-brand">
-                {name}
-              </h3>
-              <p className="mt-1.5 max-w-[36ch] font-body text-sm leading-[1.55] text-text-secondary dark:text-text-dark-secondary">
-                {description}
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-5 flex flex-1">
-            <UIPlaceholder label={slotLabel} scale="compact" />
-          </div>
-        </div>
-      </IllustrationCard>
-    </article>
-  );
-}
+] as const;
 
 export function LaunchYourWay() {
   return (
@@ -116,10 +48,22 @@ export function LaunchYourWay() {
         </p>
       </div>
 
-      {/* Three-column delivery row. Single column on mobile. */}
-      <div className="grid gap-6 md:grid-cols-3">
+      {/* Three columns divided by vertical hairlines — a segmented block, not
+          three boxed cards and not a numbered rail. */}
+      <div className="grid gap-10 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-surface-border-subtle dark:sm:divide-surface-dark-border">
         {OPTIONS.map((o) => (
-          <DeliveryCard key={o.name} {...o} />
+          <div key={o.name} className="sm:px-8 sm:first:pl-0 sm:last:pr-0">
+            <span
+              aria-hidden="true"
+              className="block h-[3px] w-9 rounded-full bg-gradient-to-r from-brand-primary to-accent-cyan"
+            />
+            <h3 className="mt-5 font-display text-lg font-bold leading-snug tracking-tight text-text-primary dark:text-text-on-brand">
+              {o.name}
+            </h3>
+            <p className="mt-2 max-w-[34ch] font-body text-sm leading-relaxed text-text-secondary dark:text-text-dark-secondary">
+              {o.body}
+            </p>
+          </div>
         ))}
       </div>
 

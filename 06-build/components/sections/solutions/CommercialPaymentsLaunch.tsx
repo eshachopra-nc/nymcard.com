@@ -3,44 +3,46 @@ import { Section } from "@/components/sections/Section";
 import { SectionAtmosphere } from "@/components/visuals/SectionAtmosphere";
 import { visual, withAlpha } from "@/components/visuals";
 
-// ── Commercial Payments §4 — Launch Your Way ─────────────────────────────────
+// ── Commercial Payments §5 — Launch your way ─────────────────────────────────
 //
 // Copy mirrored VERBATIM from 02-copy/usecase-commercial-payments.md §Launch
 // Your Way.
 //
-// A distinct DELIVERY-OPTIONS treatment — NOT the §3 feature-show and NOT the §5
-// linked grid. Headline + description lead, then the three delivery options —
-// White-Label Web Portal · White-Label Mobile App · APIs & SDKs — as a three-up
-// row sharing a single top hairline rule, each a quiet column led by a gradient
-// icon chip and a mono "way 01/02/03" marker, divided by vertical hairlines so
-// the three read as three routes off one platform. The verbatim supporting line
-// closes the section beneath the row. No bordered cards here (those belong to §3
-// / §5) — this is a divided strip, lighter in weight. No eyebrow — the headline
-// leads. Light (soft), on a contained SectionAtmosphere wash.
+// A distinct DELIVERY-OPTIONS treatment — the three ways to ship — Branded
+// Website · Branded App · APIs & SDKs — as a three-up segmented strip sharing a
+// single top hairline rule, each a quiet column led by a gradient icon chip,
+// divided by vertical hairlines so the three read as three routes off one
+// platform. Not boxed cards — a divided strip, lighter in weight, and
+// structurally distinct from the §4 segment rail and the §3 feature-show. No
+// eyebrow — the headline leads. Light (soft), on a contained SectionAtmosphere
+// wash.
+//
+// OWNER EDITS (4 Jun): "White-Label Business Portal" → "Branded Website" and
+// "Mobile Experience" → "Branded App"; the website and app carry the
+// INSTITUTION's brand (the bank's), not the business's — the bodies say "under
+// your brand". Per-column index numerals removed. The supporting line was cut.
 
 const COPY = {
   headline: "Choose the experience that fits your customers.",
   description:
-    "Launch with a complete business finance experience out of the box or embed capabilities into the channels you already operate.",
+    "Launch complete business banking experiences or embed capabilities into existing customer journeys.",
   options: [
     {
-      name: "White-Label Web Portal",
-      body: "Deliver a fully branded Financial OS through a web experience designed for business users.",
+      name: "Branded Website",
+      body: "A website under your brand where your business customers manage payments, spending, collections, and financing.",
       icon: Monitor,
     },
     {
-      name: "White-Label Mobile App",
-      body: "Give businesses access to spending, payments, payroll, invoices, and financing from anywhere.",
+      name: "Branded App",
+      body: "An app under your brand that lets your business customers manage their financial operations from anywhere.",
       icon: Smartphone,
     },
     {
       name: "APIs & SDKs",
-      body: "Embed commercial payment capabilities directly into existing digital channels and customer journeys.",
+      body: "Embed capabilities into existing banking, payment, and digital experiences.",
       icon: Code,
     },
   ] satisfies { name: string; body: string; icon: LucideIcon }[],
-  supportingLine:
-    "Infrastructure, applications, and customer experiences running on the same platform.",
 } as const;
 
 export function CommercialPaymentsLaunch() {
@@ -58,16 +60,11 @@ export function CommercialPaymentsLaunch() {
       {/* Three delivery options — a divided strip under one top rule. */}
       <div className="mt-12 border-t border-surface-border-subtle pt-8 dark:border-surface-dark-border sm:mt-14 sm:pt-10">
         <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {COPY.options.map((option, i) => (
-            <OptionColumn key={option.name} index={i} {...option} />
+          {COPY.options.map((option) => (
+            <OptionColumn key={option.name} {...option} />
           ))}
         </div>
       </div>
-
-      {/* Supporting line — the closing connective beat beneath the strip. */}
-      <p className="mt-10 max-w-2xl font-body text-base leading-relaxed text-text-secondary dark:text-text-dark-secondary sm:mt-12 sm:text-lg">
-        {COPY.supportingLine}
-      </p>
     </Section>
   );
 }
@@ -76,17 +73,16 @@ function OptionColumn({
   name,
   body,
   icon: Icon,
-  index,
 }: {
   name: string;
   body: string;
   icon: LucideIcon;
-  index: number;
 }) {
   return (
     <div className="lg:border-l lg:border-surface-border-subtle lg:pl-10 lg:dark:border-surface-dark-border lg:first:border-l-0 lg:first:pl-0">
+      {/* Gradient icon chip — the site's product-icon treatment (navy→cyan).
+          Per-column index numerals removed per owner. */}
       <div className="flex items-center gap-3">
-        {/* Gradient icon chip — the site's product-icon treatment (navy→cyan). */}
         <span
           aria-hidden="true"
           className="inline-flex size-11 items-center justify-center rounded-md text-white"
@@ -98,9 +94,6 @@ function OptionColumn({
           }}
         >
           <Icon className="size-5" strokeWidth={1.75} />
-        </span>
-        <span className="font-mono text-xs uppercase tracking-[0.18em] text-text-muted dark:text-text-dark-secondary">
-          {String(index + 1).padStart(2, "0")}
         </span>
       </div>
       <p className="mt-5 font-display text-lg font-semibold tracking-tight text-text-primary dark:text-text-on-brand">

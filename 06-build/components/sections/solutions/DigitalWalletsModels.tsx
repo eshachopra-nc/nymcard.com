@@ -5,23 +5,23 @@ import {
   Globe,
   Landmark,
   LayoutGrid,
-  type LucideIcon,
 } from "lucide-react";
 import { Section } from "@/components/sections/Section";
-import { SectionAtmosphere } from "@/components/visuals/SectionAtmosphere";
+import { HorizontalRow, type HorizontalItem } from "@/components/sections/archetypes";
 
 // ── Digital Wallets §4 — Designed for Multiple Wallet Models ─────────────────
 //
 // Copy mirrored VERBATIM from 02-copy/usecase-digital-wallets.md §Designed for
 // Multiple Wallet Models.
 //
-// DELIBERATELY DIFFERENTIATED from §3: where §3 is a 3×2 grid of big gradient-
-// chip cards, this is a compact, bordered, hairline-divided LIST — the
-// BaaSShift blueprint-divided treatment rendered as a denser two-column list.
-// Each row leads with a small inline icon, then the model name + a one-line
-// description. Hairline gap-px dividers between rows; two columns on desktop,
-// single column on mobile. No eyebrow — the headline leads. Light, on a
-// contained SectionAtmosphere wash.
+// REBUILT (2026-06-04). Was a 2×3 bordered list that read card-ish. The six
+// wallet models now read SIDEWAYS as a HorizontalRow — a hairline-divided
+// horizontal rail of typographic panels (index numeral + icon + name +
+// one-liner), the explicit alternative to a card grid for a set of peers. The
+// horizontal axis is the contrast against §3's vertical FeatureMatrix and the
+// rest of the page's stacked sections. None of the six models have a route, so
+// every panel renders static (no dead href). Panels reveal left-to-right on
+// scroll-into-view and tint on hover. Soft section. No eyebrow — headline leads.
 
 const COPY = {
   headline: "One platform. Multiple wallet experiences.",
@@ -29,84 +29,48 @@ const COPY = {
     {
       name: "Consumer Wallets",
       body: "Help customers receive, store, transfer, and spend money every day.",
-      icon: Smartphone,
+      icon: <Smartphone strokeWidth={1.75} />,
     },
     {
       name: "Mobile Money",
       body: "Enable digital financial services for telecom subscribers and underserved populations.",
-      icon: Signal,
+      icon: <Signal strokeWidth={1.75} />,
     },
     {
       name: "Payroll Wallets",
       body: "Provide employees and gig workers with a digital destination for earnings and spending.",
-      icon: Briefcase,
+      icon: <Briefcase strokeWidth={1.75} />,
     },
     {
       name: "Remittance Wallets",
       body: "Receive, hold, transfer, and spend funds from domestic and international transfers.",
-      icon: Globe,
+      icon: <Globe strokeWidth={1.75} />,
     },
     {
       name: "Government Wallets",
       body: "Deliver benefits, payments, and public services through secure digital experiences.",
-      icon: Landmark,
+      icon: <Landmark strokeWidth={1.75} />,
     },
     {
       name: "Super Apps",
       body: "Embed financial services into broader consumer ecosystems.",
-      icon: LayoutGrid,
+      icon: <LayoutGrid strokeWidth={1.75} />,
     },
-  ] satisfies { name: string; body: string; icon: LucideIcon }[],
+  ] satisfies HorizontalItem[],
 } as const;
 
 export function DigitalWalletsModels() {
   return (
-    <Section bg="soft" backgrounds={<SectionAtmosphere anchor="bottom" />}>
+    <Section bg="soft">
       <div className="max-w-2xl">
         <h2 className="font-display text-3xl font-bold leading-[1.12] tracking-tight text-text-primary dark:text-text-on-brand sm:text-4xl">
           {COPY.headline}
         </h2>
       </div>
 
-      {/* Compact, hairline-divided list — two columns on desktop, one on mobile.
-          gap-px over a border-coloured bed paints the hairline dividers (the
-          blueprint-divided treatment, denser than §3's cards). */}
-      <div className="mt-10 grid gap-px overflow-hidden rounded-xl border border-surface-border-subtle bg-surface-border-subtle dark:border-surface-dark-border dark:bg-surface-dark-border sm:mt-12 lg:grid-cols-2">
-        {COPY.models.map((model) => (
-          <ModelRow key={model.name} {...model} />
-        ))}
+      <div className="mt-10 sm:mt-12">
+        <HorizontalRow items={[...COPY.models]} />
       </div>
     </Section>
-  );
-}
-
-function ModelRow({
-  name,
-  body,
-  icon: Icon,
-}: {
-  name: string;
-  body: string;
-  icon: LucideIcon;
-}) {
-  return (
-    <div className="flex items-start gap-4 bg-surface-white p-5 dark:bg-surface-dark-elevated sm:p-6">
-      {/* Small inline icon — cyan stroke, not a filled gradient chip (kept
-          distinct from §3's product-icon chips). */}
-      <span
-        aria-hidden="true"
-        className="mt-0.5 inline-flex size-9 flex-none items-center justify-center rounded-md border border-surface-border-subtle text-accent-cyan dark:border-surface-dark-border"
-      >
-        <Icon className="size-[18px]" strokeWidth={1.75} />
-      </span>
-      <div className="min-w-0">
-        <p className="font-display text-base font-semibold tracking-tight text-text-primary dark:text-text-on-brand">
-          {name}
-        </p>
-        <p className="mt-1 font-body text-sm leading-relaxed text-text-secondary dark:text-text-dark-secondary">
-          {body}
-        </p>
-      </div>
-    </div>
   );
 }

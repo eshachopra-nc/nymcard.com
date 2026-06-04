@@ -75,8 +75,12 @@ export function SectionNav({
     return () => observer.disconnect();
   }, [sections]);
 
-  // Dev-only review tool — never render in a production / preview build (so it
-  // can't appear in a CEO review). Stays visible on the local dev server.
+  // Disabled — the temporary section navigator is turned off everywhere,
+  // including the local dev server (owner request). Re-enable by restoring the
+  // production guard below. To remove permanently: delete this file and every
+  // <SectionNav /> usage (+ the id wrappers on the curated pages).
+  return null;
+  // eslint-disable-next-line no-unreachable
   if (process.env.NODE_ENV === "production") return null;
   if (!items.length) return null;
 

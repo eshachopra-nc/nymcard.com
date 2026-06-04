@@ -58,7 +58,7 @@ export interface NavItemConfig {
   label: string
   href?: string
   dropdown?: {
-    type: 'platform' | 'products' | 'industries' | 'company' | 'solutions'
+    type: 'platform' | 'products' | 'developers' | 'industries' | 'company' | 'solutions'
     items?: DropdownItem[]
     leftLabel?: string
     leftItems?: SimpleItem[]
@@ -74,25 +74,10 @@ export interface NavItemConfig {
 }
 
 /* ═══════════════════════════════════════════════════════
-   1. PLATFORM — 4 items, 1×4 row
+   DEVELOPERS — Documentation + API Catalog (both off-site).
+   A top-level menu after Solutions.
 ═══════════════════════════════════════════════════════ */
-const platformItems: ProductItem[] = [
-  {
-    kind: 'product',
-    id: 'ncore',
-    label: 'nCore',
-    description: 'Full-stack payments infrastructure',
-    href: '/platform/ncore',
-    icon: Cpu,
-  },
-  {
-    kind: 'product',
-    id: 'agentic-ai',
-    label: 'Migration',
-    description: 'Modernise legacy infrastructure',
-    href: '/platform/migration',
-    icon: Zap,
-  },
+const developerItems: ProductItem[] = [
   {
     kind: 'product',
     id: 'documentation',
@@ -171,6 +156,30 @@ const productItems: ProductItem[] = [
 ]
 
 /* ═══════════════════════════════════════════════════════
+   PLATFORM — nCore + the 6 products + Migration (8 items, 2×4 grid).
+   Products were folded in here (the standalone Products menu was removed).
+═══════════════════════════════════════════════════════ */
+const platformItems: ProductItem[] = [
+  {
+    kind: 'product',
+    id: 'ncore',
+    label: 'nCore',
+    description: 'Full-stack payments infrastructure',
+    href: '/platform/ncore',
+    icon: Cpu,
+  },
+  ...productItems,
+  {
+    kind: 'product',
+    id: 'migration',
+    label: 'Migration & Modernisation',
+    description: 'Modernise legacy infrastructure',
+    href: '/platform/migration',
+    icon: Zap,
+  },
+]
+
+/* ═══════════════════════════════════════════════════════
    3. INDUSTRIES — 11 items, 4×3 grid (same card as Products)
 ═══════════════════════════════════════════════════════ */
 export const industryItems: ProductItem[] = [
@@ -227,11 +236,6 @@ export const NAV_ITEMS: NavItemConfig[] = [
     dropdown: { type: 'platform', items: platformItems },
   },
   {
-    id: 'products',
-    label: 'Products',
-    dropdown: { type: 'products', items: productItems },
-  },
-  {
     id: 'solutions',
     label: 'Solutions',
     dropdown: {
@@ -241,6 +245,11 @@ export const NAV_ITEMS: NavItemConfig[] = [
       industryLabel: 'By Industry',
       industryItems,
     },
+  },
+  {
+    id: 'developers',
+    label: 'Developers',
+    dropdown: { type: 'developers', items: developerItems },
   },
   {
     id: 'company',

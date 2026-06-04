@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CTASection } from "@/components/composition/CTASection";
+import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Footer } from "@/components/sections/Footer";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo";
@@ -23,30 +23,40 @@ import { EmbeddedFinanceProof } from "@/components/sections/solutions/EmbeddedFi
 // section component carries its own typed COPY const; the Final CTA strings
 // inline here mirror the same source (§CTA).
 //
-// Section order (copy-file order, 8 sections — NO Deployment section):
-//   1  Hero              → PageHero (shared product-page hero, textOnly)   soft
-//   2  The Problem       → EmbeddedFinanceProblem (pains + UIPlaceholder)  soft
-//   3  The Shift         → EmbeddedFinanceShift (asym. + ConnectedStepper) white
-//   4  What You Can Launch→ EmbeddedFinanceLaunch (4 cards, single row)     white
-//   5  How It Works      → EmbeddedFinanceHowItWorks (4-step timeline)     DARK
-//   6  Use Cases         → EmbeddedFinanceUseCases (5-card industry grid)  white
-//   7  Platform Proof    → EmbeddedFinanceProof (StatStrip)                soft
-//   8  Final CTA         → CTASection (composed inline, like BaaS)         soft
+// REBUILT 2026-06-04 (second pass). The owner reviewed the contrast-archetype
+// rebuild and decided the ONE section that works is §4 — the full-bleed dark
+// StatementBand. The other content sections (§2 split, §3 glass stepper, §5
+// process rail, §6 horizontal scroller) read as fussy "designed widgets".
+// Verdict: rebuild §2/3/5/6 in the bold, confident EDITORIAL-BAND register of
+// §4 — strong headline + a clean supporting row/list — and drop the widgets.
 //
-// Light/dark + treatment rhythm (owner note, 4 June — the page read too flat
-// with every section the same headline + card-grid beat). It now carries genuine
-// cadence:
-//   soft  → soft  → white      → white   → DARK    → white → soft  → soft
-//   hero    pains   asym.glass   4-up row  process   grid    stats   cta
-//          +list   +stepper                (deep)
-// The §5 dark beat is the single considered dark section (a deep cool
-// "infrastructure" field) — it sits between two light sections so no two dark
-// sections are ever adjacent. Treatments alternate: a bordered pain list (§2),
-// an asymmetric glass-on-atmosphere ConnectedStepper (§3, the new kit primitive),
-// a balanced single card row (§4), a dark stepped process (§5), a card grid
-// (§6), centred glass stats (§7). The eye reads boundaries by structure and
-// field, not just colour. All sections work light AND dark. Inherits the (site)
-// layout chrome (Navbar, page rails, alert banner); Footer is rendered last.
+// So §2/3/5/6 are now all composed from the same StatementBand archetype as §4,
+// extended with a `surface="light"|"dark"` prop and three supporting SHAPES
+// (items-row / numbered / two-col) so the bands read as ONE coherent family
+// while staying varied (tone alternation + supporting-shape + density).
+//
+// Section → treatment (copy-file order, 8 sections):
+//   1  Hero               → PageHero (textOnly)                            light
+//   2  The Problem        → StatementBand surface=dark, items-row          DARK
+//                           (display headline + body + 3 pains as a row)
+//   3  The Shift          → StatementBand surface=light, two-col           light
+//                           (headline+body ↔ 3 changes as a hairline list)
+//   4  What You Can Launch→ StatementBand surface=dark, items-row          DARK
+//                           (the band the owner likes — UNTOUCHED)
+//   5  How It Works       → StatementBand surface=light, numbered          soft
+//                           (4 steps as a clean numbered editorial row)
+//   6  Use Cases          → StatementBand surface=light, items-row         light
+//                           (5 industries, mixed linked/static cells)
+//   7  Platform Proof     → BigFigureRow tone=dark — FULL-BLEED DARK       DARK
+//                           (UNTOUCHED)
+//   8  Final CTA          → FinalCTA (UNTOUCHED)                           light
+//
+// Light/dark rhythm:  light · DARK · light · DARK · soft · light · DARK · light
+// Three dark beats (§2, §4, §7), all NON-ADJACENT (§3 light between §2/§4; §5+§6
+// light between §4/§7). Variety inside the family: §2 dark items-row vs §6 light
+// linked items-row; §3 two-column list; §5 numbered row. All work light AND
+// dark. Inherits the (site) layout chrome (Navbar, page rails, alert banner);
+// Footer is last.
 
 const COPY = {
   finalCta: {
@@ -88,27 +98,34 @@ export default function EmbeddedFinancePage() {
         secondaryCta={{ label: "Explore nCore", href: "/platform/ncore" }}
       />
 
-      {/* 2 — The Problem: pain-led, with the fragmented-journey visual slot. */}
+      {/* 2 — The Problem: a FULL-BLEED DARK StatementBand (the §4 family) —
+          display headline + body + the 3 pains as a hairline row. Opens strong;
+          the page's first dark beat. */}
       <EmbeddedFinanceProblem />
 
-      {/* 3 — The Shift: asymmetric feature-show — body left, the 3 changes as a
-          ConnectedStepper inside glass-on-atmosphere right. */}
+      {/* 3 — The Shift: a LIGHT StatementBand, two-column — headline + body left,
+          the 3 changes as a hairline list right. */}
       <EmbeddedFinanceShift />
 
-      {/* 4 — What You Can Launch: the 4 modular experiences on a single row. */}
+      {/* 4 — What You Can Launch: the FULL-BLEED DARK StatementBand — the page's
+          contrast anchor; 4 experiences as a hairline row, not cards. */}
       <EmbeddedFinanceLaunch />
 
-      {/* 5 — How It Works: Design → Configure → Launch → Scale, the dark beat. */}
+      {/* 5 — How It Works: a LIGHT StatementBand, numbered — Design → Configure
+          → Launch → Scale as a clean numbered editorial row (no spine). */}
       <EmbeddedFinanceHowItWorks />
 
-      {/* 6 — Use Cases: the 5-industry static gradient-icon card grid. */}
+      {/* 6 — Use Cases: a LIGHT StatementBand, items-row — the 5 industries as a
+          hairline row, mixed linked/static cells (no scroller). */}
       <EmbeddedFinanceUseCases />
 
-      {/* 7 — Platform Proof: the 4 metrics (trust line removed per owner). */}
+      {/* 7 — Platform Proof: the 4 metrics at DISPLAY scale as a FULL-BLEED DARK
+          BigFigureRow — the second, non-adjacent dark beat. */}
       <EmbeddedFinanceProof />
 
-      {/* 8 — Final CTA: kept light, consistent with the page's light-first arc. */}
-      <CTASection
+      {/* 8 — Final CTA: the shared FinalCTA reusable component (CTASection +
+          TopologyTraces backdrop), with this page's copy (owner, 4 June). */}
+      <FinalCTA
         headline={COPY.finalCta.headline}
         body={COPY.finalCta.description}
         primaryCta={COPY.finalCta.primaryCta}

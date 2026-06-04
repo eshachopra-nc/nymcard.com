@@ -1,13 +1,14 @@
 import { Section } from "@/components/sections/Section";
-import { Button } from "@/components/ui/button";
+import { BridgeBand } from "@/components/sections/archetypes";
 
 // ── Fintechs §6 — Explore nCore (bridge band) ───────────────────────────────
 //
-// A calm, factual bridge to /platform/ncore: headline + description + a single
-// tertiary "Explore nCore" link. No platform diagram, no eyebrow — the headline
-// leads. The Button's tertiary variant renders its own functional trailing
-// arrow (§8.9), so the label stays plain "Explore nCore" (the copy's "→" is the
-// Button's job, not the label string). Static → server component.
+// The hand-off to the flagship platform page. REWORKED from a bare headline +
+// link (owner: the bridge "needs a design") onto the shared BridgeBand
+// archetype — a contained always-dark panel on the cool atmosphere field with
+// the radiating cyan nucleus (the "core" made literal) and the "Explore nCore"
+// link. The page's quiet contrast closer, consistent with every other industry
+// page. No eyebrow — the headline leads (CLAUDE.md v1.5).
 //
 // Copy mirrored verbatim from 02-copy/Industry Fintechs-Copy.md §"Explore nCore"
 // (US-English).
@@ -22,19 +23,12 @@ const COPY = {
 export function ExploreNCore() {
   return (
     <Section bg="white" ariaLabel="Explore nCore">
-      <div className="max-w-3xl">
-        <h2 className="font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl dark:text-text-on-brand">
-          {COPY.headline}
-        </h2>
-        <p className="mt-5 max-w-2xl font-body text-base leading-relaxed text-text-secondary sm:text-lg dark:text-text-dark-secondary">
-          {COPY.description}
-        </p>
-        <div className="mt-7">
-          <Button variant="tertiary" href={COPY.cta.href}>
-            {COPY.cta.label}
-          </Button>
-        </div>
-      </div>
+      <BridgeBand
+        headline={COPY.headline}
+        body={COPY.description}
+        cta={COPY.cta}
+        tone="indigo"
+      />
     </Section>
   );
 }

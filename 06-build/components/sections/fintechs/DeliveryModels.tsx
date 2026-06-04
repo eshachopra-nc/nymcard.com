@@ -1,19 +1,15 @@
-import type { ReactNode } from "react";
-import { Monitor, Code2, Webhook } from "lucide-react";
 import { Section } from "@/components/sections/Section";
-import {
-  IllustrationField,
-  IllustrationCard,
-} from "@/components/visuals/product-illustration";
-import { UIPlaceholder } from "@/components/composition/UIPlaceholder";
-import { cn } from "@/lib/utils";
+import { HorizontalRow, type HorizontalItem } from "@/components/sections/archetypes";
 
 // ── Fintechs §4 — Build the experience your customers see ───────────────────
 //
-// Three delivery cards (White-Label Applications, APIs & SDKs, Developer
-// Infrastructure), each a luminous product-illustration card with a labelled
-// UIPlaceholder slot the product-ui-designer fills next, plus a supporting line
-// beneath the row. No eyebrow — the headline leads (CLAUDE.md v1.5).
+// The three delivery models (White-Label Applications, APIs & SDKs, Developer
+// Infrastructure). REWORKED off the luminous card row (owner: stop repeating
+// glass cards — this page should read as a distinct mix) onto the HorizontalRow
+// archetype: three typographic panels on one hairline-divided rail that reads
+// SIDEWAYS where the rest of the page stacks. No cards, no glass, no product-UI
+// placeholders (the single growth-journey marquee is the page's one UI slot).
+// No eyebrow — the headline leads (CLAUDE.md v1.5).
 //
 // Copy mirrored verbatim from 02-copy/Industry Fintechs-Copy.md §"Build The
 // Experience Your Customers See" (US-English).
@@ -25,79 +21,20 @@ const COPY = {
     "Infrastructure, applications, and customer experiences operating on one platform.",
 } as const;
 
-type Model = {
-  name: string;
-  description: string;
-  icon: ReactNode;
-  placeholderLabel: string;
-};
-
-const MODELS: Model[] = [
+const MODELS: HorizontalItem[] = [
   {
     name: "White-Label Applications",
-    description:
-      "Launch branded web and mobile experiences without building from scratch.",
-    icon: <Monitor />,
-    placeholderLabel: "White-label applications — branded web & mobile product UI",
+    body: "Launch branded web and mobile experiences without building from scratch.",
   },
   {
     name: "APIs & SDKs",
-    description:
-      "Embed capabilities directly into existing products and customer journeys.",
-    icon: <Code2 />,
-    placeholderLabel: "APIs & SDKs — embedded capability / integration product UI",
+    body: "Embed capabilities directly into existing products and customer journeys.",
   },
   {
     name: "Developer Infrastructure",
-    description:
-      "Integrate through APIs, webhooks, and SDKs designed for modern engineering teams.",
-    icon: <Webhook />,
-    placeholderLabel: "Developer infrastructure — API, webhooks & SDK product UI",
+    body: "Integrate through APIs, webhooks, and SDKs designed for modern engineering teams.",
   },
 ];
-
-function ModelCard({ name, description, icon, placeholderLabel }: Model) {
-  return (
-    <article
-      className={cn(
-        "group relative isolate flex min-h-[22rem] flex-col overflow-hidden rounded-[20px]",
-        "transition-transform duration-300 ease-out hover:-translate-y-1",
-      )}
-    >
-      <IllustrationField />
-      <IllustrationCard pad={false}>
-        <div className="flex h-full flex-col p-5 sm:p-6">
-          <div className="flex items-start gap-3.5">
-            <span
-              aria-hidden="true"
-              className={cn(
-                "inline-flex size-10 shrink-0 items-center justify-center rounded-xl",
-                "bg-accent-cyan/[0.12] text-accent-cyan ring-1 ring-inset ring-accent-cyan/20",
-                "transition-transform duration-300 group-hover:-translate-y-0.5",
-                "[&_svg]:size-[20px]",
-              )}
-            >
-              {icon}
-            </span>
-            <div>
-              <h3 className="font-display text-lg font-bold leading-tight tracking-tight text-text-primary dark:text-text-on-brand">
-                {name}
-              </h3>
-              <p className="mt-1.5 max-w-[40ch] font-body text-sm leading-[1.55] text-text-secondary dark:text-text-dark-secondary">
-                {description}
-              </p>
-            </div>
-          </div>
-
-          {/* Labelled placeholder — filled by the product-ui-designer pass. */}
-          <div className="mt-5 flex flex-1">
-            <UIPlaceholder label={placeholderLabel} scale="compact" className="h-full" />
-          </div>
-        </div>
-      </IllustrationCard>
-    </article>
-  );
-}
 
 export function DeliveryModels() {
   return (
@@ -111,13 +48,10 @@ export function DeliveryModels() {
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {MODELS.map((m) => (
-          <ModelCard key={m.name} {...m} />
-        ))}
-      </div>
+      {/* Three delivery models as a sideways typographic rail — not cards. */}
+      <HorizontalRow items={MODELS} />
 
-      {/* Supporting line — beneath the row. */}
+      {/* Supporting line — beneath the rail. */}
       <p className="mt-10 max-w-2xl font-body text-base leading-relaxed text-text-secondary sm:text-lg dark:text-text-dark-secondary">
         {COPY.supporting}
       </p>

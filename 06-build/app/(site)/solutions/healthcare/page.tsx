@@ -28,12 +28,18 @@ const SLUG = "healthcare";
 // section component carries its own typed COPY const; the Hero / Final CTA
 // strings inline here mirror the same source.
 //
-// Section order: Hero (text-forward) → Why healthcare is changing (+ outcome
-// chips) → The healthcare financial journey (ecosystem centerpiece, one
-// labelled UIPlaceholder) → Financial services for healthcare (six capability
-// cards) → Launch your way (three delivery cards) → Why healthcare
-// organizations choose NymCard (five-reason feature grid) → Explore nCore
-// (platform bridge) → FAQ (FAQPage JSON-LD) → Final CTA → Footer.
+// Section order + archetype mix (recomposed from the variety kit, 4 Jun — the
+// page no longer reads as a wall of glass cards): Hero (text-forward) → Why
+// healthcare is changing (OutcomeChips opener) → The healthcare financial
+// journey (the ONE marquee: a single ecosystem UIPlaceholder with the five
+// participants as PLAIN editorial text, not boxed) → Financial services for
+// healthcare (BorderedListField spec sheet) → Launch your way (segmented
+// columns) → Why healthcare organizations choose NymCard (EditorialSplit,
+// numbered) → Explore nCore (BridgeBand closer) → FAQ (FAQPage JSON-LD) → Final
+// CTA → Footer. Exactly ONE marquee/visual section; every other section is a
+// NON-card archetype. (A StatBand proof beat was considered and omitted: the
+// copy ships no real, defensible figures and the no-fabricated-data rule forbids
+// inventing healthcare metrics; the six distinct archetypes carry the variety.)
 //
 // Inherits the (site) layout chrome (Navbar, page rails, alert banner). Single
 // CTA "Talk to us" on the hero and final CTA; no secondary CTAs anywhere.
@@ -155,32 +161,33 @@ export default function HealthcarePage() {
         <WhyChanging />
       </div>
 
-      {/* §3 The healthcare financial journey — the ecosystem centerpiece: one
-          labelled journey-diagram placeholder + the five participants. */}
+      {/* §3 The healthcare financial journey — the page's ONE marquee: a single
+          labelled ecosystem UIPlaceholder beside the five participants rendered
+          as PLAIN editorial text (NOT boxed in a card). */}
       <div id="healthcare-journey" className="scroll-mt-24">
         <HealthcareJourney />
       </div>
 
-      {/* §4 Financial services for healthcare — six capability cards, each a
-          luminous card with a labelled product-UI slot. */}
+      {/* §4 Financial services for healthcare — BorderedListField: the six
+          capabilities as one bordered specification sheet on a blueprint field. */}
       <div id="financial-services" className="scroll-mt-24">
         <FinancialServices />
       </div>
 
-      {/* §5 Launch your way — three delivery cards, each a luminous card with a
-          labelled product-UI slot, plus a supporting line. */}
+      {/* §5 Launch your way — segmented columns (three hairline-divided columns,
+          not boxed cards), plus a supporting line. */}
       <div id="launch-your-way" className="scroll-mt-24">
         <LaunchYourWay />
       </div>
 
-      {/* §6 Why healthcare organizations choose NymCard — five-reason editorial
-          feature grid. */}
+      {/* §6 Why healthcare organizations choose NymCard — EditorialSplit: a
+          sticky headline against the five reasons as a numbered hairline list. */}
       <div id="why-choose" className="scroll-mt-24">
         <WhyChooseNymCard />
       </div>
 
-      {/* §7 Explore nCore — calm platform bridge band, single "Explore nCore"
-          link, no architecture diagram. */}
+      {/* §7 Explore nCore — BridgeBand: the always-dark contrast closer with the
+          radiating cyan nucleus, single link to the platform page. */}
       <div id="explore-ncore" className="scroll-mt-24">
         <ExplorePlatform />
       </div>

@@ -25,13 +25,17 @@ import { SectionNav, type NavSection } from "@/components/dev/SectionNav";
 // "you"). Each section component carries its own typed COPY const; the Hero /
 // Final CTA strings inline here mirror the same source.
 //
-// Section order: Hero (text-forward) → Why retail is changing (+ outcome chips)
-// → From commerce to financial services (one journey centerpiece) → Financial
-// services for commerce (six luminous capability cards) → Launch your way
-// (three delivery cards) → Why retailers choose NymCard (five-reason grid) →
-// Explore nCore bridge → FAQ → Final CTA → Footer.
+// Section order + archetype mix (recomposed from the variety kit, 4 Jun — the
+// page no longer reads as a wall of glass cards): Hero (text-forward) → Why
+// retail is changing (OutcomeChips opener) → From commerce to financial services
+// (the ONE marquee: a single journey UIPlaceholder with the lifecycle stages as
+// PLAIN editorial text, not boxed) → Financial services for commerce
+// (HorizontalRow rail) → Launch your way (segmented columns) → Why retailers
+// choose NymCard (OversizedEditorialSplit) → Explore nCore (BridgeBand closer) →
+// FAQ → Final CTA → Footer. Exactly ONE marquee/visual section per page; every
+// other section is a NON-card archetype.
 //
-// Visuals are labelled UIPlaceholders only — a later designer fills them.
+// The marquee visual is a labelled UIPlaceholder only — a later designer fills it.
 // Inherits the (site) layout chrome (Navbar, page rails, alert banner). Single
 // CTA "Talk to us" on the hero and final CTA; no secondary CTAs anywhere.
 
@@ -110,34 +114,33 @@ export default function RetailMarketplacesPage() {
         <WhyRetailChanging />
       </div>
 
-      {/* §3 From commerce to financial services — the customer-journey
-          centerpiece: one labelled journey UIPlaceholder + the five lifecycle
-          stages as supporting text (the copy's Visual Direction calls for a
-          single journey diagram, not a card grid). */}
+      {/* §3 From commerce to financial services — the page's ONE marquee: a
+          single labelled journey UIPlaceholder beside the five lifecycle stages
+          rendered as PLAIN editorial text (NOT boxed in a card). */}
       <div id="commerce-journey" className="scroll-mt-24">
         <CommerceJourney />
       </div>
 
-      {/* §4 Financial services for commerce — six luminous capability cards,
-          each a labelled product-UI slot the designer fills next. */}
+      {/* §4 Financial services for commerce — HorizontalRow: the six
+          capabilities as a hairline-divided rail of typographic panels. */}
       <div id="financial-services" className="scroll-mt-24">
         <FinancialServices />
       </div>
 
-      {/* §5 Launch your way — three delivery cards on the luminous kit, each
-          with a labelled UIPlaceholder, plus the supporting line. */}
+      {/* §5 Launch your way — segmented columns (three hairline-divided columns,
+          not boxed cards), plus the supporting line. */}
       <div id="launch" className="scroll-mt-24">
         <LaunchYourWay />
       </div>
 
-      {/* §6 Why retailers & marketplaces choose NymCard — the five-reason
-          editorial feature grid, on-system. */}
+      {/* §6 Why retailers & marketplaces choose NymCard — OversizedEditorialSplit:
+          a display-scale headline against the five reasons as a hairline list. */}
       <div id="why-choose" className="scroll-mt-24">
         <WhyChooseNymCard />
       </div>
 
-      {/* §7 Explore nCore — quiet bridge band, single Button to the platform
-          page, no platform diagrams. */}
+      {/* §7 Explore nCore — BridgeBand: the always-dark contrast closer with the
+          radiating cyan nucleus, single link to the platform page. */}
       <div id="explore-ncore" className="scroll-mt-24">
         <ExploreNCore />
       </div>

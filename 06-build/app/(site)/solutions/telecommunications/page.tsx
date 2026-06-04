@@ -166,25 +166,26 @@ export default function TelecommunicationsPage() {
         <SubscriberJourney />
       </div>
 
-      {/* §4 Financial services for every subscriber — the six-capability bento,
-          each a luminous card with a labelled product-UI slot. */}
+      {/* §4 Financial services for every subscriber — the six capabilities as a
+          hairline-ruled FeatureMatrix (non-card reference table). */}
       <div id="financial-services" className="scroll-mt-24">
         <FinancialServicesGrid />
       </div>
 
-      {/* §5 Launch your way — three delivery cards, each a labelled product-UI
-          slot, with a closing supporting line. */}
+      {/* §5 Launch your way — the three delivery models as segmented columns
+          (hairline-divided, non-card; mirrors the Exchange Houses treatment). */}
       <div id="launch-your-way" className="scroll-mt-24">
         <LaunchYourWay />
       </div>
 
-      {/* §6 Why telecom providers choose NymCard — five reasons around a central
-          one-customer-record surface (not the homepage nCore visual). */}
+      {/* §6 Why telecom providers choose NymCard — EditorialSplit: sticky
+          headline ↔ numbered hairline list of the five reasons. No UI surface. */}
       <div id="why-nymcard" className="scroll-mt-24">
         <WhyChooseNymCard />
       </div>
 
-      {/* §7 Explore nCore — quiet bridge band, one link, no diagrams. */}
+      {/* §7 Explore nCore — the designed dark BridgeBand (nucleus) to
+          /platform/ncore. */}
       <div id="explore-ncore" className="scroll-mt-24">
         <ExploreNCoreBridge />
       </div>

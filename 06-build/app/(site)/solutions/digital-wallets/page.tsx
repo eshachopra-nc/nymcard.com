@@ -26,27 +26,34 @@ import { DigitalWalletsDeployment } from "@/components/sections/solutions/Digita
 // built at /solutions/digital-wallets to align the slug to the H1/title
 // "Digital Wallets" (owner precedent — flagged to owner).
 //
-// Section order (copy-file order, 8 sections):
-//   1  Hero               → PageHero (shared product-page hero, textOnly)   light
-//   2  The Opportunity    → DigitalWalletsOpportunity (centred intro +
-//                            glass quartet on atmosphere)                   light
-//   3  Built Around …     → DigitalWalletsCapabilities (6 cards, 3×2)       light
-//   4  Multiple Models    → DigitalWalletsModels (6 models, compact list)   light
-//   5  Powered by nCore   → DigitalWalletsPlatform (asymmetric headline +
-//                            ConnectedStepper flow in glass-on-atmosphere)  light
-//   6  Platform Proof     → DigitalWalletsProof (StatStrip, no trust line)  light
-//   7  Deployment         → DigitalWalletsDeployment (owner-locked dark)    DARK
-//   8  Final CTA          → CTASection (kept light so darks don't stack)    light
+// VARIETY REWORK (2026-06-04). The owner critiqued the sibling Embedded Finance
+// page as "the same treatment in every section, just a bunch of cards"; this
+// page had the same drift — FOUR glass/card sections (§2 glass quartet, §3 6-up
+// card grid, §5 glass ConnectedStepper, §6 glass StatStrip) plus dark cards §7,
+// and its nCore beat duplicated Embedded Finance's glass stepper. It is now
+// re-composed from the section-archetype variety kit so each section reads
+// DISTINCTLY and the page differs from both Embedded Finance and the industry
+// pages. ONE luminous-glass card section maximum (the §2 marquee); every other
+// section is a non-card archetype.
 //
-// Cadence (owner: prior scaffold read flat — too many headline + card-grid
-// beats, two near-identical 50:50 + placeholder sections): each beat now has a
-// distinct treatment — §2 centred glass quartet, §3 left-aligned gradient-chip
-// card grid, §4 compact hairline list, §5 asymmetric connected-stepper flow,
-// §6 centred glass stats, §7 the single dark deployment beat. Backgrounds
-// alternate soft / white. No bespoke product illustrations this pass (the
-// §2/§5 placeholders were dropped, not filled). Dark/light rhythm: only §7 is
-// dark; §8/CTA held light so no two darks stack. Inherits the (site) layout
-// chrome (Navbar, page rails, alert banner); Footer is rendered last.
+// Section → archetype (copy-file order, 8 sections):
+//   1  Hero               → PageHero (textOnly)                            light
+//   2  The Opportunity    → glass quartet on atmosphere — THE MARQUEE      light
+//                           (the page's single card section)
+//   3  Built Around …     → FeatureMatrix (hairline reference matrix)      light
+//   4  Multiple Models    → HorizontalRow (sideways rail of peers)         soft
+//   5  Powered by nCore   → EditorialSplit (numbered hairline list)        light
+//   6  Platform Proof     → StatBand (light gradient-figure band)          soft
+//   7  Deployment         → DeploymentSection (owner-locked dark cards)    DARK
+//   8  Final CTA          → CTASection (kept light so darks don't stack)   light
+//
+// Mix is deliberately DIFFERENT from Embedded Finance (OversizedEditorialSplit ·
+// glass-stepper · StatementBand · ProcessRail · HorizontalRow · dark BigFigureRow):
+// here it is glass-quartet · FeatureMatrix · HorizontalRow · EditorialSplit ·
+// StatBand · dark deployment. The only shared archetype is HorizontalRow, on a
+// different section. Light/dark rhythm: only §7 is dark; §8/CTA held light so no
+// two darks stack. Inherits the (site) layout chrome (Navbar, page rails, alert
+// banner); Footer is rendered last.
 
 const COPY = {
   hero: {
@@ -97,17 +104,20 @@ export default function DigitalWalletsPage() {
           glass quartet on a contained atmosphere field. */}
       <DigitalWalletsOpportunity />
 
-      {/* 3 — Built Around How Money Moves: 6 modular capability cards (3×2). */}
+      {/* 3 — Built Around How Money Moves: the 6 capabilities as a FeatureMatrix
+          (hairline reference matrix), not a card grid. */}
       <DigitalWalletsCapabilities />
 
-      {/* 4 — Designed for Multiple Wallet Models: 6 models as a compact list. */}
+      {/* 4 — Designed for Multiple Wallet Models: the 6 models as a HorizontalRow
+          (sideways rail of typographic peers). */}
       <DigitalWalletsModels />
 
-      {/* 5 — Powered by nCore: asymmetric headline + the 4 benefits as a
-          connected-stepper flow inside glass on a contained atmosphere field. */}
+      {/* 5 — Powered by nCore: a numbered EditorialSplit — sticky headline + the
+          4 benefits as a ruled hairline list (no glass). */}
       <DigitalWalletsPlatform />
 
-      {/* 6 — Platform Proof: the 4 metrics (no trust line — copy carries none). */}
+      {/* 6 — Platform Proof: the 4 metrics as a light StatBand (no trust line —
+          copy carries none). */}
       <DigitalWalletsProof />
 
       {/* 7 — Deployment: the owner-locked dark Cloud / On-soil / On-premise. */}

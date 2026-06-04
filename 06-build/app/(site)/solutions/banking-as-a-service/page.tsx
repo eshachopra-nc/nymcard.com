@@ -35,18 +35,30 @@ import { BaaSDeployment } from "@/components/sections/solutions/BaaSDeployment";
 // its own typed COPY const; the hero + Final CTA strings inline here mirror the
 // same source (§Hero, §CTA).
 //
+// REWORKED (4 June) for genuine section-to-section variety — the previous run
+// (asymmetric marquee → 2×2 glass cards → mirrored marquee → stepped row) read
+// as repeated card/placeholder beats. Re-composed off the section-archetype
+// variety kit so no two adjacent sections share a treatment and the page keeps
+// to ONE marquee/visual surface (§2):
+//   §2 asymmetric connected-modules MARQUEE (the page's one UIPlaceholder) ·
+//   §3 FeatureMatrix (hairline rows, non-card) · §4 segmented delivery columns
+//   (mirror EH LaunchYourWay, placeholder dropped) · §5 ProcessRail (vertical
+//   spine journey) · §6 StatStrip proof · §7 dark Deployment (owner-locked).
+//
 // Section order (copy-file order, 8 sections):
 //   1  Hero               → PageHero (shared product-page hero, textOnly)   light
-//   2  Everything …       → BaaSConnected (benefits + hero-visual slot)      light
-//   3  Build Your …       → BaaSProposition (4 proposition cards)            light
-//   4  Launch Under …     → BaaSBrand (4 channels + slot)                    light
-//   5  Concept → Live     → BaaSHowItWorks (4-step blueprint timeline)       light
-//   6  Why nCore          → BaaSProof (StatStrip + trust line)               light
+//   2  Everything …       → BaaSConnected (benefits + hero-visual MARQUEE)   light
+//   3  Build Your …       → BaaSProposition (FeatureMatrix, non-card)        white
+//   4  Launch Under …     → BaaSBrand (segmented delivery columns)           soft
+//   5  Concept → Live     → BaaSHowItWorks (ProcessRail spine)               soft
+//   6  Why nCore          → BaaSProof (StatStrip)                            soft
 //   7  Deploy Where …     → BaaSDeployment (owner-locked DeploymentSection)  DARK
 //   8  CTA                → CTASection (kept light so darks don't stack)     light
 //
 // Dark/light rhythm: only §7 is dark; §6 and §8 are held light so no two dark
-// sections stack on the light variant. Inherits the (site) layout chrome
+// sections stack on the light variant. §4/§5/§6 share a soft bed but are three
+// different compositions (segmented columns · vertical rail · centred stat
+// cells), so boundaries read by structure. Inherits the (site) layout chrome
 // (Navbar, page rails, alert banner); Footer is rendered last.
 //
 // H1 / SEO title "Banking-as-a-Service" per the copy Meta block (the nav label
@@ -104,14 +116,14 @@ export default function BankingAsAServicePage() {
           beside the page's hero visual (the connected-modules slot). */}
       <BaaSConnected />
 
-      {/* 3 — Build your proposition: 4 banking-proposition cards. */}
+      {/* 3 — Build your proposition: 4 propositions as a non-card FeatureMatrix. */}
       <BaaSProposition />
 
-      {/* 4 — Launch under your brand: 4 channels + the brand-on-nCore slot. */}
+      {/* 4 — Launch under your brand: 4 channels as segmented delivery columns. */}
       <BaaSBrand />
 
       {/* 5 — From concept to live bank: the 4-step Design → Configure →
-          Launch → Scale blueprint timeline. */}
+          Launch → Scale journey on a ProcessRail spine. */}
       <BaaSHowItWorks />
 
       {/* 6 — Why nCore: the 4 metrics + the principal-member trust line. */}

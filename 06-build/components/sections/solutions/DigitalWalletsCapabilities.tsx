@@ -5,58 +5,60 @@ import {
   ArrowDownUp,
   Gift,
   Layers,
-  type LucideIcon,
 } from "lucide-react";
 import { Section } from "@/components/sections/Section";
 import { SectionAtmosphere } from "@/components/visuals/SectionAtmosphere";
-import { visual, withAlpha } from "@/components/visuals";
+import { FeatureMatrix, type FeatureMatrixRow } from "@/components/sections/archetypes";
 
 // ── Digital Wallets §3 — Built Around How Money Moves ────────────────────────
 //
 // Copy mirrored VERBATIM from 02-copy/usecase-digital-wallets.md §Built Around
 // How Money Moves.
 //
-// The six modular wallet capabilities as cards (§8.5) in a 3×2 grid — the
-// BaaSIncludes card treatment: a navy→cyan gradient icon chip, a name, the
-// verbatim description, nc-card-hover, bordered. This is the BIG-CARD beat;
-// §4 (wallet models) is deliberately the denser compact-list beat so the two
-// read as clearly different treatments. No eyebrow — the headline leads. On a
-// contained SectionAtmosphere wash. Light (white).
+// REBUILT (2026-06-04, owner verdict on the sibling page: "the same treatment in
+// every section, just a bunch of cards"). Was a 3×2 grid of gradient-chip cards
+// — the wall-of-cards offender. The six capabilities now read as a FeatureMatrix
+// — a compact, hairline-ruled two-column reference matrix (icon + label +
+// one-liner), the "infrastructure documentation" treatment. NO cards, no glass.
+// The ONE luminous-glass card moment on this page is §2's opportunity quartet;
+// every other section uses a non-card archetype. Each row reveals one-by-one and
+// lifts its icon to the accent on hover. On a contained SectionAtmosphere wash.
+// White. No eyebrow — the headline leads.
 
 const COPY = {
   headline: "Everything a modern wallet needs.",
   capabilities: [
     {
-      name: "Stored Value",
+      label: "Stored Value",
       body: "Enable customers to hold and manage balances digitally.",
-      icon: Wallet,
+      icon: <Wallet strokeWidth={1.75} />,
     },
     {
-      name: "Payments & Transfers",
+      label: "Payments & Transfers",
       body: "Support domestic and cross-border transfers across multiple payment methods.",
-      icon: ArrowLeftRight,
+      icon: <ArrowLeftRight strokeWidth={1.75} />,
     },
     {
-      name: "Cards",
+      label: "Cards",
       body: "Extend wallet balances into virtual, physical, and tokenised card experiences.",
-      icon: CreditCard,
+      icon: <CreditCard strokeWidth={1.75} />,
     },
     {
-      name: "Cash In & Cash Out",
+      label: "Cash In & Cash Out",
       body: "Connect digital balances to cash networks and funding channels.",
-      icon: ArrowDownUp,
+      icon: <ArrowDownUp strokeWidth={1.75} />,
     },
     {
-      name: "Rewards & Engagement",
+      label: "Rewards & Engagement",
       body: "Increase adoption and retention through loyalty, incentives, and customer rewards.",
-      icon: Gift,
+      icon: <Gift strokeWidth={1.75} />,
     },
     {
-      name: "Financial Services",
+      label: "Financial Services",
       body: "Expand into lending, savings, and additional financial experiences as your wallet grows.",
-      icon: Layers,
+      icon: <Layers strokeWidth={1.75} />,
     },
-  ] satisfies { name: string; body: string; icon: LucideIcon }[],
+  ] satisfies FeatureMatrixRow[],
 } as const;
 
 export function DigitalWalletsCapabilities() {
@@ -68,46 +70,10 @@ export function DigitalWalletsCapabilities() {
         </h2>
       </div>
 
-      {/* 3×2 grid of modular capability cards (the BaaSIncludes treatment). */}
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
-        {COPY.capabilities.map((capability) => (
-          <CapabilityCard key={capability.name} {...capability} />
-        ))}
+      {/* The six capabilities as a hairline-ruled reference matrix — not cards. */}
+      <div className="mt-10 sm:mt-12">
+        <FeatureMatrix rows={[...COPY.capabilities]} columns={2} />
       </div>
     </Section>
-  );
-}
-
-function CapabilityCard({
-  name,
-  body,
-  icon: Icon,
-}: {
-  name: string;
-  body: string;
-  icon: LucideIcon;
-}) {
-  return (
-    <div className="nc-card-hover flex flex-col rounded-lg border border-surface-border-subtle bg-surface-card p-6 dark:border-surface-dark-border dark:bg-surface-dark-elevated sm:p-7">
-      {/* Gradient icon chip — the site's product-icon treatment (navy→cyan). */}
-      <span
-        aria-hidden="true"
-        className="inline-flex size-11 items-center justify-center rounded-md text-white"
-        style={{
-          background: `linear-gradient(135deg, ${visual.primary}, ${withAlpha(
-            visual.cyan,
-            0.92,
-          )})`,
-        }}
-      >
-        <Icon className="size-5" strokeWidth={1.75} />
-      </span>
-      <p className="mt-5 font-display text-lg font-semibold tracking-tight text-text-primary dark:text-text-on-brand">
-        {name}
-      </p>
-      <p className="mt-2 font-body text-sm leading-relaxed text-text-secondary dark:text-text-dark-secondary">
-        {body}
-      </p>
-    </div>
   );
 }

@@ -34,20 +34,18 @@ Most embedded finance projects start with products.
 
 ### Body
 
-A card program. A lending partner. A payment provider. A rewards platform.
-
-Each solves a single problem, but none were designed to work together. The result is fragmented customer experiences, disconnected data, and operational complexity behind the scenes.
+A card programme. A lending partner. A payment provider. A rewards platform. Each solves one problem, but none were built to work together, so experiences fragment and data scatters.
 
 ### Pain Points
 
-**Every capability comes from a different provider**
-Cards, payments, lending, and risk often operate on separate systems and separate contracts.
+**A different provider for every capability**
+Cards, payments, lending, and risk run on separate systems and contracts.
 
 **Customer data lives everywhere**
-Every provider sees part of the journey, but none see the whole customer.
+Every provider sees part of the journey. None see the whole customer.
 
 **Innovation slows as complexity grows**
-Every new financial experience means another integration project.
+Every new experience means another integration.
 
 ---
 
@@ -59,20 +57,18 @@ One platform behind every financial experience.
 
 ### Body
 
-nCore brings cards, lending, money movement, settlement, and financial crime onto a single architecture with one customer record, one data layer, and one audit trail.
-
-The result is a platform capable of supporting multiple embedded finance experiences without rebuilding the stack underneath.
+nCore brings cards, lending, money movement, settlement, and financial crime onto one architecture, so many embedded experiences run on a single platform.
 
 ### What Changes
 
 **One customer record**
-Every interaction contributes to the same source of truth.
+Every interaction feeds the same source of truth.
 
 **One operational model**
-Products operate on shared infrastructure instead of separate systems.
+Products share infrastructure instead of separate systems.
 
 **One platform to expand from**
-Launch new experiences without introducing new vendors.
+Launch new experiences without new vendors.
 
 ---
 
@@ -126,25 +122,29 @@ Add products, markets, and customer experiences on the same platform.
 
 ## Use Cases
 
-### Marketplaces
-
-Embed payments, payouts, and seller financial services.
+Rendered as the homepage industries card component (RailCarousel). Owner-selected
+industries (4 June): Retail, Marketplaces, Telecommunications, Government,
+Healthcare. Retail + Marketplaces both link to the Retail & Marketplaces page.
 
 ### Retail
 
-Introduce loyalty, financing, rewards, and payment experiences.
+Add loyalty, financing, rewards, and payment experiences in-store and online.
 
-### Mobility
+### Marketplaces
 
-Support drivers and riders with payments, cards, and financial tools.
+Embed payments, payouts, and seller financial services at scale.
 
 ### Telecommunications
 
-Extend digital experiences with embedded financial services.
+Embed payments and financial services into digital customer journeys.
 
-### Digital Platforms
+### Government
 
-Create new revenue streams through financial products and services.
+Deliver secure payment infrastructure for citizens and public services.
+
+### Healthcare
+
+Simplify collections, disbursements, and regulated payment workflows.
 
 ---
 
