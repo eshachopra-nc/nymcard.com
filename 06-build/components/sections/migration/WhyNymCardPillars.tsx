@@ -59,7 +59,7 @@ export function WhyNymCardPillars() {
           return (
             <article
               key={pillar.title}
-              className="group relative isolate min-h-[24rem] overflow-hidden rounded-2xl transition-transform duration-300 ease-out hover:-translate-y-0.5 motion-reduce:transform-none sm:min-h-[22rem]"
+              className="group relative isolate min-h-[27rem] overflow-hidden rounded-2xl transition-transform duration-300 ease-out hover:-translate-y-0.5 motion-reduce:transform-none sm:min-h-[25rem]"
             >
               {/* The luminous treatment — field + glowing glass card (§8.1). */}
               <IllustrationField />
@@ -73,7 +73,7 @@ export function WhyNymCardPillars() {
                   </p>
                   {/* Quiet supporting-UI motif — floats on the lit card; animates
                       on scroll-in and replays on hover. */}
-                  <div className="mt-auto pt-7">{motif}</div>
+                  <div className="mt-auto pt-5">{motif}</div>
                 </div>
               </IllustrationCard>
             </article>

@@ -17,6 +17,25 @@ import { NCoreDeployment } from "@/components/sections/ncore/NCoreDeployment";
 import { NCoreDeveloper } from "@/components/sections/ncore/NCoreDeveloper";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo";
+import { SectionNav, type NavSection } from "@/components/dev/SectionNav";
+
+// TEMP — section arc for the review navigator (matches the id wrappers below).
+// Remove with <SectionNav />.
+const SECTIONS: NavSection[] = [
+  { id: "hero", label: "Hero", status: "done" },
+  { id: "proof", label: "Platform proof", status: "done" },
+  { id: "why", label: "Why nCore", status: "done" },
+  { id: "one-customer", label: "One customer", status: "improve" },
+  { id: "data-layer", label: "Data layer", status: "improve" },
+  { id: "intelligence", label: "Intelligence layer", status: "improve" },
+  { id: "capabilities", label: "Six capabilities", status: "done" },
+  { id: "migration", label: "Migration", status: "done" },
+  { id: "deployment", label: "Deployment", status: "done" },
+  { id: "developers", label: "Developers", status: "done" },
+  { id: "faq", label: "FAQ", status: "done" },
+  { id: "final-cta", label: "CTA", status: "done" },
+  { id: "footer", label: "Footer", status: "done" },
+];
 
 // ── /platform/ncore — the flagship nCore platform page ──────────────────────
 //
@@ -111,48 +130,77 @@ export default function NCorePage() {
         ])}
       />
 
+      {/* TEMP — section navigator for design review (remove with SectionNav) */}
+      <SectionNav sections={SECTIONS} title="nCore" />
+
       {/* 1 — Hero: copy-left + nCore architecture diagram, the restrained
           shared product-page hero. */}
-      <NCoreHero />
+      <div id="hero" className="scroll-mt-24">
+        <NCoreHero />
+      </div>
 
       {/* 2 — Platform Proof: stats + principal-member line. */}
-      <NCoreStats />
+      <div id="proof" className="scroll-mt-24">
+        <NCoreStats />
+      </div>
 
       {/* 3 — Why We Built nCore: FragmentedCanvas + the five-pain list. */}
-      <NCoreWhy />
+      <div id="why" className="scroll-mt-24">
+        <NCoreWhy />
+      </div>
 
       {/* 4 / 5 / 6 — the foundation story: One Customer · Data Layer ·
           Intelligence Layer (each carries a labelled UIPlaceholder). */}
-      <NCoreOneCustomer />
-      <NCoreDataLayer />
-      <NCoreIntelligenceLayer />
+      <div id="one-customer" className="scroll-mt-24">
+        <NCoreOneCustomer />
+      </div>
+      <div id="data-layer" className="scroll-mt-24">
+        <NCoreDataLayer />
+      </div>
+      <div id="intelligence" className="scroll-mt-24">
+        <NCoreIntelligenceLayer />
+      </div>
 
       {/* 7 — Six Capabilities. One Platform.: the ProductsBento with the §7
           product set. */}
-      <NCoreStack />
+      <div id="capabilities" className="scroll-mt-24">
+        <NCoreStack />
+      </div>
 
       {/* 8 — Migration & Modernisation. */}
-      <NCoreModernisation />
+      <div id="migration" className="scroll-mt-24">
+        <NCoreModernisation />
+      </div>
 
       {/* 9 — Deployment (Cloud / On-soil / On-premise + supporting line). */}
-      <NCoreDeployment />
+      <div id="deployment" className="scroll-mt-24">
+        <NCoreDeployment />
+      </div>
 
       {/* 10 — Developers: dark Configuration pattern with the CodeArtifact. */}
-      <NCoreDeveloper />
+      <div id="developers" className="scroll-mt-24">
+        <NCoreDeveloper />
+      </div>
 
       {/* 11 — FAQ. */}
-      <FAQ headline={COPY.faq.heading} items={[...COPY.faq.items]} mode="single" />
+      <div id="faq" className="scroll-mt-24">
+        <FAQ headline={COPY.faq.heading} items={[...COPY.faq.items]} mode="single" />
+      </div>
 
       {/* 12 — Final CTA: CTASection with the cyan TopologyTraces backdrop. */}
-      <CTASection
-        headline={COPY.finalCta.headline}
-        body={COPY.finalCta.description}
-        primaryCta={CTA.talkToUs}
-        secondaryCta={CTA.readTheDocs}
-        backgrounds={<TopologyTraces density="medium" tone="cyan" />}
-      />
+      <div id="final-cta" className="scroll-mt-24">
+        <CTASection
+          headline={COPY.finalCta.headline}
+          body={COPY.finalCta.description}
+          primaryCta={CTA.talkToUs}
+          secondaryCta={CTA.readTheDocs}
+          backgrounds={<TopologyTraces density="medium" tone="cyan" />}
+        />
+      </div>
 
-      <Footer />
+      <div id="footer" className="scroll-mt-24">
+        <Footer />
+      </div>
     </main>
   );
 }

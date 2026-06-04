@@ -22,7 +22,7 @@ const COPY = {
     { label: "AI-led migration tooling" },
   ],
   cta: {
-    label: "Explore Migration & Modernisation →",
+    label: "Explore Migration & Modernisation",
     href: "/platform/migration",
   },
 } as const;

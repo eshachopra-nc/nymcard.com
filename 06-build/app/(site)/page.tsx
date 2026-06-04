@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
-import { SectionNav } from "@/components/dev/SectionNav";
+import { SectionNav, type NavSection } from "@/components/dev/SectionNav";
 import { Hero } from "@/components/hero/Hero";
 import { ProblemSection } from "@/components/sections/transformation/ProblemSection";
 import { NCoreSection } from "@/components/sections/transformation/NCoreSection";
@@ -61,6 +61,22 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+// TEMP — section arc for the review navigator (matches the id wrappers below).
+// "Trust Bar" is folded into the Hero now (no standalone wrapper), so it's no
+// longer a separate row. Remove with <SectionNav />.
+const HOME_SECTIONS: NavSection[] = [
+  { id: "hero", label: "Hero", status: "done" },
+  { id: "problem", label: "Problem", status: "done" },
+  { id: "ncore", label: "nCore", status: "done" },
+  { id: "products", label: "Products", status: "done" },
+  { id: "why-nymcard", label: "Why NymCard", status: "done" },
+  { id: "migration", label: "Migration", status: "improve" },
+  { id: "deployment", label: "Deployment", status: "done" },
+  { id: "industries", label: "Industries", status: "improve" },
+  { id: "final-cta", label: "CTA", status: "done" },
+  { id: "footer", label: "Footer", status: "done" },
+];
+
 export default function HomePage() {
   return (
     <main>
@@ -68,7 +84,7 @@ export default function HomePage() {
       <JsonLd data={[organizationSchema(), websiteSchema()]} />
 
       {/* TEMP — section navigator for design review (remove with SectionNav) */}
-      <SectionNav />
+      <SectionNav sections={HOME_SECTIONS} title="Home" />
 
       {/* 1 + 2 — Hero carries the client-logo trust bar at its base (folded in
           so the marquee floats on the kinetic-ribbon background; #trust anchor

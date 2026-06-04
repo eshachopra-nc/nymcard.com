@@ -38,7 +38,7 @@ import {
   ArrowLeftRight,
   ShieldCheck,
   Power,
-  BarChart3,
+  Coins,
 } from "lucide-react";
 
 // Per-card icons for the Money Movement capabilities — drives the clean glass
@@ -49,10 +49,11 @@ const MONEY_MOVEMENT_ICONS = {
   "Settlement and reconciliation": ArrowLeftRight,
   "Compliance-aware routing": ShieldCheck,
   "Corridor activation": Power,
-  "FX and treasury": BarChart3,
+  "FX and treasury": Coins,
 };
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo";
+import { SectionNav } from "@/components/dev/SectionNav";
 import { fixDocHrefs } from "@/lib/sanity/voice-overrides";
 import { heroVisualFor } from "@/lib/sanity/hero-visual-map";
 import { capabilityVisual } from "@/lib/sanity/capability-visual-map";
@@ -129,9 +130,30 @@ export function ProductPageRenderer({ doc: rawDoc }: Props) {
     { name: doc.title, path: `/products/${doc.slug}` },
   ]);
 
+  // §6 Industries cards — only the tiles that point at a real /solutions/ page
+  // (orphan segments dropped). Computed up here so the section can be skipped
+  // entirely when nothing survives the filter (otherwise the rail renders as a
+  // lone headline + dead arrows — the empty-rail bug).
+  const industryItems = (doc.industries?.items ?? [])
+    .filter((item) => REAL_INDUSTRY_HREFS.has(item.link.href))
+    .map((item, i) => ({
+      id: `${item.eyebrow
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "")}-${i}`,
+      eyebrow: item.eyebrow,
+      copy: item.copy,
+      link: item.link,
+    }));
+
   return (
     <main>
       <JsonLd data={breadcrumbs} />
+
+      {/* TEMP — section navigator for design review (auto-discovers every
+          top-level <section> at runtime; no per-section wiring). Dev-only;
+          remove with SectionNav. */}
+      <SectionNav title={doc.title} />
 
       {/* §1 Hero — the right-column visual is resolved from a slug → component
           registry (heroVisualFor). Pages with a registered illustration render
@@ -321,24 +343,14 @@ export function ProductPageRenderer({ doc: rawDoc }: Props) {
       {/* §6 Industries — RailCarousel sparse, light. Dropped for the
           bank-focused products (NO_INDUSTRIES_GRID); elsewhere only tiles that
           point at a real industry page render (orphan segments filtered out). */}
-      {doc.industries && !NO_INDUSTRIES_GRID.has(doc.slug) && (
+      {doc.industries && !NO_INDUSTRIES_GRID.has(doc.slug) && industryItems.length > 0 && (
         <RailCarousel
           variant="sparse"
           background="light"
           // No section eyebrow — headline leads (CLAUDE.md v1.5). Per-card
           // industry labels stay: they're real content, not a scaffolding label.
           headline={doc.industries.headline}
-          items={doc.industries.items
-            .filter((item) => REAL_INDUSTRY_HREFS.has(item.link.href))
-            .map((item, i) => ({
-            id: `${item.eyebrow
-              .toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/(^-|-$)/g, "")}-${i}`,
-            eyebrow: item.eyebrow,
-            copy: item.copy,
-            link: item.link,
-          }))}
+          items={industryItems}
           ariaLabel="Industries"
         />
       )}
@@ -412,7 +424,7 @@ export function ProductPageRenderer({ doc: rawDoc }: Props) {
       {/* Cross-sell — clearly separated from the closing CTA above it: a top
           hairline + generous top padding + a quiet label, so it reads as its
           own "keep exploring" band rather than being attached to the CTA. */}
-      <section className="border-t border-surface-border-subtle bg-surface-soft pb-[96px] pt-16 lg:pt-24 dark:border-surface-dark-border dark:bg-surface-dark-base">
+      <section data-nav-label="Keep exploring" className="border-t border-surface-border-subtle bg-surface-soft pb-[96px] pt-16 lg:pt-24 dark:border-surface-dark-border dark:bg-surface-dark-base">
         <p className="mx-auto mb-6 w-full max-w-[1200px] px-4 font-mono text-[11px] uppercase tracking-[0.16em] text-text-muted sm:px-6 lg:px-20 dark:text-text-dark-muted">
           Keep exploring
         </p>

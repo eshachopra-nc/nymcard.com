@@ -2,8 +2,6 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ProductHeroRibbon } from "@/components/visuals/ProductHeroRibbon";
-import { SectionAtmosphere } from "@/components/visuals/SectionAtmosphere";
 import { dur, ease } from "@/components/visuals/motion";
 
 // ── nCore Hero — the shared product-page hero, nCore variant ─────────────────
@@ -40,9 +38,28 @@ export function NCoreHero() {
 
   return (
     <section className="relative isolate overflow-hidden bg-surface-soft dark:bg-surface-dark-base">
-      {/* Calm atmosphere — the product-page ribbon over a contained cool wash. */}
-      <SectionAtmosphere anchor="split" />
-      <ProductHeroRibbon />
+      {/* Same background as the product-page hero (PageHero): the handoff
+          hero-background composition (product-hero-bg-{light,dark}.svg) — a
+          diagonal navy→indigo→cyan ribbon with a top-right halo and baked-in
+          left + bottom fades. Light/dark are separate assets. (owner, 4 June) */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element -- handoff SVG background */}
+        <img
+          src="/handoff/product-hero-bg-light.svg"
+          alt=""
+          className="absolute inset-0 size-full object-cover dark:hidden"
+          loading="eager"
+          decoding="async"
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element -- handoff SVG background */}
+        <img
+          src="/handoff/product-hero-bg-dark.svg"
+          alt=""
+          className="absolute inset-0 hidden size-full object-cover dark:block"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-4 pb-20 pt-24 sm:px-6 sm:pb-24 sm:pt-28 lg:px-20 lg:pb-28 lg:pt-32">
         {/* Copy block — F-pattern, left-aligned, ~two-thirds measure. No eyebrow. */}

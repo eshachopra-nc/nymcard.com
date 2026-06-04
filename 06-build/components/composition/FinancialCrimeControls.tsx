@@ -50,7 +50,7 @@ const COPY = {
     {
       key: "risk",
       heading: "Risk management",
-      body: "A live Customer Risk Rating, low to very high, drives thresholds, review cadence, and monitoring intensity per customer — with one case system across fraud, AML, and compliance.",
+      body: "A live Customer Risk Rating, from low to very high, sets the alert thresholds, review frequency, and monitoring intensity for each customer — across one case system spanning fraud, AML, and compliance.",
       Visual: RiskCapability,
     },
     {

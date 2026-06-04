@@ -243,7 +243,16 @@ export function ProductCarousel() {
               <img
                 src={`/handoff/${PRODUCTS[0].slug}.svg`}
                 alt=""
-                className="block h-full w-full"
+                className="block h-full w-full dark:hidden"
+                style={{ objectFit: "contain" }}
+                loading="lazy"
+                decoding="async"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element -- handoff SVG (dark) */}
+              <img
+                src={`/handoff/${PRODUCTS[0].slug}-dark.svg`}
+                alt=""
+                className="hidden h-full w-full dark:block"
                 style={{ objectFit: "contain" }}
                 loading="lazy"
                 decoding="async"
@@ -262,10 +271,20 @@ export function ProductCarousel() {
 const SVGS_LIVE = new Set<string>(["cards", "embedded-lending", "money-movement", "identity", "fraud-monitoring", "risk-management", "acs-3ds", "stablecoin-settlement", "reconciliation"]);
 
 // Slugs that ship a dedicated dark-mode SVG (/handoff/{slug}-dark.svg). The
-// remaining handoff illustrations are cyan/white/violet line-art on a
-// transparent ground, so they read cleanly on the dark glass card as-is; only
-// these need the swapped asset (their navy strokes would otherwise vanish).
-const HAS_DARK_SVG = new Set<string>(["money-movement"]);
+// handoff illustrations carry navy text + deep-navy shapes (#0E1A33 / #7A88AC
+// muted labels) that vanish on the dark glass card, so each gets a recoloured
+// dark variant (the navies lifted to readable light slates; cyan/white/violet
+// kept). Identity is excluded — it's a layered photo composition (IdentityVisual).
+const HAS_DARK_SVG = new Set<string>([
+  "money-movement",
+  "cards",
+  "embedded-lending",
+  "fraud-monitoring",
+  "risk-management",
+  "acs-3ds",
+  "stablecoin-settlement",
+  "reconciliation",
+]);
 
 // Identity is rendered as a layered composition rather than a single SVG:
 // the avatar photo sits behind a transparent "viewfinder" SVG that supplies

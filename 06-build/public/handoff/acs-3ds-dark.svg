@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 336 360" width="336" height="360">
+  <defs>
+    <linearGradient id="acsPhoneBezel" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0%" stop-color="#1F2C4D"></stop>
+      <stop offset="100%" stop-color="#0A1226"></stop>
+    </linearGradient>
+
+    <linearGradient id="acsScreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#B0BEDC"></stop>
+      <stop offset="100%" stop-color="#152244"></stop>
+    </linearGradient>
+
+    <linearGradient id="acsScreenFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#B0BEDC" stop-opacity="0"></stop>
+      <stop offset="100%" stop-color="#B0BEDC" stop-opacity="1"></stop>
+    </linearGradient>
+
+    <filter id="acsPhoneShadow" x="-20%" y="-15%" width="140%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#B0BEDC" flood-opacity="0.40"></feDropShadow>
+    </filter>
+
+    <filter id="acsCyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#22D3EE" flood-opacity="0.75"></feDropShadow>
+    </filter>
+
+    <filter id="acsEntryBlur" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="0">
+        <animate attributeName="stdDeviation" values="3;0;0;3;3" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
+      </feGaussianBlur>
+    </filter>
+  </defs>
+
+  <g>
+    <circle cx="100" cy="25" r="3" fill="#22D3EE" fill-opacity="0.55">
+      <animate attributeName="r" values="3;11;11" keyTimes="0;0.65;1" dur="1.6s" repeatCount="indefinite"></animate>
+      <animate attributeName="fill-opacity" values="0.55;0;0" keyTimes="0;0.65;1" dur="1.6s" repeatCount="indefinite"></animate>
+    </circle>
+    <circle cx="100" cy="25" r="3" fill="#22D3EE"></circle>
+    <text x="112" y="28" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#B0BEDC" letter-spacing="0.20em">CHALLENGE · LIVE</text>
+  </g>
+
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 -12;0 0;0 0;0 0;0 -12" keyTimes="0;0.043;0.929;0.99;1" dur="7s" calcMode="spline" keySplines="0.16 1 0.3 1;0 0 1 1;0.4 0 1 1;0 0 1 1" repeatCount="indefinite"></animateTransform>
+    <g transform="translate(168 180)">
+      <g opacity="0" filter="url(#acsEntryBlur)">
+        <animateTransform attributeName="transform" type="scale" values="0.86;1;1;0.97;0.86" keyTimes="0;0.043;0.929;0.99;1" dur="7s" calcMode="spline" keySplines="0.16 1 0.3 1;0 0 1 1;0.4 0 1 1;0 0 1 1" repeatCount="indefinite"></animateTransform>
+        <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.043;0.929;0.99;1" dur="7s" repeatCount="indefinite"></animate>
+        <g transform="translate(-168 -180)">
+
+          <g filter="url(#acsPhoneShadow)">
+            <path d="M 58 84 Q 58 56 86 56 L 250 56 Q 278 56 278 84 L 278 400 L 58 400 Z" fill="url(#acsPhoneBezel)" stroke="#22D3EE" stroke-opacity="0.50" stroke-width="1.4"></path>
+            <path d="M 68 90 Q 68 66 92 66 L 244 66 Q 268 66 268 90 L 268 400 L 68 400 Z" fill="url(#acsScreen)"></path>
+          </g>
+
+          <rect x="150" y="78" width="36" height="4" rx="2" fill="#22D3EE" fill-opacity="0.40"></rect>
+
+          <text x="168" y="120" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#22D3EE" letter-spacing="0.22em">AUTHENTICATION</text>
+          <text x="168" y="140" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#A8B5D9" letter-spacing="0.04em">Enter the 6-digit code</text>
+
+          <g>
+            <g>
+              <rect x="92" y="170" width="22" height="28" rx="5" fill="none" stroke="#22D3EE" stroke-width="1.4" stroke-opacity="0.55"></rect>
+              <rect x="92" y="170" width="22" height="28" rx="5" fill="#22D3EE" fill-opacity="0" filter="url(#acsCyanGlow)">
+                <animate attributeName="fill-opacity" values="0;0;0.80;0.80;0" keyTimes="0;0.06;0.08;0.93;1" dur="7s" repeatCount="indefinite"></animate>
+              </rect>
+            </g>
+
+            <g>
+              <rect x="118" y="170" width="22" height="28" rx="5" fill="none" stroke="#22D3EE" stroke-width="1.4" stroke-opacity="0.55"></rect>
+              <rect x="118" y="170" width="22" height="28" rx="5" fill="#22D3EE" fill-opacity="0" filter="url(#acsCyanGlow)">
+                <animate attributeName="fill-opacity" values="0;0;0.80;0.80;0" keyTimes="0;0.13;0.15;0.93;1" dur="7s" repeatCount="indefinite"></animate>
+              </rect>
+            </g>
+
+            <g>
+              <rect x="144" y="170" width="22" height="28" rx="5" fill="none" stroke="#22D3EE" stroke-width="1.4" stroke-opacity="0.55"></rect>
+              <rect x="144" y="170" width="22" height="28" rx="5" fill="#22D3EE" fill-opacity="0" filter="url(#acsCyanGlow)">
+                <animate attributeName="fill-opacity" values="0;0;0.80;0.80;0" keyTimes="0;0.20;0.22;0.93;1" dur="7s" repeatCount="indefinite"></animate>
+              </rect>
+            </g>
+
+            <g>
+              <rect x="170" y="170" width="22" height="28" rx="5" fill="none" stroke="#22D3EE" stroke-width="1.4" stroke-opacity="0.55"></rect>
+              <rect x="170" y="170" width="22" height="28" rx="5" fill="#22D3EE" fill-opacity="0" filter="url(#acsCyanGlow)">
+                <animate attributeName="fill-opacity" values="0;0;0.80;0.80;0" keyTimes="0;0.27;0.29;0.93;1" dur="7s" repeatCount="indefinite"></animate>
+              </rect>
+            </g>
+
+            <g>
+              <rect x="196" y="170" width="22" height="28" rx="5" fill="none" stroke="#22D3EE" stroke-width="1.4" stroke-opacity="0.55"></rect>
+              <rect x="196" y="170" width="22" height="28" rx="5" fill="#22D3EE" fill-opacity="0" filter="url(#acsCyanGlow)">
+                <animate attributeName="fill-opacity" values="0;0;0.80;0.80;0" keyTimes="0;0.34;0.36;0.93;1" dur="7s" repeatCount="indefinite"></animate>
+              </rect>
+            </g>
+
+            <g>
+              <rect x="222" y="170" width="22" height="28" rx="5" fill="none" stroke="#22D3EE" stroke-width="1.4" stroke-opacity="0.55"></rect>
+              <rect x="222" y="170" width="22" height="28" rx="5" fill="#22D3EE" fill-opacity="0" filter="url(#acsCyanGlow)">
+                <animate attributeName="fill-opacity" values="0;0;0.80;0.80;0" keyTimes="0;0.41;0.43;0.93;1" dur="7s" repeatCount="indefinite"></animate>
+              </rect>
+            </g>
+          </g>
+
+          <g transform="translate(168 226)" opacity="0">
+            <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.45;0.50;0.93;1" dur="7s" repeatCount="indefinite"></animate>
+            <g transform="translate(-50 0)" filter="url(#acsCyanGlow)">
+              <circle r="7" fill="#22D3EE"></circle>
+              <path d="M -3 0 L -1 2 L 3 -2" stroke="#B0BEDC" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+            <text x="-36" y="3" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#22D3EE" letter-spacing="0.04em">Authenticated</text>
+          </g>
+
+          <rect x="68" y="270" width="200" height="130" fill="url(#acsScreenFade)"></rect>
+
+        </g>
+      </g>
+    </g>
+  </g>
+
+</svg>

@@ -18,8 +18,8 @@ const LINK_GROUPS: { title: string; links: FooterLink[] }[] = [
   {
     title: "Platform",
     links: [
-      "nCore",
-      "Migration & Modernisation",
+      { label: "nCore", href: "/platform/ncore" },
+      { label: "Migration & Modernisation", href: "/platform/migration" },
       { label: "Documentation", href: DOCS_URL },
       { label: "API Catalog", href: API_CATALOG_URL },
     ],
@@ -27,35 +27,35 @@ const LINK_GROUPS: { title: string; links: FooterLink[] }[] = [
   {
     title: "Products",
     links: [
-      "Cards",
-      "Lending",
-      "Money Movement",
-      "Settlement",
-      "Financial Crime",
-      "Reconciliation",
+      { label: "Cards", href: "/products/card-issuing" },
+      { label: "Lending", href: "/products/lending" },
+      { label: "Money Movement", href: "/products/money-movement" },
+      { label: "Settlement", href: "/products/settlement" },
+      { label: "Financial Crime", href: "/products/financial-crime" },
+      { label: "Reconciliation", href: "/products/reconciliation" },
     ],
   },
   {
-    // Matches the nav's "Solutions" top-level (the industry pages). The old
-    // use-case "Solutions" column was removed — its /solutions/* routes don't
-    // exist yet (they 404), and it duplicated this label.
+    // Matches the nav's "Solutions" top-level (the 11 industry pages).
     title: "Solutions",
     links: [
-      "Retail Banking",
-      "Exchange Houses",
-      "Fintechs",
-      "Telecommunications",
-      "Retail & Marketplaces",
-      "Travel",
-      "Healthcare",
-      "Government",
-      "Mobility",
+      { label: "Commercial Banking", href: "/solutions/commercial-banking" },
+      { label: "Retail Banking", href: "/solutions/retail-banking" },
+      { label: "Neobanks", href: "/solutions/neobanks" },
+      { label: "Exchange Houses", href: "/solutions/exchange-houses" },
+      { label: "Fintechs", href: "/solutions/fintechs" },
+      { label: "Telecommunications", href: "/solutions/telecommunications" },
+      { label: "Retail & Marketplaces", href: "/solutions/retail-marketplaces" },
+      { label: "Travel", href: "/solutions/travel" },
+      { label: "Healthcare", href: "/solutions/healthcare" },
+      { label: "Government", href: "/solutions/government" },
+      { label: "Mobility", href: "/solutions/mobility" },
     ],
   },
   {
     title: "Company",
     links: [
-      "About",
+      { label: "About", href: "/company/about" },
       { label: "Careers", href: "/company/careers" },
       { label: "Contact", href: "/company/contact" },
       { label: "Blog", href: "/company/blog" },
@@ -104,7 +104,7 @@ export function Footer() {
             first column, the four link groups fill the remaining four (md
             collapses to 3 columns). Hidden on mobile. */}
         <div className="hidden md:grid md:grid-cols-3 md:gap-x-10 lg:grid-cols-5 lg:gap-x-14 gap-y-12">
-          {/* Column 1 — brand mark */}
+          {/* Column 1 — brand mark + HQ address */}
           <div>
             <Image
               src="/nymcard-logo-white.svg"
@@ -113,6 +113,16 @@ export function Footer() {
               height={22}
               className="h-[22px] w-auto"
             />
+            <div className="mt-5 max-w-[15rem] font-body text-sm leading-relaxed text-text-dark-secondary">
+              <p className="font-semibold text-text-on-brand">Headquarters</p>
+              <address className="mt-1 not-italic">
+                North West House<br />
+                119 Marylebone Road<br />
+                London<br />
+                United Kingdom<br />
+                NW1 5PU
+              </address>
+            </div>
           </div>
           {LINK_GROUPS.map((group) => (
             <div key={group.title}>
@@ -151,6 +161,16 @@ export function Footer() {
             height={22}
             className="h-[22px] w-auto"
           />
+          <div className="mt-5 max-w-[18rem] font-body text-sm leading-relaxed text-text-dark-secondary">
+            <p className="font-semibold text-text-on-brand">Headquarters</p>
+            <address className="mt-1 not-italic">
+              North West House<br />
+              119 Marylebone Road<br />
+              London<br />
+              United Kingdom<br />
+              NW1 5PU
+            </address>
+          </div>
           <div className="mt-10 border-t border-surface-dark-border">
             {LINK_GROUPS.map((group) => (
               <FooterAccordion key={group.title} title={group.title} links={group.links} />
@@ -166,8 +186,10 @@ export function Footer() {
           </p>
           <div className="flex flex-wrap items-center gap-6">
             <a
-              href="#linkedin"
-              aria-label="LinkedIn"
+              href="https://www.linkedin.com/company/nymcard/?viewAsMember=true"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="NymCard on LinkedIn"
               className="text-text-dark-muted hover:text-text-on-brand transition-colors"
             >
               <LinkedinIcon className="size-4" />

@@ -3,33 +3,63 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
-// TEMPORARY — homepage section navigator for design review. Remove before ship:
-// delete this file and the <SectionNav /> + id wrappers in app/page.tsx.
+// TEMPORARY — section navigator for design review. Remove before ship: delete
+// this file and every <SectionNav /> (+ the id wrappers on the curated pages).
+//
+// Two modes:
+//   • Curated  — pass `sections` (with optional status flags). Used on the
+//     hand-built pages (homepage, migration, nCore) where short labels + a
+//     done/improve/todo status read best. Each id must match an element id on
+//     the page (the `<div id=… className="scroll-mt-24">` wrappers).
+//   • Auto     — omit `sections`. The nav discovers every top-level <section>
+//     (and the <footer>) inside <main> at runtime, labels each from its
+//     heading, and assigns an id where one is missing. Used on the renderer-
+//     driven product pages, which have no hand-wired anchors.
 
-// Status mirrors the owner's homepage-completion arc:
-//   done    — built and wired
-//   improve — built, flagged for a craft pass
-//   todo    — not built yet (no anchor; rendered as a non-link)
 type Status = "done" | "improve" | "todo";
 
-const SECTIONS: { id: string; label: string; status: Status }[] = [
-  { id: "hero", label: "Hero", status: "done" },
-  { id: "trust", label: "Trust Bar", status: "done" },
-  { id: "problem", label: "Problem", status: "done" },
-  { id: "ncore", label: "nCore", status: "done" },
-  { id: "products", label: "Products", status: "done" },
-  { id: "why-nymcard", label: "Why NymCard", status: "done" },
-  { id: "migration", label: "Migration", status: "improve" },
-  { id: "deployment", label: "Deployment", status: "done" },
-  { id: "industries", label: "Industries", status: "improve" },
-  { id: "final-cta", label: "CTA", status: "done" },
-  { id: "footer", label: "Footer", status: "done" },
-];
+export type NavSection = { id: string; label: string; status?: Status };
 
-export function SectionNav() {
-  const [active, setActive] = useState(SECTIONS[0].id);
+const MAX_LABEL = 26;
+
+const tidy = (s: string) => s.replace(/\s+/g, " ").trim();
+const clip = (s: string) =>
+  s.length > MAX_LABEL ? `${s.slice(0, MAX_LABEL - 1).trimEnd()}…` : s;
+
+// Build the section list from the live DOM (auto mode).
+function discoverSections(): NavSection[] {
+  const main = document.querySelector("main");
+  if (!main) return [];
+  const blocks = Array.from(main.querySelectorAll<HTMLElement>("section, footer"));
+  // Keep only top-level blocks (skip any <section> nested inside another).
+  const topLevel = blocks.filter((el) => !el.parentElement?.closest("section"));
+  return topLevel.map((el, i) => {
+    if (!el.id) el.id = `sec-${i + 1}`;
+    let label = el.getAttribute("data-nav-label") ?? "";
+    if (!label && el.tagName === "FOOTER") label = "Footer";
+    if (!label) {
+      const h = el.querySelector("h1, h2");
+      label = h?.textContent ?? el.id;
+    }
+    return { id: el.id, label: clip(tidy(label)) };
+  });
+}
+
+export function SectionNav({
+  sections,
+  title = "Sections",
+}: {
+  sections?: NavSection[];
+  title?: string;
+}) {
+  const [items, setItems] = useState<NavSection[]>(sections ?? []);
+  const [active, setActive] = useState<string>(sections?.[0]?.id ?? "");
 
   useEffect(() => {
+    const list = sections ?? discoverSections();
+    setItems(list);
+    if (list.length && !sections) setActive(list[0].id);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -38,28 +68,29 @@ export function SectionNav() {
       },
       { rootMargin: "-45% 0px -45% 0px" },
     );
-    SECTIONS.forEach(({ id }) => {
+    list.forEach(({ id }) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [sections]);
 
   // Dev-only review tool — never render in a production / preview build (so it
   // can't appear in a CEO review). Stays visible on the local dev server.
   if (process.env.NODE_ENV === "production") return null;
+  if (!items.length) return null;
 
   return (
     <nav
       aria-label="Section navigator (temporary)"
-      className="fixed left-4 top-1/2 z-[60] hidden -translate-y-1/2 lg:block"
+      className="fixed left-4 top-1/2 z-[60] hidden max-h-[88vh] -translate-y-1/2 overflow-y-auto lg:block"
     >
       <div className="rounded-xl border border-black/10 bg-white/85 p-2 shadow-lg backdrop-blur-md dark:border-surface-dark-border dark:bg-surface-dark-elevated/85">
         <p className="px-2 pb-1.5 pt-1 font-mono text-[9px] uppercase tracking-[0.14em] text-brand-purple">
-          Temp · Sections
+          Temp · {title}
         </p>
         <ol className="space-y-0.5">
-          {SECTIONS.map(({ id, label, status }, i) => {
+          {items.map(({ id, label, status }, i) => {
             const isTodo = status === "todo";
             const rowClass = cn(
               "flex items-center gap-2 rounded-md px-2 py-1 font-body text-[12px] transition-colors",
@@ -89,11 +120,11 @@ export function SectionNav() {
             // A small right-aligned hint for anything not yet shippable.
             const hint =
               status === "todo" ? (
-                <span className="ml-auto font-mono text-[8px] uppercase tracking-[0.1em] text-brand-purple/70">
+                <span className="ml-auto pl-2 font-mono text-[8px] uppercase tracking-[0.1em] text-brand-purple/70">
                   soon
                 </span>
               ) : status === "improve" ? (
-                <span className="ml-auto font-mono text-[8px] uppercase tracking-[0.1em] text-text-muted/60 dark:text-text-dark-secondary/50">
+                <span className="ml-auto pl-2 font-mono text-[8px] uppercase tracking-[0.1em] text-text-muted/60 dark:text-text-dark-secondary/50">
                   polish
                 </span>
               ) : null;

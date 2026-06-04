@@ -65,9 +65,6 @@ const OTHER_LOGOS: ClientLogo[] = [
   { src: "/clients/Pluto.svg", name: "Pluto" },
   { src: "/clients/Chargeup.svg", name: "ChargeUp" },
   { src: "/clients/Sav.svg", name: "Sav" },
-  { src: "/clients/Edfundo.svg", name: "Edfundo" },
-  { src: "/clients/Zywa.svg", name: "Zywa" },
-  { src: "/clients/Paytabs.svg", name: "PayTabs" },
   { src: "/clients/Negabty.svg", name: "Negabty" },
   { src: "/clients/Rise.svg", name: "Rise" },
 ];

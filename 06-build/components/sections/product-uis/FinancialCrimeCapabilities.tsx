@@ -247,7 +247,7 @@ export function RiskCapability() {
           </div>
 
           {/* Gauge — the focal element. */}
-          <div className="mt-2 flex flex-1 items-center justify-center">
+          <div className="mt-2 flex flex-1 flex-col items-center justify-center">
             <div className="relative" style={{ width: 200, height: 116 }}>
               <svg viewBox="0 0 200 116" className="absolute inset-0 h-full w-full">
                 <defs>
@@ -283,15 +283,16 @@ export function RiskCapability() {
                 }}
               />
               <span className="absolute bottom-[6px] left-1/2 size-3 -translate-x-1/2 rounded-full" style={{ background: visual.navy, boxShadow: `inset 0 0 0 2px ${withAlpha(visual.cyan, 0.7)}` }} />
-              {/* focal rating word */}
-              <div className="absolute inset-x-0 bottom-[-6px] text-center">
-                <Stat size={26}>{BANDS[ACTIVE_BAND]}</Stat>
-              </div>
+            </div>
+            {/* Focal rating word — in flow (tucked into the arc's lower interior)
+                so the band scale below never renders under it. */}
+            <div className="-mt-7 text-center">
+              <Stat size={26}>{BANDS[ACTIVE_BAND]}</Stat>
             </div>
           </div>
 
           {/* Band scale. */}
-          <div className="mt-3 flex items-center justify-between">
+          <div className="mt-4 flex items-center justify-between">
             {BANDS.map((b, i) => (
               <span
                 key={b}

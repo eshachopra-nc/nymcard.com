@@ -71,9 +71,16 @@ const HREF_FIXES: Record<string, string> = {
   "/solutions/remittance": "/solutions/exchange-houses",
 };
 
-/** Return the corrected destination for an href, or the href unchanged. */
+/** Return the corrected destination for an href, or the href unchanged.
+ *  Also normalises the legacy `/industries/<slug>` route prefix to the current
+ *  `/solutions/<slug>` — the live Sanity docs were seeded before that rename, so
+ *  their industry cross-links still point at /industries/* and would otherwise
+ *  be dropped by the product page's REAL_INDUSTRY_HREFS filter (leaving an empty
+ *  rail). The prefix swap runs first, then the exact slug fixes apply. */
 export function fixHref(href: string): string {
-  return HREF_FIXES[href] ?? href;
+  let h = href;
+  if (h.startsWith("/industries/")) h = h.replace("/industries/", "/solutions/");
+  return HREF_FIXES[h] ?? h;
 }
 
 /** Deep-walk a (plain JSON) Sanity doc and rewrite every `href` string via

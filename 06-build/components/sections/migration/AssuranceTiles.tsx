@@ -75,7 +75,7 @@ export function AssuranceTiles() {
         {COPY.tiles.map((tile, i) => (
           <li
             key={tile.label}
-            className="group relative isolate min-h-[19rem] overflow-hidden rounded-2xl transition-transform duration-300 ease-out hover:-translate-y-0.5 motion-reduce:transform-none"
+            className="group relative isolate min-h-[21rem] overflow-hidden rounded-2xl transition-transform duration-300 ease-out hover:-translate-y-0.5 motion-reduce:transform-none"
           >
             {/* The luminous treatment — field + glowing glass card (§8.1). */}
             <IllustrationField />

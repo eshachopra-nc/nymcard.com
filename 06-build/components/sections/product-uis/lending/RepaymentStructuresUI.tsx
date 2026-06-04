@@ -66,13 +66,15 @@ export function RepaymentStructuresUI() {
             <LiveTag>Per program</LiveTag>
           </div>
 
-          {/* Structure selector — three named structures, first active. */}
-          <div className="flex gap-1.5">
+          {/* Structure selector — three named structures, first active. Pills
+              wrap rather than truncate (the longest, "Reducing balance", was
+              being clipped) and share one height via items-stretch + centring. */}
+          <div className="flex items-stretch gap-1.5">
             {TABS.map((t, i) => (
               <span
                 key={t}
                 className={cn(
-                  "flex-1 truncate rounded-md px-2 py-1.5 text-center font-mono text-[9px] uppercase tracking-[0.08em] ring-1 ring-inset",
+                  "flex flex-1 items-center justify-center rounded-md px-1.5 py-1.5 text-center font-mono text-[9px] uppercase leading-[1.15] tracking-[0.06em] ring-1 ring-inset",
                   i === 0
                     ? "bg-brand-primary/[0.1] text-brand-primary ring-brand-primary/25 dark:bg-accent-cyan/[0.16] dark:text-accent-cyan dark:ring-accent-cyan/30"
                     : "bg-white/40 text-text-secondary ring-white/50 dark:bg-white/[0.05] dark:text-text-dark-secondary dark:ring-white/10",

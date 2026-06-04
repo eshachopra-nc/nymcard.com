@@ -22,6 +22,24 @@ import { FullStackOnRamp } from "@/components/sections/migration/FullStackOnRamp
 import { PortfolioMeter } from "@/components/sections/product-uis/migration";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/lib/seo";
+import { SectionNav, type NavSection } from "@/components/dev/SectionNav";
+
+// TEMP — section arc for the review navigator (matches the id wrappers below).
+// Remove with <SectionNav />.
+const SECTIONS: NavSection[] = [
+  { id: "hero", label: "Hero", status: "done" },
+  { id: "status-quo", label: "Status quo", status: "done" },
+  { id: "why-nymcard", label: "Why NymCard", status: "done" },
+  { id: "capabilities", label: "Capabilities", status: "done" },
+  { id: "how-it-runs", label: "How it runs", status: "done" },
+  { id: "assurance", label: "Assurance", status: "done" },
+  { id: "on-ramp", label: "On-ramp", status: "done" },
+  { id: "deployment", label: "Deployment", status: "done" },
+  { id: "faq", label: "FAQ", status: "done" },
+  { id: "final-cta", label: "CTA", status: "done" },
+  { id: "cross-sell", label: "Cross-sell", status: "done" },
+  { id: "footer", label: "Footer", status: "done" },
+];
 
 // ── /platform/migration — Migration with Agentic AI ─────────────────────────
 //
@@ -164,68 +182,93 @@ export default function MigrationPage() {
         ])}
       />
 
+      {/* TEMP — section navigator for design review (remove with SectionNav) */}
+      <SectionNav sections={SECTIONS} title="Migration" />
+
       {/* §1 Hero — text-forward F-pattern, matching the product pages: copy
           leads at ~70% width with no right-column UI (owner, 2026-06-03). The
           page's later sections carry the visuals. Single CTA, no secondary. */}
-      <PageHero
-        headline={COPY.hero.headline}
-        body={COPY.hero.body}
-        primaryCta={CTA.talkToUs}
-        textOnly
-      />
+      <div id="hero" className="scroll-mt-24">
+        <PageHero
+          headline={COPY.hero.headline}
+          body={COPY.hero.body}
+          primaryCta={CTA.talkToUs}
+          textOnly
+        />
+      </div>
 
       {/* §2 The status quo */}
-      <MigrationStatusQuo />
+      <div id="status-quo" className="scroll-mt-24">
+        <MigrationStatusQuo />
+      </div>
 
       {/* §3 Why NymCard — the load-bearing two-pillar argument */}
-      <WhyNymCardPillars />
+      <div id="why-nymcard" className="scroll-mt-24">
+        <WhyNymCardPillars />
+      </div>
 
       {/* §4 Capabilities (bento) */}
-      <MigrationCapabilitiesBento />
+      <div id="capabilities" className="scroll-mt-24">
+        <MigrationCapabilitiesBento />
+      </div>
 
       {/* §5 How a migration runs — shared MigrationFlow with custom phases.
           The portfolio meter climbs beneath the flow batch by batch. */}
-      <MigrationFlow
-        headline={COPY.flow.headline}
-        body={COPY.flow.supporting}
-        phases={[...COPY.flow.phases]}
-        portfolioMeter
-        portfolioMeterVisual={<PortfolioMeter />}
-      />
+      <div id="how-it-runs" className="scroll-mt-24">
+        <MigrationFlow
+          headline={COPY.flow.headline}
+          body={COPY.flow.supporting}
+          phases={[...COPY.flow.phases]}
+          portfolioMeter
+          portfolioMeterVisual={<PortfolioMeter />}
+        />
+      </div>
 
       {/* §6 Assurance */}
-      <AssuranceTiles />
+      <div id="assurance" className="scroll-mt-24">
+        <AssuranceTiles />
+      </div>
 
       {/* §7 On-ramp to the full stack — text-forward, the six nCore layers as
           chips (no product UI). */}
-      <FullStackOnRamp />
+      <div id="on-ramp" className="scroll-mt-24">
+        <FullStackOnRamp />
+      </div>
 
       {/* §8 Deployment — three dark cards with the approved line-art diagrams. */}
-      <DeploymentSection
-        headline={COPY.deployment.headline}
-        body={COPY.deployment.body}
-        items={[...COPY.deployment.items]}
-      />
+      <div id="deployment" className="scroll-mt-24">
+        <DeploymentSection
+          headline={COPY.deployment.headline}
+          body={COPY.deployment.body}
+          items={[...COPY.deployment.items]}
+        />
+      </div>
 
       {/* §10 FAQ — emits FAQPage JSON-LD. */}
-      <FAQ headline={COPY.faq.headline} items={[...COPY.faq.items]} background="white" />
+      <div id="faq" className="scroll-mt-24">
+        <FAQ headline={COPY.faq.headline} items={[...COPY.faq.items]} background="white" />
+      </div>
 
       {/* §11 Final CTA + cross-sell. Single CTA, no secondary. */}
-      <CTASection
-        headline={COPY.finalCta.headline}
-        body={COPY.finalCta.body}
-        primaryCta={CTA.talkToUs}
-        backgrounds={<TopologyTraces density="medium" tone="cyan" />}
-      />
+      <div id="final-cta" className="scroll-mt-24">
+        <CTASection
+          headline={COPY.finalCta.headline}
+          body={COPY.finalCta.body}
+          primaryCta={CTA.talkToUs}
+          backgrounds={<TopologyTraces density="medium" tone="cyan" />}
+        />
+      </div>
       {/* Cross-sell — its own "keep exploring" band, separated from the CTA. */}
-      <section className="border-t border-surface-border-subtle bg-surface-soft pb-[96px] pt-16 lg:pt-24 dark:border-surface-dark-border dark:bg-surface-dark-base">
+      <section id="cross-sell" className="scroll-mt-24 border-t border-surface-border-subtle bg-surface-soft pb-[96px] pt-16 lg:pt-24 dark:border-surface-dark-border dark:bg-surface-dark-base">
         <p className="mx-auto mb-6 w-full max-w-[1200px] px-4 font-mono text-[11px] uppercase tracking-[0.16em] text-text-muted sm:px-6 lg:px-20 dark:text-text-dark-muted">
           Keep exploring
         </p>
         <CrossSellBanner items={CROSS_SELL} />
       </section>
 
-      <Footer />
+      <div id="footer" className="scroll-mt-24">
+        <Footer />
+      </div>
     </main>
   );
 }

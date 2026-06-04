@@ -208,13 +208,13 @@ function MultiRailRoutingUI() {
           </div>
 
           {/* The two candidate rails. */}
-          <div className="mt-3 flex flex-1 flex-col justify-center gap-2">
+          <div className="mt-2.5 flex flex-1 flex-col justify-center gap-1.5">
             {RAILS.map((r) => {
               const active = r.chosen && selected;
               return (
                 <div
                   key={r.name}
-                  className={cn("relative rounded-[12px] px-3.5 py-2.5 transition-all duration-500")}
+                  className={cn("relative rounded-[12px] px-3.5 py-2 transition-all duration-500")}
                   style={
                     active
                       ? {
@@ -251,7 +251,7 @@ function MultiRailRoutingUI() {
                       </span>
                     )}
                   </div>
-                  <div className="mt-2 grid grid-cols-3 gap-1.5">
+                  <div className="mt-1.5 grid grid-cols-3 gap-1.5">
                     {(
                       [
                         ["Cost", r.cost],
@@ -268,10 +268,6 @@ function MultiRailRoutingUI() {
                 </div>
               );
             })}
-          </div>
-
-          <div className="mt-3 flex items-center justify-between border-t pt-2.5" style={HAIRLINE()}>
-            <SubLabel>By cost · speed · availability</SubLabel>
           </div>
         </div>
       </IllustrationCard>
