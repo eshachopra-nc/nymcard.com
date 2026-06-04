@@ -1,283 +1,240 @@
-# nCore
+# Platform | nCore — REVISED (pending owner approval)
 
-> Status: voice + humanizer refined from owner draft, 3 June 2026. Build source for /platform/ncore.
+**Slug:** /platform/ncore
+**Navigation:** Platform › nCore
+**Status:** Revised 1 June 2026 after major review. Supersedes the 18 April 2026 draft once approved. Original kept at `nCore-copy.md`.
 
-## 1. Hero
+**Decisions applied (owner, 1 June 2026):**
+- **Market-agnostic** — no CEMEA/MENA/"the region"; no CBUAE; connectivity excludes Mada/Meeza/1LINK (per `architecture.md`).
+- **Capabilities = 6 product layers + AI/Insights** (canonical architecture); the old "Feature Chips" block is removed (it duplicated the capability tiles).
+- **Stats** kept but moved below capabilities; **values confirmed by owner** (1 June 2026).
 
-### Headline
-
-The core modern payments were built for.
-
-### Description
-
-One customer record, one data layer, one intelligence layer. nCore brings cards, lending, money movement, settlement, financial crime, and reconciliation onto a single architecture NymCard owns end to end.
-
-### CTA
-
-Talk to us
-
-Read the docs
-
-### Visual
-
-The nCore architecture visual.
+## Open items — all resolved (owner, 1 June 2026)
+1. ✅ **Stats verified** — values are correct as shown.
+2. ✅ **"Hybrid" dropped** — three native models only (Cloud, On-soil, On-premise).
+3. ✅ **Comparison "time to launch" verified** — 12–18 months vs weeks.
+4. ✅ **FAQ Q5** — market-neutral regulated/licensed line added (no CBUAE).
 
 ---
 
-## 2. Platform Proof
+# PROBLEM OPENER — NEW (pending owner approval, added 1 June 2026 for the nCore campaign)
 
-### Stats
+*Added so the page opens on tension, not features — a tight restatement of the homepage problem beat that sets up the hero below. Per campaign brief §7. Designer to host the signature "stitched stack → one core" animation here as the page centerpiece. Nothing else in this file changes.*
 
-**1,000+**
-APIs available
-
-**99.99%**
-Platform uptime
-
-**<2s**
-Transaction processing time
-
-**135+**
-Currencies supported
-
-### Supporting Line
-
-Principal Member of Visa · Principal Member of Mastercard
-
----
-
-## 3. Why We Built nCore
-
-### Headline
+**Headline**
 
 Your payments stack wasn't built. It was assembled.
 
-### Body
+**Body**
 
-A card processor, a separate fraud vendor, a ledger that doesn't talk to settlement, cross-border through someone else. Six vendors, six data silos, and six audit trails that don't reconcile.
-
-The result isn't a platform. It's a collection of systems trying to behave like one.
-
-### Pain Points
-
-**No single view of the customer**
-The same customer exists across multiple systems, creating conflicting records and fragmented data.
-
-**No real-time view**
-Data moves between systems in batches and syncs, leaving every decision a step behind.
-
-**Intelligence lives on the outside**
-Risk, fraud, and decisioning rely on disconnected data sources rather than a shared foundation.
-
-**A stack of vendors, not a platform**
-Cards, fraud, the ledger, and cross-border payments each come from different providers.
-
-**Slow to evolve**
-Every new product, feature, or market expansion means another integration and another implementation cycle.
-
-### Visual
-
-Legacy architecture visualization.
+A card processor, a separate fraud vendor, a ledger that doesn't talk to settlement, cross-border through someone else. Six vendors, six data silos, six audit trails that don't reconcile. nCore is the one platform underneath all of it.
 
 ---
 
-## 4. One Customer. One Record.
+# HERO
 
-### Headline
+**Headline**
 
-Every product starts with the same customer.
+Build every payment product on nCore.
 
-### Body
+**Description**
 
-Cards, lending, payments, risk, settlement, and reconciliation all read from the same customer record. No duplicate profiles, no conflicting balances, no disconnected histories.
+One customer record, one ledger, one audit trail — on a platform NymCard owns.
 
-Every decision starts with the same source of truth.
+**CTAs**
 
-### Visual
+Primary: Talk to us · Secondary: Read the docs
 
-Legacy:
-Customer A ×3
-
-↓
-
-nCore:
-Customer A ×1
+**Visual:** abstract "single core" hero render (Recraft — Concept 1: a luminous core with converging light ribbons, `/images/ncore/hero-core.webp`), replacing the NCoreStack artifact per owner feedback.
 
 ---
 
-## 5. The Data Layer
+# CAPABILITIES
 
-### Headline
+(Was "What you can build". Feature Chips block deleted.)
 
-One platform. One source of truth.
+**Build note (owner, 2026-06-01):** the products grid REUSES the homepage `ProductsBento` component as-is (no bespoke recreation). Its six products + copy come from the homepage. Only the AI/Insights band below it is nCore-specific. The per-layer copy below is reference only — the rendered product copy is whatever `ProductsBento` ships.
 
-### Body
+**Section heading**
 
-Every transaction, interaction, and operational event feeds a shared data layer. Cards, lending, money movement, settlement, financial crime, and reconciliation all operate on the same foundation.
+Every product in the payments stack, on one platform.
 
-You get cleaner operations, fuller visibility, and decisions you can rely on.
+**Intro**
 
-### Visual
+Every product in the modern payments stack, with AI and Insights running across all of them. Take one, or compose the whole platform.
 
-Unified data layer powering every product.
+**The product layers** (reference — rendered by `ProductsBento`):
 
----
+- **Cards** — Issuer processing across debit, credit, prepaid, and wallets — physical, virtual, and tokenized, with the full lifecycle built in.
+- **Lending** — Decisioning, origination, and servicing for BNPL, revolving credit, and installments — embedded directly in the payment flow.
+- **Money Movement** — Domestic rails, cross-border, FX, and remittance, without managing a separate provider for each.
+- **Settlement** — Real-time, multi-currency settlement — including stablecoin settlement — so liquidity isn't trapped between banking hours.
+- **Financial Crime** — Fraud, risk, 3D Secure, AML, sanctions, and identity — applied in the authorization path, not bolted on after.
+- **Reconciliation** — Automated reconciliation across ledger, schemes, and settlement, with reporting your finance and ops teams can act on.
 
-## 6. The Intelligence Layer
+**Across every layer** (two full-width cards beneath the products, matching the product-card treatment — eyebrow + short headline + one-sentence grey description):
 
-### Headline
-
-AI needs context.
-
-### Body
-
-Most financial platforms force intelligence to work across fragmented systems and incomplete data.
-
-nCore builds intelligence into the platform itself, so every model reads the same customer, transaction, and operational context.
-
-### Supporting Points
-
-Decisioning
-
-Risk
-
-Fraud
-
-Routing
-
-Monitoring
-
-Automation
-
-### Visual
-
-AI Intelligence Layer across the platform.
+- **AI** — Headline: "Intelligence in every decision" · Description (grey): Agentic, domain-trained models woven into decisioning, routing, underwriting, and monitoring across every layer.
+- **Insights** — Headline: "Your whole program in one view" · Description (grey): Dashboards and analytics across every product, so you see the whole program in one place.
 
 ---
 
-## 7. Six Capabilities. One Platform.
+# STATS
 
-### Headline
+(Positioned directly BELOW the hero, per owner feedback 2026-06-01.)
 
-Every stage of the payments stack.
+**Frame:** none — removed per owner (2026-06-01); the stats stand on their own, animated on scroll.
 
-### Body
+**Values (confirmed):**
 
-Launch a single capability or build your entire payments stack on one architecture.
-
-### Cards
-
-Issue and process prepaid, debit, credit, virtual, and tokenized cards on native processing, with real-time controls.
-
-### Lending
-
-Launch installment, revolving credit, and embedded lending programs on infrastructure built to scale.
-
-### Money Movement
-
-Move funds across cards, accounts, wallets, and cash networks, at home and across borders.
-
-### Settlement
-
-Settle on programmable, always-on stablecoin infrastructure built for institutional payment flows.
-
-### Financial Crime
-
-Embed fraud prevention, AML, sanctions screening, identity verification, and risk controls directly into payment flows.
-
-### Reconciliation
-
-Automate matching, exception management, and operational reporting across every transaction.
+1. **1,000+** — APIs available
+2. **99.99%** — Platform uptime
+3. **<2s** — Transaction processing time
+4. **135+** — Currencies supported
 
 ---
 
-## 8. Migration & Modernisation
+# CONNECTIVITY
 
-### Headline
+**Layout (owner 2026-06-01):** two-column section that earns its space — value prop on the left, the orbit (nCore centered, 5 logos, no spokes) on the right.
 
-Modernise without starting over.
+**Section heading**
 
-### Body
+Connected to the schemes and networks before you arrive.
 
-Move from fragmented infrastructure to nCore in phases, keeping existing programs live throughout the transition.
+**Body**
 
-### Supporting Points
+nCore comes pre-integrated with the card schemes and payout networks your programs run on — so you launch on certified rails from day one, instead of spending months on scheme certification and network connectivity.
 
-Phased migration
+**Logos (market-agnostic set):**
 
-Parallel runs
+Visa · Mastercard · Visa Direct · Western Union · MoneyGram
 
-Portfolio migration
-
-Re-carding support
-
-AI-led migration tooling
-
-### CTA
-
-Explore Migration & Modernisation →
+(5 logos orbiting nCore, no connector spokes. Mastercard Cross-Border dropped per owner 2026-06-01.)
 
 ---
 
-## 9. Deployment
+# DEPLOYMENT
 
-### Headline
+**Section heading**
 
-Run nCore where your data has to live.
+Deploy on your terms.
 
-### Body
+**Description**
 
-Deploy the same platform in the model your regulator, your infrastructure, and your business require.
+nCore connects to your existing core banking system — no replacement required — and runs in the model your regulator and infrastructure call for.
 
-### Options
+**Deployment chips:**
 
-Cloud
+Cloud · On-soil · On-premise
 
-On-soil
+**Supporting line:**
 
-On-premise
-
-### Supporting Line
-
-Connects to your existing core banking platform. No replacement required.
+PCI DSS Level 1 certified · ISO 27001 certified · Principal member of Visa · Principal member of Mastercard
 
 ---
 
-## 10. Developers
+# MIGRATION
 
-### Headline
+**Section heading**
 
-Built for engineers.
+Migrate without taking your program down.
 
-### Body
+**Description**
 
-Comprehensive APIs, implementation guides, webhooks, and developer tooling that get you to integration faster.
+Phased migration from legacy processors, fragmented stacks, or in-house builds — full portfolio, re-carding, and parallel runs all supported. Your program stays live throughout, and your customers never feel the cutover.
 
-### CTA
+---
+
+# COMPARISON
+
+**Section heading**
+
+What you get on nCore that legacy processors can't give you.
+
+**Columns:** Legacy processors | nCore
+**Design note:** prefer a one-word *reality* per side over all-✓/all-✗ (more credible to institutional buyers). Cut to these 6 rows.
+
+| Dimension | Legacy processors | nCore |
+| --- | --- | --- |
+| Time to launch | 12–18 months | weeks |
+| Cards, payments, and credit | separate vendors | one platform |
+| Scheme connectivity | you integrate | pre-integrated |
+| Settlement | banking hours | real-time, incl. stablecoin |
+| Deployment | fixed model | cloud, on-soil, or on-premise |
+| Compliance | bolted on | in the authorization path |
+
+---
+
+# DEVELOPER
+
+(Moved above FAQ.)
+
+**Section heading**
+
+Built for your engineers to integrate fast.
+
+**Body**
+
+Full API access, SDKs, a sandbox, and webhooks — so your engineers ship without waiting on NymCard.
+
+**CTA**
 
 Read the docs
 
 ---
 
-## 11. FAQ
+# FAQ
 
-(Keep existing FAQ section.)
+**Section heading**
+
+Common questions
+
+**Items:**
+
+Q: What is nCore?
+A: nCore is NymCard's proprietary payments and banking platform — a single architecture that powers card issuing, embedded lending, cross-border payments, settlement, and financial crime controls. Banks, fintechs, and digital businesses build on nCore without stitching together multiple vendors or systems.
+
+Q: How is nCore different from a core banking system?
+A: nCore is not a core banking replacement. It's a payments and banking infrastructure layer that connects to your existing core — enabling card programs, payment flows, credit products, and settlement without rebuilding what you already run.
+
+Q: What can you build on nCore?
+A: Card issuing (prepaid, debit, credit), embedded lending (BNPL, revolving, installment), domestic and cross-border payments, settlement including stablecoin settlement, and multi-currency accounts — all on a single architecture.
+
+Q: What deployment options does nCore support?
+A: nCore can be deployed in the cloud, on-soil, or on-premise — depending on your regulatory requirements and infrastructure model. It connects to your existing core banking system without replacement.
+
+Q: Is nCore regulated and certified?
+A: nCore is PCI DSS Level 1 certified and ISO 27001 certified. NymCard is a licensed and regulated payments provider and a principal member of Visa and Mastercard.
+
+(Q6 "What markets does nCore operate in?" removed — market-agnostic decision.)
+
+**JSON-LD:** FAQPage schema on /platform/ncore (existing FAQ component pattern).
 
 ---
 
-## 12. Final CTA
+# FINAL CTA
 
-### Headline
+**Headline**
 
-See what your stack looks like on nCore.
+Talk to our team.
 
-### Body
+**Description**
 
-Talk to the team about modernizing your infrastructure and building on a platform designed for modern payments.
+See how banks, fintechs, and digital businesses build their payment programs on nCore.
 
-### CTA
+**CTAs**
 
-Talk to us
-Read the docs
+[ Talk to us ] [ Read the docs ]
 
 ---
+
+# META
+
+**Page title:** nCore — Payments and Banking Platform | NymCard
+
+**Meta description:** nCore is NymCard's payments and banking platform — card issuing, embedded lending, cross-border payments, and stablecoin settlement on a single architecture.
+
+**Primary keyword:** nCore payments platform
+
+**Secondary keywords:** payments processing platform, card issuing infrastructure, modular payments platform, nCore NymCard

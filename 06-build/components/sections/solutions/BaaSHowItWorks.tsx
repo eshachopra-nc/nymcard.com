@@ -5,10 +5,10 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import { SectionAtmosphere } from "@/components/visuals/SectionAtmosphere";
 import { dur, ease } from "@/components/visuals/motion";
 
-// ── Banking as a Service §5 — How It Works ───────────────────────────────────
+// ── Banking-as-a-Service §5 — From Concept To Live Bank ──────────────────────
 //
-// Copy mirrored VERBATIM from 02-copy/usecase-banking-as-a-service.md §How It
-// Works.
+// Copy mirrored VERBATIM from 02-copy/usecase-banking-as-a-service.md
+// §"From Concept To Live Bank".
 //
 // A four-step stepped row — Design → Configure → Launch → Scale — on a
 // blueprint spine. Each step is a numbered node with a title and the verbatim
@@ -16,25 +16,26 @@ import { dur, ease } from "@/components/visuals/motion";
 // up-fade), and a faint blueprint connector runs through the numbered nodes on
 // desktop. Light, on a contained SectionAtmosphere wash. No eyebrow — the
 // headline leads. Reduced-motion: everything renders at rest, no reveal.
+// (The copy's Visual Direction: "keep the current four-step journey".)
 
 const COPY = {
-  headline: "From concept to live bank.",
+  headline: "Go from idea to launch faster.",
   steps: [
     {
       title: "Design",
-      body: "Define your products, markets, currencies, and operating model.",
+      body: "Define your proposition, customer journeys, and operating model.",
     },
     {
       title: "Configure",
-      body: "Set up accounts, cards, payments, settlement, and controls on one platform.",
+      body: "Set up products, controls, workflows, and programme rules.",
     },
     {
       title: "Launch",
-      body: "Go live under your own brand with infrastructure already connected underneath.",
+      body: "Launch under your brand on infrastructure that's already connected.",
     },
     {
       title: "Scale",
-      body: "Expand products, markets, and customer experiences on the same architecture.",
+      body: "Add products, markets, and capabilities without rebuilding your platform.",
     },
   ],
 } as const;

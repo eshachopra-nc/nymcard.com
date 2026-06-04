@@ -15,16 +15,11 @@ import {
   Shield,
   Phone,
   ShoppingCart,
-  Plane,
   Heart,
-  Car,
   Users,
   Briefcase,
   MessageSquare,
   Megaphone,
-  CalendarClock,
-  Globe2,
-  Send,
   Wallet,
   type LucideIcon,
 } from 'lucide-react'
@@ -181,30 +176,27 @@ const productItems: ProductItem[] = [
 export const industryItems: ProductItem[] = [
   { kind: 'product', id: 'commercial-banking',  label: 'Commercial Banking',   description: 'SME and corporate payments',          href: '/solutions/commercial-banking',  icon: Building2    },
   { kind: 'product', id: 'retail-banking',       label: 'Retail Banking',       description: 'Digital banking capabilities',        href: '/solutions/retail-banking',      icon: Home         },
-  { kind: 'product', id: 'neobanks',             label: 'Neobanks',             description: 'Full digital bank, API-first',         href: '/solutions/neobanks',            icon: Wallet       },
   { kind: 'product', id: 'exchange-houses',      label: 'Exchange Houses',      description: 'Cross-border payment infrastructure', href: '/solutions/exchange-houses',     icon: Shield       },
   { kind: 'product', id: 'fintechs',             label: 'Fintechs',             description: 'Launch regulated payment products',   href: '/solutions/fintechs',            icon: Zap          },
   { kind: 'product', id: 'telecommunications',  label: 'Telecommunications',   description: 'Embedded financial experiences',      href: '/solutions/telecommunications',  icon: Phone        },
   { kind: 'product', id: 'retail-marketplaces', label: 'Retail & Marketplaces', description: 'Cards, credit, and payouts',         href: '/solutions/retail-marketplaces', icon: ShoppingCart },
-  { kind: 'product', id: 'travel',              label: 'Travel',               description: 'Multi-currency payment flows',        href: '/solutions/travel',              icon: Plane        },
   { kind: 'product', id: 'healthcare',          label: 'Healthcare',           description: 'Patient and provider payments',       href: '/solutions/healthcare',          icon: Heart        },
   { kind: 'product', id: 'government',          label: 'Government',           description: 'Disbursement and payment systems',    href: '/solutions/government',          icon: Landmark     },
-  { kind: 'product', id: 'mobility',            label: 'Mobility',             description: 'Payments for transport ecosystems',   href: '/solutions/mobility',            icon: Car          },
 ]
 
 /* ═══════════════════════════════════════════════════════
-   3b. SOLUTIONS — Use Cases (7 items, outcome-led) — mirrors
-   the homepage Solutions / Use Cases section. Pairs with
-   industryItems above.
+   3b. SOLUTIONS — By Use Case (4 built pages, outcome-led).
+   Pairs with industryItems above to form the two-section
+   "Solutions" dropdown (By Use Case / By Industry). Labels +
+   slugs mirror the use-case copy files in ../02-copy/usecase-*.md.
+   NOTE: "Digital Banking" is the nav label for the Banking-as-a-
+   Service page (slug stays /solutions/banking-as-a-service for SEO).
 ═══════════════════════════════════════════════════════ */
 const useCaseItems: ProductItem[] = [
-  { kind: 'product', id: 'commercial-payments', label: 'Run a commercial card programme', description: 'SME and corporate cards, with Visa',           href: '/solutions/commercial-payments', icon: Building2     },
-  { kind: 'product', id: 'launch-a-bank',       label: 'Launch a bank',                   description: 'Accounts, cards, payments, ledger',            href: '/solutions/launch-a-bank',       icon: Landmark      },
-  { kind: 'product', id: 'embedded-finance',    label: 'Embed financial products',        description: 'Cards & credit inside your product',           href: '/solutions/embedded-finance',    icon: Layers        },
-  { kind: 'product', id: 'buy-now-pay-later',   label: 'Offer buy now, pay later',        description: 'Decisioning and servicing at checkout',         href: '/solutions/buy-now-pay-later',   icon: CalendarClock },
-  { kind: 'product', id: 'disbursements',       label: 'Disburse at scale',               description: 'Payouts to suppliers, gig workers, payroll',    href: '/solutions/disbursements',       icon: Send          },
-  { kind: 'product', id: 'remittances',         label: 'Power remittances',               description: 'Cross-border send-and-receive across MEA',      href: '/solutions/remittances',         icon: Globe2        },
-  { kind: 'product', id: 'mobile-wallet',       label: 'Launch a mobile wallet',          description: 'Consumer or agent-led wallets, P2P and CICO',   href: '/solutions/mobile-wallet',       icon: Wallet        },
+  { kind: 'product', id: 'digital-banking',     label: 'Digital Banking',     description: 'Launch a bank on nCore',       href: '/solutions/banking-as-a-service', icon: Landmark  },
+  { kind: 'product', id: 'embedded-finance',    label: 'Embedded Finance',    description: 'Launch financial experiences', href: '/solutions/embedded-finance',     icon: Layers    },
+  { kind: 'product', id: 'digital-wallets',     label: 'Digital Wallets',     description: 'Move, store, and spend',       href: '/solutions/digital-wallets',      icon: Wallet    },
+  { kind: 'product', id: 'commercial-payments', label: 'Commercial Payments', description: 'Power business finance',       href: '/solutions/commercial-payments',  icon: Building2 },
 ]
 
 /* ═══════════════════════════════════════════════════════
@@ -222,14 +214,11 @@ const companyRightItems: SimpleItem[] = [
 ]
 
 /* ═══════════════════════════════════════════════════════
-   FULL NAV CONFIG — Platform · Products · Industries · Company
-   Top-level mirrors ../02-copy/Navigation.md (Platform, Products,
-   Industries, … Company). A prior build wrongly replaced the
-   standalone "Industries" entry with a "Solutions" dropdown whose
-   use-case items linked to /solutions/* routes that don't exist —
-   restored here to "Industries" (the 11 industry pages). The
-   use-case (`useCaseItems`) list is kept defined for a future
-   Solutions surface but is not in the nav.
+   FULL NAV CONFIG — Platform · Products · Solutions · Company
+   Top-level mirrors ../02-copy/Navigation.md. "Solutions" is now a
+   two-section dropdown (mirroring Company): "By Use Case" (the 4
+   built use-case pages) over "By Industry" (the 8 live industry
+   pages). The use-case routes now exist, so they are live in the nav.
 ═══════════════════════════════════════════════════════ */
 export const NAV_ITEMS: NavItemConfig[] = [
   {
@@ -243,12 +232,15 @@ export const NAV_ITEMS: NavItemConfig[] = [
     dropdown: { type: 'products', items: productItems },
   },
   {
-    id: 'industries',
-    // Labelled "Solutions" per owner; the dropdown still lists the 11 industry
-    // pages (the working routes). id/type kept as 'industries' so rendering and
-    // links are unchanged — only the visible top-level label differs.
+    id: 'solutions',
     label: 'Solutions',
-    dropdown: { type: 'industries', items: industryItems },
+    dropdown: {
+      type: 'solutions',
+      useCaseLabel: 'By Use Case',
+      useCaseItems,
+      industryLabel: 'By Industry',
+      industryItems,
+    },
   },
   {
     id: 'company',

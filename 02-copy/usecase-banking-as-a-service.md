@@ -5,8 +5,23 @@
 **Nav label:** Digital Banking
 **Nav sub-description:** Launch a bank on nCore
 
+---
 
-## Hero
+# Digital Banking
+
+## Meta
+
+**Page title:** Banking-as-a-Service Platform | Launch a Digital Bank | NymCard
+
+**Meta description:** Launch digital banking experiences with cards, payments, lending, wallets, and compliance running on one platform.
+
+**Primary keyword:** banking as a service platform
+
+**Secondary keywords:** digital banking platform, launch a digital bank, banking infrastructure, embedded banking, banking as a service infrastructure
+
+---
+
+# Hero
 
 ### Headline
 
@@ -14,159 +29,247 @@ Launch a bank, not a stack of vendors.
 
 ### Description
 
-Accounts, cards, payments, settlement, and financial crime running on one platform. Launch under your own brand on infrastructure designed to operate as a single system.
+Accounts, cards, payments, lending, and financial crime running on one platform. Launch under your brand on infrastructure designed to operate as a single system.
 
 ### CTA
 
-Talk to our team
+Talk to us
+
+### Secondary CTA
 
 Explore nCore →
 
 ---
 
-## The Problem
-
-### Headline
-
-Launching a bank usually means assembling one.
-
-### Body
-
-Most banking platforms are stitched together from multiple vendors. A processor for cards. Another provider for payments. Separate systems for settlement, fraud, and compliance.
-
-The result is a fragmented stack where every product operates differently, every customer exists multiple times, and every launch becomes another integration project.
-
-### Pain Points
-
-**No single view of the customer**
-Cards, payments, onboarding, and risk often operate on different systems and different customer records.
-
-**Every product adds complexity**
-Launching a new capability usually means introducing another vendor, another contract, and another integration.
-
-**Operations become the integration layer**
-Teams spend time reconciling systems that were never designed to work together.
-
----
-
-## The Shift
+# Everything A Digital Bank Needs. Already Connected.
 
 ### Headline
 
 One platform. Every banking flow.
 
-### Body
+### Description
 
-nCore brings cards, money movement, settlement, and financial crime onto a single architecture with one customer record, one data layer, and one audit trail.
+nCore brings cards, payments, lending, financial crime, settlement, and reconciliation together on a single architecture with one customer record and one operational model.
 
-The layers arrive already connected, so you launch a bank instead of integrating one.
+### Key Benefits
 
-### What Changes
+#### One customer record
 
-**One customer record**
 Every product reads from the same source of truth.
 
-**One operational model**
+#### One operational model
+
 Products, transactions, and controls operate on the same architecture.
 
-**One platform to grow on**
-Add products, currencies, and markets without rebuilding the stack underneath.
+#### One platform to grow on
+
+Add products, channels, and markets without rebuilding the stack underneath.
 
 ---
 
-## What It Includes
+## Visual Direction
 
-### Headline
+This should be the hero visual of the page.
 
-Everything you need to launch and operate a bank.
+Large central customer record.
 
-### Cards
+Connected modules:
 
-Issue debit, credit, prepaid, virtual, and tokenised cards under your own brand.
+* Accounts
+* Cards
+* Payments
+* Lending
+* Financial Crime
+* Settlement
+* Reconciliation
 
-### Money Movement
+The message:
 
-Move funds across accounts, wallets, cards, and cash networks domestically and across borders.
-
-### Settlement
-
-Modernise settlement with programmable, always-on stablecoin infrastructure designed for institutional payment flows.
-
-### Financial Crime
-
-Embed identity, fraud, AML, sanctions screening, and risk controls directly into the transaction flow.
+One customer.
+One platform.
+One banking system.
 
 ---
 
-## How It Works
+# Build Your Proposition
 
 ### Headline
 
-From concept to live bank.
+Build the banking experience you want to launch.
+
+### Description
+
+Launch one product or combine multiple capabilities on the same platform.
+
+### Everyday Banking
+
+Cards, accounts, payments, and wallets designed for everyday financial activity.
+
+### Consumer Lending
+
+Installments, revolving credit, BNPL, and embedded lending experiences.
+
+### Business Banking
+
+Commercial cards, business payments, and financial services for SMEs.
+
+### Cross-Border Banking
+
+International payments, FX, remittance, and global money movement.
+
+---
+
+## Visual Direction
+
+Four proposition cards.
+
+Each card should represent a banking proposition, not an individual product.
+
+Avoid product catalogue layouts.
+
+Focus on customer-facing experiences.
+
+---
+
+# Launch Under Your Brand
+
+### Headline
+
+Infrastructure underneath. Your brand on top.
+
+### Description
+
+Launch customer experiences through white-label applications, APIs, and SDKs without building every layer from scratch.
+
+### Mobile App
+
+Deliver digital banking experiences through fully branded mobile applications.
+
+### Web Experience
+
+Provide customers with modern banking experiences through web portals and self-service channels.
+
+### Admin Portal
+
+Manage customers, products, programmes, and operations through a unified control centre.
+
+### APIs & SDKs
+
+Embed capabilities directly into existing digital channels and customer journeys.
+
+### Supporting Statement
+
+Everything running on the same infrastructure and customer record.
+
+---
+
+## Visual Direction
+
+Show:
+
+* Mobile App
+* Web App
+* Admin Portal
+
+Connected to:
+
+nCore
+
+This should feel premium and customer-facing.
+
+Avoid infrastructure diagrams.
+
+---
+
+# From Concept To Live Bank
+
+### Headline
+
+Go from idea to launch faster.
 
 ### Design
 
-Define your products, markets, currencies, and operating model.
+Define your proposition, customer journeys, and operating model.
 
 ### Configure
 
-Set up accounts, cards, payments, settlement, and controls on one platform.
+Set up products, controls, workflows, and programme rules.
 
 ### Launch
 
-Go live under your own brand with infrastructure already connected underneath.
+Launch under your brand on infrastructure that's already connected.
 
 ### Scale
 
-Expand products, markets, and customer experiences on the same architecture.
+Add products, markets, and capabilities without rebuilding your platform.
 
 ---
 
-## Platform Proof
+## Visual Direction
+
+Keep the current four-step journey.
+
+This section already works well.
+
+---
+
+# Why nCore
 
 ### Headline
 
-Infrastructure a bank can build on.
+Infrastructure built to scale.
 
-### Metrics
+### 99.99% Platform Uptime
 
-**99.99%**
-Platform uptime
+### <2s Transaction Processing
 
-**<2s**
-Transaction processing time
+### 1,000+ APIs
 
-**1,000+**
-APIs available
+### 135+ Supported Currencies
 
-**135+**
-Currencies supported
+### Principal Member Of Visa
 
-### Trust
-
-Principal Member of Visa
-
-Principal Member of Mastercard
-
-PCI DSS Level 1
-
-ISO 27001
+### Principal Member Of Mastercard
 
 ---
 
-## Deployment
+## Visual Direction
+
+Platform proof section.
+
+Simple metrics.
+
+No heavy copy.
+
+---
+
+# Deploy Where Your Data Has To Live
 
 ### Headline
 
-Deploy where your data has to live.
+Choose the deployment model that fits your requirements.
 
-### Body
+### Description
 
-Run on nCore in the cloud, on-soil, or on-premise, while connecting to the core banking platform you already operate.
+Run nCore in the cloud, on-soil, or on-premise while connecting to the banking infrastructure you already operate.
+
+### Cloud
+
+### On-Soil
+
+### On-Premise
 
 ---
 
-## CTA
+## Visual Direction
+
+Keep the current deployment section.
+
+Dark background works well here.
+
+---
+
+# CTA
 
 ### Headline
 
@@ -174,8 +277,39 @@ Build your bank on one platform.
 
 ### Description
 
-See how financial institutions launch banking experiences on nCore without assembling a stack of vendors.
+See how financial institutions launch digital banking experiences without assembling a stack of vendors.
 
 ### CTA
 
-Talk to our team
+Talk to us
+
+---
+
+## Notes For Claude Code
+
+This page is a use-case page.
+
+It is not:
+
+* A Homepage
+* An nCore page
+* A Migration page
+
+Do not include:
+
+* Legacy infrastructure messaging
+* Vendor fragmentation diagrams
+* Problem sections
+
+The visitor already understands the opportunity.
+
+The narrative is:
+
+Launch A Bank
+→ Everything Connected
+→ Choose Your Proposition
+→ Launch Your Brand
+→ Go Live
+→ Scale
+
+The page should feel aspirational, customer-facing, and outcome-driven rather than infrastructure-heavy.

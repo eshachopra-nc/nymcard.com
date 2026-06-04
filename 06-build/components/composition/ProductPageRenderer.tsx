@@ -89,15 +89,12 @@ const NO_INDUSTRIES_GRID = new Set(["financial-crime", "settlement", "reconcilia
 const REAL_INDUSTRY_HREFS = new Set([
   "/solutions/commercial-banking",
   "/solutions/retail-banking",
-  "/solutions/neobanks",
   "/solutions/exchange-houses",
   "/solutions/fintechs",
   "/solutions/telecommunications",
   "/solutions/retail-marketplaces",
-  "/solutions/travel",
   "/solutions/healthcare",
   "/solutions/government",
-  "/solutions/mobility",
 ]);
 
 export function ProductPageRenderer({ doc: rawDoc }: Props) {

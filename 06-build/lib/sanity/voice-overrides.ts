@@ -65,7 +65,6 @@ const HREF_FIXES: Record<string, string> = {
   "/solutions/banks": "/solutions/retail-banking",
   "/solutions/retail": "/solutions/retail-marketplaces",
   "/solutions/telecoms": "/solutions/telecommunications",
-  "/solutions/automotive": "/solutions/mobility",
   "/solutions/consumer-banking": "/solutions/retail-banking",
   "/solutions/marketplaces": "/solutions/retail-marketplaces",
   "/solutions/remittance": "/solutions/exchange-houses",

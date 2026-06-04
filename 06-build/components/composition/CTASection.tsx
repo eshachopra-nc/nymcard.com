@@ -80,9 +80,17 @@ export function CTASection({
           repeats it. */}
       <KineticRibbon intensity={ribbon} focus="bottom-right" />
 
-      {/* Optional atmosphere slot — sits between the ribbon and the glow. */}
+      {/* Optional atmosphere slot — sits between the ribbon and the glow. A
+          centred radial mask fades the traces OUT behind the headline column
+          so they never collide with the copy. In light mode the traces sit at
+          higher contrast against the soft surface, so the legibility clearing
+          matters most there; the mask is theme-agnostic and harmless in dark.
+          The clearing is a soft ellipse over the centred text measure. */}
       {backgrounds && (
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 [mask-image:radial-gradient(58%_64%_at_50%_50%,transparent_0%,transparent_34%,#000_72%)] [-webkit-mask-image:radial-gradient(58%_64%_at_50%_50%,transparent_0%,transparent_34%,#000_72%)]"
+        >
           {backgrounds}
         </div>
       )}

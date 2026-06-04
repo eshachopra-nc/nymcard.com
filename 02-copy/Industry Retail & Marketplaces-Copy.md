@@ -6,255 +6,354 @@
 
 **Navigation:** Industries › Retail & Marketplaces
 
-**Last updated:** 25 May 2026
+**Last updated:** 4 June 2026
 
 ---
 
-# Page brief
+# Retail & Marketplaces
 
-Ten-section industry page derived from the locked arc in `00-strategy/about-nymcard/industry-page-arc.md`. Voice modeled on Stripe, Vercel, Linear, Brex. UIs carry the story.
+## Meta
 
-Deviations from the canonical arc: none. Standard 9-section build (no PayKit callout — retail and marketplace platforms typically have their own front-end and checkout; PayKit doesn't earn its place here, but stays available as a Service).
+**Page title:** Retail & Marketplace Payments Infrastructure | NymCard
 
-**Story arc:**
+**Meta description:** Launch loyalty programmes, branded cards, embedded finance, seller payouts, and payment experiences on infrastructure designed for retailers and marketplaces.
 
-1. Hero — What is this for my industry?
-2. Outcome chips — What's in it for me?
-3. Challenge / Solution — Why does my industry need this?
-4. What you can build — What can I actually build?
-5. Platform — Is your platform serious?
-6. Developer — How does my team integrate?
-7. Cross-sells — Which products power this?
-8. FAQ — What about edge cases?
-9. Final CTA — Where do I go next?
+**Primary keyword:** retail payments infrastructure
+
+**Secondary keywords:** marketplace payments platform, embedded finance for retailers, loyalty cards, seller payouts, BNPL infrastructure, marketplace financial services
 
 ---
 
-# 1. Hero
+# Hero
 
-**Headline**
+### Headline
 
-Embed payments and credit into the commerce experience.
+Turn every transaction into a financial relationship.
 
-**Sub-copy**
+### Description
 
-Gift cards, BNPL, co-branded cards, and seller payouts — built for retail and marketplace platforms that own the full payment experience.
+Launch loyalty, payments, cards, financing, and seller services on infrastructure designed for retailers and marketplaces that want to own more of the customer journey.
 
-**Primary CTA:** Talk to us
+### CTA
 
-**Visual**
-
-F-pattern asymmetric, text left, UI right. A commerce surface: a checkout with a BNPL plan applied, a co-branded card in the partner's brand, and a seller payout dashboard — all on one platform.
+Talk to us
 
 ---
 
-# 2. Outcome chips
+# Why Retail Is Changing
 
-**Design note:** 3 chips directly below hero. Component: `OutcomeChips`.
+### Headline
 
-1. Icon: TrendingUp — **Revenue at every touchpoint** — Interchange, credit, and FX margin stay with your platform — not a third-party provider's.
-2. Icon: ShoppingBag — **Own the checkout experience** — Cards, BNPL, and wallets embedded directly — no dependency on external providers at checkout.
-3. Icon: Users — **Keep customers in your ecosystem** — Branded financial products build loyalty and reduce the incentive to shop elsewhere.
+The transaction is no longer the finish line.
 
----
+### Description
 
-# 3. Challenge / Solution
+The most successful retailers and marketplaces are extending beyond commerce into payments, loyalty, financing, and financial services. The opportunity is to increase customer lifetime value, strengthen loyalty, and create new revenue streams beyond the sale.
 
-*(No section headline. Two short paragraphs.)*
+### Outcomes
 
-**The challenge**
+#### Increase customer lifetime value
 
-Retail and marketplace platforms depend on third-party providers at every point in the commerce journey — checkout, payout, rewards, and credit. Each provider adds cost, integration overhead, and a layer of dependency between you and your customer.
+#### Create new revenue streams
 
-**The solution**
-
-NymCard brings card issuing, BNPL, seller payouts, and co-branded programs onto one platform — so retailers and marketplaces control the payment experience end-to-end.
+#### Own more of the customer journey
 
 ---
 
-# 4. What you can build
+## Visual Direction
 
-**Eyebrow:** What you can build
+Three outcome cards.
 
-**Design note:** 4 alternating TextImage rows. Component: `TextImageRow`.
+No product references.
 
-**Co-branded and loyalty cards** *[copy left, UI right]*
-
-Issue co-branded debit or credit cards linked to your loyalty or rewards program — with interchange revenue and customer spend data retained by your platform.
-
-*Tertiary link:* Learn more about Card Issuing → `/products/card-issuing`
-
-*UI snippet:* A co-branded card detail surface with rewards tier, points, and live transactions.
-
-**BNPL and installments** *[copy right, UI left]*
-
-Embed point-of-sale financing directly into checkout — with configurable installments and no third-party BNPL provider in the flow.
-
-*Tertiary link:* Learn more about Lending → `/products/lending`
-
-*UI snippet:* A checkout surface with an installments toggle revealing an EMI schedule and approval state.
-
-**Gift and prepaid cards** *[copy left, UI right]*
-
-Branded gift card programs — physical and virtual — with closed-loop and open-loop options on one platform.
-
-*Tertiary link:* Learn more about Card Issuing → `/products/card-issuing`
-
-*UI snippet:* A gift card surface with balance, top-up, and a transaction history.
-
-**Seller and vendor payouts** *[copy right, UI left]*
-
-Payout cards and accounts for marketplace sellers, gig workers, and vendor networks — with real-time disbursement, spend controls, and visibility per recipient.
-
-*Tertiary link:* Learn more about Money Movement → `/products/money-movement`
-
-*UI snippet:* A seller payout dashboard with payouts clearing live and per-seller balances.
+Focus on business outcomes.
 
 ---
 
-# 5. Platform
+# From Commerce To Financial Services
 
-**Eyebrow:** Platform
+### Headline
 
-**Headline**
+Build financial experiences around every transaction.
 
-Built to integrate with your commerce stack.
+### Description
 
-**Body**
+Retailers and marketplaces already own customer relationships, purchase behaviour, and payment flows. Financial services become a natural extension of the commerce experience.
 
-Retail and marketplace platforms run on ecommerce, ERP, and marketplace systems that can't be replaced. nCore connects to them — API-first, modular, and deployable to your requirements.
+### Reward
 
-**Checklist (4–6 items). Component: `PlatformChecklist`.**
+Launch loyalty programmes, rewards, and branded payment experiences that keep customers engaged long after checkout.
 
-- API-first — connects to existing ecommerce, ERP, and marketplace systems
-- Cloud, on-soil, and on-premise deployment on the same platform
-- KYC and AML inside cardholder and seller onboarding
-- Principal member of Visa and Mastercard
-- PCI DSS Level 1 certified · ISO 27001 certified
+### Pay
 
----
+Enable customer payments, marketplace transactions, and seller payouts on the same platform.
 
-# 6. Developer
+### Finance
 
-**Eyebrow:** Developer
+Offer installment plans, BNPL, and embedded financing directly within the customer journey.
 
-**Headline**
+### Spend
 
-Built for your team to integrate.
+Issue branded cards linked to loyalty programmes, rewards, and customer accounts.
 
-**Body**
+### Grow
 
-Full API access, SDKs, sandbox, and webhooks — connects to your existing ecommerce, ERP, and marketplace systems without rebuilding around them.
-
-**Tertiary link:** Read the docs →
-
-**Component:** `DeveloperBlock`
+Create deeper customer relationships through financial products customers use every day.
 
 ---
 
-# 7. Cross-sells to NymCard products
+## Visual Direction
 
-**Design note:** 2 banners in a row. Component: `CrossSellBanner` 2-banner variant.
+Replace the current product-card grid.
 
-**Banner 1**
+Create a customer journey visual:
 
-- `leadIn:` Card Issuing
-- `body:` Issue co-branded, gift, and payout cards on infrastructure built to scale with your commerce platform.
-- `link.label:` See Card Issuing →
-- `link.href:` /products/card-issuing
+Discover
+↓
+Purchase
+↓
+Reward
+↓
+Pay
+↓
+Finance
+↓
+Return
 
-**Banner 2**
+Each stage activates a different financial service capability.
 
-- `leadIn:` Lending
-- `body:` Embed BNPL and installments directly into checkout on the same platform as your cards.
-- `link.label:` See Lending →
-- `link.href:` /products/lending
-
----
-
-# 8. FAQ
-
-*(No eyebrow.)*
-
-**Headline**
-
-Common questions.
-
-Clean accordion. **FAQPage JSON-LD mandatory** for AEO citation (flag for development).
-
-**1. What is retail and marketplace payment infrastructure?**
-
-It's the platform a retailer or marketplace uses to issue co-branded cards, run BNPL and gift card programs, and pay sellers and vendors — all on one platform, under the partner's brand. NymCard provides this as a modular stack.
-
-**2. Can we run BNPL at checkout without a third-party BNPL provider?**
-
-Yes. BNPL and installments run on the NymCard Lending layer, embedded directly into your checkout — no third-party BNPL in the flow.
-
-**3. Do sellers and vendors need a bank account to receive payouts?**
-
-No. Payouts can be made to NymCard-issued accounts or payout cards — no bank account required for the recipient.
-
-**4. Who owns the customer relationship and spend data?**
-
-You do. NymCard is white-label by default — the partner owns the brand, the customer relationship, and the spend data.
-
-**5. Can we start with one program and add others later?**
-
-Yes. You can start with one Cards or Lending program and add others as the platform grows — one customer record across all products.
-
-**6. What certifications does NymCard hold?**
-
-nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard.
+The visual should reinforce customer lifecycle expansion.
 
 ---
 
-# 9. Final CTA
+# Financial Services For Commerce
 
-*(No eyebrow. Centered.)*
+### Headline
 
-**Headline**
+Everything needed to own the payment experience.
 
-Talk to our team.
+### Loyalty & Rewards
 
-**Body**
+Create loyalty programmes and rewards experiences that strengthen customer retention.
 
-Launch co-branded cards, BNPL, gift cards, and seller payouts on one platform.
+### Branded Cards
 
-**Primary CTA:** Talk to us
+Launch co-branded, prepaid, debit, credit, and virtual card programmes.
 
-**Secondary CTA:** Read the docs
+### Embedded Finance
 
-**Component:** `CTASection`
+Offer BNPL, installments, and financing options directly at checkout.
 
----
+### Seller Services
 
-# META
+Support marketplace sellers with payouts, collections, and business payment capabilities.
 
-**Page title:** Payment and Credit Infrastructure for Retail & Marketplaces | NymCard
+### Payments
 
-**Meta description:** Gift cards, BNPL, co-branded cards, and seller payouts for retail and marketplace platforms — built on NymCard. Own the commerce payment experience end-to-end.
+Manage customer payments, merchant settlements, and money movement on the same platform.
 
-**Primary keyword:** retail payment infrastructure
+### Insights
 
-**Secondary keywords:** BNPL retail infrastructure, gift card platform, marketplace seller payouts, co-branded card program, retail embedded finance
-
-**Internal links:**
-
-- "Card Issuing" → /products/card-issuing
-- "Lending" → /products/lending
-- "Money Movement" → /products/money-movement
+Access transaction, customer, and payment intelligence in real time.
 
 ---
 
-# Changelog
+## Visual Direction
 
-**Approved (19 April 2026) → v2 (25 May 2026):** Realigned to the locked industry-page arc and current skill rules.
+Six capability cards around a central customer profile.
 
-- **Title Case → sentence case** throughout.
-- **Hero CTA:** *"Find out more →"* → *"Talk to us."*
-- **Final CTA:** *"Ready to Launch?"* + *"Tell us what you want to launch…"* + *"Request a Demo / Talk to Our Team"* → *"Talk to our team."* + plain body + *"Talk to us"* + *"Read the docs."*
-- **Platform bullets:** dropped *"Licensed by CBUAE"* and *"Integration with local and regional payment schemes"* (region-specific). *"PCI DSS certified"* → *"PCI DSS Level 1 certified."* *"On-premise, hybrid, and cloud"* aligned to architecture: cloud, on-soil, on-premise. Added *"Principal member of Visa and Mastercard."*
-- **What you can build:** added *"Learn more →"* tertiary links per row mapping to Card Issuing, Lending, and Money Movement.
-- **New §7 Cross-sells:** Card Issuing + Lending.
-- **New §8 FAQ:** 6 questions with industry-framed opener and FAQPage JSON-LD flagged for development.
-- **META:** dropped *"retail embedded finance CEMEA"* keyword; added internal links.
+Center visual:
+
+Customer Relationship
+
+Around it:
+
+* Loyalty
+* Payments
+* Cards
+* Financing
+* Sellers
+* Insights
+
+This should feel like an ecosystem, not a product catalogue.
+
+---
+
+# Launch Your Way
+
+### Headline
+
+Choose the experience that fits your platform.
+
+### Description
+
+Launch complete financial experiences or embed capabilities into the channels customers already use.
+
+### White-Label Customer Experience
+
+Deliver branded payment and financial services experiences without building from scratch.
+
+### Marketplace Financial Services
+
+Provide sellers and merchants with tools to manage payments, payouts, and financial operations.
+
+### APIs & SDKs
+
+Embed capabilities directly into ecommerce, POS, marketplace, and customer journeys.
+
+### Supporting Line
+
+Infrastructure, applications, and customer experiences operating on one platform.
+
+---
+
+## Visual Direction
+
+Three-column layout.
+
+1. Customer Experience
+2. Seller Experience
+3. APIs & SDKs
+
+Use realistic commerce UI examples.
+
+Avoid generic payment diagrams.
+
+---
+
+# Why Retailers & Marketplaces Choose NymCard
+
+### Headline
+
+Built for modern commerce.
+
+### Own The Customer Relationship
+
+Keep customer engagement, payment activity, and financial services within your ecosystem.
+
+### One Customer Record
+
+Purchases, payments, rewards, financing, and card activity contribute to the same source of truth.
+
+### Unified Risk Intelligence
+
+Build richer customer profiles using transaction behaviour, spending activity, and financing performance.
+
+### Real-Time Experiences
+
+Support instant payments, financing decisions, loyalty updates, and customer interactions.
+
+### Scale As You Grow
+
+Launch new financial products without rebuilding infrastructure.
+
+---
+
+## Visual Direction
+
+Five benefit cards surrounding a central commerce profile.
+
+Center visual:
+
+Customer
++
+Merchant
++
+Marketplace
+
+connected through one platform.
+
+Avoid repeating homepage architecture visuals.
+
+---
+
+# Explore nCore
+
+### Headline
+
+Everything running on one architecture.
+
+### Description
+
+Cards, lending, money movement, settlement, financial crime, and reconciliation operating through a shared infrastructure layer.
+
+### CTA
+
+Explore nCore →
+
+---
+
+## Visual Direction
+
+Simple bridge section.
+
+No product diagrams.
+
+No duplicated architecture visuals.
+
+---
+
+# FAQ
+
+Recommended questions:
+
+* How do retailers launch loyalty and payment programmes?
+* Can we offer BNPL without a third-party provider?
+* How do seller payouts work?
+* Can marketplaces issue branded cards?
+* Can we start with loyalty and add financing later?
+* What deployment models are available?
+* How is compliance handled?
+
+---
+
+# CTA
+
+### Headline
+
+Turn commerce into a financial ecosystem.
+
+### Description
+
+See how retailers and marketplaces launch payments, loyalty, financing, and seller services on one platform.
+
+### CTA
+
+Talk to us
+
+---
+
+## Notes For Claude Code
+
+This page should not feel like:
+
+* A Cards page
+* A Lending page
+* A Money Movement page
+
+The narrative is:
+
+Customer
+→ Purchase
+→ Loyalty
+→ Payments
+→ Finance
+→ Retention
+
+The buyer is:
+
+* Head of Payments
+* Head of Product
+* Marketplace Founder
+* Retail Innovation Lead
+* Chief Digital Officer
+
+Focus on customer lifetime value, loyalty, retention, and new revenue streams.
+
+Avoid product catalogue thinking.
+
+The transformation story is:
+
+Commerce Platform
+→ Financial Ecosystem
+

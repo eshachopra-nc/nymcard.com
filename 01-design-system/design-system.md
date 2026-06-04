@@ -994,6 +994,7 @@ The closing call-to-action that ends a page.
 - **Nothing else lives in the CTA section.** No adjacent product cards, no cross-link grid, no secondary content — the section is the CTA and nothing more. Cross-links belong in the nav and footer.
 - **Centred composition** — the one deliberate exception to the asymmetry default.
 - **Ribbon-led atmosphere is required** — never drop the ribbon for "a calm centred CTA"; the close earns its place by echoing the hero.
+- **The optional `backgrounds` trace layer is masked clear of the text (2026-06-04).** When a page passes `TopologyTraces` (or another trace primitive) into the `backgrounds` slot, that layer renders under a centred radial mask (`radial-gradient(58% 64% at 50% 50%, transparent 0% 34%, #000 72%)`) so the traces fade OUT behind the centred headline column and never reduce text legibility. The owner flagged the unmasked traces colliding with the CTA copy in light mode (where the traces sit at higher contrast on the soft surface); the mask is theme-agnostic and harmless in dark. Do not pass a trace layer without relying on this mask, and do not raise the trace density to "fill" the cleared centre — the clearing is the point.
 
 **Reference anchor:** `stripe-home-hero.png` (CTA treatment); the homepage hero's kinetic-ribbon vocabulary (closed via this section).
 
@@ -1176,7 +1177,7 @@ Numbered §8.19 because the industry-page arc (`00-strategy/about-nymcard/indust
 **When to use:** Directly below an industry-page hero (§8.12), as the second section of the page. Reads as the buyer's outcome answer to the hero promise.
 **When not to use:** As a feature grid (capabilities belong in §8.20 TextImageRow or §8.21 PlatformChecklist); as a chip cloud (this is a fixed three, not a wrap-list of tags).
 
-**Composition:** A row of three chips on the section surface — no card frame, no fill — separated from the hero above by a hairline. Each chip is an icon (left) + a bold 2–4 word label + a one-sentence body (right). On mobile, the row stacks and the icon sits above the label/body.
+**Composition:** A row of three chips on the section surface — no card frame, no fill. The chip group is marked with the **crosshair signature** (`CrosshairRails`) at its four corners, so it reads as one measured group on the section surface (the system's rail vocabulary), **not** a top-hairline divider and **not** three floating cards (2026-06-04: the prior `border-t … pt-9` top divider was removed in favour of the crosshair marks). Each chip is an icon (left) + a bold 2–4 word label + a one-sentence body (right). On mobile, the row stacks and the icon sits above the label/body.
 
 **Anatomy:**
 
@@ -1185,7 +1186,7 @@ Numbered §8.19 because the industry-page arc (`00-strategy/about-nymcard/indust
 | Icon | A small 36×36 tile, `radius-md` (8px), `bg-accent-cyan/10` light or `bg-accent-cyan/12` dark, icon glyph `text-accent-cyan`. Lucide icon at 18px / `strokeWidth=1.75`. The accent cyan is the system's outcome accent — never `brand-primary`, never decorative. |
 | Label | `body` Satoshi 700, `text-primary` light / `text-on-brand` dark. Sentence case, 2–4 words. |
 | Body | `body-sm`, `text-secondary`, one sentence. |
-| Row divider | `1px solid surface-border-subtle` along the top of the row — visually separates the chip row from the hero above. |
+| Group mark | `CrosshairRails` at the four corners of the `<ul>` content rectangle (the `<ul>` is the `relative` box). Replaces the old top hairline — the crosshair marks the group without a divider line that competed with the section above. |
 
 **Spec:**
 
@@ -1202,7 +1203,7 @@ Numbered §8.19 because the industry-page arc (`00-strategy/about-nymcard/indust
 - **Buyer-side outcomes, never capabilities.** "Real-time payouts" is an outcome ("revenue retained"); "real-time disbursement API" is a capability and belongs in §8.21.
 - **One sentence per chip body.** Two sentences belong in §8.20.
 - **Icons are accent cyan only.** Never `brand-purple`, never the warm palette — the chip row inherits the system's cool palette.
-- **No card frame.** The row reads as an editorial statement on the section surface, not three floating cards.
+- **No card frame, no top divider.** The row reads as an editorial statement on the section surface, marked as a group by the crosshair corners — never three floating cards, never fenced off by a top hairline.
 - **Light and dark parity.** The tile fill and icon colour resolve to the dark palette under `.dark`.
 
 **Reference anchor:** the Stripe homepage feature-strip row (small icon + bold label + one line beneath) — recoloured to the cool palette and bound to three items.
@@ -1624,6 +1625,50 @@ The nCore full-stack campaign's owned visual (strategy §5): the narrative that 
 - **Reusable, produced once.** `FragmentationWeb` and `NCoreStack` feed the homepage beats; `SignatureStitchToCore` packages the morph for the nCore-page centerpiece and a looping social asset (strategy §5: one idea, everywhere).
 
 **Reference + bar:** `/visual-system` → Artifacts → "FragmentationWeb" + "Signature moment" (light + dark). Verify against `/visual-system/glass`.
+
+### 8.31 Connected stepper — `ConnectedStepper`
+
+A vertical flow of connected steps, each a navy→cyan gradient node (the site's product-icon chip language) threaded onto a single continuous spine, with a title + body to its right. **The canonical treatment for a short "what changes / how this flows / the sequence" narrative beat** — the beat that otherwise kept shipping as a flat bordered 3-up row and reading flat (owner note, 4 June, Embedded Finance: "this section is too flat").
+
+**Why it exists.** The connected spine makes a "one platform / one continuous run" idea *literal*: several discrete changes, one unbroken thread. It gives the beat depth and motion without a bespoke product-UI illustration — it is a layout/typographic composition built from the kit (gradient chips + a hairline spine + copy), carrying no fabricated data, no window chrome, no live ticker.
+
+**When to use:** a 2–5 item "what changes," "how it flows," or "the sequence" beat inside an asymmetric feature-show, especially when the point is that the items connect into one system. **When not to use:** a parallel set of unrelated capabilities (use modular cards §8.5); a four-stage horizontal *process* with a numbered node row (that's the `How It Works` timeline pattern); anything that wants a real product UI.
+
+**Anatomy:** `components/visuals/ConnectedStepper.tsx`. Steps are `{ title, body, icon? }`; with an icon the node renders it, without one it renders the 1-based index. The spine is a faint hairline (`surface-border-stronger` / `surface-dark-border` in dark) with the navy→cyan gradient bleeding up from the first node so the run reads as one connected platform. **Compose it inside a `GlassPanel` floating on `GlassAtmosphere`** (never a flat bed, §8.1) when it carries a section's right column — that is the Embedded Finance §3 "The Shift" composition.
+
+**Motion (Rule 6 / §9.9):** on first scroll-into-view (`whileInView`, once) the spine draws top-to-bottom (`scaleY`, cinematic), then the nodes + copy reveal in sequence; each row lifts its node a hair on hover (the Stripe-style react). Reduced-motion renders everything at rest with the spine fully drawn — no reveal, no perpetual motion.
+
+**Reference + bar:** `/visual-system` → Artifacts → "ConnectedStepper" (light + dark). Verify glass composition against `/visual-system/glass`.
+
+### 8.32 Section-archetype variety kit — `components/sections/archetypes/`
+
+A set of genuinely DISTINCT, reusable section-LAYOUT archetypes so content pages — especially the coded industry/solution pages under `app/(site)/solutions/*` — can be composed with **structural variety** instead of resolving every section to the same luminous glass-card grid. Authored 2026-06-04 in direct response to the owner's verdict that the scaffolded industry pages "read as one page eight times… the same design treatment of glass cards, no variation."
+
+**Why it exists.** The §8.1 luminous product-illustration card (`IllustrationField` + `IllustrationCard`) is the right surface for a **marquee product-UI slot** — but it became the *only* treatment, so every section looked identical. The fix is not a new card; it is a kit of non-card layouts. The luminous card stays in the toolbox for the ONE marquee product-UI section per page; every other section uses a non-card archetype, so no two sections of a page share a treatment.
+
+**The archetypes** (all: tokens only, cool palette — navy + cyan lead, violet an object accent only; light-first restraint; light AND dark; motion = static at rest + reveal-on-scroll via `StaggerList` (`whileInView`, once) + restrained CSS hover; reduced-motion safe; server components except where an ambient field needs the client):
+
+| Archetype | Structure | Use for |
+| --- | --- | --- |
+| **`EditorialSplit`** | Sticky headline + lede (left) ↔ a vertical hairline-separated list, each row an index marker + title + one-liner (right). No cards. | "Why choose X" / "What's different" 4–6-item sections. |
+| **`ProcessRail`** | Numbered nodes threaded on one hairline spine; optional left header column. | "How it works", delivery models, launch sequences. |
+| **`FeatureMatrix`** | Compact label + one-liner rows on a 1- or 2-column hairline grid. The "infrastructure documentation" reference table. | Scannable reasons-to-believe / capability lists. |
+| **`StatBand`** | A horizontal row of 3–4 gradient figures separated by vertical hairlines. The light proof-of-scale beat (NOT the dark `ScaleStatsRibbon` §8.23). | A horizontal rhythm break between stacked sections. Real, defensible figures only. |
+| **`BridgeBand`** | A contained panel on the cool `GlassAtmosphere` field: headline + link + a quiet INLINE NODE ROW of the layers it bridges to, crosshair-marked corners. NO heavy platform diagram. | The designed "Explore nCore" / "Built on nCore" hand-off band. |
+| **`BorderedListField`** | A bordered list on a faint `InfraGrid` blueprint field, crosshair corners, internally-divided rows. | A "specification sheet" — the complete set of what's included/supported. |
+| **`AlternatingRows`** | Full-width copy ↔ visual rows that alternate side; wraps `TextImageRow` (§8.20). | The ONE per-row home inside this kit for a luminous product-illustration card. |
+
+**Shared motion primitive:** `StaggerList` (`archetypes/Reveal.tsx`) — every archetype's list reveals through it, so the whole kit shares one restrained beat (mirrors `SectionReveal`, resolved per-item).
+
+**Relationship to `ConnectedStepper` (§8.31):** distinct. `ConnectedStepper` is a gradient-chip spine composed *inside glass* for a "one continuous platform" narrative beat; `ProcessRail` is a numbered-node spine on the bare section surface for a delivery/launch *sequence*, with an optional sticky header column and no glass. Pick `ConnectedStepper` when the point is "these connect into one system" and it carries a section's glass right-column; pick `ProcessRail` for a plain numbered sequence.
+
+**Rules:**
+- **One luminous-card section per page, max.** Everything else uses a non-card archetype. A page where every section is the luminous card has drifted (the exact regression this kit fixes).
+- **No new card surface.** These archetypes do not introduce a new card material; the only card remains the §8.1 luminous product-illustration card.
+- **Keep copy verbatim.** Optional slots (`EditorialSplit.lede`, `ProcessRail.lede`) are omitted rather than filled with invented connective copy.
+- **Reference page:** `app/(site)/solutions/exchange-houses` is the reference composition — §2 OutcomeChips, §3 luminous cards (the one marquee), §5 `EditorialSplit`, §6 `ProcessRail`, §7 `BridgeBand`. After approval the kit rolls out to the other 7 solution pages.
+
+**Reference + bar:** `/visual-system` → "Section archetypes" (light + dark).
 
 ---
 

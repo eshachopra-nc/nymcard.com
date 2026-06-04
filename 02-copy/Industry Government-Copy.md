@@ -6,272 +6,361 @@
 
 **Navigation:** Industries › Government
 
-**Last updated:** 25 May 2026
+**Last updated:** 4 June 2026
 
 ---
 
-# Page brief
+# Government
 
-Ten-section industry page derived from the locked arc in `00-strategy/about-nymcard/industry-page-arc.md`. Voice modeled on Stripe, Vercel, Linear, Brex. UIs carry the story.
+## Meta
 
-Deviations from the canonical arc: added a §5 PayKit callout. Government agencies increasingly ship branded citizen apps for disbursement, payroll, and inclusion programs — PayKit earns its place here case-by-case.
+**Page title:** Government Payments & Disbursement Infrastructure | NymCard
 
-**Story arc:**
+**Meta description:** Launch disbursement programmes, payroll schemes, social benefits, and public payment initiatives on infrastructure built for government agencies.
 
-1. Hero — What is this for my industry?
-2. Outcome chips — What's in it for me?
-3. Challenge / Solution — Why does my industry need this?
-4. What you can build — What can I actually build?
-5. PayKit callout — Want a branded citizen app on top?
-6. Platform — Is your platform serious?
-7. Developer — How does my team integrate?
-8. Cross-sells — Which products power this?
-9. FAQ — What about edge cases?
-10. Final CTA — Where do I go next?
+**Primary keyword:** government payment infrastructure
+
+**Secondary keywords:** government disbursement platform, social benefits payments, public sector payments, payroll cards, government financial services, citizen disbursements
 
 ---
 
-# 1. Hero
+# Hero
 
-**Headline**
+### Headline
 
-Disbursement infrastructure built for public accountability.
+Deliver public funds with speed, control, and accountability.
 
-**Sub-copy**
+### Description
 
-Disbursement cards, payroll programs, SME support schemes, and cross-border payment infrastructure — with compliance, spend controls, and full audit trails built in.
+Launch citizen disbursement programmes, payroll schemes, social benefits, and public payment initiatives on infrastructure designed for modern government agencies.
 
-**Primary CTA:** Talk to us
+### CTA
 
-**Visual**
-
-F-pattern asymmetric, text left, UI right. A government disbursement console: program-level fund flow, a citizen disbursement card with category restrictions, and an audit trail per transaction — all on one screen.
+Talk to us
 
 ---
 
-# 2. Outcome chips
+# Why Governments Are Modernising Payments
 
-**Design note:** 3 chips directly below hero. Component: `OutcomeChips`.
+### Headline
 
-1. Icon: Shield — **Full auditability** — Every transaction tracked from issuance — spend controls, category restrictions, and real-time reporting built in.
-2. Icon: Layers — **One platform, many programs** — Disbursement, payroll, SME support, and inclusion schemes managed without separate systems per program.
-3. Icon: Globe — **Sovereign deployment** — On-premise and on-soil deployment for agencies with data residency and regulatory requirements.
+Public services depend on how money moves.
 
----
+### Description
 
-# 3. Challenge / Solution
+Governments are under increasing pressure to distribute funds faster, improve transparency, reduce administrative overhead, and deliver better citizen experiences. The opportunity is to modernise how public money is allocated, distributed, and monitored.
 
-*(No section headline. Two short paragraphs.)*
+### Outcomes
 
-**The challenge**
+#### Improve citizen access
 
-Government disbursement and payment programs need structured controls, full audit trails, and regulatory compliance on every transaction. Legacy systems and manual processes create visibility gaps and limit spend control once funds are disbursed.
+#### Increase transparency
 
-**The solution**
-
-NymCard gives government agencies disbursement and payment infrastructure with spend controls, compliance, and real-time reporting built in from the start.
+#### Reduce administrative overhead
 
 ---
 
-# 4. What you can build
+## Visual Direction
 
-**Eyebrow:** What you can build
+Three outcome cards.
 
-**Design note:** 4 alternating TextImage rows. Component: `TextImageRow`.
+Avoid leading with technology.
 
-**Disbursement cards** *[copy left, UI right]*
-
-Branded prepaid cards for aid, subsidy, and social program distribution — with spend controls, category restrictions, and real-time visibility from issuance to spend.
-
-*Tertiary link:* Learn more about Card Issuing → `/products/card-issuing`
-
-*UI snippet:* A disbursement card detail with category controls, a spending log, and an audit trail.
-
-**Payroll cards** *[copy right, UI left]*
-
-Payroll disbursement for government employees, contractors, and public sector workers — with reconciliation and audit trail per disbursement.
-
-*Tertiary link:* Learn more about Money Movement → `/products/money-movement`
-
-*UI snippet:* A payroll dashboard with disbursements clearing live and audit entries logged per recipient.
-
-**SME and business support programs** *[copy left, UI right]*
-
-Structured credit and disbursement for government-backed SME initiatives — with fund flow visibility and policy enforcement built in.
-
-*Tertiary link:* Learn more about Lending → `/products/lending`
-
-*UI snippet:* An SME program surface with fund allocation, drawdown state, and a policy enforcement log.
-
-**Youth and inclusion cards** *[copy right, UI left]*
-
-Prepaid cards for financial inclusion, student stipends, and youth programs — no bank account required, with spend controls configured per program.
-
-*Tertiary link:* Learn more about Card Issuing → `/products/card-issuing`
-
-*UI snippet:* A youth inclusion card with program-level controls and spend tracking.
+Focus on citizen and programme outcomes.
 
 ---
 
-# 5. PayKit callout
+# One Platform For Public Programmes
 
-**Design note:** Single CrossSellBanner. Component: `CrossSellBanner` 1-banner variant.
+### Headline
 
-- `leadIn:` PayKit
-- `body:` Ship a branded citizen app on top of your disbursement and payroll infrastructure — without building a front end from scratch.
-- `link.label:` Learn more about PayKit →
-- `link.href:` /services/paykit
+Manage every disbursement programme from one platform.
 
----
+### Description
 
-# 6. Platform
+Government agencies operate multiple programmes serving different populations. Rather than managing separate systems for each initiative, NymCard provides a shared infrastructure layer across programmes.
 
-**Eyebrow:** Platform
+### Citizens
 
-**Headline**
+Distribute social benefits, grants, subsidies, and financial support programmes.
 
-Built for sovereign deployment.
+### Employees
 
-**Body**
+Manage payroll, allowances, incentives, and workforce payments.
 
-Government agencies need infrastructure that meets data residency and regulatory obligations. nCore deploys cloud, on-soil, or on-premise — with audit, role-based access, and compliance built in.
+### Businesses
 
-**Checklist (4–6 items). Component: `PlatformChecklist`.**
+Support SME funding programmes, grants, and economic development initiatives.
 
-- Cloud, on-soil, and on-premise deployment on the same platform
-- Audit trails, role-based access, and regulatory reporting built in
-- KYC, AML, and sanctions screening across all programs
-- Multi-entity and multi-program configuration
-- Principal member of Visa and Mastercard
-- PCI DSS Level 1 certified · ISO 27001 certified
+### Students
+
+Deliver education support programmes, stipends, and financial assistance.
+
+### Communities
+
+Launch inclusion, welfare, and targeted support initiatives.
 
 ---
 
-# 7. Developer
+## Visual Direction
 
-**Eyebrow:** Developer
+Replace the current product grid.
 
-**Headline**
+Create a government ecosystem visual:
 
-Built for your team to integrate.
+Government Agency
+↓
+Citizens
+↓
+Employees
+↓
+Businesses
+↓
+Students
+↓
+Communities
 
-**Body**
+Each participant receives funds through the same infrastructure.
 
-Full API access, SDKs, sandbox, and webhooks — with audit trails, role-based access, and regulatory reporting built in from day one.
-
-**Tertiary link:** Read the docs →
-
-**Component:** `DeveloperBlock`
-
----
-
-# 8. Cross-sells to NymCard products
-
-**Design note:** 2 banners in a row. Component: `CrossSellBanner` 2-banner variant.
-
-**Banner 1**
-
-- `leadIn:` Card Issuing
-- `body:` Issue disbursement, payroll, and inclusion cards on infrastructure built for public accountability.
-- `link.label:` See Card Issuing →
-- `link.href:` /products/card-issuing
-
-**Banner 2**
-
-- `leadIn:` Money Movement
-- `body:` Disburse to citizens, employees, and contractors in real time — on the same nCore platform behind your cards.
-- `link.label:` See Money Movement →
-- `link.href:` /products/money-movement
+The visual should communicate programme orchestration rather than products.
 
 ---
 
-# 9. FAQ
+# Public Payment Infrastructure
 
-*(No eyebrow.)*
+### Headline
 
-**Headline**
+Everything needed to manage public funds.
 
-Common questions.
+### Disbursement Programmes
 
-Clean accordion. **FAQPage JSON-LD mandatory** for AEO citation (flag for development).
+Launch citizen payment programmes with configurable controls and distribution rules.
 
-**1. What is government payment and disbursement infrastructure?**
+### Payroll & Workforce Payments
 
-It's the platform a government agency uses to issue disbursement and payroll cards, run SME and inclusion programs, and pay citizens, employees, and contractors — with audit, compliance, and spend controls built in. NymCard provides this as a modular stack.
+Support salaries, allowances, incentives, and workforce disbursements.
 
-**2. Can NymCard be deployed inside our data center?**
+### Social Benefits
 
-Yes. NymCard supports cloud, on-soil, and on-premise deployment on the same platform. On-premise runs inside your own data center, fully self-hosted.
+Deliver welfare, inclusion, and public support programmes.
 
-**3. Can disbursement cards be restricted to specific spend categories?**
+### Economic Development Programmes
 
-Yes. Cards are configurable per program — with category restrictions, spend limits, and merchant controls applied in real time at authorization.
+Support SME funding, grants, and government-backed initiatives.
 
-**4. Is every transaction auditable?**
+### Procurement & Programme Cards
 
-Yes. Audit trails, role-based access, and regulatory reporting are built into the platform across every program.
+Issue cards with configurable spending controls, restrictions, and monitoring.
 
-**5. Can citizens without a bank account receive disbursements?**
+### Real-Time Oversight
 
-Yes. Disbursements can be made to NymCard-issued prepaid cards — no bank account required for the recipient.
-
-**6. What certifications does NymCard hold?**
-
-nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard.
+Monitor programme activity, utilisation, and fund distribution as it happens.
 
 ---
 
-# 10. Final CTA
+## Visual Direction
 
-*(No eyebrow. Centered.)*
+Six capability cards surrounding a central programme hub.
 
-**Headline**
+Center visual:
 
-Talk to our team.
+Government Programme Platform
 
-**Body**
+Around it:
 
-Launch disbursement, payroll, and inclusion programs on infrastructure built for accountability.
+* Citizens
+* Payroll
+* Businesses
+* Benefits
+* Cards
+* Reporting
 
-**Primary CTA:** Talk to us
+Avoid generic banking UI.
 
-**Secondary CTA:** Read the docs
-
-**Component:** `CTASection`
-
----
-
-# META
-
-**Page title:** Government Payment and Disbursement Infrastructure | NymCard
-
-**Meta description:** Disbursement cards, payroll programs, and cross-border payment infrastructure for government agencies — compliant, auditable, and built on NymCard.
-
-**Primary keyword:** government disbursement infrastructure
-
-**Secondary keywords:** government prepaid cards, public sector payment infrastructure, disbursement cards program, government payroll cards, financial inclusion infrastructure
-
-**Internal links:**
-
-- "Card Issuing" → /products/card-issuing
-- "Money Movement" → /products/money-movement
-- "Lending" → /products/lending
-- "PayKit" → /services/paykit
+Focus on programme administration.
 
 ---
 
-# Changelog
+# Built For Public Accountability
 
-**Approved (19 April 2026) → v2 (25 May 2026):** Realigned to the locked industry-page arc and current skill rules.
+### Headline
 
-- **Title Case → sentence case** throughout. *"Audit-Ready. Compliance-Embedded. Deployed to Your Requirements."* (three-clause rhythm, banned) → *"Built for sovereign deployment."*
-- **"institutions"** → *"agencies"* throughout (per skill rule — *"institutions"* is banned as a collective noun).
-- **Hero CTA:** *"Find out more →"* → *"Talk to us."*
-- **Final CTA:** *"Ready to Launch?"* + *"Tell us what you want to launch…"* + *"Request a Demo / Talk to Our Team"* → *"Talk to our team."* + plain body + *"Talk to us"* + *"Read the docs."*
-- **PayKit callout added (new §5)** — citizen disbursement and inclusion apps increasingly run on government-branded front-ends; PayKit earns its place here.
-- **Platform bullets:** dropped *"Licensed by CBUAE"* (region-specific). *"PCI DSS certified"* → *"PCI DSS Level 1 certified."* Deployment models aligned to architecture: cloud, on-soil, on-premise. Added *"Principal member of Visa and Mastercard."*
-- **"programmes"** → *"programs"* (US English).
-- **What you can build:** added *"Learn more →"* tertiary links per row mapping to Card Issuing, Money Movement, and Lending.
-- **New §8 Cross-sells:** Card Issuing + Money Movement.
-- **New §9 FAQ:** 6 questions with industry-framed opener and FAQPage JSON-LD flagged for development.
-- **META:** dropped *"government payroll cards CEMEA"* keyword; added internal links.
+Visibility built into every programme.
+
+### Spend Controls
+
+Configure how, where, and when funds can be used.
+
+### Real-Time Oversight
+
+Monitor utilisation and programme performance as funds are distributed.
+
+### Full Auditability
+
+Track programme activity through detailed reporting and audit trails.
+
+### Multi-Programme Management
+
+Operate multiple programmes from the same infrastructure.
+
+### Deploy Your Way
+
+Cloud, on-soil, and on-premise deployment models available on the same platform.
+
+---
+
+## Visual Direction
+
+Five benefit cards surrounding a central oversight dashboard.
+
+Center visual:
+
+Programme Oversight
+
+Connected to:
+
+* Citizens
+* Employees
+* Businesses
+* Reporting
+
+This section should feel administrative and operational.
+
+Not consumer-focused.
+
+---
+
+# Launch Your Way
+
+### Headline
+
+Choose the operating model that fits your agency.
+
+### Description
+
+Launch complete citizen experiences or embed capabilities into existing government systems.
+
+### Citizen Experiences
+
+Deliver digital payment and programme experiences through branded applications and portals.
+
+### Programme Administration
+
+Manage programme configuration, controls, distribution, and reporting from a unified interface.
+
+### APIs & SDKs
+
+Integrate capabilities directly into existing public sector systems and digital services.
+
+### Supporting Line
+
+Infrastructure, applications, and customer experiences operating on one platform.
+
+---
+
+## Visual Direction
+
+Three-column layout.
+
+1. Citizen Experience
+2. Programme Administration
+3. APIs & SDKs
+
+Use public-service-oriented UI examples.
+
+Avoid fintech startup aesthetics.
+
+---
+
+# Explore nCore
+
+### Headline
+
+Everything running on one architecture.
+
+### Description
+
+Cards, lending, money movement, settlement, financial crime, and reconciliation operating through a shared infrastructure layer.
+
+### CTA
+
+Explore nCore →
+
+---
+
+## Visual Direction
+
+Simple bridge section.
+
+No architecture diagrams.
+
+No duplicated platform visuals.
+
+---
+
+# FAQ
+
+Recommended questions:
+
+* What is government payment infrastructure?
+* Can disbursement programmes be restricted to specific spending categories?
+* Can citizens receive funds without a bank account?
+* How are audit trails managed?
+* Can multiple programmes operate on the same platform?
+* What deployment models are available?
+* How is compliance handled?
+
+---
+
+# CTA
+
+### Headline
+
+Modernise how public funds are delivered.
+
+### Description
+
+See how government agencies launch disbursement programmes, payroll schemes, and citizen payment initiatives on one platform.
+
+### CTA
+
+Talk to us
+
+---
+
+## Notes For Claude Code
+
+This page should not feel like:
+
+* A Cards page
+* A Payroll page
+* A Disbursement page
+
+The narrative is:
+
+Allocate
+→ Distribute
+→ Monitor
+→ Report
+→ Optimise
+
+The buyer is:
+
+* Government Agency Leadership
+* Digital Government Teams
+* Programme Administrators
+* Public Sector Innovation Leaders
+* Treasury & Finance Departments
+
+Focus on transparency, programme management, citizen experience, and accountability.
+
+Avoid compliance-heavy messaging in the hero.
+
+The transformation story is:
+
+Manual Programme Administration
+→ Digital Public Service Infrastructure
+
+Government agencies are not buying products.
+
+They are modernising how public programmes operate.

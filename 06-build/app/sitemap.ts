@@ -39,13 +39,10 @@ const STATIC_ROUTES: Array<{
   // Industries
   { path: "/solutions/retail-banking", changeFrequency: "monthly", priority: 0.7 },
   { path: "/solutions/commercial-banking", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/solutions/neobanks", changeFrequency: "monthly", priority: 0.7 },
   { path: "/solutions/fintechs", changeFrequency: "monthly", priority: 0.7 },
   { path: "/solutions/exchange-houses", changeFrequency: "monthly", priority: 0.7 },
   { path: "/solutions/telecommunications", changeFrequency: "monthly", priority: 0.7 },
   { path: "/solutions/retail-marketplaces", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/solutions/travel", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/solutions/mobility", changeFrequency: "monthly", priority: 0.7 },
   { path: "/solutions/healthcare", changeFrequency: "monthly", priority: 0.7 },
   { path: "/solutions/government", changeFrequency: "monthly", priority: 0.7 },
 

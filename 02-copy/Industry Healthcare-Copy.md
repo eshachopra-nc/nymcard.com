@@ -2,275 +2,360 @@
 
 **Slug:** /industry/healthcare
 
-**Status:** Draft v2 — 25 May 2026
-
 **Navigation:** Industries › Healthcare
 
-**Last updated:** 25 May 2026
+**Last updated:** 4 June 2026
 
 ---
 
-# Page brief
+# Healthcare
 
-Ten-section industry page derived from the locked arc in `00-strategy/about-nymcard/industry-page-arc.md`. Voice modeled on Stripe, Vercel, Linear, Brex. UIs carry the story.
+## Meta
 
-Deviations from the canonical arc: added a §5 PayKit callout. Healthcare buyers increasingly ship branded patient apps that handle financing, payment, and adherence flows — PayKit earns its place here case-by-case.
+**Page title:** Healthcare Payments & Financing Infrastructure | NymCard
 
-**Story arc:**
-
-1. Hero — What is this for my industry?
-2. Outcome chips — What's in it for me?
-3. Challenge / Solution — Why does my industry need this?
-4. What you can build — What can I actually build?
-5. PayKit callout — Want a branded patient app on top?
-6. Platform — Is your platform serious?
-7. Developer — How does my team integrate?
-8. Cross-sells — Which products power this?
-9. FAQ — What about edge cases?
-10. Final CTA — Where do I go next?
-
----
-
-# 1. Hero
-
-**Headline**
-
-Payment infrastructure that keeps up with patient expectations.
-
-**Sub-copy**
-
-Patient financing, staff disbursements, procurement cards, and insurance payouts — structured, compliant, and built for healthcare providers managing complex payment flows.
-
-**Primary CTA:** Talk to us
-
-**Visual**
-
-F-pattern asymmetric, text left, UI right. A healthcare ops surface: a patient financing plan, a staff payout dashboard, and a procurement card with category controls — all on one screen.
-
----
-
-# 2. Outcome chips
-
-**Design note:** 3 chips directly below hero. Component: `OutcomeChips`.
-
-1. Icon: Shield — **Compliance built in** — KYC, AML, audit trails, and regulatory reporting are part of the platform — not added after.
-2. Icon: Zap — **One platform, every flow** — Patient financing, staff payroll, procurement, and insurance disbursements managed without fragmented systems.
-3. Icon: TrendingUp — **Reduce third-party dependency** — Card programs, financing, and disbursements run on your infrastructure — not a mix of external vendors.
-
----
-
-# 3. Challenge / Solution
-
-*(No section headline. Two short paragraphs.)*
-
-**The challenge**
-
-Healthcare providers manage complex payment flows — patient financing, staff payroll, vendor payments, and insurance disbursements — often across fragmented systems with limited visibility and compliance bolted on later. Each program adds a new vendor and integration overhead.
-
-**The solution**
-
-NymCard gives healthcare providers a single platform for payment programs — financing, disbursement, and spend management — with compliance and KYC built in from the start.
-
----
-
-# 4. What you can build
-
-**Eyebrow:** What you can build
-
-**Design note:** 4 alternating TextImage rows. Component: `TextImageRow`.
-
-**Patient financing** *[copy left, UI right]*
-
-Embed installments and deferred payment programs directly into the care journey — with configurable repayment, on the same platform as your cards.
-
-*Tertiary link:* Learn more about Lending → `/products/lending`
-
-*UI snippet:* A patient financing surface with the financed amount, term, repayment schedule, and approval state.
-
-**Staff and payroll disbursement** *[copy right, UI left]*
-
-Payout cards for medical staff, contractors, and agency workers — real-time disbursement with spend controls and reconciliation per disbursement.
-
-*Tertiary link:* Learn more about Money Movement → `/products/money-movement`
-
-*UI snippet:* A staff payout dashboard with disbursements clearing live and balances updating per recipient.
-
-**Procurement and vendor payments** *[copy left, UI right]*
-
-Managed spend cards for procurement teams and vendor payments — with policy enforcement, approval controls, and automated reconciliation.
-
-*Tertiary link:* Learn more about Card Issuing → `/products/card-issuing`
-
-*UI snippet:* A procurement card detail surface with category controls and an approval workflow.
-
-**Insurance and government disbursements** *[copy right, UI left]*
-
-Structured payouts for insurance claim settlements and government health programs — with a full audit trail and compliance reporting at every step.
-
-*Tertiary link:* Learn more about Money Movement → `/products/money-movement`
-
-*UI snippet:* An insurance disbursement surface with claim ID, payout state, and an audit log.
-
----
-
-# 5. PayKit callout
-
-**Design note:** Single CrossSellBanner. Component: `CrossSellBanner` 1-banner variant.
-
-- `leadIn:` PayKit
-- `body:` Ship a branded patient or staff app on top of your financing and payout infrastructure — without building a front end from scratch.
-- `link.label:` Learn more about PayKit →
-- `link.href:` /services/paykit
-
----
-
-# 6. Platform
-
-**Eyebrow:** Platform
-
-**Headline**
-
-Compliance built in, not added after.
-
-**Body**
-
-Healthcare needs payment infrastructure with compliance inside it, not bolted on. nCore embeds KYC, AML, audit trails, and reporting across every program — deployable inside your environment.
-
-**Checklist (4–6 items). Component: `PlatformChecklist`.**
-
-- KYC, KYB, AML, and sanctions screening across all programs
-- Audit trails and regulatory reporting built into the platform
-- Cloud, on-soil, and on-premise deployment on the same platform
-- Principal member of Visa and Mastercard
-- PCI DSS Level 1 certified · ISO 27001 certified
-
----
-
-# 7. Developer
-
-**Eyebrow:** Developer
-
-**Headline**
-
-Built for your team to integrate.
-
-**Body**
-
-Full API access, SDKs, sandbox, and webhooks — with audit trails and regulatory reporting built in from day one.
-
-**Tertiary link:** Read the docs →
-
-**Component:** `DeveloperBlock`
-
----
-
-# 8. Cross-sells to NymCard products
-
-**Design note:** 2 banners in a row. Component: `CrossSellBanner` 2-banner variant.
-
-**Banner 1**
-
-- `leadIn:` Card Issuing
-- `body:` Issue procurement, payout, and patient-facing cards on infrastructure built for healthcare.
-- `link.label:` See Card Issuing →
-- `link.href:` /products/card-issuing
-
-**Banner 2**
-
-- `leadIn:` Lending
-- `body:` Run patient financing and installments on the same platform as your cards — with configurable repayment.
-- `link.label:` See Lending →
-- `link.href:` /products/lending
-
----
-
-# 9. FAQ
-
-*(No eyebrow.)*
-
-**Headline**
-
-Common questions.
-
-Clean accordion. **FAQPage JSON-LD mandatory** for AEO citation (flag for development).
-
-**1. What is healthcare payment infrastructure?**
-
-It's the platform a healthcare provider uses to run patient financing, staff and contractor payouts, procurement spend, and insurance disbursements — all on one platform, with compliance built in. NymCard provides this as a modular stack.
-
-**2. Can patient financing run without a third-party consumer lender?**
-
-Yes. Patient financing runs on the NymCard Lending layer — installments, deferred payments, and configurable repayment, embedded directly into the care journey.
-
-**3. Is the platform deployable inside our environment?**
-
-Yes. NymCard supports cloud, on-soil, and on-premise deployment on the same platform. On-premise runs inside your data center, fully self-hosted.
-
-**4. How is compliance handled?**
-
-Inside the platform. KYC, KYB, AML, and sanctions screening run across all programs, with audit trails and regulatory reporting built in.
-
-**5. Can we ship a branded patient app on this?**
-
-Yes. PayKit delivers a white-labeled mobile and web app built directly on your card, financing, and payout infrastructure — no separate front-end build.
-
-**6. What certifications does NymCard hold?**
-
-nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard.
-
----
-
-# 10. Final CTA
-
-*(No eyebrow. Centered.)*
-
-**Headline**
-
-Talk to our team.
-
-**Body**
-
-Launch patient financing, staff disbursements, and procurement programs on one platform.
-
-**Primary CTA:** Talk to us
-
-**Secondary CTA:** Read the docs
-
-**Component:** `CTASection`
-
----
-
-# META
-
-**Page title:** Payment Infrastructure for Healthcare | NymCard
-
-**Meta description:** Patient financing, staff disbursements, and healthcare payment programs — compliant, structured, and built on NymCard infrastructure.
+**Meta description:** Launch patient financing, disbursements, procurement cards, and healthcare payment programmes on infrastructure designed for modern healthcare providers.
 
 **Primary keyword:** healthcare payment infrastructure
 
-**Secondary keywords:** patient financing platform, healthcare disbursement cards, medical staff payroll cards, healthcare embedded finance, procurement cards healthcare
-
-**Internal links:**
-
-- "Card Issuing" → /products/card-issuing
-- "Lending" → /products/lending
-- "Money Movement" → /products/money-movement
-- "PayKit" → /services/paykit
+**Secondary keywords:** patient financing platform, healthcare payments, healthcare disbursements, medical financing, procurement cards healthcare, healthcare financial services
 
 ---
 
-# Changelog
+# Hero
 
-**Approved (19 April 2026) → v2 (25 May 2026):** Realigned to the locked industry-page arc and current skill rules.
+### Headline
 
-- **Title Case → sentence case** throughout. *"Compliance Built In. Not Added After."* → *"Compliance built in, not added after."*
-- **"institutions"** → *"providers"* in hero, sub-copy, Challenge/Solution, and FAQ (per skill rule — *"institutions"* is banned as a collective noun).
-- **Hero CTA:** *"Find out more →"* → *"Talk to us."*
-- **Final CTA:** *"Ready to Launch?"* + *"Tell us what you want to launch…"* + *"Request a Demo / Talk to Our Team"* → *"Talk to our team."* + plain body + *"Talk to us"* + *"Read the docs."*
-- **PayKit callout added (new §5)** — patient and staff apps increasingly run on healthcare provider front-ends; PayKit earns its place here.
-- **Platform bullets:** dropped *"Licensed by CBUAE"* and *"Integration with local and regional payment schemes"* (region-specific). *"PCI DSS certified"* → *"PCI DSS Level 1 certified."* *"On-premise, hybrid, and cloud"* aligned to architecture. Added *"Principal member of Visa and Mastercard."*
-- **"programmes"** → *"programs"* (US English).
-- **What you can build:** added *"Learn more →"* tertiary links per row mapping to Lending, Money Movement, and Card Issuing.
-- **New §8 Cross-sells:** Card Issuing + Lending.
-- **New §9 FAQ:** 6 questions with industry-framed opener and FAQPage JSON-LD flagged for development.
-- **META:** dropped *"healthcare embedded finance CEMEA"* keyword; added internal links and *"procurement cards healthcare."*
+Make healthcare payments as seamless as care delivery.
+
+### Description
+
+Launch patient financing, disbursements, procurement programmes, and healthcare payment experiences on infrastructure built for modern healthcare providers.
+
+### CTA
+
+Talk to us
+
+---
+
+# Why Healthcare Is Changing
+
+### Headline
+
+Healthcare payments remain fragmented.
+
+### Description
+
+Patients, providers, insurers, staff, and suppliers all participate in the same financial ecosystem, yet payments often operate through disconnected systems and manual processes. The opportunity is to simplify how money moves across the healthcare journey.
+
+### Outcomes
+
+#### Improve patient access
+
+#### Simplify healthcare payments
+
+#### Reduce operational overhead
+
+---
+
+## Visual Direction
+
+Three outcome cards.
+
+Focus on healthcare outcomes.
+
+Avoid compliance-heavy messaging.
+
+---
+
+# The Healthcare Financial Journey
+
+### Headline
+
+One platform for every healthcare payment flow.
+
+### Description
+
+Healthcare organisations manage far more than patient payments. Financing, payroll, procurement, insurance disbursements, and vendor payments all contribute to the financial experience.
+
+### Patients
+
+Offer installment plans, financing, and flexible payment options that improve access to care.
+
+### Providers
+
+Manage collections, payment plans, and patient payment experiences.
+
+### Staff
+
+Support payroll, contractor payments, incentives, and workforce disbursements.
+
+### Suppliers
+
+Manage procurement programmes, vendor payments, and purchasing controls.
+
+### Insurers
+
+Enable structured claims disbursements and reimbursement programmes.
+
+---
+
+## Visual Direction
+
+Replace the current product grid.
+
+Create a healthcare ecosystem visual:
+
+Patient
+↓
+Provider
+↓
+Insurer
+↓
+Staff
+↓
+Supplier
+
+Each participant connects through the same payment infrastructure.
+
+The visual should communicate ecosystem orchestration rather than individual products.
+
+---
+
+# Financial Services For Healthcare
+
+### Headline
+
+Everything needed to modernise healthcare payments.
+
+### Patient Financing
+
+Offer installment plans, treatment financing, and healthcare payment programmes.
+
+### Payroll & Workforce Payments
+
+Manage employee, contractor, and agency workforce disbursements.
+
+### Procurement Programmes
+
+Issue cards and payment solutions for healthcare purchasing and operational spend.
+
+### Insurance Disbursements
+
+Support claims payouts, reimbursements, and healthcare benefit programmes.
+
+### Money Movement
+
+Enable payments between patients, providers, suppliers, insurers, and staff.
+
+### Insights
+
+Access real-time visibility across payment activity, programme performance, and financial operations.
+
+---
+
+## Visual Direction
+
+Six capability cards around a central healthcare organisation.
+
+Center visual:
+
+Healthcare Provider
+
+Surrounding nodes:
+
+* Patients
+* Insurers
+* Staff
+* Suppliers
+* Financing
+* Payments
+
+Focus on connected payment flows.
+
+Avoid generic banking UI.
+
+---
+
+# Launch Your Way
+
+### Headline
+
+Choose the experience that fits your organisation.
+
+### Description
+
+Launch complete healthcare payment experiences or embed capabilities into systems already used by patients, staff, and administrators.
+
+### White-Label Patient Experience
+
+Deliver financing and payment experiences through branded patient journeys.
+
+### Healthcare Payment Programmes
+
+Launch procurement, payroll, reimbursement, and disbursement programmes.
+
+### APIs & SDKs
+
+Embed capabilities into healthcare applications, portals, and operational systems.
+
+### Supporting Line
+
+Infrastructure, applications, and customer experiences operating on one platform.
+
+---
+
+## Visual Direction
+
+Three-column layout.
+
+1. Patient Experience
+2. Healthcare Operations
+3. APIs & SDKs
+
+Use healthcare-specific UI examples.
+
+Avoid generic fintech dashboards.
+
+---
+
+# Why Healthcare Organisations Choose NymCard
+
+### Headline
+
+Built for complex payment ecosystems.
+
+### One Payment Platform
+
+Manage patient, staff, supplier, and insurer payment flows from the same infrastructure.
+
+### One Customer Record
+
+Payment activity, financing programmes, and customer interactions contribute to a shared source of truth.
+
+### Unified Risk Intelligence
+
+Build richer profiles using payment behaviour, financing activity, and operational data.
+
+### Real-Time Visibility
+
+Monitor programme performance, payment activity, and disbursement operations as they happen.
+
+### Compliance Built In
+
+Support KYC, AML, fraud controls, and auditability through the same platform.
+
+---
+
+## Visual Direction
+
+Five benefit cards surrounding a central healthcare payments hub.
+
+Center visual:
+
+Healthcare Organisation
+
+Connected to:
+
+* Patients
+* Staff
+* Suppliers
+* Insurers
+
+Avoid repeating nCore architecture visuals.
+
+---
+
+# Explore nCore
+
+### Headline
+
+Everything running on one architecture.
+
+### Description
+
+Cards, lending, money movement, settlement, financial crime, and reconciliation operating through a shared infrastructure layer.
+
+### CTA
+
+Explore nCore →
+
+---
+
+## Visual Direction
+
+Simple bridge section.
+
+No architecture diagrams.
+
+No duplicated platform visuals.
+
+---
+
+# FAQ
+
+Recommended questions:
+
+* What is healthcare payment infrastructure?
+* Can we offer patient financing without a third-party lender?
+* Can procurement programmes run on the same platform?
+* How are insurance disbursements managed?
+* Can the platform integrate with existing healthcare systems?
+* What deployment models are available?
+* How is compliance handled?
+
+---
+
+# CTA
+
+### Headline
+
+Modernise the financial side of healthcare.
+
+### Description
+
+See how healthcare organisations launch financing, payment, procurement, and disbursement programmes on one platform.
+
+### CTA
+
+Talk to us
+
+---
+
+## Notes For Claude Code
+
+This page should not feel like:
+
+* A Lending page
+* A Cards page
+* A Money Movement page
+
+The narrative is:
+
+Patient
+→ Treatment
+→ Payment
+→ Financing
+→ Reimbursement
+→ Care
+
+The buyer is:
+
+* Chief Financial Officer
+* Head of Payments
+* Healthcare Operations Lead
+* Innovation Lead
+* Digital Transformation Executive
+
+Focus on simplifying payment complexity across the healthcare ecosystem.
+
+The transformation story is:
+
+Disconnected Payment Flows
+→ Connected Healthcare Financial Ecosystem
+
+Avoid product catalogue thinking.
+
+Avoid leading with compliance.
+
+Lead with patient experience and operational efficiency.

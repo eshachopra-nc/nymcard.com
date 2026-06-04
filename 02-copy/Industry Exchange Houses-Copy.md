@@ -2,170 +2,189 @@
 
 **Slug:** /industry/exchange-houses
 
-**Status:** Draft v2 — 25 May 2026
-
 **Navigation:** Industries › Exchange Houses
 
-**Last updated:** 25 May 2026
+**Last updated:** 4 June 2026
 
 ---
 
-# Page brief
+# Exchange Houses
 
-Ten-section industry page derived from the locked arc in `00-strategy/about-nymcard/industry-page-arc.md`. Voice modeled on Stripe, Vercel, Linear, Brex. UIs carry the story.
+## Hero
 
-Deviations from the canonical arc: none. Standard 9-section build (no PayKit callout — exchange houses are buyers of money-movement infrastructure, not branded-app builders).
-
-**Story arc:**
-
-1. Hero — What is this for my industry?
-2. Outcome chips — What's in it for me?
-3. Challenge / Solution — Why does my industry need this?
-4. What you can build — What can I actually build?
-5. Platform — Is your platform serious?
-6. Developer — How does my team integrate?
-7. Cross-sells — Which products power this?
-8. FAQ — What about edge cases?
-9. Final CTA — Where do I go next?
-
----
-
-# 1. Hero
-
-**Headline**
+### Headline
 
 Expand beyond remittance.
 
-**Sub-copy**
+### Description
 
-Cards, wallets, cross-border payments, FX, and stablecoin settlement — built for exchange houses growing into broader financial services.
+Turn payment relationships into broader financial services for consumers and businesses. Launch new products, create new revenue streams, and modernise cross-border infrastructure on one platform.
 
-**Primary CTA:** Talk to us
+### CTA
 
-**Visual**
-
-F-pattern asymmetric, text left, UI right. A corridor map with a remittance moving end-to-end, a multi-currency prepaid card surface, and a stablecoin settlement ticker — all on one platform.
+Talk to us
 
 ---
 
-# 2. Outcome chips
+## Why Exchange Houses Are Changing
 
-**Design note:** 3 chips directly below hero. Component: `OutcomeChips`.
+### Headline
 
-1. Icon: TrendingUp — **New revenue beyond remittance** — Cards, wallets, and credit revenue added to your existing FX flows.
-2. Icon: Users — **Retain your SME clients** — Give business clients the payment tools they're currently getting elsewhere.
-3. Icon: Globe — **Capture more corridor revenue** — FX margin and settlement fees stay with your platform.
+Remittance alone isn't enough.
 
----
+### Description
 
-# 3. Challenge / Solution
+Lower-cost rails, digital-first competitors, and changing customer expectations are putting pressure on traditional remittance models. Growth increasingly comes from expanding the services offered around the payment.
 
-*(No section headline. Two short paragraphs.)*
+### Outcomes
 
-**The challenge**
+#### Create new revenue streams
 
-Remittance margins are under pressure from digital-first competitors on faster, lower-cost rails. Exchange houses that grow are the ones turning FX and payment relationships into broader financial offerings — for retail customers and SME clients alike.
+#### Retain customers beyond the transaction
 
-**The solution**
-
-NymCard gives you the infrastructure to expand your product range without building from scratch — cards, wallets, cross-border payments, and stablecoin settlement on one platform.
+#### Expand into SME financial services
 
 ---
 
-# 4. What you can build
+## From Exchange House To Financial Platform
 
-**Eyebrow:** What you can build
+### Headline
 
-**Design note:** 3 alternating TextImage rows. Component: `TextImageRow`.
+Grow beyond the transfer.
 
-**Launch a multi-currency card program** *[copy left, UI right]*
+### Description
 
-Issue branded prepaid or debit cards linked to FX and remittance flows — physical and virtual, no bank account required.
+The most successful exchange houses are becoming financial platforms that serve consumers and businesses throughout their financial journey.
 
-*Tertiary link:* Learn more about Card Issuing → `/products/card-issuing`
+### For Consumers
 
-*UI snippet:* A multi-currency card with corridor balances and a live FX rate refreshing.
+#### Digital Wallets
 
-**Move into SME business payments** *[copy right, UI left]*
+Give customers a place to receive, store, transfer, and spend funds.
 
-Expand into SME supplier payments and B2B cross-border flows — capture corridor revenue your clients send elsewhere today.
+#### Multi-Currency Cards
 
-*Tertiary link:* Learn more about Money Movement → `/products/money-movement`
+Extend the relationship beyond remittance with branded card programmes.
 
-*UI snippet:* A B2B payment surface with corridor selection, FX margin retained, and settlement timing.
+#### Cross-Border Payments
 
-**Settle faster with stablecoin infrastructure** *[copy left, UI right]*
+Move money through domestic and international payment networks.
 
-Cut capital locked across correspondent networks. Near real-time corridor settlement, 24/7, without banking window constraints.
+### For Businesses
 
-*Tertiary link:* Learn more about Settlement → `/products/settlement`
+#### SME Payments
 
-*UI snippet:* A settlement dashboard showing a USDC corridor clearing in seconds beside a traditional rail clearing in days.
+Support supplier payments, payroll, and business transfers.
 
----
+#### Business Finance
 
-# 5. Platform
+Expand into commercial payment services and working capital solutions.
 
-**Eyebrow:** Platform
+#### FX Services
 
-**Headline**
+Build deeper business relationships through cross-border payment and treasury services.
 
-Built for cross-border flows.
+### For Operations
 
-**Body**
+#### Stablecoin Settlement
 
-Exchange houses need infrastructure that moves money across corridors with FX and settlement on one platform. nCore is built for it — with pre-integrated rails and deployment that fits your regulatory obligations.
-
-**Checklist (4–6 items). Component: `PlatformChecklist`.**
-
-- Pre-integrated with Visa Direct, Mastercard Cross-Border, Western Union, and MoneyGram
-- Cloud, on-soil, and on-premise deployment on the same platform
-- Real-time and stablecoin settlement on the same platform
-- Principal member of Visa
-- Principal member of Mastercard
-- PCI DSS Level 1 certified · ISO 27001 certified
+Reduce settlement times and improve liquidity management through modern settlement infrastructure.
 
 ---
 
-# 6. Developer
+## One Platform For Consumers And Businesses
 
-**Eyebrow:** Developer
+### Headline
 
-**Headline**
+Serve more customers from one platform.
 
-Built for your team to integrate.
+### Description
 
-**Body**
+Launch consumer and business financial services on infrastructure designed to support cards, payments, wallets, settlement, and financial services from the same platform.
 
-Full API access, SDKs, sandbox, and webhooks — so your engineering team can move fast without waiting on us.
+### Consumers
 
-**Tertiary link:** Read the docs →
+Wallets, cards, remittance, and everyday payments.
 
-**Component:** `DeveloperBlock`
+### SMEs
 
----
+Supplier payments, payroll, invoicing, and business transfers.
 
-# 7. Cross-sells to NymCard products
+### Cross-Border
 
-**Design note:** 2 banners in a row. Component: `CrossSellBanner` 2-banner variant.
-
-**Banner 1**
-
-- `leadIn:` Money Movement
-- `body:` Move money across domestic rails, cross-border corridors, and FX — on the platform built for corridor flows.
-- `link.label:` See Money Movement →
-- `link.href:` /products/money-movement
-
-**Banner 2**
-
-- `leadIn:` Settlement
-- `body:` Settle in real time across fiat and stablecoin rails — 24/7, without banking window constraints.
-- `link.label:` See Settlement →
-- `link.href:` /products/settlement
+Domestic and international payment flows operating on the same infrastructure.
 
 ---
 
-# 8. FAQ
+## Why Exchange Houses Choose NymCard
+
+### Headline
+
+Built for the next generation of exchange houses.
+
+### Launch New Revenue Streams
+
+Expand beyond remittance without rebuilding your infrastructure.
+
+### Retain More Customers
+
+Keep customers engaged long after the transfer is complete.
+
+### Serve Consumers And Businesses
+
+Support both retail and SME financial services from the same platform.
+
+### Modernise Settlement
+
+Access traditional and emerging settlement rails through a unified infrastructure layer.
+
+### Deploy Your Way
+
+Cloud, on-soil, and on-premise deployment models available on the same platform.
+
+---
+
+## Launch Your Way
+
+### Headline
+
+Choose the experience that fits your customers.
+
+### White-Label Consumer Experience
+
+Launch branded wallet and card experiences for retail customers.
+
+### White-Label Business Portal
+
+Deliver payment and treasury services to SME customers.
+
+### APIs & SDKs
+
+Embed capabilities into existing digital channels and customer journeys.
+
+### Supporting Line
+
+Infrastructure, applications, and customer experiences running on one platform.
+
+---
+
+## Explore The Platform
+
+### Headline
+
+Built on nCore.
+
+### Description
+
+Cards, money movement, settlement, financial crime, and reconciliation operating on one architecture with a shared customer and data layer.
+
+### CTA
+
+Explore nCore →
+
+---
+
+## FAQ
 
 *(No eyebrow.)*
 
@@ -201,54 +220,35 @@ nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a pri
 
 ---
 
-# 9. Final CTA
+## CTA
 
-*(No eyebrow. Centered.)*
+### Headline
 
-**Headline**
+Build the future of cross-border financial services.
 
-Talk to our team.
+### Description
 
-**Body**
+See how exchange houses expand beyond remittance on one platform.
 
-Launch cards, wallets, cross-border payments, and stablecoin settlement on one platform.
+### CTA
 
-**Primary CTA:** Talk to us
-
-**Secondary CTA:** Read the docs
+Talk to us
 
 **Component:** `CTASection`
 
 ---
 
-# META
+META
 
-**Page title:** Payment Infrastructure for Exchange Houses | NymCard
+Page title:
+Exchange House Infrastructure | Expand Beyond Remittance | NymCard
 
-**Meta description:** Cards, wallets, cross-border payments, FX, and stablecoin settlement for exchange houses. Expand beyond remittance on one platform.
+Meta description:
+Help exchange houses expand beyond remittance with cards, wallets, business payments, and modern settlement infrastructure on one platform.
 
-**Primary keyword:** exchange house payment infrastructure
+Primary keyword:
+exchange house infrastructure
 
-**Secondary keywords:** remittance infrastructure, multi-currency prepaid cards, cross-border payments exchange houses, stablecoin settlement, FX corridor platform
+Secondary keywords:
+exchange house platform, remittance infrastructure, cross-border payments, digital wallets for exchange houses, SME payments, stablecoin settlement, financial services for exchange houses
 
-**Internal links:**
-
-- "Card Issuing" → /products/card-issuing
-- "Money Movement" → /products/money-movement
-- "Settlement" → /products/settlement
-
----
-
-# Changelog
-
-**Approved (19 April 2026) → v2 (25 May 2026):** Realigned to the locked industry-page arc and current skill rules.
-
-- **Title Case → sentence case** throughout.
-- **Hero CTA:** *"Find out more →"* → *"Talk to us."*
-- **Final CTA:** *"Ready to Launch?"* + *"Tell us what you want to launch…"* + *"Request a Demo / Talk to Our Team"* → *"Talk to our team."* + plain body + *"Talk to us"* + *"Read the docs."*
-- **Platform bullets:** dropped *"Licensed by CBUAE"* and *"Integration with local and regional payment schemes"* (region-specific). *"PCI DSS certified"* → *"PCI DSS Level 1 certified."* Visa and Mastercard now listed as two separate items.
-- **Platform headline:** *"Built for On-Premise Deployment"* → *"Built for cross-border flows"* — more relevant to the buyer; on-premise is one of three deployment models.
-- **What you can build:** added *"Learn more →"* tertiary links per row mapping to Card Issuing, Money Movement, and Settlement.
-- **New §7 Cross-sells:** Money Movement + Settlement.
-- **New §8 FAQ:** 6 questions with industry-framed opener and FAQPage JSON-LD flagged for development.
-- **META:** dropped *"FX platform CEMEA"* and *"CEMEA corridors"* framing; added *"stablecoin settlement"* and internal links.

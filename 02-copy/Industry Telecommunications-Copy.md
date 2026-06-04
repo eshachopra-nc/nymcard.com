@@ -6,270 +6,314 @@
 
 **Navigation:** Industries › Telcos
 
-**Last updated:** 25 May 2026
+**Last updated:** 4 June  2026
 
 ---
 
-# Page brief
+# Telecommunications
 
-Ten-section industry page derived from the locked arc in `00-strategy/about-nymcard/industry-page-arc.md`. Voice modeled on Stripe, Vercel, Linear, Brex. UIs carry the story.
+## Meta
 
-Deviations from the canonical arc: none. Standard 10-section build (PayKit callout retained — telcos ship branded subscriber apps).
+**Page title:** Telecom Financial Services Platform | Cards, Wallets & Lending | NymCard
 
-**Story arc:**
+**Meta description:** Launch cards, wallets, lending, and payment experiences for subscribers on infrastructure designed for telecommunications providers.
 
-1. Hero — What is this for my industry?
-2. Outcome chips — What's in it for me?
-3. Challenge / Solution — Why does my industry need this?
-4. What you can build — What can I actually build?
-5. PayKit callout — Want a branded subscriber app on top?
-6. Platform — Is your platform serious?
-7. Developer — How does my team integrate?
-8. Cross-sells — Which products power this?
-9. FAQ — What about edge cases?
-10. Final CTA — Where do I go next?
+**Primary keyword:** telecom financial services platform
+
+**Secondary keywords:** telecom wallets, telco fintech platform, telecom payment platform, digital wallets for telecom operators, telecom lending, embedded finance for telecoms
 
 ---
 
-# 1. Hero
+# Hero
 
-**Headline**
+### Headline
 
-Turn your subscribers into financial services customers.
+Turn subscribers into financial services customers.
 
-**Sub-copy**
+### Description
 
-Cards, wallets, device financing, and embedded lending — launched under your brand, integrated with the billing and CRM systems you already run.
+Launch wallets, cards, payments, and lending experiences on infrastructure that connects directly to the systems you already operate.
 
-**Primary CTA:** Talk to us
+### CTA
 
-**Visual**
-
-F-pattern asymmetric, text left, UI right. A telco financial app surface: a prepaid card linked to a subscriber line, a wallet balance, an installment plan for a device upgrade — all in the telco's brand.
+Talk to us
 
 ---
 
-# 2. Outcome chips
+## Why Telecommunications Is Changing
 
-**Design note:** 3 chips directly below hero. Component: `OutcomeChips`.
+### Headline
 
-1. Icon: TrendingUp — **New revenue beyond connectivity** — Add interchange, credit, and wallet revenue to your existing subscriber base.
-2. Icon: Users — **Deepen subscriber loyalty** — Financial products subscribers use daily make switching to a competitor harder.
-3. Icon: Zap — **Launch without a separate build** — NymCard connects to your billing and CRM — no full rebuild required.
+The next phase of growth isn't connectivity.
 
----
+### Description
 
-# 3. Challenge / Solution
+Telecommunications providers already have distribution, customer relationships, and recurring payment flows. The opportunity is to expand beyond connectivity and become a trusted provider of financial services.
 
-*(No section headline. Two short paragraphs.)*
+### Outcomes
 
-**The challenge**
+#### Create new revenue streams
 
-Connectivity revenue is under pressure from low-cost competitors and shrinking margins. Telcos with large, loyal subscriber bases have the distribution network for financial services — but building payment infrastructure independently is costly and complex.
+#### Increase subscriber engagement
 
-**The solution**
-
-NymCard gives you the card, wallet, lending, and payment infrastructure that sits alongside your billing and CRM — so you launch financial products under your own brand without starting from scratch.
+#### Grow customer lifetime value
 
 ---
 
-# 4. What you can build
+## From Subscriber To Customer
 
-**Eyebrow:** What you can build
+### Headline
 
-**Design note:** 4 alternating TextImage rows. Component: `TextImageRow`.
+Build financial relationships on top of existing customer relationships.
 
-**Branded prepaid and co-branded cards** *[copy left, UI right]*
+### Description
 
-Issue prepaid or co-branded cards linked to your subscriber base — physical and virtual — with rewards, loyalty, and spend controls configured to your program.
+Telecommunications providers already manage identity, billing, recurring payments, and customer engagement. Financial services become a natural extension of that relationship.
 
-*Tertiary link:* Learn more about Card Issuing → `/products/card-issuing`
+### Store Value
 
-*UI snippet:* A co-branded card with a subscriber line ID, loyalty tier, and live transactions.
+Launch digital wallets that allow subscribers to receive, store, and spend funds.
 
-**Digital wallets** *[copy right, UI left]*
+### Move Value
 
-Wallet accounts with domestic and cross-border payment capability — for subscribers without a bank account.
+Enable domestic payments, transfers, remittances, and everyday transactions.
 
-*Tertiary link:* Learn more about Money Movement → `/products/money-movement`
+### Access Credit
 
-*UI snippet:* A wallet surface with balance, send-money, and a bill-pay flow to a telco service.
+Offer device financing, installment plans, and consumer lending products.
 
-**Device financing** *[copy left, UI right]*
+### Spend Digitally
 
-Embed installments directly into device purchase and upgrade flows — with credit decisioning, billing cycles, and repayment on one platform.
+Issue branded cards linked to wallets and customer accounts.
 
-*Tertiary link:* Learn more about Lending → `/products/lending`
+### Engage Customers
 
-*UI snippet:* A device upgrade flow with an installments plan, approval state, and a repayment schedule.
-
-**Consumer lending** *[copy right, UI left]*
-
-Installments and revolving lines for your subscriber base — launched in your existing digital channels without a separate lending stack.
-
-*Tertiary link:* Learn more about Lending → `/products/lending`
-
-*UI snippet:* A lending surface with available credit, drawdown history, and a repayment plan.
+Create loyalty, rewards, and financial experiences that increase customer retention.
 
 ---
 
-# 5. PayKit callout
+## Financial Services For Every Subscriber
 
-**Design note:** Single CrossSellBanner. Component: `CrossSellBanner` 1-banner variant.
+### Headline
 
-- `leadIn:` PayKit
-- `body:` Ship a branded financial app to your subscribers on top of your card and wallet infrastructure — without building a front end from scratch.
-- `link.label:` Learn more about PayKit →
-- `link.href:` /services/paykit
+Everything needed to launch financial services.
 
----
+### Digital Wallets
 
-# 6. Platform
+Give customers a place to store, receive, transfer, and spend money.
 
-**Eyebrow:** Platform
+### Cards
 
-**Headline**
+Launch prepaid, debit, virtual, and co-branded card programmes.
 
-Built to connect to what you already run.
+### Device Financing
 
-**Body**
+Offer installment plans for handsets and connected devices.
 
-Telcos run on billing, CRM, and operational systems that can't be replaced. nCore connects to them — API-first, modular, and deployable to your requirements.
+### Consumer Lending
 
-**Checklist (4–6 items). Component: `PlatformChecklist`.**
+Extend access to short-term credit, BNPL, and lending products.
 
-- API-first architecture — connects to billing, CRM, and existing telco systems
-- Cloud, on-soil, and on-premise deployment on the same platform
-- KYC and AML inside the authorization path
-- Principal member of Visa and Mastercard
-- PCI DSS Level 1 certified · ISO 27001 certified
+### Payments
 
----
+Support domestic and cross-border money movement.
 
-# 7. Developer
+### Loyalty & Rewards
 
-**Eyebrow:** Developer
-
-**Headline**
-
-Built for your team to integrate.
-
-**Body**
-
-Full API access, SDKs, sandbox, and webhooks — so your engineering team connects NymCard to your billing and CRM without a full rebuild.
-
-**Tertiary link:** Read the docs →
-
-**Component:** `DeveloperBlock`
+Increase engagement through branded rewards and customer programmes.
 
 ---
 
-# 8. Cross-sells to NymCard products
+## Visual Direction
 
-**Design note:** 2 banners in a row. Component: `CrossSellBanner` 2-banner variant.
+Replace the current product-card layout.
 
-**Banner 1**
+Create a subscriber journey visual:
 
-- `leadIn:` Card Issuing
-- `body:` Issue branded prepaid and co-branded cards linked to your subscriber base — physical, virtual, and tokenized.
-- `link.label:` See Card Issuing →
-- `link.href:` /products/card-issuing
+Subscriber
+↓
+Wallet
+↓
+Payments
+↓
+Card
+↓
+Credit
+↓
+Loyalty
 
-**Banner 2**
+As users scroll, each capability activates around the same customer profile.
 
-- `leadIn:` Lending
-- `body:` Embed device financing and consumer installments on the same platform as your cards.
-- `link.label:` See Lending →
-- `link.href:` /products/lending
-
----
-
-# 9. FAQ
-
-*(No eyebrow.)*
-
-**Headline**
-
-Common questions.
-
-Clean accordion. **FAQPage JSON-LD mandatory** for AEO citation (flag for development).
-
-**1. What is telecom embedded finance infrastructure?**
-
-It's the platform a telco uses to issue cards, run wallets, finance devices, and extend credit to subscribers — all under the telco's own brand. NymCard provides this as a modular API-first stack that integrates with the telco's billing and CRM.
-
-**2. Do we need to replace our billing or CRM system?**
-
-No. NymCard connects to your existing billing and CRM through APIs — no replacement.
-
-**3. Can subscribers without a bank account use the wallet?**
-
-Yes. Wallets are issued directly on NymCard — no bank account required for the end user.
-
-**4. Can we ship a branded mobile app on top of this?**
-
-Yes. PayKit delivers a white-labeled mobile and web app built directly on your card and wallet infrastructure — no separate front-end build.
-
-**5. Can we start with prepaid cards and add lending later?**
-
-Yes. You can start with the Cards layer and add Lending, Money Movement, Settlement, or Financial Crime as your program grows.
-
-**6. What certifications does NymCard hold?**
-
-nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a principal member of Visa and Mastercard.
+The visual should communicate customer evolution rather than product selection.
 
 ---
 
-# 10. Final CTA
+# Launch Your Way
 
-*(No eyebrow. Centered.)*
+### Headline
 
-**Headline**
+Choose the experience that fits your strategy.
 
-Talk to our team.
+### Description
 
-**Body**
+Launch complete financial experiences or embed capabilities into the channels customers already use.
 
-Launch cards, wallets, and device financing for your subscribers on one platform.
+### White-Label Mobile App
 
-**Primary CTA:** Talk to us
+Launch branded wallet, payment, and lending experiences without building from scratch.
 
-**Secondary CTA:** Read the docs
+### White-Label Customer Portal
 
-**Component:** `CTASection`
+Deliver financial services through existing subscriber channels.
 
----
+### APIs & SDKs
 
-# META
+Embed capabilities directly into your digital ecosystem.
 
-**Page title:** Embedded Finance Infrastructure for Telecoms | NymCard
+### Supporting Line
 
-**Meta description:** Cards, wallets, device financing, and embedded lending for telecoms. Launch financial products under your brand on NymCard infrastructure.
-
-**Primary keyword:** embedded finance telecoms
-
-**Secondary keywords:** telco financial services, prepaid cards telecoms, device financing infrastructure, digital wallet telco, embedded lending telecom
-
-**Internal links:**
-
-- "Card Issuing" → /products/card-issuing
-- "Lending" → /products/lending
-- "Money Movement" → /products/money-movement
-- "PayKit" → /services/paykit
+Infrastructure, applications, and customer experiences operating on one platform.
 
 ---
 
-# Changelog
+## Visual Direction
 
-**Approved (19 April 2026) → v2 (25 May 2026):** Realigned to the locked industry-page arc and current skill rules.
+Three-column layout:
 
-- **Title Case → sentence case** throughout.
-- **Hero CTA:** *"Find out more →"* → *"Talk to us."*
-- **Final CTA:** *"Ready to Launch?"* + *"Tell us what you want to launch…"* + *"Request a Demo / Talk to Our Team"* → *"Talk to our team."* + plain body + *"Talk to us"* + *"Read the docs."*
-- **PayKit callout:** retained, reshaped as a `CrossSellBanner` 1-banner item per arc; section heading dropped.
-- **Platform bullets:** dropped *"Licensed by CBUAE"* and *"Integration with local and regional payment schemes"* (region-specific). *"PCI DSS certified"* → *"PCI DSS Level 1 certified."* *"On-premise, hybrid, and cloud"* aligned to architecture: cloud, on-soil, on-premise. Compliance bullet sharpened to *"inside the authorization path."* Added *"Principal member of Visa and Mastercard."*
-- **"programme"** → *"program"* (US English).
-- **What you can build:** added *"Learn more →"* tertiary links per row mapping to Card Issuing, Money Movement, and Lending.
-- **New §8 Cross-sells:** Card Issuing + Lending.
-- **New §9 FAQ:** 6 questions with industry-framed opener and FAQPage JSON-LD flagged for development.
-- **META:** dropped *"embedded lending CEMEA"* keyword; added *"embedded lending telecom"* and internal links.
+1. Mobile App
+2. Customer Portal
+3. APIs & SDKs
+
+Use realistic UI examples.
+
+Avoid abstract illustrations.
+
+---
+
+# Why Telecommunications Providers Choose NymCard
+
+### Headline
+
+Built for large-scale customer ecosystems.
+
+### Integrate, Don't Replace
+
+Connect directly to billing systems, CRM platforms, and existing customer infrastructure.
+
+### One Customer Record
+
+Payments, wallets, cards, lending, and customer activity contribute to the same source of truth.
+
+### Unified Risk Intelligence
+
+Build richer customer profiles using billing, payment, spending, and lending behaviour.
+
+### Real-Time Experiences
+
+Support instant payments, lending decisions, wallet funding, and customer interactions.
+
+### Deploy Your Way
+
+Cloud, on-soil, and on-premise deployment models available on the same platform.
+
+---
+
+## Visual Direction
+
+Five benefit cards surrounding a central customer profile.
+
+Center visual should show:
+
+* Subscriber Profile
+* Wallet
+* Card
+* Lending
+* Loyalty
+
+Everything connected to one customer record.
+
+Avoid repeating the homepage nCore visual.
+
+---
+
+# Explore nCore
+
+### Headline
+
+Everything running on one architecture.
+
+### Description
+
+Cards, lending, money movement, settlement, financial crime, and reconciliation operating through a shared infrastructure layer.
+
+### CTA
+
+Explore nCore →
+
+---
+
+## Visual Direction
+
+Simple bridge section linking Telecommunications to nCore.
+
+No platform diagrams.
+
+No repeated architecture visuals.
+
+---
+
+# FAQ
+
+Recommended questions:
+
+* How do telecom operators launch financial services?
+* Can wallets integrate with our billing system?
+* Can we offer device financing?
+* Can subscribers use cards without a bank account?
+* Can we launch cards and lending on the same platform?
+* What deployment models are available?
+* How is compliance handled?
+
+---
+
+# CTA
+
+### Headline
+
+Build the next generation of telecom financial services.
+
+### Description
+
+See how telecommunications providers launch wallets, cards, payments, and lending experiences on one platform.
+
+### CTA
+
+Talk to us
+
+---
+
+## Notes For Claude Code
+
+This page should not feel like:
+
+* A Cards page
+* A Wallets page
+* A Lending page
+
+The narrative is:
+
+Subscriber
+→ Wallet
+→ Payments
+→ Card
+→ Credit
+→ Loyalty
+
+Focus on customer monetisation, retention, and engagement.
+
+The buyer is a Head of Digital, Innovation Lead, Product Executive, or Financial Services Lead within a telecommunications provider.
+
+The page should communicate how financial services deepen customer relationships and create new revenue streams beyond connectivity.
+
+---
+

@@ -284,9 +284,10 @@ export function RiskCapability() {
               />
               <span className="absolute bottom-[6px] left-1/2 size-3 -translate-x-1/2 rounded-full" style={{ background: visual.navy, boxShadow: `inset 0 0 0 2px ${withAlpha(visual.cyan, 0.7)}` }} />
             </div>
-            {/* Focal rating word — in flow (tucked into the arc's lower interior)
-                so the band scale below never renders under it. */}
-            <div className="-mt-7 text-center">
+            {/* Focal rating word — sits beneath the dial, clear of the needle's
+                swing. (Previously tucked into the arc's bowl, where the needle
+                ran straight through the word.) */}
+            <div className="mt-3 text-center">
               <Stat size={26}>{BANDS[ACTIVE_BAND]}</Stat>
             </div>
           </div>

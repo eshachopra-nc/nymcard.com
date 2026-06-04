@@ -32,7 +32,7 @@ Businesses don't need more financial tools. They need one place to run them.
 
 ### Body
 
-Most businesses manage spending in one platform, invoices in another, payroll somewhere else, and financing through a separate provider entirely. Financial data becomes fragmented, workflows become manual, and visibility disappears.
+Most businesses manage spending in one platform, invoices in another, payroll somewhere else, and financing through a separate provider entirely. Financial data sits in silos, work happens by hand, and nobody has a clear view of the whole.
 
 The institutions that serve those businesses have an opportunity to deliver something better: a single experience for managing the financial operations of a business.
 

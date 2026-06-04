@@ -2,11 +2,9 @@ import {
   ArrowLeftRight,
   Blocks,
   Building2,
-  Car,
   HeartPulse,
   Landmark,
   RadioTower,
-  Smartphone,
   Store,
   Wallet,
 } from "lucide-react";
@@ -42,13 +40,6 @@ export const HOMEPAGE_USE_CASES: RailCarouselRichItem[] = [
     description: "Modernize commercial cards, treasury, supplier payments, and business banking.",
     icon: <Building2 className={ICON_CLS} strokeWidth={1.75} />,
     href: "/solutions/commercial-banking",
-  },
-  {
-    id: "neobanks",
-    name: "Neobanks",
-    description: "Build digital-first banking experiences on modern payments infrastructure.",
-    icon: <Smartphone className={ICON_CLS} strokeWidth={1.75} />,
-    href: "/solutions/neobanks",
   },
   {
     id: "fintechs",
@@ -91,12 +82,5 @@ export const HOMEPAGE_USE_CASES: RailCarouselRichItem[] = [
     description: "Deliver secure payment infrastructure for citizens and public services.",
     icon: <Landmark className={ICON_CLS} strokeWidth={1.75} />,
     href: "/solutions/government",
-  },
-  {
-    id: "mobility",
-    name: "Mobility",
-    description: "Power payments, wallets, and financial experiences for drivers and riders.",
-    icon: <Car className={ICON_CLS} strokeWidth={1.75} />,
-    href: "/solutions/mobility",
   },
 ];

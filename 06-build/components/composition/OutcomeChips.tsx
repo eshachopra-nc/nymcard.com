@@ -43,12 +43,11 @@ export function OutcomeChips({ items, className }: OutcomeChipsProps) {
         className,
       )}
     >
+      {/* A clean row of three editorial chips on the section surface — no
+          divider, no crosshairs (they competed with the chip icons). */}
       <ul
         className={cn(
           "grid gap-8 sm:gap-10 md:grid-cols-3 md:gap-8 lg:gap-12",
-          // A hairline divides the row on the section surface — read as a
-          // group, not three floating cards.
-          "border-t border-surface-border-subtle pt-9 dark:border-surface-dark-border",
         )}
       >
         {items.map((item) => (
@@ -66,8 +65,11 @@ export function OutcomeChips({ items, className }: OutcomeChipsProps) {
                 // Small square tile so the icon has consistent visual weight
                 // across chips regardless of the icon's intrinsic bounds.
                 "inline-flex size-9 shrink-0 items-center justify-center rounded-md",
-                "bg-accent-cyan/[0.10] text-accent-cyan",
-                "dark:bg-accent-cyan/[0.12] dark:text-accent-cyan",
+                // Light: a crisp navy→cyan gradient chip with a white glyph
+                // (the faint cyan-on-white tile read washed-out). Dark: keep
+                // the cyan-on-faint-cyan tile that already read well.
+                "bg-gradient-to-br from-brand-primary to-accent-cyan text-white",
+                "dark:bg-none dark:bg-accent-cyan/[0.12] dark:text-accent-cyan",
                 // Constrain any child SVG to the chip tile size, regardless
                 // of how the caller sized the icon element.
                 "[&_svg]:size-[18px]",

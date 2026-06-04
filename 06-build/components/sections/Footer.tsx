@@ -36,20 +36,29 @@ const LINK_GROUPS: { title: string; links: FooterLink[] }[] = [
     ],
   },
   {
-    // Matches the nav's "Solutions" top-level (the 11 industry pages).
-    title: "Solutions",
+    // Mirrors the nav's "Solutions → By Use Case" — the 4 built use-case pages.
+    // "Digital Banking" is the label for the Banking-as-a-Service page (slug
+    // stays /solutions/banking-as-a-service for SEO).
+    title: "Use Cases",
+    links: [
+      { label: "Digital Banking", href: "/solutions/banking-as-a-service" },
+      { label: "Embedded Finance", href: "/solutions/embedded-finance" },
+      { label: "Digital Wallets", href: "/solutions/digital-wallets" },
+      { label: "Commercial Payments", href: "/solutions/commercial-payments" },
+    ],
+  },
+  {
+    // Mirrors the nav's "Solutions → By Industry" — the 8 live industry pages.
+    title: "Industries",
     links: [
       { label: "Commercial Banking", href: "/solutions/commercial-banking" },
       { label: "Retail Banking", href: "/solutions/retail-banking" },
-      { label: "Neobanks", href: "/solutions/neobanks" },
       { label: "Exchange Houses", href: "/solutions/exchange-houses" },
       { label: "Fintechs", href: "/solutions/fintechs" },
       { label: "Telecommunications", href: "/solutions/telecommunications" },
       { label: "Retail & Marketplaces", href: "/solutions/retail-marketplaces" },
-      { label: "Travel", href: "/solutions/travel" },
       { label: "Healthcare", href: "/solutions/healthcare" },
       { label: "Government", href: "/solutions/government" },
-      { label: "Mobility", href: "/solutions/mobility" },
     ],
   },
   {
@@ -103,7 +112,7 @@ export function Footer() {
         {/* Desktop / tablet: 5-column split — the NymCard logo occupies the
             first column, the four link groups fill the remaining four (md
             collapses to 3 columns). Hidden on mobile. */}
-        <div className="hidden md:grid md:grid-cols-3 md:gap-x-10 lg:grid-cols-5 lg:gap-x-14 gap-y-12">
+        <div className="hidden md:grid md:grid-cols-3 md:gap-x-10 lg:grid-cols-6 lg:gap-x-12 gap-y-12">
           {/* Column 1 — brand mark + HQ address */}
           <div>
             <Image
@@ -114,7 +123,7 @@ export function Footer() {
               className="h-[22px] w-auto"
             />
             <div className="mt-5 max-w-[15rem] font-body text-sm leading-relaxed text-text-dark-secondary">
-              <p className="font-semibold text-text-on-brand">Headquarters</p>
+              <p className="font-semibold text-text-on-brand">HQ Office</p>
               <address className="mt-1 not-italic">
                 North West House<br />
                 119 Marylebone Road<br />
@@ -162,7 +171,7 @@ export function Footer() {
             className="h-[22px] w-auto"
           />
           <div className="mt-5 max-w-[18rem] font-body text-sm leading-relaxed text-text-dark-secondary">
-            <p className="font-semibold text-text-on-brand">Headquarters</p>
+            <p className="font-semibold text-text-on-brand">HQ Office</p>
             <address className="mt-1 not-italic">
               North West House<br />
               119 Marylebone Road<br />

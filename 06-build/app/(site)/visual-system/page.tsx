@@ -19,13 +19,21 @@
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Layers, ShieldCheck, Zap } from "lucide-react";
+import {
+  Database,
+  Layers,
+  Rocket,
+  ShieldCheck,
+  Zap,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RibbonKinetic } from "@/components/hero/RibbonKinetic";
 import { RibbonKineticWithViolet } from "@/components/hero/RibbonKineticWithViolet";
 import {
   BlueprintOverlay,
+  ConnectedStepper,
   CrosshairRails,
+  GlassAtmosphere,
   GlassPanel,
   InfraGrid,
   InfraIcon,
@@ -93,6 +101,15 @@ import {
   RepaymentStructuresUI,
   DecisioningVisualization,
 } from "@/components/sections/product-uis";
+import {
+  EditorialSplit,
+  ProcessRail,
+  FeatureMatrix,
+  StatBand,
+  BridgeBand,
+  BorderedListField,
+} from "@/components/sections/archetypes";
+import { CreditCard, ArrowLeftRight, Landmark, ListChecks } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Checkbox,
@@ -902,9 +919,76 @@ const NAV: { category: string; items: { label: string; id: string }[] }[] = [
     items: [
       { label: "nCore stack", id: "ncore" },
       { label: "Signature moment", id: "signature" },
+      { label: "ConnectedStepper — §8.31", id: "connected-stepper" },
       { label: "Card surface systems", id: "surfaces" },
     ],
   },
+];
+
+// Sample steps for the §8.31 ConnectedStepper styleguide demo (mirrors the
+// Embedded Finance §3 "The Shift" beat — illustrative props only).
+const STEPPER_STEPS = [
+  {
+    title: "One customer record",
+    body: "Every interaction contributes to the same source of truth.",
+    icon: <Database className="size-5" strokeWidth={1.75} />,
+  },
+  {
+    title: "One operational model",
+    body: "Products operate on shared infrastructure instead of separate systems.",
+    icon: <Layers className="size-5" strokeWidth={1.75} />,
+  },
+  {
+    title: "One platform to expand from",
+    body: "Launch new experiences without introducing new vendors.",
+    icon: <Rocket className="size-5" strokeWidth={1.75} />,
+  },
+] as const;
+
+// ── Section-archetype demo data (§8.32) ─────────────────────────────────────
+// Illustrative on-system props for the archetype kit demos. Drawn from the
+// Exchange Houses reference composition so the styleguide shows the real use.
+const ARCHETYPE_REASONS = [
+  { title: "Launch new revenue streams", body: "Expand beyond remittance without rebuilding your infrastructure." },
+  { title: "Retain more customers", body: "Keep customers engaged long after the transfer is complete." },
+  { title: "Serve consumers and businesses", body: "Support both retail and SME financial services from the same platform." },
+  { title: "Modernize settlement", body: "Access traditional and emerging settlement rails through a unified infrastructure layer." },
+  { title: "Deploy your way", body: "Cloud, on-soil, and on-premise deployment models available on the same platform." },
+];
+
+const ARCHETYPE_STEPS = [
+  { title: "Consumer Experience", body: "Launch branded wallet and card experiences for retail customers." },
+  { title: "Business Portal", body: "Deliver payment and treasury services to SME customers." },
+  { title: "APIs and SDKs", body: "Embed capabilities into existing digital channels and customer journeys." },
+];
+
+const ARCHETYPE_MATRIX = [
+  { icon: <CreditCard strokeWidth={1.75} />, label: "Multi-currency cards", body: "Branded prepaid and debit programs across corridors." },
+  { icon: <ArrowLeftRight strokeWidth={1.75} />, label: "Cross-border payments", body: "Domestic and international networks, pre-integrated." },
+  { icon: <Landmark strokeWidth={1.75} />, label: "Modern settlement", body: "Fiat and stablecoin rails on one infrastructure layer." },
+  { icon: <ShieldCheck strokeWidth={1.75} />, label: "Financial crime controls", body: "Screening, monitoring, and case management built in." },
+];
+
+const ARCHETYPE_STATS = [
+  { value: "40+", label: "Payment networks and corridors pre-integrated." },
+  { value: "3", label: "Deployment models: cloud, on-soil, on-premise." },
+  { value: "PCI DSS", label: "Compliant, with ISO 27001 certification." },
+  { value: "1", label: "Platform across consumer and business services." },
+];
+
+const ARCHETYPE_INCLUDED = [
+  { label: "Digital wallets", body: "Receive, store, transfer, and spend funds." },
+  { label: "Branded card programs", body: "Multi-currency prepaid and debit issuance." },
+  { label: "SME payments", body: "Supplier payments, payroll, and transfers." },
+  { label: "Stablecoin settlement", body: "Settle corridor flows in USDC or USDT." },
+];
+
+const ARCHETYPE_NODES = [
+  { label: "Cards", icon: <CreditCard /> },
+  { label: "Money Movement", icon: <ArrowLeftRight /> },
+  { label: "Settlement", icon: <Landmark /> },
+  { label: "Financial Crime", icon: <ShieldCheck /> },
+  { label: "Reconciliation", icon: <ListChecks /> },
 ];
 
 function SideNav() {
@@ -2738,6 +2822,157 @@ export default function VisualSystemPage() {
               <SignatureStitchToCore phase="collapse" className="aspect-[16/10]" />
             </div>
           </div>
+        </CompositionDemo>
+
+        {/* ── CONNECTED STEPPER ─────────────────────────────────────────── */}
+        <div id="connected-stepper" className="scroll-mt-12" />
+        <CompositionDemo
+          title="ConnectedStepper — §8.31 (light + dark)"
+          desc="The canonical 'what changes / how this flows / the sequence' beat (§8.31) — the beat that otherwise keeps shipping as a flat bordered 3-up row and reading flat. A vertical flow of navy→cyan gradient nodes (the product-icon chip language) threaded onto ONE continuous spine, with a title + body to the right; the connected spine makes a 'one platform / one continuous run' idea literal. Composed here inside a GlassPanel floating on GlassAtmosphere (indigo) — never a flat bed (§8.1) — exactly the Embedded Finance §3 'The Shift' composition. It is a layout/typographic composition built from the kit, NOT a product-UI illustration: no fabricated data, no window chrome, no live ticker. Motion: the spine draws top-to-bottom on scroll-in, then nodes + copy reveal in sequence; each node lifts a hair on hover; reduced-motion renders everything at rest with the spine fully drawn."
+        >
+          <GlassPanel className="relative overflow-hidden">
+            <GlassAtmosphere tone="indigo" animated className="-z-10" />
+            <ConnectedStepper steps={STEPPER_STEPS} />
+          </GlassPanel>
+          <div className="dark">
+            <GlassPanel className="relative overflow-hidden">
+              <GlassAtmosphere tone="indigo" animated className="-z-10" />
+              <ConnectedStepper steps={STEPPER_STEPS} />
+            </GlassPanel>
+          </div>
+        </CompositionDemo>
+
+        {/* ── SECTION-ARCHETYPE VARIETY KIT (§8.32) ──────────────────────── */}
+        <Group
+          index="8.32"
+          label="Section archetypes"
+          lede="Distinct, reusable section-LAYOUT archetypes (not recoloured cards — structurally different) so content pages compose with variety instead of resolving every section to the same luminous glass-card grid. The luminous card stays for the ONE marquee product-UI slot per page; every other section uses a non-card archetype. All: tokens only, cool palette, light-first restraint, light + dark, reveal-on-scroll + restrained CSS hover, reduced-motion safe. Reference composition: /solutions/exchange-houses."
+        />
+
+        <div id="archetype-editorial-split" className="scroll-mt-12" />
+        <CompositionDemo
+          title="EditorialSplit — sticky headline ↔ numbered list (light + dark)"
+          desc="Headline + lede held in a sticky left measure; the items as a vertical hairline-separated list on the right, each row an index marker + title + one-liner. No cards. The canonical 'Why choose X' 5-item treatment. Rows reveal one-by-one on scroll; hover lifts the index marker to the accent and nudges the row."
+        >
+          <SectionFrame>
+            <div className="bg-surface-white p-8 sm:p-12">
+              <EditorialSplit
+                headline="Built for the next generation of exchange houses."
+                items={ARCHETYPE_REASONS}
+                numbered
+              />
+            </div>
+          </SectionFrame>
+          <SectionFrame dark>
+            <div className="bg-surface-dark-base p-8 sm:p-12">
+              <EditorialSplit
+                headline="Built for the next generation of exchange houses."
+                items={ARCHETYPE_REASONS}
+                numbered
+              />
+            </div>
+          </SectionFrame>
+        </CompositionDemo>
+
+        <div id="archetype-process-rail" className="scroll-mt-12" />
+        <CompositionDemo
+          title="ProcessRail — numbered steps on one spine (light + dark)"
+          desc="A vertical sequence threaded on a single hairline spine, each step a numbered node sitting ON the spine, under an optional sticky header column. For delivery models, launch sequences, 'how it works'. Distinct from ConnectedStepper (§8.31): a plain numbered sequence on the section surface, no glass, no gradient chips."
+        >
+          <SectionFrame>
+            <div className="bg-surface-soft p-8 sm:p-12">
+              <ProcessRail
+                headline="Choose the experience that fits your customers."
+                lede="Infrastructure, applications, and customer experiences running on one platform."
+                steps={ARCHETYPE_STEPS}
+              />
+            </div>
+          </SectionFrame>
+          <SectionFrame dark>
+            <div className="bg-surface-dark-base p-8 sm:p-12">
+              <ProcessRail
+                headline="Choose the experience that fits your customers."
+                lede="Infrastructure, applications, and customer experiences running on one platform."
+                steps={ARCHETYPE_STEPS}
+              />
+            </div>
+          </SectionFrame>
+        </CompositionDemo>
+
+        <div id="archetype-feature-matrix" className="scroll-mt-12" />
+        <CompositionDemo
+          title="FeatureMatrix — hairline reference table (light + dark)"
+          desc="A compact label + one-liner matrix on a hairline grid (1 or 2 columns) — the 'infrastructure documentation' reference-table treatment. The dense, scannable alternative to the editorial split. Rows reveal one-by-one; hover lifts the row icon."
+        >
+          <SectionFrame>
+            <div className="bg-surface-white p-8 sm:p-12">
+              <FeatureMatrix rows={ARCHETYPE_MATRIX} />
+            </div>
+          </SectionFrame>
+          <SectionFrame dark>
+            <div className="bg-surface-dark-base p-8 sm:p-12">
+              <FeatureMatrix rows={ARCHETYPE_MATRIX} />
+            </div>
+          </SectionFrame>
+        </CompositionDemo>
+
+        <div id="archetype-stat-band" className="scroll-mt-12" />
+        <CompositionDemo
+          title="StatBand — horizontal figure band (light + dark)"
+          desc="A row of 3–4 gradient figures separated by vertical hairlines — the light proof-of-scale beat (NOT the dark ScaleStatsRibbon §8.23). A horizontal rhythm break between stacked sections. Figures reveal left-to-right. Real, defensible values only — never fabricated metrics."
+        >
+          <SectionFrame>
+            <div className="bg-surface-soft p-8 sm:p-12">
+              <StatBand stats={ARCHETYPE_STATS} />
+            </div>
+          </SectionFrame>
+          <SectionFrame dark>
+            <div className="bg-surface-dark-base p-8 sm:p-12">
+              <StatBand stats={ARCHETYPE_STATS} />
+            </div>
+          </SectionFrame>
+        </CompositionDemo>
+
+        <div id="archetype-bordered-list" className="scroll-mt-12" />
+        <CompositionDemo
+          title="BorderedListField — list on a blueprint field (light + dark)"
+          desc="A bordered list on a faint InfraGrid blueprint field with crosshair corners and internally-divided rows — the 'specification sheet' treatment, the complete set of what's included. Distinct from FeatureMatrix by being a CONTAINED frame with internal padding. Rows reveal one-by-one; hover lifts the row check."
+        >
+          <SectionFrame>
+            <div className="bg-surface-white p-8 sm:p-12">
+              <BorderedListField items={ARCHETYPE_INCLUDED} />
+            </div>
+          </SectionFrame>
+          <SectionFrame dark>
+            <div className="bg-surface-dark-base p-8 sm:p-12">
+              <BorderedListField items={ARCHETYPE_INCLUDED} />
+            </div>
+          </SectionFrame>
+        </CompositionDemo>
+
+        <div id="archetype-bridge-band" className="scroll-mt-12" />
+        <CompositionDemo
+          title="BridgeBand — the designed nCore hand-off (light + dark)"
+          desc="The 'Explore nCore' / 'Built on nCore' band — a contained panel on the cool GlassAtmosphere field, headline + link, and an abstract pulsing nucleus (the 'core' made literal, NOT a platform diagram). Crosshair-marked corners; the field drifts ambiently (reduced-motion safe). The designed answer to a bare headline + link."
+        >
+          <SectionFrame>
+            <div className="bg-surface-white p-8 sm:p-12">
+              <BridgeBand
+                headline="Built on nCore."
+                body="Cards, money movement, settlement, financial crime, and reconciliation operating on one architecture with a shared customer and data layer."
+                cta={{ label: "Explore nCore", href: "/platform/ncore" }}
+              />
+            </div>
+          </SectionFrame>
+          <SectionFrame dark>
+            <div className="bg-surface-dark-base p-8 sm:p-12">
+              <BridgeBand
+                headline="Built on nCore."
+                body="Cards, money movement, settlement, financial crime, and reconciliation operating on one architecture with a shared customer and data layer."
+                cta={{ label: "Explore nCore", href: "/platform/ncore" }}
+              />
+            </div>
+          </SectionFrame>
         </CompositionDemo>
 
         {/* ── CARD SURFACE VARIANTS ─────────────────────────────────────── */}

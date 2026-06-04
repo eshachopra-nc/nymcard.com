@@ -6,180 +6,149 @@
 
 **Navigation:** Industries › Retail Banking
 
-**Last updated:** 25 May 2026
+**Last updated:** 4 June 2026
 
 ---
 
-# Page brief
+# Retail Banking
 
-Ten-section industry page derived from the locked arc in `00-strategy/about-nymcard/industry-page-arc.md`. Voice modeled on Stripe, Vercel, Linear, Brex. UIs carry the story.
+## Hero
 
-Deviations from the canonical arc: added a §5 PayKit callout. Retail banks routinely need a branded consumer banking app on top of their issuing and wallet infrastructure — PayKit earns its place here the same way it does for Telecoms and Travel.
+### Headline
 
-**Story arc:**
+Become the bank customers use every day.
 
-1. Hero — What is this for my industry?
-2. Outcome chips — What's in it for me?
-3. Challenge / Solution — Why does my industry need this?
-4. What you can build — What can I actually build?
-5. PayKit callout — Want a branded consumer banking app on top?
-6. Platform — Is your platform serious?
-7. Developer — How does my team integrate?
-8. Cross-sells — Which products power this?
-9. FAQ — What about edge cases?
-10. Final CTA — Where do I go next?
+### Description
+
+Launch cards, wallets, payments, and lending experiences that keep customers engaged throughout their financial journey.
+
+### CTA
+
+Talk to us
 
 ---
 
-# 1. Hero
+## Why Retail Banking Is Changing
 
-**Headline**
+### Headline
 
-The digital banking your customers expect.
+Customers expect more than an account.
 
-**Sub-copy**
+### Description
 
-Consumer cards, credit programs, digital wallets, and embedded lending — integrated with the core you already run.
+They expect real-time payments, digital wallets, flexible credit, and experiences that fit into how they manage money every day. The opportunity for banks is to become the primary financial relationship, not simply the place where money is stored.
 
-**Primary CTA:** Talk to us
+### Outcomes
 
-**Visual**
+#### Grow deposits
 
-F-pattern asymmetric, text left, UI right. A consumer banking surface: a debit card with live transactions, a credit line, and a wallet balance — all on one screen, in your bank's branding.
+#### Increase card usage
 
----
-
-# 2. Outcome chips
-
-**Design note:** 3 chips directly below hero. Component: `OutcomeChips`.
-
-1. Icon: TrendingUp — **New revenue streams** — Interchange, credit, and wallet revenue stay with your bank.
-2. Icon: Users — **Deeper customer loyalty** — Digital products your customers use daily keep them from looking elsewhere.
-3. Icon: Zap — **Faster to market** — Launch new programs without waiting on core upgrade cycles.
+#### Deepen customer loyalty
 
 ---
 
-# 3. Challenge / Solution
+## The Digital Banking Experience
 
-*(No section headline. Two short paragraphs.)*
+### Headline
 
-**The challenge**
+Everything customers need. One banking experience.
 
-Legacy core banking systems were built for accounts and deposits. Cards, credit, wallets, and embedded lending need a separate infrastructure layer that moves faster than core upgrade cycles.
+### Description
 
-**The solution**
+Deliver modern retail banking experiences through a single platform that brings cards, payments, wallets, and lending together.
 
-NymCard integrates with your existing core and adds the card, credit, and digital product layer on top. No core replacement. No disruption to what already runs.
+### Spend
 
----
+Launch debit, credit, prepaid, and tokenized card programmes with real-time controls and digital wallet support.
 
-# 4. What you can build
+### Move
 
-**Eyebrow:** What you can build
+Enable domestic and cross-border payments, transfers, and everyday money movement.
 
-**Design note:** 3 alternating TextImage rows. Component: `TextImageRow`.
+### Save
 
-**Issue a full debit card program** *[copy left, UI right]*
+Create digital experiences that encourage engagement, retention, and long-term relationships.
 
-Account-linked debit cards with real-time spend controls, ATM access, and full lifecycle management — configured for your program without touching your core.
+### Borrow
 
-*Tertiary link:* Learn more about Card Issuing → `/products/card-issuing`
+Offer installment plans, consumer credit, and lending products directly within the banking experience.
 
-*UI snippet:* A debit card detail surface with the linked account balance, live transactions, and a freeze toggle.
+### Engage
 
-**Launch consumer credit and BNPL** *[copy right, UI left]*
-
-Revolving credit, installments, and BNPL — with configurable billing cycles, rewards, and underwriting. Consumer and commercial programs on the same platform.
-
-*Tertiary link:* Learn more about Lending → `/products/lending`
-
-*UI snippet:* A credit card detail surface with credit limit, billing cycle, and an installments toggle revealing an EMI schedule.
-
-**Build a branded digital wallet** *[copy left, UI right]*
-
-Wallet accounts with domestic and cross-border payment capability — deployable under your brand.
-
-*Tertiary link:* Learn more about Money Movement → `/products/money-movement`
-
-*UI snippet:* A wallet surface with multi-currency balances, a send-money flow, and a transaction feed.
+Reward customers with personalised experiences, loyalty programmes, and financial tools they use every day.
 
 ---
 
-# 5. PayKit callout
+## Launch Your Way
 
-**Design note:** Single CrossSellBanner. Component: `CrossSellBanner` 1-banner variant.
+### Headline
 
-- `leadIn:` PayKit
-- `body:` Ship a branded consumer banking app on top of your card, credit, and wallet infrastructure — without building a front end from scratch.
-- `link.label:` Learn more about PayKit →
-- `link.href:` /services/paykit
+Deliver the experience your customers expect.
 
----
+### White-Label Mobile App
 
-# 6. Platform
+Launch branded digital banking experiences without building from scratch.
 
-**Eyebrow:** Platform
+### White-Label Web Experience
 
-**Headline**
+Give customers access to cards, payments, wallets, and lending through a unified experience.
 
-Built for banks.
+### APIs & SDKs
 
-**Body**
+Embed capabilities into existing digital channels and customer journeys.
 
-Regulated banks need infrastructure that integrates with what they already run and deploys where they need it. nCore is built for it — on your infrastructure, in your data center, aligned to your regulatory obligations.
+### Supporting Line
 
-**Checklist (4–6 items). Component: `PlatformChecklist`.**
-
-- Integrates with your existing core banking architecture — no replacement required
-- 1,000+ APIs to connect to your current systems
-- Cloud, on-soil, and on-premise deployment on the same platform
-- Principal member of Visa
-- Principal member of Mastercard
-- PCI DSS Level 1 certified · ISO 27001 certified
+Infrastructure, applications, and customer experiences running on one platform.
 
 ---
 
-# 7. Developer
+## Why Retail Banks Choose NymCard
 
-**Eyebrow:** Developer
+### Headline
 
-**Headline**
+Built for modern retail banking.
 
-Built for your team to integrate.
+### Integrate, Don't Replace
 
-**Body**
+Connect to your existing core banking infrastructure without disrupting what already works.
 
-Full API access, SDKs, sandbox, and webhooks — so your engineering team can move fast without waiting on us.
+### One Customer Record
 
-**Tertiary link:** Read the docs →
+Cards, payments, wallets, and lending operate on the same customer view.
 
-**Component:** `DeveloperBlock`
+### Unified Risk Intelligence
 
----
+Build richer customer profiles using transaction, payment, and lending activity from across the platform.
 
-# 8. Cross-sells to NymCard products
+### Real-Time Experiences
 
-**Design note:** 2 banners in a row. Component: `CrossSellBanner` 2-banner variant.
+Support instant payments, card controls, lending decisions, and customer interactions.
 
-**Banner 1**
+### Deploy Your Way
 
-- `leadIn:` Card Issuing
-- `body:` Issue consumer debit, credit, and prepaid cards on infrastructure built to scale with your retail bank.
-- `link.label:` See Card Issuing →
-- `link.href:` /products/card-issuing
-
-**Banner 2**
-
-- `leadIn:` Lending
-- `body:` Run revolving credit, installments, and BNPL on the same platform as your cards — with configurable billing cycles and underwriting.
-- `link.label:` See Lending →
-- `link.href:` /products/lending
+Cloud, on-soil, and on-premise deployment models available on the same platform.
 
 ---
 
-# 9. FAQ
+## Explore The Platform
 
-*(No eyebrow.)*
+### Headline
+
+Built on nCore.
+
+### Description
+
+Cards, lending, money movement, settlement, financial crime, and reconciliation operating on a single architecture with one customer record and one data layer.
+
+### CTA
+
+Explore nCore →
+
+---
+
+## FAQ
 
 **Headline**
 
@@ -215,22 +184,17 @@ nCore is PCI DSS Level 1 certified and ISO 27001 certified, and NymCard is a pri
 
 # 10. Final CTA
 
-*(No eyebrow. Centered.)*
+### Headline
 
-**Headline**
+Build the digital banking experience customers expect.
 
-Talk to our team.
+### Description
 
-**Body**
+See how retail banks launch modern card, wallet, payment, and lending experiences on one platform.
 
-Launch consumer cards, credit, and digital wallets on infrastructure built for retail banks.
+### CTA
 
-**Primary CTA:** Talk to us
-
-**Secondary CTA:** Read the docs
-
-**Component:** `CTASection`
-
+Talk to us
 ---
 
 # META
@@ -252,19 +216,3 @@ Launch consumer cards, credit, and digital wallets on infrastructure built for r
 
 ---
 
-# Changelog
-
-**Approved (19 April 2026) → v2 (25 May 2026):** Realigned to the locked industry-page arc and current skill rules.
-
-- **Title Case → sentence case** throughout.
-- **"Islamic profit structures"** dropped from the Lending row — religion/region-specific framing doesn't belong on the global page.
-- **Hero CTA:** *"Find out more →"* → *"Talk to us."*
-- **Final CTA:** *"Ready to Launch?"* + *"Tell us what you want to launch…"* + *"Request a Demo / Talk to Our Team"* → *"Talk to our team."* + plain body + *"Talk to us"* + *"Read the docs."*
-- **PayKit callout added (new §5)** — retail banks ship branded consumer banking apps; PayKit belongs here the same way it does on Telecoms and Travel. The wallet row previously inlined the PayKit reference; that's now lifted into a dedicated callout per the arc.
-- **Platform bullets:** dropped *"Licensed by CBUAE"* (region-specific, not for global page). *"PCI DSS certified"* → *"PCI DSS Level 1 certified."* Visa and Mastercard listed as two separate items (principal member of each).
-- **Platform headline:** *"Built for On-Premise Deployment"* → *"Built for banks"* — on-premise is one deployment model among three.
-- **"programmes"** → *"programs"* (US English).
-- **What you can build:** added *"Learn more →"* tertiary links per row mapping to Card Issuing, Lending, and Money Movement.
-- **New §8 Cross-sells:** Card Issuing + Lending.
-- **New §9 FAQ:** 6 questions with industry-framed opener and FAQPage JSON-LD flagged for development.
-- **META:** dropped *"digital banking platform CEMEA"* keyword; updated description to remove regional framing; added internal links.

@@ -102,7 +102,7 @@ Real-time fraud decisioning on every authorization — approve, challenge, or bl
 
 **3. Risk management**
 
-A live Customer Risk Rating, low to very high, drives thresholds, review cadence, and monitoring intensity per customer — with one case system across fraud, AML, and compliance.
+A live Customer Risk Rating, from low to very high, sets each customer's alert thresholds, review frequency, and monitoring intensity. Fraud, AML, and compliance all act on it from one shared case system.
 
 *UI:* Customer Risk Rating tiers (low → very high) with the active tier marked, and the review cadence, monitoring intensity, and thresholds it drives.
 

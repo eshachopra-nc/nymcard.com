@@ -37,6 +37,9 @@
 //
 //   Motion:
 //     SectionReveal      — editorial section-entrance motion
+//     ConnectedStepper   — §8.10 vertical gradient-node flow on a connecting
+//                          spine; the canonical "what changes / sequence" beat
+//                          (replaces flat bordered 3-up rows), reveal + hover
 //
 //   Icons:
 //     InfraIcon          — atmospheric infrastructure icon system (11 icons)
@@ -60,6 +63,7 @@ export { InfraGrid } from "./InfraGrid";
 export { TopologyTraces } from "./TopologyTraces";
 export { BlueprintOverlay } from "./BlueprintOverlay";
 export { SectionReveal } from "./SectionReveal";
+export { ConnectedStepper, type StepperStep } from "./ConnectedStepper";
 export {
   InfraIcon,
   iconNames,
