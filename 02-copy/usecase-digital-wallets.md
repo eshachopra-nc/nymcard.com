@@ -33,19 +33,16 @@ The wallet is becoming the primary financial relationship.
 
 For millions of customers, the wallet is where money arrives, where payments happen, and where financial services begin. Whether you're building a consumer wallet, a mobile money platform, or a digital government programme, the experience has become just as important as the infrastructure underneath it.
 
-### What Customers Expect
-
-**Store value**
-Hold balances securely and access funds instantly.
-
-**Move money**
-Transfer funds between customers, accounts, cards, wallets, and cash networks.
-
-**Spend anywhere**
-Use wallet balances for payments, purchases, and everyday transactions.
-
-**Access financial services**
-Connect customers to cards, rewards, lending, and additional services from the same experience.
+<!-- Owner edit (page repetition): the "What customers expect" quartet (Store
+value / Move money / Spend anywhere / Access financial services) duplicated the
+§"Built Around How Money Moves" capability list ("Stored Value" appeared twice).
+The quartet was removed; §2 is now a centred opportunity statement only, and the
+"what a wallet does" lives in the next section + the wallet mockup. The four
+items are preserved here in case the framing is wanted elsewhere:
+  • Store value — hold balances securely and access funds instantly.
+  • Move money — transfer funds between customers, accounts, cards, wallets, cash.
+  • Spend anywhere — use wallet balances for payments and everyday transactions.
+  • Access financial services — cards, rewards, lending from the same experience. -->
 
 ---
 
@@ -113,23 +110,27 @@ Embed financial services into broader consumer ecosystems.
 
 ---
 
-## Powered by nCore
+## Powered by nCore & NymAI
+
+<!-- Owner edit: the headline no longer repeats "One platform" (used in the
+"Multiple wallet experiences" heading above), and the section now explicitly
+names NymAI (the AI/intelligence layer) alongside nCore. -->
 
 ### Headline
 
-One platform behind every wallet experience.
+Built on nCore. Intelligent with NymAI.
 
 ### Body
 
-Digital wallets are built on the same nCore architecture that powers cards, money movement, settlement, financial crime, and reconciliation. One customer record, one data layer, and one audit trail support every interaction.
+Digital wallets run on the same nCore architecture that powers cards, money movement, settlement, financial crime, and reconciliation. NymAI applies real-time intelligence across fraud, risk, and customer decisions, all on one customer record, one data layer, and one audit trail.
 
 ### Benefits
 
 **One customer record**
 A complete view of every customer across every wallet interaction.
 
-**Real-time processing**
-Balances, transfers, and payments update instantly.
+**Intelligence with NymAI**
+NymAI scores fraud, risk, and customer decisions in real time across every wallet.
 
 **Financial crime controls**
 Identity, fraud, AML, and sanctions integrated directly into the flow.

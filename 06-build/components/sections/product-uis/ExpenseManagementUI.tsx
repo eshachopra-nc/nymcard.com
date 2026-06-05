@@ -19,7 +19,7 @@ import { DashboardWindow } from "./dashboard-chrome";
 // expenses table (Expense · Employee · Category · Amount · Status). USD
 // throughout. A LARGER, REALISTIC, UNTILTED receipt is overlaid on the bottom-
 // left, framed by cyan scanner BRACKETS with the lidar beam sweeping down it —
-// the document being captured. As the scan completes, the British Airways line
+// the document being captured. As the scan completes, the Northbridge Air line
 // (the receipt) pops into the top of the table as a new Pending expense.
 //
 // Reference: 03-references/Expenses.svg (the NymCard expenses product).
@@ -49,15 +49,15 @@ type Expense = {
   isNew?: boolean;
 };
 const ROWS: Expense[] = [
-  { merchant: "British Airways", sub: "Virtual ****4821", employee: "Sarah Mitchell", initials: "SM", category: "Travel", amount: "$1,248.60", status: "Pending", isNew: true },
-  { merchant: "Marriott", sub: "Virtual ****7720", employee: "David Chen", initials: "DC", category: "Travel", amount: "$612.00", status: "Approved" },
-  { merchant: "WeWork", sub: "Virtual ****3015", employee: "Priya Nair", initials: "PN", category: "Office", amount: "$450.00", status: "Approved" },
-  { merchant: "Uber", sub: "Virtual ****1182", employee: "James Okoro", initials: "JO", category: "Travel", amount: "$24.10", status: "Approved" },
-  { merchant: "Lufthansa", sub: "Virtual ****9043", employee: "Mateo Rossi", initials: "MR", category: "Travel", amount: "$389.40", status: "Approved" },
-  { merchant: "Amazon", sub: "Virtual ****2278", employee: "Ava Thompson", initials: "AT", category: "Office", amount: "$86.20", status: "Approved" },
-  { merchant: "Slack", sub: "Virtual ****6634", employee: "Lena Fischer", initials: "LF", category: "Software", amount: "$128.00", status: "Approved" },
-  { merchant: "Zoom", sub: "Virtual ****5519", employee: "Omar Haddad", initials: "OH", category: "Software", amount: "$44.99", status: "Approved" },
-  { merchant: "Hilton", sub: "Virtual ****3360", employee: "Grace Kim", initials: "GK", category: "Travel", amount: "$278.00", status: "Pending" },
+  { merchant: "Northbridge Air", sub: "Virtual ****4821", employee: "Sarah Mitchell", initials: "SM", category: "Travel", amount: "$1,248.60", status: "Pending", isNew: true },
+  { merchant: "Harbour Suites", sub: "Virtual ****7720", employee: "David Chen", initials: "DC", category: "Travel", amount: "$612.00", status: "Approved" },
+  { merchant: "Atlas Workspaces", sub: "Virtual ****3015", employee: "Priya Nair", initials: "PN", category: "Office", amount: "$450.00", status: "Approved" },
+  { merchant: "Metro Rides", sub: "Virtual ****1182", employee: "James Okoro", initials: "JO", category: "Travel", amount: "$24.10", status: "Approved" },
+  { merchant: "Meridian Airways", sub: "Virtual ****9043", employee: "Mateo Rossi", initials: "MR", category: "Travel", amount: "$389.40", status: "Approved" },
+  { merchant: "Crate Supply Co", sub: "Virtual ****2278", employee: "Ava Thompson", initials: "AT", category: "Office", amount: "$86.20", status: "Approved" },
+  { merchant: "Cohort Software", sub: "Virtual ****6634", employee: "Lena Fischer", initials: "LF", category: "Software", amount: "$128.00", status: "Approved" },
+  { merchant: "Convene Software", sub: "Virtual ****5519", employee: "Omar Haddad", initials: "OH", category: "Software", amount: "$44.99", status: "Approved" },
+  { merchant: "Stillwater Hotel", sub: "Virtual ****3360", employee: "Grace Kim", initials: "GK", category: "Travel", amount: "$278.00", status: "Pending" },
 ];
 
 const CATEGORY_TONE: Record<Expense["category"], string> = {
@@ -71,8 +71,8 @@ export function ExpenseManagementUI() {
   const inView = useInView(ref, { amount: 0.3, once: true });
   const reduced = useReducedMotion();
 
-  // The sequence (owner): the receipt is scanned FIRST, then the new British
-  // Airways line lands in the table. `captured` flips true only after the scan
+  // The sequence (owner): the receipt is scanned FIRST, then the new Northbridge
+  // Air line lands in the table. `captured` flips true only after the scan
   // completes. `scanKey` remounts the receipt to replay the sweep.
   const [captured, setCaptured] = useState(false);
   const [scanKey, setScanKey] = useState(0);
@@ -303,7 +303,7 @@ function Receipt({ inView, reduced }: { inView: boolean; reduced: boolean }) {
           {/* Merchant */}
           <div className="flex flex-col items-center gap-0.5 text-center">
             <Plane className="size-3.5" strokeWidth={2} style={{ color: ink }} />
-            <span className="text-[10px] font-bold tracking-[0.08em]">BRITISH AIRWAYS</span>
+            <span className="text-[10px] font-bold tracking-[0.08em]">NORTHBRIDGE AIR</span>
             <span className="text-[7px] tracking-[0.1em]" style={{ color: inkSoft }}>
               HEATHROW T5 · LONDON
             </span>

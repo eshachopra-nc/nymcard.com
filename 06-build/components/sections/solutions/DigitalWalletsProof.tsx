@@ -36,7 +36,7 @@ export function DigitalWalletsProof() {
         </h2>
       </div>
 
-      <StatBand stats={[...COPY.stats]} />
+      <StatBand stats={[...COPY.stats]} dividers={false} />
     </Section>
   );
 }

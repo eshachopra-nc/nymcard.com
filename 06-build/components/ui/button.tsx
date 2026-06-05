@@ -65,8 +65,11 @@ export function Button(props: ButtonAsButton | ButtonAsLink) {
     variant === "tertiary"
       ? cn(
           "group inline-flex items-center gap-1.5 rounded-sm font-body text-base font-medium",
+          // Perceptible, motion-SAFE hover in both themes: a colour shift on the
+          // label (light → primary-hover, dark → near-white) so the affordance
+          // survives prefers-reduced-motion, not only the arrow's translate.
           "text-brand-primary transition-colors duration-150 hover:text-brand-primary-hover",
-          "disabled:pointer-events-none disabled:opacity-40 dark:text-accent-cyan",
+          "disabled:pointer-events-none disabled:opacity-40 dark:text-accent-cyan dark:hover:text-text-on-brand",
           FOCUS,
           className,
         )

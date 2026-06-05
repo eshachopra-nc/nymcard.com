@@ -44,21 +44,6 @@ export function StaggerList({
   const items = Children.toArray(children);
   const isList = as === "ul" || as === "ol";
 
-  const Container = as;
-  const Item = isList ? "li" : "div";
-
-  if (reduced) {
-    return (
-      <Container className={className}>
-        {items.map((child, i) => (
-          <Item key={i} className={itemClassName}>
-            {child}
-          </Item>
-        ))}
-      </Container>
-    );
-  }
-
   const MotionContainer =
     as === "ol" ? motion.ol : as === "div" ? motion.div : motion.ul;
   const MotionItem = isList ? motion.li : motion.div;
@@ -72,19 +57,37 @@ export function StaggerList({
     },
   };
 
+  // Reduced motion MUST render every item settled. `useReducedMotion()` is
+  // false on the SERVER, so the SSR bakes `opacity:0` on the items. Swapping to
+  // plain elements on the client does NOT clear it (React leaves the mismatched
+  // SSR inline style unpatched). Keep the SAME `motion.*` elements and `animate`
+  // straight to the shown state under reduced motion.
+  const containerProps = reduced
+    ? { initial: false as const, animate: "shown" as const }
+    : {
+        initial: "hidden" as const,
+        whileInView: "shown" as const,
+        viewport: { once: true, margin: "-10% 0px" } as const,
+      };
+
   return (
     <MotionContainer
       className={className}
-      initial="hidden"
-      whileInView="shown"
-      viewport={{ once: true, margin: "-10% 0px" }}
+      {...containerProps}
       variants={{
         hidden: {},
-        shown: { transition: { staggerChildren: step, delayChildren: 0.04 } },
+        shown: reduced
+          ? {}
+          : { transition: { staggerChildren: step, delayChildren: 0.04 } },
       }}
     >
       {items.map((child, i) => (
-        <MotionItem key={i} className={itemClassName} variants={itemVariant}>
+        <MotionItem
+          key={i}
+          className={itemClassName}
+          {...(reduced ? { initial: false as const, animate: "shown" as const } : {})}
+          variants={itemVariant}
+        >
           {child}
         </MotionItem>
       ))}

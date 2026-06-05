@@ -27,19 +27,21 @@ export type Stat = {
 
 type StatBandProps = {
   stats: Stat[];
+  /** Vertical hairlines between figures on lg. Default true. */
+  dividers?: boolean;
   className?: string;
 };
 
-export function StatBand({ stats, className }: StatBandProps) {
+export function StatBand({ stats, dividers = true, className }: StatBandProps) {
   return (
     <StaggerList
       as="ul"
       step={0.09}
       itemClassName="list-none"
       className={cn(
-        "grid gap-y-10 sm:grid-cols-2 lg:grid-cols-4",
-        // The dividing hairlines between figures on lg.
-        "lg:divide-x lg:divide-surface-border-subtle dark:lg:divide-surface-dark-border",
+        "grid gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8",
+        // The dividing hairlines between figures on lg (optional).
+        dividers && "lg:divide-x lg:divide-surface-border-subtle dark:lg:divide-surface-dark-border",
         className,
       )}
     >

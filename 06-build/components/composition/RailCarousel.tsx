@@ -259,16 +259,32 @@ function RichCard({
   index: number;
   reduced: boolean;
 }) {
+  // Reduced motion: `useReducedMotion()` is false on the SERVER, so a
+  // `motion.a` that only toggles `initial`/`whileInView` on `reduced` would SSR
+  // `opacity:0` and never animate back once the client reports reduced motion —
+  // the card stays invisible. Render a PLAIN `<a>` when reduced (a different
+  // element tree, so React replaces it on hydration and no hidden style
+  // survives).
+  // Reduced motion: keep the SAME `motion.a` element (so hydration doesn't
+  // mismatch the host tag) but `animate` straight to the visible state. The
+  // server renders the non-reduced branch (`useReducedMotion()` is false on the
+  // server) and bakes `opacity:0`; under reduced motion Framer animates the
+  // node to opacity:1 on mount, clearing it. A structural swap to a plain `<a>`
+  // does NOT work — React leaves the SSR inline style unpatched ("won't be
+  // patched up" hydration warning), so the card would stay invisible.
+  const motionProps = reduced
+    ? { initial: false as const, animate: { opacity: 1, y: 0 } }
+    : {
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, amount: 0.2 },
+        transition: { duration: 0.6, delay: index * 0.05, ease: EASE },
+      };
   return (
     <motion.a
       href={item.href}
       data-rail-card
-      initial={reduced ? false : { opacity: 0, y: 20 }}
-      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={
-        reduced ? undefined : { duration: 0.6, delay: index * 0.05, ease: EASE }
-      }
+      {...motionProps}
       className={cn(
         "nc-card-hover",
         "group relative flex shrink-0 snap-start flex-col gap-5 overflow-hidden rounded-2xl border p-7",
@@ -367,16 +383,21 @@ function SparseCard({
   index: number;
   reduced: boolean;
 }) {
+  // See RichCard — keep `motion.a` and `animate` straight to visible under
+  // reduced motion so Framer clears the SSR-baked `opacity:0` on mount.
+  const motionProps = reduced
+    ? { initial: false as const, animate: { opacity: 1, y: 0 } }
+    : {
+        initial: { opacity: 0, y: 20 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, amount: 0.2 },
+        transition: { duration: 0.6, delay: index * 0.05, ease: EASE },
+      };
   return (
     <motion.a
       href={item.link.href}
       data-rail-card
-      initial={reduced ? false : { opacity: 0, y: 20 }}
-      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={
-        reduced ? undefined : { duration: 0.6, delay: index * 0.05, ease: EASE }
-      }
+      {...motionProps}
       className={cn(
         "nc-card-hover",
         "group relative flex shrink-0 snap-start flex-col gap-6 overflow-hidden rounded-2xl border p-7",

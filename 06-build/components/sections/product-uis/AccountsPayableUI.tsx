@@ -114,7 +114,7 @@ function Invoice({ scanKey, inView, reduced }: { scanKey: number; inView: boolea
               D
             </span>
             <div className="leading-tight">
-              <div className="text-[9px] font-bold">Dell Technologies</div>
+              <div className="text-[9px] font-bold">Delta Hardware Co</div>
               <div className="font-mono text-[6.5px] uppercase tracking-[0.12em]" style={{ color: inkSoft }}>
                 Supplier
               </div>

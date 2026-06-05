@@ -29,9 +29,6 @@ export function SectionReveal({
   className,
 }: SectionRevealProps) {
   const reduced = useReducedMotion();
-  if (reduced) {
-    return <div className={className}>{children}</div>;
-  }
 
   const transition = { duration: dur.cinematic, ease: ease.cinematic };
   const item = {
@@ -40,20 +37,31 @@ export function SectionReveal({
   };
   const viewport = { once: true, margin: "-12% 0px" } as const;
 
+  // Reduced motion MUST render content settled. `useReducedMotion()` is false
+  // on the SERVER, so the SSR bakes `opacity:0` into the wrapper. A structural
+  // swap to a plain `<div>` on the client does NOT clear it — React leaves the
+  // mismatched SSR inline style unpatched ("won't be patched up" hydration
+  // warning), so the section stays invisible. Keep the SAME `motion.div` and
+  // `animate` straight to the shown state so Framer clears the hidden style on
+  // mount, with no scroll dependency.
+  const revealProps = reduced
+    ? { initial: false as const, animate: "shown" }
+    : { initial: "hidden", whileInView: "shown", viewport };
+
   if (stagger) {
     return (
       <motion.div
         className={className}
-        initial="hidden"
-        whileInView="shown"
-        viewport={viewport}
+        {...revealProps}
         variants={{
           hidden: {},
-          shown: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+          shown: reduced
+            ? {}
+            : { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
         }}
       >
         {Children.toArray(children).map((child, i) => (
-          <motion.div key={i} variants={item}>
+          <motion.div key={i} initial={reduced ? false : undefined} animate={reduced ? "shown" : undefined} variants={item}>
             {child}
           </motion.div>
         ))}
@@ -62,13 +70,7 @@ export function SectionReveal({
   }
 
   return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="shown"
-      viewport={viewport}
-      variants={item}
-    >
+    <motion.div className={className} {...revealProps} variants={item}>
       {children}
     </motion.div>
   );
