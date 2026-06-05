@@ -145,7 +145,7 @@ export default function CommercialPaymentsPage() {
       <CommercialPaymentsOpportunity />
 
       {/* 3 — The Financial OS for businesses: the MARQUEE editorial feature-show
-          — six business workflows as alternating copy ↔ UIPlaceholder rows. */}
+          — seven business workflows as alternating copy ↔ UIPlaceholder rows. */}
       <CommercialPaymentsFinancialOS />
 
       {/* 4 — Serve every business segment: SME · Mid-Market · Enterprise as a

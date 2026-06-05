@@ -68,9 +68,13 @@ One platform. Every business workflow.
 
 Give businesses a single place to manage spending, payments, collections, payroll, financing, and cash flow visibility.
 
-### Commercial Cards
+### Corporate Cards
 
 Issue virtual, physical, debit, prepaid, and credit card programmes for business spending.
+
+### Spend Management
+
+Track expenses across teams, budgets, and cards with receipt capture, approvals, and spend policy controls.
 
 ### Accounts Payable
 
@@ -106,17 +110,20 @@ Editorial
 
 Support businesses of every size.
 
+### Startups
+
+Get new businesses up and running with cards, accounts, and payments from day one.
+
 ### SMEs
 
-Give growing businesses the tools they need to manage payments, spending, and cash flow.
+Give growing businesses the tools to manage payments, spending, and cash flow.
 
-### Mid-Market Businesses
-
-Support more sophisticated payment operations, approvals, and financing requirements.
-
-### Enterprise Customers
+### Enterprises
 
 Deliver configurable payment programmes, controls, and financial services at scale.
+
+<!-- Owner edit: "Mid-Market Businesses" was fuzzy → segments are now
+Startups / SMEs / Enterprises. -->
 
 ---
 
@@ -124,9 +131,9 @@ Deliver configurable payment programmes, controls, and financial services at sca
 
 Three-column segment layout.
 
-SME
-Mid-Market
-Enterprise
+Startups
+SMEs
+Enterprises
 
 Avoid industry-specific examples.
 

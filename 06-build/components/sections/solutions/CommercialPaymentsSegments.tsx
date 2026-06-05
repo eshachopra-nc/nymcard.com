@@ -1,35 +1,34 @@
-import { Sprout, Building2, Landmark } from "lucide-react";
+import { Rocket, Building2, Landmark } from "lucide-react";
 import { Section } from "@/components/sections/Section";
 import { HorizontalRow, type HorizontalItem } from "@/components/sections/archetypes";
 
 // ── Commercial Payments §4 — Serve every business segment ────────────────────
 //
-// The three business segments — SMEs · Mid-Market · Enterprise — as the
+// The three business segments — Startups · SMEs · Enterprises — as the
 // HorizontalRow archetype: a sideways rail of typographic panels (icon, name,
 // one-liner) divided by vertical hairlines, NOT a card grid. Index numerals are
 // hidden (showIndex={false}, owner) so the panels read clean. No links (these
 // are segments, not destinations). No eyebrow — the headline leads (CLAUDE.md
 // v1.5).
 //
-// Copy mirrored VERBATIM from 02-copy/usecase-commercial-payments.md §Serve
-// Every Business Segment. Visual direction: "Three-column segment layout. SME /
-// Mid-Market / Enterprise."
+// Copy mirrored from 02-copy/usecase-commercial-payments.md §Serve Every Business
+// Segment. (owner: "mid-market" was fuzzy → Startups / SMEs / Enterprises.)
 
 const COPY = {
   headline: "Support businesses of every size.",
   segments: [
     {
-      name: "SMEs",
-      body: "Give growing businesses the tools they need to manage payments, spending, and cash flow.",
-      icon: <Sprout />,
+      name: "Startups",
+      body: "Get new businesses up and running with cards, accounts, and payments from day one.",
+      icon: <Rocket />,
     },
     {
-      name: "Mid-Market Businesses",
-      body: "Support more sophisticated payment operations, approvals, and financing requirements.",
+      name: "SMEs",
+      body: "Give growing businesses the tools to manage payments, spending, and cash flow.",
       icon: <Building2 />,
     },
     {
-      name: "Enterprise Customers",
+      name: "Enterprises",
       body: "Deliver configurable payment programmes, controls, and financial services at scale.",
       icon: <Landmark />,
     },

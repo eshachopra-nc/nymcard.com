@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import {
   CreditCard,
+  ScanLine,
   ArrowLeftRight,
   ReceiptText,
   Users,
@@ -14,6 +15,13 @@ import {
 import { Section } from "@/components/sections/Section";
 import { SectionAtmosphere } from "@/components/visuals/SectionAtmosphere";
 import { UIPlaceholder } from "@/components/composition/UIPlaceholder";
+import { ExpenseManagementUI } from "@/components/sections/product-uis/ExpenseManagementUI";
+import { AccountsPayableUI } from "@/components/sections/product-uis/AccountsPayableUI";
+import { AccountsReceivableUI } from "@/components/sections/product-uis/AccountsReceivableUI";
+import { CommercialCardsUI } from "@/components/sections/product-uis/CommercialCardsUI";
+import { PayrollUI } from "@/components/sections/product-uis/PayrollUI";
+import { WorkingCapitalUI } from "@/components/sections/product-uis/WorkingCapitalUI";
+import { RealTimeInsightsUI } from "@/components/sections/product-uis/RealTimeInsightsUI";
 import { visual, withAlpha, dur, ease } from "@/components/visuals";
 
 // ── Commercial Payments §3 — The Financial OS for businesses (CENTERPIECE) ────
@@ -23,10 +31,11 @@ import { visual, withAlpha, dur, ease } from "@/components/visuals";
 // each capability is something the institution gives the businesses it serves.
 //
 // This is the PAGE'S SPINE — an EDITORIAL FEATURE-SHOW, not a card grid. The
-// headline + description run at the top, then the six business workflows —
-// Commercial Cards · Accounts Payable · Accounts Receivable · Payroll &
-// Workforce Payments · Working Capital & Financing · Real-Time Insights — each
-// get their OWN full-width row that ALTERNATES side to side (text left / UI
+// headline + description run at the top, then the seven business workflows —
+// Corporate Cards · Spend Management · Accounts Payable · Accounts
+// Receivable · Payroll & Workforce Payments · Working Capital & Financing ·
+// Real-Time Insights — each get their OWN full-width row that ALTERNATES side
+// to side (text left / UI
 // right, then text right / UI left, …). Each row pairs the capability name +
 // verbatim description + a gradient icon chip with a GENEROUSLY-SIZED labelled
 // UIPlaceholder (scale="wide") on the opposite side — the reserved room for that
@@ -45,11 +54,20 @@ const COPY = {
     "Give businesses a single place to manage spending, payments, collections, payroll, financing, and cash flow visibility.",
   capabilities: [
     {
-      name: "Commercial Cards",
+      name: "Corporate Cards",
       body: "Issue virtual, physical, debit, prepaid, and credit card programmes for business spending.",
       icon: CreditCard,
       placeholder:
-        "Commercial Cards — virtual, physical, debit, prepaid, and credit programmes",
+        "Corporate Cards — virtual, physical, debit, prepaid, and credit programmes",
+      surface: <CommercialCardsUI />,
+    },
+    {
+      name: "Spend Management",
+      body: "Track expenses across teams, budgets, and cards with receipt capture, approvals, and spend policy controls.",
+      icon: ScanLine,
+      placeholder:
+        "Spend Management — expenses, receipt capture, approvals, and spend policy controls",
+      surface: <ExpenseManagementUI />,
     },
     {
       name: "Accounts Payable",
@@ -57,6 +75,7 @@ const COPY = {
       icon: ArrowLeftRight,
       placeholder:
         "Accounts Payable — supplier payments, approvals, and outgoing flows",
+      surface: <AccountsPayableUI />,
     },
     {
       name: "Accounts Receivable",
@@ -64,6 +83,7 @@ const COPY = {
       icon: ReceiptText,
       placeholder:
         "Accounts Receivable — invoicing, collections, and acceptance",
+      surface: <AccountsReceivableUI />,
     },
     {
       name: "Payroll & Workforce Payments",
@@ -71,6 +91,7 @@ const COPY = {
       icon: Users,
       placeholder:
         "Payroll & Workforce Payments — payroll, contractors, and disbursements",
+      surface: <PayrollUI />,
     },
     {
       name: "Working Capital & Financing",
@@ -78,6 +99,7 @@ const COPY = {
       icon: TrendingUp,
       placeholder:
         "Working Capital & Financing — credit lines, invoice financing, and lending",
+      surface: <WorkingCapitalUI />,
     },
     {
       name: "Real-Time Insights",
@@ -85,12 +107,16 @@ const COPY = {
       icon: BarChart3,
       placeholder:
         "Real-Time Insights — spending, cash flow, liabilities, and performance",
+      surface: <RealTimeInsightsUI />,
     },
   ] satisfies {
     name: string;
     body: string;
     icon: LucideIcon;
     placeholder: string;
+    /** When present, the bespoke product surface that fills this row's UI
+        slot (else the labelled UIPlaceholder). */
+    surface?: ReactNode;
   }[],
 } as const;
 
@@ -126,12 +152,14 @@ function FeatureRow({
   body,
   icon: Icon,
   placeholder,
+  surface,
   flipped,
 }: {
   name: string;
   body: string;
   icon: LucideIcon;
   placeholder: string;
+  surface?: ReactNode;
   flipped: boolean;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -196,11 +224,19 @@ function FeatureRow({
         }`}
       >
         <div className="relative min-h-[24rem] sm:min-h-[28rem] lg:min-h-[30rem]">
-          <UIPlaceholder
-            label={placeholder}
-            scale="wide"
-            className="transition-transform duration-300 ease-out group-hover:-translate-y-1 lg:absolute lg:inset-0"
-          />
+          {surface ? (
+            // A bespoke product surface fills the slot; mirror the placeholder's
+            // hover-lift + fill so the row behaves identically.
+            <div className="transition-transform duration-300 ease-out group-hover:-translate-y-1 lg:absolute lg:inset-0">
+              {surface}
+            </div>
+          ) : (
+            <UIPlaceholder
+              label={placeholder}
+              scale="wide"
+              className="transition-transform duration-300 ease-out group-hover:-translate-y-1 lg:absolute lg:inset-0"
+            />
+          )}
         </div>
       </motion.div>
     </div>
