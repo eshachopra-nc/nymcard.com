@@ -237,7 +237,8 @@ function SupportingContent({
         )}
       >
         {items.map((item, i) => (
-          <li key={item.label}>
+          // StaggerList wraps each child in its own <li>; do NOT nest another.
+          <div key={item.label}>
             <span
               aria-hidden="true"
               className={cn(
@@ -258,7 +259,7 @@ function SupportingContent({
             <p className={cn("mt-2 max-w-[30ch] font-body text-sm leading-relaxed", bodyText)}>
               {item.body}
             </p>
-          </li>
+          </div>
         ))}
       </StaggerList>
     );
@@ -270,11 +271,12 @@ function SupportingContent({
       <StaggerList
         as="ul"
         step={0.08}
-        itemClassName="list-none"
+        itemClassName="list-none py-5 first:pt-0 last:pb-0"
         className={cn("divide-y", divide)}
       >
         {items.map((item) => (
-          <li key={item.label} className="py-5 first:pt-0 last:pb-0">
+          // StaggerList wraps each child in its own <li>; do NOT nest another.
+          <div key={item.label}>
             <div className="flex items-baseline gap-4">
               <span
                 aria-hidden="true"
@@ -289,34 +291,34 @@ function SupportingContent({
                 </p>
               </div>
             </div>
-          </li>
+          </div>
         ))}
       </StaggerList>
     );
   }
 
-  // ── Items row (default) — a quiet typographic row, hairline-separated. ─────
+  // ── Items row (default) — a quiet typographic row. NO vertical divider lines
+  //    (owner: the thin hairlines crowd the copy — same call as the numbered
+  //    row above); generous column gaps do the separating instead. ───────────
   return (
     <StaggerList
       as="ul"
       step={0.08}
       itemClassName="list-none"
       className={cn(
-        "mt-14 grid gap-y-10 sm:mt-16 sm:grid-cols-2",
+        "mt-14 grid gap-x-10 gap-y-10 sm:mt-16 sm:grid-cols-2 lg:gap-x-14",
         cols,
-        "lg:divide-x",
-        divide,
       )}
     >
       {items.map((item) => (
-        <li key={item.label}>
-          <ItemBody
-            item={item}
-            dark={dark}
-            bodyText={bodyText}
-            headingText={headingText}
-          />
-        </li>
+        // StaggerList wraps each child in its own <li>; do NOT nest another.
+        <ItemBody
+          key={item.label}
+          item={item}
+          dark={dark}
+          bodyText={bodyText}
+          headingText={headingText}
+        />
       ))}
     </StaggerList>
   );

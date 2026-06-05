@@ -57,18 +57,27 @@ One platform behind every financial experience.
 
 ### Body
 
-nCore brings cards, lending, money movement, settlement, and financial crime onto one architecture, so many embedded experiences run on a single platform.
+<!-- Owner edit: AI-native positioning. nCore is AI-native and NymAI is built
+into every product (not bolted on); the section now shows the nCore stack
+diagram (NymAI Layer + Unified Data Layer across every product). -->
+
+nCore brings cards, lending, money movement, settlement, and financial crime onto one AI-native architecture. NymAI is built into every product, not bolted on, so every embedded experience is intelligent by default.
 
 ### What Changes
 
 **One customer record**
 Every interaction feeds the same source of truth.
 
-**One operational model**
-Products share infrastructure instead of separate systems.
+**AI-native by default**
+NymAI scores fraud, risk, and decisions inside every product.
 
-**One platform to expand from**
-Launch new experiences without new vendors.
+**One operational model**
+Products share infrastructure instead of separate systems, with no new vendors to add.
+
+<!-- Owner edit (repetition): dropped "One platform to expand from" — the
+expand/scale message is already carried by "Launch once. Expand continuously."
+(How It Works) + the Scale step + "Infrastructure designed for scale" (Proof).
+The "no new vendors" point folded into One operational model above. -->
 
 ---
 

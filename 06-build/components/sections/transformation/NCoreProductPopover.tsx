@@ -36,7 +36,7 @@ type Product = {
 
 export const PRODUCTS: Product[] = [
   {
-    key: "cards", name: "Cards", icon: CreditCard, slug: "/platform/card-issuing",
+    key: "cards", name: "Cards", icon: CreditCard, slug: "/products/card-issuing",
     tag: "Launch the card program your customers need.",
     sub: "The card layer of one platform that runs your whole payments stack, not a standalone processor you bolt on.",
     chips: ["Prepaid", "Debit", "Credit", "Wallets", "Tokenization", "Virtual Card"],
@@ -47,7 +47,7 @@ export const PRODUCTS: Product[] = [
     ],
   },
   {
-    key: "lending", name: "Lending", icon: CircleDollarSign, slug: "/platform/lending",
+    key: "lending", name: "Lending", icon: CircleDollarSign, slug: "/products/lending",
     tag: "Embed credit into every payment flow.",
     sub: "BNPL, installment, revolving credit, and working capital, the credit layer of one platform, not a separate lending system.",
     chips: ["Origination", "Credit Decisioning", "Loan Servicing", "Default Management"],
@@ -58,7 +58,7 @@ export const PRODUCTS: Product[] = [
     ],
   },
   {
-    key: "money", name: "Money Movement", icon: ArrowLeftRight, slug: "/platform/money-movement",
+    key: "money", name: "Money Movement", icon: ArrowLeftRight, slug: "/products/money-movement",
     tag: "Move money where your customers need it.",
     sub: "Orchestrate cross-border payments, route corridors, and manage FX, with the spread on your side.",
     chips: ["Domestic", "Cross-Border", "FX", "Treasury", "P2P", "P2M", "vIBAN"],
@@ -69,7 +69,7 @@ export const PRODUCTS: Product[] = [
     ],
   },
   {
-    key: "settlement", name: "Stablecoin Settlement", icon: Clock, slug: "/platform/settlement",
+    key: "settlement", name: "Stablecoin Settlement", icon: Clock, slug: "/products/settlement",
     tag: "Settle across corridors in real time.",
     sub: "Bank-grade settlement for cross-border, multi-currency, and stablecoin flows, on the same regulated platform as your cards.",
     chips: ["Stablecoin", "On-Ramp", "Prefunding", "Off-Ramp", "Orchestration"],
@@ -80,7 +80,7 @@ export const PRODUCTS: Product[] = [
     ],
   },
   {
-    key: "crime", name: "Financial Crime", icon: Shield, slug: "/platform/financial-crime",
+    key: "crime", name: "Financial Crime", icon: Shield, slug: "/products/financial-crime",
     tag: "Cover the full risk perimeter on one layer.",
     sub: "Fraud, AML, sanctions, identity, and 3D Secure on one customer record, one ledger, one audit trail.",
     chips: ["Identity", "Fraud", "AML", "Sanctions", "Risk", "3DS", "Chargeback"],
@@ -91,7 +91,7 @@ export const PRODUCTS: Product[] = [
     ],
   },
   {
-    key: "recon", name: "Reconciliation", icon: FileText, slug: "/platform/reconciliation",
+    key: "recon", name: "Reconciliation", icon: FileText, slug: "/products/reconciliation",
     tag: "Reconcile across every product and system, automatically.",
     sub: "Match activity across your NymCard products and the external systems they connect to, with exceptions flagged in real time.",
     chips: ["Auto-Mapping", "Multi-source", "Exception Handling", "Ledger Posting"],

@@ -18,17 +18,26 @@ import { PRODUCTS, NCoreProductPopover, type ProductKey } from "./NCoreProductPo
 // opens its pop-up.
 
 const NYM = visual.primary; // brand blue
-const CYAN = "#22D3EE"; // AI Intelligence Layer
+const CYAN = "#22D3EE"; // NymAI Layer
 const PURPLE = "#9673FF"; // Unified Data Layer
 
 // up-then-down sweep across the six rows
 const SWEEP = [0, 1, 2, 3, 4, 5, 4, 3, 2, 1];
 
 export function NCoreFullStack({ className }: { className?: string }) {
-  const reduced = useReducedMotion();
+  const prefersReduced = useReducedMotion();
   const [active, setActive] = useState<ProductKey | null>(null);
   const [lit, setLit] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const activeProduct = PRODUCTS.find((p) => p.key === active) ?? null;
+
+  // useReducedMotion() can differ between the server (always false) and the
+  // first client render (true when the media query matches), which produced a
+  // hydration mismatch. Gate the reduced-motion branch behind mount so the
+  // server and first client paint are identical; reduced behaviour applies
+  // immediately after (no animation has run by then, so nothing is missed).
+  useEffect(() => setMounted(true), []);
+  const reduced = mounted ? prefersReduced : false;
 
   useEffect(() => {
     if (reduced) return;
@@ -49,6 +58,16 @@ export function NCoreFullStack({ className }: { className?: string }) {
     shown: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
   };
 
+  // Reduced-motion safety (same fix as SectionReveal/StaggerList/RailCarousel):
+  // useReducedMotion() is FALSE on the server, so `initial="hidden"` bakes
+  // opacity:0/y:12 into the SSR markup; swapping `whileInView` away on the
+  // client does NOT clear a mismatched SSR inline style. Under reduced motion
+  // drive the SAME motion elements straight to the settled state with
+  // initial={false} + animate="shown" so content is never stuck hidden.
+  const revealProps = reduced
+    ? ({ initial: false as const, animate: "shown" as const })
+    : ({ initial: "hidden" as const, whileInView: "shown" as const, viewport: { once: true, margin: "-15%" } as const });
+
   return (
     <>
       {/* Translucent glass card on a rich azure field (like the hero, §8.1). */}
@@ -61,20 +80,18 @@ export function NCoreFullStack({ className }: { className?: string }) {
       >
         <GlassAtmosphere tone="azure" animated />
 
-        <GlassPanel padded className="relative w-full">
+        <GlassPanel padded={false} className="relative w-full p-4 sm:p-8">
           <div
             role="group"
-            aria-label="The nCore Full-Stack platform — six products on one platform, with an AI Intelligence Layer and a Unified Data Layer running across every product."
+            aria-label="The nCore Full-Stack platform — six products on one platform, with a NymAI Layer and a Unified Data Layer running across every product, AI built natively into every product."
           >
             {/* body: AI rail · rows · Data rail — wide gaps for the connectors */}
             <motion.div
-              className="flex items-stretch gap-7 sm:gap-8"
+              className="flex items-stretch gap-3.5 sm:gap-7 md:gap-8"
               variants={container}
-              initial="hidden"
-              whileInView="shown"
-              viewport={{ once: true, margin: "-15%" }}
+              {...revealProps}
             >
-              <Rail label="AI Intelligence Layer" tone={CYAN} />
+              <Rail label="NymAI Layer" tone={CYAN} />
 
               <div className="relative flex flex-1 flex-col gap-3.5">
                 {/* soft cyan pulse beating up & down the stack, behind the rows */}
@@ -102,6 +119,7 @@ export function NCoreFullStack({ className }: { className?: string }) {
                       key={p.key}
                       type="button"
                       variants={row}
+                      {...(reduced ? { initial: false as const, animate: "shown" as const } : {})}
                       onClick={() => setActive(p.key)}
                       className={cn(
                         "group relative z-10 flex min-h-[62px] w-full items-center rounded-lg border px-4 text-left transition-all duration-500",
@@ -151,9 +169,7 @@ export function NCoreFullStack({ className }: { className?: string }) {
             {/* platform label — the stack's name, centred under the rows */}
             <motion.div
               variants={row}
-              initial="hidden"
-              whileInView="shown"
-              viewport={{ once: true, margin: "-15%" }}
+              {...revealProps}
               className="mt-5 flex items-center justify-center border-t pt-5"
               style={{ borderColor: withAlpha(NYM, 0.14) }}
             >
@@ -175,7 +191,7 @@ export function NCoreFullStack({ className }: { className?: string }) {
 function Rail({ label, tone }: { label: string; tone: string }) {
   return (
     <div
-      className="relative flex w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border"
+      className="relative flex w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border sm:w-14"
       style={{
         borderColor: withAlpha(tone, 0.42),
         background: `linear-gradient(180deg, ${withAlpha(tone, 0.14)}, ${withAlpha(tone, 0.05)})`,
@@ -198,7 +214,7 @@ function Conn({ tone, side }: { tone: string; side: "left" | "right" }) {
   return (
     <span
       aria-hidden="true"
-      className={cn("pointer-events-none absolute top-1/2 flex w-7 -translate-y-1/2 items-center sm:w-8", side === "left" ? "right-full" : "left-full")}
+      className={cn("pointer-events-none absolute top-1/2 flex w-2.5 -translate-y-1/2 items-center sm:w-7 md:w-8", side === "left" ? "right-full" : "left-full")}
     >
       <i className="size-1.5 shrink-0 rounded-full" style={{ background: tone, boxShadow: `0 0 6px ${withAlpha(tone, 0.8)}` }} />
       <i className="h-0 flex-1 border-t-[1.5px] border-dashed" style={{ borderColor: withAlpha(tone, 0.6) }} />
