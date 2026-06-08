@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ease } from "./motion";
 import { toneHex, withAlpha, type VisualTone } from "./palette";
@@ -65,7 +66,14 @@ export function TopologyTraces({
   tone?: VisualTone;
   className?: string;
 }) {
-  const reduced = useReducedMotion();
+  // useReducedMotion() is false on the server; gating the reduced branch behind
+  // `mounted` keeps the first client paint identical to SSR (the pulse paths
+  // render either way on that frame) — no hydration HTML mismatch. After mount
+  // the real reduced value removes the pulse for reduced-motion users.
+  const prefersReduced = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduced = mounted ? prefersReduced : false;
   const routes = density === "sparse" ? ROUTES.slice(0, 3) : ROUTES;
   const pulse = animated && !reduced;
   const hex = toneHex[tone];

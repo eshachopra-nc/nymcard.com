@@ -59,7 +59,13 @@ export function DeploymentSection({
   body?: string;
   items: { heading: string; description?: string }[];
 }) {
-  const reduced = useReducedMotion();
+  // useReducedMotion() is false on the server; gate the reduced branch behind
+  // `mounted` so the first client paint matches SSR (both render the y:16
+  // reveal `initial`) — no hydration mismatch. After mount the real value wins.
+  const prefersReduced = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduced = mounted ? prefersReduced : false;
   return (
     <section className="dark relative overflow-hidden bg-surface-dark-base py-20 sm:py-28 lg:py-32">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-20">
@@ -78,9 +84,10 @@ export function DeploymentSection({
             <motion.div
               key={it.heading}
               initial={reduced ? false : { opacity: 0, y: 16 }}
+              animate={reduced ? { opacity: 1, y: 0 } : undefined}
               whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={reduced ? undefined : { duration: 0.56, ease: EASE, delay: i * 0.08 }}
+              transition={reduced ? { duration: 0 } : { duration: 0.56, ease: EASE, delay: i * 0.08 }}
               className="nc-card-hover rounded-2xl border border-surface-dark-border bg-surface-dark-elevated/50 p-8"
             >
               <div className="mb-6 grid h-40 place-items-center">{DEPLOY_ART[i]}</div>

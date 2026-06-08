@@ -1,6 +1,6 @@
 "use client";
 
-import { Children, type ReactNode } from "react";
+import { Children, useEffect, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { dur, ease } from "./motion";
 
@@ -28,7 +28,15 @@ export function SectionReveal({
   stagger = false,
   className,
 }: SectionRevealProps) {
-  const reduced = useReducedMotion();
+  const prefersReduced = useReducedMotion();
+  // useReducedMotion() is false on the server, so gating the reduced branch
+  // behind mount makes the FIRST client paint identical to the SSR markup (both
+  // render the `hidden` initial) — no hydration mismatch. After mount, reduced
+  // users animate straight to `shown` (no scroll dependency); normal users keep
+  // the scroll-into-view reveal. Matches the NCoreFullStack mount-gate pattern.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduced = mounted ? prefersReduced : false;
 
   const transition = { duration: dur.cinematic, ease: ease.cinematic };
   const item = {

@@ -339,7 +339,7 @@ function Receipt({ inView, reduced }: { inView: boolean; reduced: boolean }) {
           </div>
 
           <div className="mt-1 text-right text-[7px]" style={{ color: inkSoft }}>
-            VISA ****4821 · AUTH 02X319
+            CARD ****4821 · AUTH 02X319
           </div>
 
           {/* Barcode */}

@@ -9,49 +9,47 @@ import { Section } from "@/components/sections/Section";
 import { SectionAtmosphere } from "@/components/visuals/SectionAtmosphere";
 import { visual, withAlpha } from "@/components/visuals";
 
-// ── Banking-as-a-Service §4 — Launch Under Your Brand ────────────────────────
+// ── Digital Banking §6 — Launch Under Your Brand ─────────────────────────────
 //
-// Copy mirrored VERBATIM from 02-copy/usecase-banking-as-a-service.md
+// Copy mirrored VERBATIM from 02-copy/usecase-banking-as-a-service.revised.md
 // §"Launch Under Your Brand".
 //
-// REWORKED (4 June) off the mirrored F-pattern-with-placeholder onto an
-// editorial SEGMENTED-COLUMNS treatment (mirroring the Exchange Houses
+// An editorial SEGMENTED-COLUMNS treatment (mirroring the Exchange Houses
 // LaunchYourWay): the four white-label channels — Mobile App · Web Experience ·
 // Admin Portal · APIs & SDKs — as columns divided by vertical hairlines (not
 // boxed cards, not a numbered rail), each opened by a gradient icon chip then
 // channel name + verbatim body. The verbatim supporting statement closes the
-// section beneath the row. Dropping the second UIPlaceholder keeps the page to
-// ONE marquee/visual surface (§2's connected-modules slot) — the variety rule.
-// Structurally distinct from §2 (asymmetric marquee), §3 (FeatureMatrix), and
-// §5 (ProcessRail). No eyebrow — the headline leads.
+// section beneath the row. Keeps the page to ONE marquee/visual surface (§3's
+// signature slot) — the variety rule. No eyebrow — the headline leads
+// (CLAUDE.md v1.5).
 
 const COPY = {
-  headline: "Infrastructure underneath. Your brand on top.",
+  headline: "Your brand. Your customers. A new experience underneath.",
   description:
-    "Launch customer experiences through white-label applications, APIs, and SDKs without building every layer from scratch.",
+    "Customers get a modern experience inside a brand you own and control. It ships through white-label apps, web, and a unified admin portal, with APIs and SDKs to embed it into the channels you already run.",
   channels: [
     {
       name: "Mobile App",
-      body: "Deliver digital banking experiences through fully branded mobile applications.",
+      body: "Deliver digital banking through fully branded mobile applications.",
       icon: Smartphone,
     },
     {
       name: "Web Experience",
-      body: "Provide customers with modern banking experiences through web portals and self-service channels.",
+      body: "Give customers modern banking through web portals and self-service channels.",
       icon: Monitor,
     },
     {
       name: "Admin Portal",
-      body: "Manage customers, products, programmes, and operations through a unified control centre.",
+      body: "Manage customers, products, programmes, and operations from one control centre.",
       icon: LayoutDashboard,
     },
     {
       name: "APIs & SDKs",
-      body: "Embed capabilities directly into existing digital channels and customer journeys.",
+      body: "Embed banking capabilities directly into the digital channels you run.",
       icon: Code2,
     },
   ] satisfies { name: string; body: string; icon: LucideIcon }[],
-  supportingStatement: "Everything running on the same infrastructure and customer record.",
+  supportingStatement: "Everything runs on the same platform, under your name.",
 } as const;
 
 export function BaaSBrand() {

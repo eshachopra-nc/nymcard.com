@@ -70,7 +70,14 @@ const STAGGER = 0.1;
 export function StatStrip({ stats, className }: StatStripProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
-  const reduced = useReducedMotion();
+  // useReducedMotion() is false on the server, so gating the reduced branch
+  // behind `mounted` keeps the first client paint identical to the SSR markup
+  // (both render the count-up `initial` at 0 and the y:16 reveal) — no hydration
+  // mismatch. After mount the real reduced value takes over and settles.
+  const prefersReduced = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduced = mounted ? prefersReduced : false;
 
   return (
     <div
@@ -182,10 +189,15 @@ function StatValue({
   useEffect(() => display.on("change", setText), [display]);
 
   useEffect(() => {
-    // Reduced motion / non-numeric → nothing to animate; the value is already
-    // at target. Only the animated path runs the count-up, in sync with this
-    // stat's staggered reveal.
-    if (reduced || !inView || !isNumeric) return;
+    if (!isNumeric) return;
+    // Reduced motion → snap to the final value with no count-up. (The motion
+    // value initialises at 0 to match SSR; under reduced motion we jump it to
+    // target after mount rather than animate, so the number reads settled.)
+    if (reduced) {
+      count.set(target);
+      return;
+    }
+    if (!inView) return;
     const controls = animate(count, target, {
       duration: dur.cinematic,
       ease: ease.out,

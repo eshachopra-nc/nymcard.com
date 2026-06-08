@@ -202,8 +202,12 @@ export function GlassAtmosphere({
   const drift = useTransform(t, (v) =>
     !animated || reduced ? 0 : Math.sin((v / 17000) * 2 * Math.PI) * 9,
   );
+  // sin (not cos) so the value is 0 at t=0 — matching both the x-drift and the
+  // server render. cos started at 7px, which baked `translateY(7px)` into the SSR
+  // markup and mismatched the reduced-motion client (0) → a site-wide hydration
+  // error. Phase-only change; the ambient drift looks identical.
   const driftY = useTransform(t, (v) =>
-    !animated || reduced ? 0 : Math.cos((v / 22000) * 2 * Math.PI) * 7,
+    !animated || reduced ? 0 : Math.sin((v / 22000) * 2 * Math.PI) * 7,
   );
   const deep = depth === "deep";
   const f = FIELD[tone];

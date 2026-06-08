@@ -37,7 +37,7 @@ export const MODULES: Module[] = [
 
 export function Sidebar({ active }: { active: string }) {
   return (
-    <div className="flex w-[116px] shrink-0 flex-col border-r border-black/[0.06] bg-white/30 px-2.5 py-3 dark:border-white/[0.06] dark:bg-white/[0.02] sm:w-[136px]">
+    <div className="hidden w-[116px] shrink-0 flex-col border-r border-black/[0.06] bg-white/30 px-2.5 py-3 dark:border-white/[0.06] dark:bg-white/[0.02] sm:flex sm:w-[136px]">
       <nav className="flex flex-col gap-0.5">
         {MODULES.map((m) => {
           const isActive = m.label === active;

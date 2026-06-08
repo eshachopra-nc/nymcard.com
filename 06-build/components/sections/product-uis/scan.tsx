@@ -1,8 +1,18 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { visual, withAlpha, ease } from "@/components/visuals";
+
+// useReducedMotion() is false on the server; gating the reduced branch behind
+// mount keeps the first client paint identical to the SSR markup (no hydration
+// mismatch), then applies reduced behaviour right after.
+function useMountedReduced(reduced: boolean) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted && reduced;
+}
 
 // ── Shared "document being scanned" primitives ───────────────────────────────
 //
@@ -26,6 +36,7 @@ export function ScanBrackets({
   reduced: boolean;
   label?: string;
 }) {
+  const rm = useMountedReduced(reduced);
   const corners = [
     "left-0 top-0 border-l-[2.5px] border-t-[2.5px] rounded-tl-[5px]",
     "right-0 top-0 border-r-[2.5px] border-t-[2.5px] rounded-tr-[5px]",
@@ -36,9 +47,9 @@ export function ScanBrackets({
     <motion.div
       aria-hidden="true"
       className="pointer-events-none absolute -inset-2.5 z-40"
-      initial={reduced ? false : { opacity: 0, scale: 1.08 }}
-      animate={reduced ? undefined : inView ? { opacity: 1, scale: 1 } : undefined}
-      transition={{ duration: 0.45, ease: ease.out }}
+      initial={{ opacity: 0, scale: 1.08 }}
+      animate={rm ? { opacity: 1, scale: 1 } : inView ? { opacity: 1, scale: 1 } : undefined}
+      transition={{ duration: rm ? 0 : 0.45, ease: ease.out }}
     >
       {corners.map((c, i) => (
         <span
@@ -69,7 +80,10 @@ export function ScanBeam({
   reduced: boolean;
   durationMs?: number;
 }) {
-  if (reduced) return null;
+  // Render on the server + first client paint (so hydration matches); only drop
+  // the beam after mount under reduced motion.
+  const rm = useMountedReduced(reduced);
+  if (rm) return null;
   const d = durationMs / 1000;
   return (
     <motion.div

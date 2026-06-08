@@ -1,6 +1,6 @@
 "use client";
 
-import { Children, type ReactNode } from "react";
+import { Children, useEffect, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { dur, ease } from "@/components/visuals";
 
@@ -40,7 +40,12 @@ export function StaggerList({
   className,
   itemClassName,
 }: StaggerListProps) {
-  const reduced = useReducedMotion();
+  const prefersReduced = useReducedMotion();
+  // Mount-gate the reduced branch so the first client paint matches the SSR
+  // markup (useReducedMotion() is false on the server) — no hydration mismatch.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduced = mounted ? prefersReduced : false;
   const items = Children.toArray(children);
   const isList = as === "ul" || as === "ol";
 
